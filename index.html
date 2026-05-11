@@ -1356,9 +1356,28 @@
     }
   }
 
-  /* Large tablet / small desktop */
+  /* iPad landscape / large tablet (1025–1280) */
+  @media (min-width: 1025px) and (max-width: 1280px) {
+    .left {
+      padding: 5rem 1.5rem 2.5rem 3rem;
+      max-width: 580px;
+    }
+    h1 { font-size: clamp(2.2rem, 4vw, 3.1rem); }
+    .lede { font-size: 0.98rem; max-width: 480px; }
+    .photo-stage {
+      width: clamp(340px, 38vw, 440px);
+      left: 76%;
+    }
+    .photo-tag { font-size: 0.78rem; padding: 0.5rem 0.85rem; }
+    .photo-tag.t-tl { left: 6%;    top: -10px; }
+    .photo-tag.t-tr { right: 4%;   top: 4%; }
+    .photo-tag.t-ml { left: -40px; top: 14%; }
+    .photo-tag.t-br { right: -55px; top: 30%; }
+    .photo-tag.t-bl { left: -22px; top: 40%; }
+    .env-schema { right: 2rem; width: 360px; }
+  }
+  /* Older fallback for ≤1280 catch-all (only triggers below 1025) */
   @media (max-width: 1280px) {
-    .left { padding: 5rem 3rem 2.5rem 5rem; max-width: 100%; }
     .env-schema { right: 2rem; width: 360px; }
   }
 

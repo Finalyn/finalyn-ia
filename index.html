@@ -189,6 +189,43 @@
     letter-spacing: -0.03em;
   }
   .brand .ia { color: var(--purple); }
+  /* Desktop inline nav links — hidden on mobile */
+  .nav-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 2.25rem;
+    margin-left: auto;
+    margin-right: 1.75rem;
+  }
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+  }
+  /* Menu hamburger — hidden on desktop, shown on mobile */
+  @media (min-width: 861px) {
+    .menu-wrap { display: none; }
+  }
+  .nav-links a {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    letter-spacing: -0.005em;
+    transition: color 0.25s ease;
+    position: relative;
+    padding: 0.35rem 0;
+  }
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 1px;
+    background: var(--purple);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s cubic-bezier(.22,.61,.36,1);
+  }
+  .nav-links a:hover { color: var(--purple); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
   .menu-wrap { position: relative; }
   .menu-trigger {
     display: inline-flex; align-items: center; gap: 0.6rem;
@@ -1400,6 +1437,12 @@
 
 <nav class="nav">
   <div class="brand">finalyn<span class="ia">.ia</span></div>
+  <nav class="nav-links" aria-label="Navigation principale">
+    <a href="#approche">Approche</a>
+    <a href="#cas-usage">Cas d'usage</a>
+    <a href="#realisations">Réalisations</a>
+    <a href="#contact">Contact</a>
+  </nav>
   <div class="menu-wrap" id="menuWrap">
     <button class="menu-trigger" id="menuTrigger" aria-expanded="false" aria-controls="menuPanel">
       <span>Menu</span>
@@ -1409,7 +1452,8 @@
     </button>
     <div class="menu-panel" id="menuPanel" role="menu">
       <a href="#approche" role="menuitem">Approche</a>
-      <a href="#travaux" role="menuitem">Travaux</a>
+      <a href="#cas-usage" role="menuitem">Cas d'usage</a>
+      <a href="#realisations" role="menuitem">Réalisations</a>
       <a href="#contact" role="menuitem">Contact</a>
     </div>
   </div>

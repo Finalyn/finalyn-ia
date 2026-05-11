@@ -1357,32 +1357,40 @@
   }
 
   /* Force title on 3 lines below desktop */
-  @media (max-width: 1280px) {
-    h1 .rot-block { display: block; }
+  @media (max-width: 1400px) {
+    h1 .rot-block { display: block !important; }
   }
 
-  /* iPad landscape / large tablet (1025–1280) */
-  @media (min-width: 1025px) and (max-width: 1280px) {
+  /* iPad / small laptop (1025–1400) — shrink everything */
+  @media (min-width: 1025px) and (max-width: 1400px) {
     .left {
-      padding: 5rem 1.5rem 2.5rem 3rem;
-      max-width: 460px;
+      padding: 4.5rem 1.5rem 2rem 2.5rem;
+      max-width: 420px;
     }
-    h1 { font-size: clamp(1.85rem, 3vw, 2.4rem); line-height: 1.14; letter-spacing: -0.03em; }
-    .lede { font-size: 0.92rem; max-width: 420px; }
-    .bullets li { font-size: 0.88rem; }
-    .btn-primary { padding: 0.85rem 1.5rem; font-size: 0.88rem; }
-    .link-secondary { font-size: 0.88rem; }
+    h1 { font-size: clamp(1.75rem, 2.6vw, 2.1rem) !important; line-height: 1.15; letter-spacing: -0.025em; }
+    .lede { font-size: 0.88rem; max-width: 380px; margin-top: 1.2rem; }
+    .bullets { margin-top: 1rem; }
+    .bullets li { font-size: 0.85rem; }
+    .cta-row { gap: 1.2rem; margin-top: 1.2rem; }
+    .btn-primary { padding: 0.78rem 1.4rem; font-size: 0.85rem; }
+    .link-secondary { font-size: 0.85rem; }
+    .fine-print { font-size: 0.72rem; }
+    .prompt-wrap { margin-top: 1.2rem; }
+    .prompt-bar input { font-size: 0.88rem; }
     .photo-stage {
-      width: clamp(320px, 36vw, 420px);
+      width: clamp(300px, 32vw, 380px);
       left: 78%;
     }
-    .photo-tag { font-size: 0.72rem; padding: 0.45rem 0.75rem; }
+    .photo-tag { font-size: 0.68rem; padding: 0.4rem 0.7rem; }
     .photo-tag.t-tl { left: 8%;    top: -8px; }
     .photo-tag.t-tr { right: 4%;   top: 6%; }
-    .photo-tag.t-ml { left: -28px; top: 16%; }
-    .photo-tag.t-br { right: -36px; top: 32%; }
-    .photo-tag.t-bl { left: -16px; top: 42%; }
+    .photo-tag.t-ml { left: -22px; top: 16%; }
+    .photo-tag.t-br { right: -30px; top: 32%; }
+    .photo-tag.t-bl { left: -10px; top: 42%; }
     .env-schema { right: 2rem; width: 360px; }
+    .brand { font-size: 1.5rem; }
+    .nav-links a { font-size: 0.9rem; }
+    .nav-links { gap: 1.5rem; }
   }
   /* Older fallback for ≤1280 catch-all (only triggers below 1025) */
   @media (max-width: 1280px) {

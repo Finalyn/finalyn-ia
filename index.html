@@ -577,10 +577,29 @@
   }
   .roi-stat.lilac .roi-num,
   .roi-stat.lilac .roi-unit {
-    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    background: linear-gradient(
+      92deg,
+      #B9A3FB 0%,
+      #8B5CF6 20%,
+      #C7B6FA 38%,
+      #FFFFFF 50%,
+      #C7B6FA 62%,
+      #8B5CF6 80%,
+      #B9A3FB 100%
+    );
+    background-size: 280% 100%;
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
+    animation: roiShimmer 6s linear infinite;
+  }
+  @keyframes roiShimmer {
+    from { background-position: 280% 0; }
+    to   { background-position: -280% 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .roi-stat.lilac .roi-num,
+    .roi-stat.lilac .roi-unit { animation: none; }
   }
   .roi-stat .roi-lbl {
     font-size: 0.85rem;

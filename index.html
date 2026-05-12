@@ -576,11 +576,11 @@
     display: flex; flex-direction: column;
     gap: 4px;
     max-width: 88%;
-    animation: ucIn 0.4s cubic-bezier(.22,.61,.36,1) both;
+    animation: ucIn 0.65s cubic-bezier(.22,.61,.36,1) both;
   }
   @keyframes ucIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(12px) scale(0.98); filter: blur(2px); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    filter: blur(0); }
   }
   .uc-msg .role {
     font-size: 0.7rem;
@@ -615,8 +615,10 @@
     border: 1px solid rgba(220, 214, 203, 0.7);
     border-radius: 14px;
     border-bottom-left-radius: 5px;
-    animation: ucIn 0.3s ease both;
+    animation: ucIn 0.5s cubic-bezier(.22,.61,.36,1) both;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
+  .uc-typing.out { opacity: 0; transform: translateY(-4px); }
   .uc-typing span {
     width: 6px; height: 6px;
     border-radius: 50%;
@@ -2573,9 +2575,11 @@
       chat.appendChild(t);
       chat.scrollTop = chat.scrollHeight;
     }
-    function removeTyping() {
+    function removeTyping(cb) {
       var t = document.getElementById('ucTyping');
-      if (t) t.remove();
+      if (!t) { if (cb) cb(); return; }
+      t.classList.add('out');
+      setTimeout(function () { t.remove(); if (cb) cb(); }, 280);
     }
 
     var stage = document.getElementById('ucStage');
@@ -2586,11 +2590,13 @@
       appendMsg('user', text);
       input.value = '';
       input.blur();
-      showTyping();
+      // small breathing pause before typing
+      setTimeout(showTyping, 300);
       setTimeout(function () {
-        removeTyping();
-        appendMsg('agent', getReply(text));
-      }, 1500 + Math.random() * 500);
+        removeTyping(function () {
+          appendMsg('agent', getReply(text));
+        });
+      }, 1900 + Math.random() * 400);
     }
 
     window.ucSend = function (e) {

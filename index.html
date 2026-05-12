@@ -520,11 +520,11 @@
     margin: 9rem 0 4rem;
     overflow: hidden;
   }
-  /* Swiss map silhouette — anchored bottom-right, only the left of the country visible */
+  /* Swiss map silhouette — inline SVG, anchored bottom-right */
   .trust-map {
     position: absolute;
     bottom: -8%;
-    right: -22%;
+    right: -18%;
     top: auto;
     left: auto;
     transform: none;
@@ -532,11 +532,12 @@
     max-width: 1100px;
     min-width: 600px;
     height: auto;
-    opacity: 0.4;
-    filter: hue-rotate(-15deg) saturate(0.5);
     z-index: 0;
     pointer-events: none;
     display: block;
+  }
+  .trust-map path {
+    fill: rgba(167, 139, 250, 0.18);
   }
   .trust-container {
     position: relative;
@@ -2963,8 +2964,10 @@
 </section>
 
 <section class="trust" id="securite" aria-labelledby="trust-title">
- <!-- Swiss map silhouette in background -->
- <img class="trust-map" src="suisse.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1517" height="1062" />
+ <!-- Swiss map silhouette in background (inline SVG, stylized) -->
+ <svg class="trust-map" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+   <path d="M 102 290 L 84 268 Q 78 250 96 238 Q 120 226 150 234 Q 178 244 198 232 Q 220 218 252 220 Q 282 224 310 222 Q 342 216 372 208 Q 408 198 446 196 Q 482 196 516 202 Q 552 208 590 212 Q 626 216 662 226 Q 696 238 728 256 Q 762 278 790 306 Q 818 336 836 368 Q 846 392 838 410 Q 826 422 808 422 Q 786 422 768 418 Q 770 432 758 440 Q 738 446 716 438 Q 696 432 682 444 Q 666 458 648 462 Q 626 462 612 448 Q 596 458 580 462 Q 552 466 528 460 Q 504 454 480 458 Q 452 466 422 462 Q 394 456 368 446 Q 340 438 312 426 Q 282 414 254 398 Q 224 380 196 362 Q 170 344 144 322 Q 122 304 102 290 Z" />
+ </svg>
 
  <div class="trust-container">
   <header class="trust-head">

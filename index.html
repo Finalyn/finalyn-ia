@@ -440,39 +440,31 @@
     border-top: none;
   }
 
-  /* ===== SECTION : CAS D'USAGE (mêmes styles que Services) ===== */
+  /* ===== SECTION : CAS D'USAGE (chat + marquees) ===== */
   .usecases {
     position: relative;
     z-index: 2;
-    background: rgba(255, 253, 250, 0.94);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid rgba(220, 214, 203, 0.7);
-    border-radius: 22px;
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.6) inset,
-      0 30px 80px -28px rgba(40, 30, 60, 0.22),
-      0 8px 20px -6px rgba(40, 30, 60, 0.08);
-    max-width: 880px;
-    margin: 4rem auto;
-    width: calc(100% - 3rem);
+    margin: 5rem auto 4rem;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
   }
   .usecases-container {
-    padding: 2.5rem 2.75rem;
+    padding: 0;
   }
   .usecases-head {
-    margin-bottom: 1.75rem;
     text-align: center;
+    padding: 0 1.5rem;
+    margin-bottom: 2.5rem;
   }
   .usecases-head h2 {
     display: inline-block;
-    width: auto;
-    font-size: clamp(1.5rem, 2.2vw, 1.95rem);
-    font-weight: 500;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 400;
     line-height: 1.15;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.035em;
     color: var(--ink);
-    white-space: nowrap;
     margin: 0;
   }
   .usecases-head h2 .accent-lilac {
@@ -480,82 +472,138 @@
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
-    font-weight: 500;
+    font-weight: 400;
   }
-  .usecases-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    border-top: 1px solid var(--line);
-  }
-  .usecases-list li { border-bottom: 1px solid var(--line); }
-  .usecases-list a {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 2rem;
-    padding: 2rem 0.5rem;
-    text-decoration: none;
-    color: var(--ink);
-    transition: padding 0.3s cubic-bezier(.22,.61,.36,1), color 0.3s ease;
-  }
-  .usecases-list a:hover { padding-left: 1.25rem; color: var(--purple); }
-  .usecases-list .num {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-    min-width: 32px;
-  }
-  .usecases-list a:hover .num {
-    background: linear-gradient(92deg, #B9A3FB, #8B5CF6);
-    -webkit-background-clip: text;
-            background-clip: text;
-    color: transparent;
-  }
-  .usecases-list .body { display: flex; flex-direction: column; gap: 4px; }
-  .usecases-list h3 {
-    font-size: clamp(1.2rem, 1.8vw, 1.6rem);
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    color: inherit;
-  }
-  .usecases-list p {
+  .usecases-head .usecases-sub {
+    margin-top: 0.85rem;
     font-size: 0.95rem;
-    line-height: 1.5;
     color: var(--muted);
-    margin: 0;
+    letter-spacing: -0.005em;
   }
-  .usecases-list a:hover p { color: #3A3A3A; }
-  .usecases-list .arrow {
-    width: 22px; height: 22px;
-    color: var(--muted);
-    transition: transform 0.35s cubic-bezier(.22,.61,.36,1), color 0.3s ease;
-    flex-shrink: 0;
-  }
-  .usecases-list a:hover .arrow { transform: translateX(8px); color: var(--purple); }
-  .usecases-list .arrow svg { width: 100%; height: 100%; }
 
-  @media (max-width: 1280px) {
-    .usecases-container { padding: 2.25rem 2.25rem; }
+  /* Marquees rows */
+  .marquee-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin: 1.5rem 0;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
   }
+  .marquee-row {
+    overflow: hidden;
+    display: flex;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0.6rem;
+    flex-shrink: 0;
+    animation: marqueeMove 60s linear infinite;
+    will-change: transform;
+  }
+  .marquee-row.reverse .marquee-track {
+    animation-direction: reverse;
+    animation-duration: 75s;
+  }
+  .marquee-row:nth-child(1) .marquee-track { animation-duration: 55s; }
+  .marquee-row:nth-child(2) .marquee-track { animation-duration: 72s; }
+  @keyframes marqueeMove {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .marquee-track button {
+    flex-shrink: 0;
+    font-family: inherit;
+    font-size: 0.88rem;
+    color: var(--ink);
+    background: rgba(255, 253, 250, 0.94);
+    backdrop-filter: blur(8px) saturate(140%);
+    -webkit-backdrop-filter: blur(8px) saturate(140%);
+    border: 1px solid rgba(220, 214, 203, 0.85);
+    border-radius: 999px;
+    padding: 0.65rem 1.15rem;
+    cursor: pointer;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    box-shadow: 0 6px 18px -8px rgba(40, 30, 60, 0.12);
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  }
+  .marquee-track button:hover {
+    color: var(--purple);
+    border-color: rgba(139, 92, 246, 0.4);
+    background: rgba(167, 139, 250, 0.08);
+    transform: translateY(-1px);
+  }
+  .marquee-row:hover .marquee-track { animation-play-state: paused; }
+
+  /* Big prompt centered */
+  .big-prompt {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 720px;
+    margin: 2.25rem auto 2.5rem;
+    padding: 0.6rem 0.6rem 0.6rem 1.4rem;
+    background: rgba(255, 253, 250, 0.95);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(220, 214, 203, 0.85);
+    border-radius: 14px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 18px 50px -18px rgba(40, 30, 60, 0.22),
+      0 6px 14px -4px rgba(40, 30, 60, 0.10);
+    width: calc(100% - 3rem);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .big-prompt:focus-within {
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 0 0 4px rgba(167, 139, 250, 0.12),
+      0 18px 50px -18px rgba(40, 30, 60, 0.22);
+  }
+  .big-prompt input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 1.05rem;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    padding: 0.55rem 0;
+    min-width: 0;
+  }
+  .big-prompt input::placeholder { color: #9A958D; }
+  .big-prompt button.send {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    border: none;
+    border-radius: 10px;
+    background: var(--ink);
+    color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+  .big-prompt button.send:hover { background: var(--purple); transform: translateX(1px); }
+  .big-prompt button.send svg { width: 17px; height: 17px; }
+
   @media (max-width: 860px) {
-    .usecases { border-radius: 18px; margin: 2.5rem auto; }
-    .usecases-container { padding: 2rem 1.5rem; }
-    .usecases-list a { padding: 1.5rem 0.25rem; gap: 1.25rem; }
-    .usecases-list a:hover { padding-left: 0.75rem; }
-    .usecases-list h3 { font-size: 1.15rem; }
-    .usecases-list p { font-size: 0.88rem; }
+    .usecases-head { margin-bottom: 1.75rem; }
+    .marquee-track button { font-size: 0.82rem; padding: 0.55rem 0.95rem; }
+    .big-prompt input { font-size: 1rem; }
+    .big-prompt { padding: 0.5rem 0.5rem 0.5rem 1.1rem; }
+    .big-prompt button.send { width: 40px; height: 40px; }
   }
   @media (max-width: 560px) {
-    .usecases { border-radius: 16px; margin: 2rem auto; width: calc(100% - 1.5rem); }
-    .usecases-container { padding: 1.75rem 1.25rem; }
-    .usecases-list a { padding: 1.35rem 0.15rem; gap: 1rem; }
-    .usecases-list .num { font-size: 0.85rem; min-width: 24px; }
-    .usecases-list h3 { font-size: 1.05rem; }
-    .usecases-list p { font-size: 0.85rem; line-height: 1.4; }
-    .usecases-list .arrow { width: 18px; height: 18px; }
+    .usecases-head h2 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
+    .marquee-track button { font-size: 0.78rem; padding: 0.5rem 0.85rem; }
+    .big-prompt { width: calc(100% - 2rem); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
   }
 
   /* ===== SECTION : MÉTHODE (timeline animée, sans fond) ===== */
@@ -2271,70 +2319,107 @@
 <section class="usecases" id="cas-usage" aria-labelledby="usecases-title">
  <div class="usecases-container">
   <header class="usecases-head">
-    <h2 id="usecases-title"><span class="accent-lilac">Cas</span> d'usage.</h2>
+    <h2 id="usecases-title">Imaginez. <span class="accent-lilac">Nous concevons.</span></h2>
+    <p class="usecases-sub">Décrivez votre besoin ou inspirez-vous des cas ci-dessous.</p>
   </header>
-  <ul class="usecases-list">
-    <li>
-      <a href="cas-usage/emails.html" aria-label="En savoir plus sur l'automatisation des e-mails">
-        <span class="num" aria-hidden="true">01</span>
-        <span class="body">
-          <h3>E-mails</h3>
-          <p>Tri, priorisation, réponses pré-rédigées dans votre ton.</p>
-        </span>
-        <span class="arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
-        </span>
-      </a>
-    </li>
-    <li>
-      <a href="cas-usage/devis.html" aria-label="En savoir plus sur la génération automatique de devis">
-        <span class="num" aria-hidden="true">02</span>
-        <span class="body">
-          <h3>Devis &amp; propositions</h3>
-          <p>Génération automatique depuis votre CRM, en quelques secondes.</p>
-        </span>
-        <span class="arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
-        </span>
-      </a>
-    </li>
-    <li>
-      <a href="cas-usage/prospects.html" aria-label="En savoir plus sur le suivi prospects">
-        <span class="num" aria-hidden="true">03</span>
-        <span class="body">
-          <h3>Suivi prospects</h3>
-          <p>Relance personnalisée, scoring, qualification automatique.</p>
-        </span>
-        <span class="arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
-        </span>
-      </a>
-    </li>
-    <li>
-      <a href="cas-usage/support.html" aria-label="En savoir plus sur le support client 24/7">
-        <span class="num" aria-hidden="true">04</span>
-        <span class="body">
-          <h3>Support client</h3>
-          <p>Réponses automatiques 24/7, formées sur votre savoir-faire.</p>
-        </span>
-        <span class="arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
-        </span>
-      </a>
-    </li>
-    <li>
-      <a href="cas-usage/reporting.html" aria-label="En savoir plus sur le reporting automatisé">
-        <span class="num" aria-hidden="true">05</span>
-        <span class="body">
-          <h3>Reporting</h3>
-          <p>Tableaux de bord temps réel, alertes intelligentes, synthèses hebdo.</p>
-        </span>
-        <span class="arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
-        </span>
-      </a>
-    </li>
-  </ul>
+
+  <div class="marquee-rows" aria-hidden="true">
+    <div class="marquee-row"><div class="marquee-track">
+      <button type="button">Trier mes e-mails clients</button>
+      <button type="button">Générer un devis depuis mon CRM</button>
+      <button type="button">Relancer mes prospects sans réponse</button>
+      <button type="button">Créer un rapport hebdomadaire</button>
+      <button type="button">Synchroniser Notion et Slack</button>
+      <button type="button">Programmer mes rendez-vous</button>
+      <button type="button">Onboarder un nouveau client</button>
+      <button type="button">Archiver mes factures</button>
+      <button type="button">Détecter un spam</button>
+      <button type="button">Trier mes e-mails clients</button>
+      <button type="button">Générer un devis depuis mon CRM</button>
+      <button type="button">Relancer mes prospects sans réponse</button>
+      <button type="button">Créer un rapport hebdomadaire</button>
+      <button type="button">Synchroniser Notion et Slack</button>
+      <button type="button">Programmer mes rendez-vous</button>
+      <button type="button">Onboarder un nouveau client</button>
+      <button type="button">Archiver mes factures</button>
+      <button type="button">Détecter un spam</button>
+    </div></div>
+
+    <div class="marquee-row reverse"><div class="marquee-track">
+      <button type="button">Personnaliser un message LinkedIn</button>
+      <button type="button">Suivre une commande</button>
+      <button type="button">Générer un compte-rendu</button>
+      <button type="button">Notifier en cas d'erreur</button>
+      <button type="button">Traduire un document</button>
+      <button type="button">Filtrer les leads entrants</button>
+      <button type="button">Envoyer un SMS de rappel</button>
+      <button type="button">Automatiser ma TVA</button>
+      <button type="button">Faire un suivi de paiement</button>
+      <button type="button">Personnaliser un message LinkedIn</button>
+      <button type="button">Suivre une commande</button>
+      <button type="button">Générer un compte-rendu</button>
+      <button type="button">Notifier en cas d'erreur</button>
+      <button type="button">Traduire un document</button>
+      <button type="button">Filtrer les leads entrants</button>
+      <button type="button">Envoyer un SMS de rappel</button>
+      <button type="button">Automatiser ma TVA</button>
+      <button type="button">Faire un suivi de paiement</button>
+    </div></div>
+  </div>
+
+  <form class="big-prompt" id="usecasePrompt" onsubmit="event.preventDefault();" aria-label="Décrivez votre cas d'usage">
+    <input type="text" id="usecaseInput" placeholder="Décrivez votre besoin…" aria-label="Décrivez votre besoin" />
+    <button type="submit" class="send" aria-label="Envoyer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="19" x2="12" y2="5"></line>
+        <polyline points="5 12 12 5 19 12"></polyline>
+      </svg>
+    </button>
+  </form>
+
+  <div class="marquee-rows" aria-hidden="true">
+    <div class="marquee-row"><div class="marquee-track">
+      <button type="button">Résumer une réunion</button>
+      <button type="button">Extraire les données d'un PDF</button>
+      <button type="button">Connecter HubSpot et Bexio</button>
+      <button type="button">Suivre les KPIs en temps réel</button>
+      <button type="button">Programmer une publication</button>
+      <button type="button">Envoyer un mail de bienvenue</button>
+      <button type="button">Tagger automatiquement les leads</button>
+      <button type="button">Mettre à jour un fichier Excel</button>
+      <button type="button">Convertir un PDF en données</button>
+      <button type="button">Résumer une réunion</button>
+      <button type="button">Extraire les données d'un PDF</button>
+      <button type="button">Connecter HubSpot et Bexio</button>
+      <button type="button">Suivre les KPIs en temps réel</button>
+      <button type="button">Programmer une publication</button>
+      <button type="button">Envoyer un mail de bienvenue</button>
+      <button type="button">Tagger automatiquement les leads</button>
+      <button type="button">Mettre à jour un fichier Excel</button>
+      <button type="button">Convertir un PDF en données</button>
+    </div></div>
+
+    <div class="marquee-row reverse"><div class="marquee-track">
+      <button type="button">Détecter un client à risque</button>
+      <button type="button">Scoring des prospects</button>
+      <button type="button">Auto-réponse hors bureau</button>
+      <button type="button">Envoyer une enquête de satisfaction</button>
+      <button type="button">Mettre à jour le CRM en continu</button>
+      <button type="button">Synchroniser mon calendrier</button>
+      <button type="button">Notifier sur Slack</button>
+      <button type="button">Faire un rapport mensuel</button>
+      <button type="button">Catégoriser mes dépenses</button>
+      <button type="button">Détecter un client à risque</button>
+      <button type="button">Scoring des prospects</button>
+      <button type="button">Auto-réponse hors bureau</button>
+      <button type="button">Envoyer une enquête de satisfaction</button>
+      <button type="button">Mettre à jour le CRM en continu</button>
+      <button type="button">Synchroniser mon calendrier</button>
+      <button type="button">Notifier sur Slack</button>
+      <button type="button">Faire un rapport mensuel</button>
+      <button type="button">Catégoriser mes dépenses</button>
+    </div></div>
+  </div>
  </div>
 </section>
 
@@ -2369,6 +2454,22 @@
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') close();
+    });
+  })();
+
+  // Marquee chips pre-fill the use case prompt
+  (function () {
+    var input = document.getElementById('usecaseInput');
+    var tracks = document.querySelectorAll('.marquee-track');
+    if (!input || !tracks.length) return;
+    tracks.forEach(function (track) {
+      track.addEventListener('click', function (e) {
+        var btn = e.target.closest('button');
+        if (!btn) return;
+        input.value = btn.textContent.trim();
+        input.focus();
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
     });
   })();
 

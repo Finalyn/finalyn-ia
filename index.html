@@ -249,15 +249,13 @@
     scroll-behavior: smooth;
   }
   body {
-    background: var(--warm-white);
-  }
-  .hero {
     background-image:
       linear-gradient(90deg, rgba(250,248,244,0.85) 0%, rgba(250,248,244,0.55) 35%, rgba(250,248,244,0.15) 60%, rgba(250,248,244,0) 80%),
       url('hero-bg.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
   /* ===== NAV ===== */
@@ -386,11 +384,58 @@
     height: 100vh;
     width: 100%;
   }
-  /* Services section — normal flow below hero */
+  /* Thin centered "bandeau" that floats over the fixed bg */
   .services {
     position: relative;
-    background: var(--warm-white);
-    width: 100%;
+    z-index: 2;
+    background: rgba(255, 253, 250, 0.94);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(220, 214, 203, 0.7);
+    border-radius: 22px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 30px 80px -28px rgba(40, 30, 60, 0.22),
+      0 8px 20px -6px rgba(40, 30, 60, 0.08);
+    max-width: 720px;
+    margin: 4rem auto;
+    width: calc(100% - 3rem);
+  }
+  /* Side image flanking the services bandeau */
+  .services-side-img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.5) inset,
+      0 24px 60px -22px rgba(40, 30, 60, 0.20),
+      0 6px 18px -6px rgba(40, 30, 60, 0.08);
+    pointer-events: none;
+  }
+  .services-side-img.left { left: -340px; }
+  .services-side-img.right { right: -340px; }
+  .services-side-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.8);
+  }
+  @media (max-width: 1280px) {
+    .services-side-img { width: 240px; }
+    .services-side-img.left { left: -270px; }
+    .services-side-img.right { right: -270px; }
+  }
+  @media (max-width: 1100px) {
+    .services-side-img { display: none; }
+  }
+  /* Footer stays simple, also over the fixed bg */
+  .site-foot {
+    background: transparent;
+    border-top: none;
   }
 
   /* ----- LEFT ----- */
@@ -760,11 +805,9 @@
     .photo-tag { animation: none; }
   }
 
-  /* ===== SECTION : SERVICES ===== */
+  /* ===== SECTION : SERVICES (bandeau) ===== */
   .services-container {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 5rem 4.5rem 5rem 9rem;
+    padding: 2.5rem 2.75rem;
   }
   .services-head {
     margin-bottom: 1.75rem;
@@ -1532,12 +1575,13 @@
   /* Force title on 3 lines below 1280 */
   @media (max-width: 1280px) {
     h1 .rot-block { display: block; }
-    .services-container { padding: 4rem 3rem 4rem 5rem; }
+    .services-container { padding: 2.25rem 2.25rem; }
     .services-head { margin-bottom: 2rem; }
   }
 
   @media (max-width: 860px) {
-    .services-container { padding: 3.5rem 2rem 3.5rem; }
+    .services { border-radius: 18px; margin: 2.5rem auto; }
+    .services-container { padding: 2rem 1.5rem; }
     .services-head { margin-bottom: 2.25rem; }
     .services-head h2 { font-size: clamp(1.9rem, 6vw, 2.4rem); }
     .services-list a { padding: 1.5rem 0.25rem; gap: 1.25rem; }
@@ -1546,7 +1590,8 @@
     .services-list p { font-size: 0.88rem; }
   }
   @media (max-width: 560px) {
-    .services-container { padding: 3rem 1.25rem 3rem; }
+    .services { border-radius: 16px; margin: 2rem auto; width: calc(100% - 1.5rem); }
+    .services-container { padding: 1.75rem 1.25rem; }
     .services-list a { padding: 1.35rem 0.15rem; gap: 1rem; }
     .services-list .num { font-size: 0.85rem; min-width: 24px; }
     .services-list h3 { font-size: 1.05rem; }
@@ -1881,6 +1926,7 @@
 </section>
 
 <section class="services" id="services" aria-labelledby="services-title">
+ <figure class="services-side-img left" aria-hidden="true"><img src="services-img.jpg" alt="" /></figure>
  <div class="services-container">
   <header class="services-head">
     <h2 id="services-title">Ce que nous concevons <span class="accent-lilac">pour vous</span>.</h2>

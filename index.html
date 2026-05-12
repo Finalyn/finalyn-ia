@@ -1561,6 +1561,62 @@
     .services-list .arrow { width: 18px; height: 18px; }
   }
 
+  /* ===== FOOTER ===== */
+  .site-foot {
+    position: relative;
+    z-index: 2;
+    background: var(--warm-white);
+    padding: 4rem 4.5rem 3rem 9rem;
+    max-width: 1180px;
+    margin: 0 auto;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: end;
+  }
+  .site-foot .brand-block strong {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+  }
+  .site-foot .brand-block strong .ia { color: var(--purple); }
+  .site-foot .brand-block p {
+    margin-top: 0.5rem;
+    font-size: 0.88rem;
+    color: var(--muted);
+    letter-spacing: -0.005em;
+  }
+  .site-foot .links {
+    display: flex; flex-direction: column;
+    align-items: flex-end;
+    gap: 0.55rem;
+    font-size: 0.88rem;
+  }
+  .site-foot .links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+  .site-foot .links a:hover { color: var(--purple); }
+  .site-foot .legal {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--line);
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    display: flex; justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.005em;
+  }
+  @media (max-width: 860px) {
+    .site-foot { padding: 3rem 2rem 2.5rem; grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
+    .site-foot .links { align-items: flex-start; }
+    .site-foot .legal { flex-direction: column; gap: 0.5rem; }
+  }
+
   /* iPad / small laptop (1025–1280) — moderate shrink */
   @media (min-width: 1025px) and (max-width: 1280px) {
     .left {
@@ -1888,6 +1944,23 @@
     </li>
   </ul>
 </section>
+
+<footer class="site-foot">
+  <div class="brand-block">
+    <strong>finalyn<span class="ia">.ia</span></strong>
+    <p>Agence d'automatisation IA sur mesure. Lausanne, Suisse.</p>
+  </div>
+  <nav class="links" aria-label="Pied de page">
+    <a href="#services">Services</a>
+    <a href="#cas-usage">Cas d'usage</a>
+    <a href="#contact">Contact</a>
+    <a href="mailto:contact@finalyn.com">contact@finalyn.com</a>
+  </nav>
+  <div class="legal">
+    <span>© 2026 finalyn.ia · Tous droits réservés</span>
+    <span>Conçu en Suisse</span>
+  </div>
+</footer>
 
 <button class="chat-launcher" id="chatLauncher" type="button" aria-label="Parler avec notre agent" aria-controls="chatPanel" aria-expanded="false">
   <span class="pulse" aria-hidden="true"></span>

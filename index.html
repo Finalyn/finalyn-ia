@@ -384,6 +384,7 @@
     background: var(--warm-white);
     border-radius: 20px 20px 0 0;
     box-shadow: 0 -24px 60px -24px rgba(40, 30, 60, 0.18);
+    width: 100%;
   }
   @media (prefers-reduced-motion: reduce) {
     .hero { position: relative; }
@@ -757,12 +758,10 @@
   }
 
   /* ===== SECTION : SERVICES ===== */
-  .services {
-    position: relative;
-    padding: 4rem 4.5rem 4rem 9rem;
+  .services-container {
     max-width: 1180px;
     margin: 0 auto;
-    background: var(--warm-white);
+    padding: 4rem 4.5rem 4rem 9rem;
   }
   .services-head {
     max-width: 720px;
@@ -1540,12 +1539,13 @@
   /* Force title on 3 lines below 1280 */
   @media (max-width: 1280px) {
     h1 .rot-block { display: block; }
-    .services { padding: 3.5rem 3rem 3.5rem 5rem; }
+    .services-container { padding: 3.5rem 3rem 3.5rem 5rem; }
     .services-head { margin-bottom: 2rem; }
   }
 
   @media (max-width: 860px) {
-    .services { padding: 3rem 2rem 3rem; border-radius: 16px 16px 0 0; }
+    .services { border-radius: 16px 16px 0 0; }
+    .services-container { padding: 3rem 2rem 3rem; }
     .services-head { margin-bottom: 2.25rem; }
     .services-head h2 { font-size: clamp(1.9rem, 6vw, 2.4rem); }
     .services-list a { padding: 1.5rem 0.25rem; gap: 1.25rem; }
@@ -1554,7 +1554,8 @@
     .services-list p { font-size: 0.88rem; }
   }
   @media (max-width: 560px) {
-    .services { padding: 2.5rem 1.25rem 2.5rem; border-radius: 14px 14px 0 0; }
+    .services { border-radius: 14px 14px 0 0; }
+    .services-container { padding: 2.5rem 1.25rem 2.5rem; }
     .services-list a { padding: 1.35rem 0.15rem; gap: 1rem; }
     .services-list .num { font-size: 0.85rem; min-width: 24px; }
     .services-list h3 { font-size: 1.05rem; }
@@ -1567,10 +1568,13 @@
     position: relative;
     z-index: 2;
     background: var(--warm-white);
-    padding: 4rem 4.5rem 3rem 9rem;
+    width: 100%;
+    border-top: 1px solid var(--line);
+  }
+  .site-foot-container {
     max-width: 1180px;
     margin: 0 auto;
-    border-top: 1px solid var(--line);
+    padding: 4rem 4.5rem 3rem 9rem;
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 2rem;
@@ -1613,7 +1617,7 @@
     letter-spacing: 0.005em;
   }
   @media (max-width: 860px) {
-    .site-foot { padding: 3rem 2rem 2.5rem; grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
+    .site-foot-container { padding: 3rem 2rem 2.5rem; grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
     .site-foot .links { align-items: flex-start; }
     .site-foot .legal { flex-direction: column; gap: 0.5rem; }
   }
@@ -1886,6 +1890,7 @@
 </section>
 
 <section class="services" id="services" aria-labelledby="services-title">
+ <div class="services-container">
   <header class="services-head">
     <span class="eyebrow">Nos services</span>
     <h2 id="services-title">Ce que nous concevons pour vous.</h2>
@@ -1944,9 +1949,11 @@
       </a>
     </li>
   </ul>
+ </div>
 </section>
 
 <footer class="site-foot">
+ <div class="site-foot-container">
   <div class="brand-block">
     <strong>finalyn<span class="ia">.ia</span></strong>
     <p>Agence d'automatisation IA sur mesure. Lausanne, Suisse.</p>
@@ -1961,6 +1968,7 @@
     <span>© 2026 finalyn.ia · Tous droits réservés</span>
     <span>Conçu en Suisse</span>
   </div>
+ </div>
 </footer>
 
 <button class="chat-launcher" id="chatLauncher" type="button" aria-label="Parler avec notre agent" aria-controls="chatPanel" aria-expanded="false">

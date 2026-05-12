@@ -742,14 +742,14 @@
   /* ===== SECTION : SERVICES ===== */
   .services {
     position: relative;
-    padding: 9rem 4.5rem 7rem 9rem;
+    padding: 8rem 4.5rem 6rem 9rem;
     max-width: 1180px;
     margin: 0 auto;
     background: var(--warm-white);
   }
   .services-head {
     max-width: 720px;
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
   }
   .services-head .eyebrow {
     display: inline-flex;
@@ -759,7 +759,7 @@
     color: var(--muted);
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
   .services-head .eyebrow::before {
     content: "";
@@ -771,81 +771,68 @@
     box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.16);
   }
   .services-head h2 {
-    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-size: clamp(2rem, 3.6vw, 3rem);
     font-weight: 400;
-    line-height: 1.08;
+    line-height: 1.1;
     letter-spacing: -0.035em;
     color: var(--ink);
-    margin-bottom: 1.5rem;
-  }
-  .services-head .sub {
-    font-size: 1.08rem;
-    line-height: 1.6;
-    color: #3A3A3A;
-    max-width: 580px;
   }
 
-  .services-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem 5rem;
-  }
-  .service-card {
-    position: relative;
-    padding-top: 1.75rem;
+  /* Compact list — 1 row per service */
+  .services-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     border-top: 1px solid var(--line);
-    transition: border-color 0.3s ease;
   }
-  .service-card:hover { border-top-color: rgba(139, 92, 246, 0.45); }
-  .service-card .num {
-    display: block;
-    font-size: clamp(2.4rem, 3.5vw, 3.4rem);
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -0.035em;
-    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+  .services-list li { border-bottom: 1px solid var(--line); }
+  .services-list a {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0.5rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: padding 0.3s cubic-bezier(.22,.61,.36,1), color 0.3s ease;
+  }
+  .services-list a:hover { padding-left: 1.25rem; color: var(--purple); }
+  .services-list .num {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    min-width: 32px;
+  }
+  .services-list a:hover .num {
+    background: linear-gradient(92deg, #B9A3FB, #8B5CF6);
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
-    margin-bottom: 1.4rem;
-    transition: transform 0.35s cubic-bezier(.22,.61,.36,1);
   }
-  .service-card:hover .num { transform: translateX(6px); }
-  .service-card h3 {
-    font-size: 1.4rem;
+  .services-list .body { display: flex; flex-direction: column; gap: 4px; }
+  .services-list h3 {
+    font-size: clamp(1.2rem, 1.8vw, 1.6rem);
     font-weight: 500;
-    color: var(--ink);
-    letter-spacing: -0.015em;
-    margin-bottom: 0.85rem;
+    letter-spacing: -0.02em;
     line-height: 1.2;
+    color: inherit;
   }
-  .service-card p {
-    font-size: 0.98rem;
-    line-height: 1.6;
-    color: #3A3A3A;
-    margin-bottom: 1.25rem;
-  }
-  .service-card .tags {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    padding: 0;
+  .services-list p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--muted);
     margin: 0;
   }
-  .service-card .tags li {
-    font-size: 0.74rem;
+  .services-list a:hover p { color: #3A3A3A; }
+  .services-list .arrow {
+    width: 22px; height: 22px;
     color: var(--muted);
-    padding: 0.3rem 0.65rem;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    background: rgba(255, 253, 250, 0.5);
-    letter-spacing: 0.005em;
-    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    transition: transform 0.35s cubic-bezier(.22,.61,.36,1), color 0.3s ease;
+    flex-shrink: 0;
   }
-  .service-card:hover .tags li {
-    border-color: rgba(139, 92, 246, 0.3);
-  }
+  .services-list a:hover .arrow { transform: translateX(8px); color: var(--purple); }
+  .services-list .arrow svg { width: 100%; height: 100%; }
 
   /* ----- FLOATING CHAT LAUNCHER (bottom-left, light) ----- */
   .chat-launcher {
@@ -1542,18 +1529,20 @@
 
   @media (max-width: 860px) {
     .services { padding: 6rem 2rem 5rem; }
-    .services-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .services-head { margin-bottom: 3rem; }
-    .services-head h2 { font-size: clamp(2rem, 6vw, 2.6rem); }
-    .services-head .sub { font-size: 1rem; }
-    .service-card h3 { font-size: 1.25rem; }
+    .services-head { margin-bottom: 2.25rem; }
+    .services-head h2 { font-size: clamp(1.9rem, 6vw, 2.4rem); }
+    .services-list a { padding: 1.5rem 0.25rem; gap: 1.25rem; }
+    .services-list a:hover { padding-left: 0.75rem; }
+    .services-list h3 { font-size: 1.15rem; }
+    .services-list p { font-size: 0.88rem; }
   }
   @media (max-width: 560px) {
     .services { padding: 5rem 1.25rem 4rem; }
-    .services-head { margin-bottom: 2.5rem; }
-    .service-card .num { font-size: 2.2rem; }
-    .service-card h3 { font-size: 1.2rem; }
-    .service-card p { font-size: 0.95rem; }
+    .services-list a { padding: 1.35rem 0.15rem; gap: 1rem; }
+    .services-list .num { font-size: 0.85rem; min-width: 24px; }
+    .services-list h3 { font-size: 1.05rem; }
+    .services-list p { font-size: 0.85rem; line-height: 1.4; }
+    .services-list .arrow { width: 18px; height: 18px; }
   }
 
   /* iPad / small laptop (1025–1280) — moderate shrink */
@@ -1827,62 +1816,61 @@
   <header class="services-head">
     <span class="eyebrow">Nos services</span>
     <h2 id="services-title">Ce que nous concevons pour vous.</h2>
-    <p class="sub">
-      Des systèmes intelligents conçus sur mesure pour les PME et indépendants suisses,
-      pour automatiser vos processus, intégrer vos outils, et libérer le temps de vos équipes.
-    </p>
   </header>
 
-  <div class="services-grid">
-    <article class="service-card" itemscope itemtype="https://schema.org/Service">
-      <span class="num" aria-hidden="true">01</span>
-      <h3 itemprop="name">Agents IA sur mesure</h3>
-      <p itemprop="description">
-        Des assistants intelligents autonomes qui exécutent vos tâches métier :
-        tri d'e-mails, génération de devis, suivi prospects, support client.
-        Basés sur les meilleurs modèles (GPT, Claude) et augmentés par vos propres données.
-      </p>
-      <ul class="tags" aria-label="Technologies">
-        <li>LLM</li><li>RAG</li><li>Agents autonomes</li><li>API</li>
-      </ul>
-    </article>
+  <ul class="services-list">
+    <li itemscope itemtype="https://schema.org/Service">
+      <a href="services/agents-ia.html" aria-label="En savoir plus sur les agents IA sur mesure">
+        <span class="num" aria-hidden="true">01</span>
+        <span class="body">
+          <h3 itemprop="name">Agents IA sur mesure</h3>
+          <p itemprop="description">Des assistants intelligents qui exécutent vos tâches métier.</p>
+        </span>
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+        </span>
+      </a>
+    </li>
 
-    <article class="service-card" itemscope itemtype="https://schema.org/Service">
-      <span class="num" aria-hidden="true">02</span>
-      <h3 itemprop="name">Automatisation de processus</h3>
-      <p itemprop="description">
-        Des workflows qui orchestrent vos outils pour éliminer les tâches répétitives,
-        de la prise de contact au reporting. Visibles, mesurables, modifiables à tout moment.
-      </p>
-      <ul class="tags" aria-label="Outils">
-        <li>n8n</li><li>Make</li><li>Zapier</li><li>Webhooks</li>
-      </ul>
-    </article>
+    <li itemscope itemtype="https://schema.org/Service">
+      <a href="services/automatisation.html" aria-label="En savoir plus sur l'automatisation de processus">
+        <span class="num" aria-hidden="true">02</span>
+        <span class="body">
+          <h3 itemprop="name">Automatisation de processus</h3>
+          <p itemprop="description">Des workflows qui orchestrent vos outils en silence.</p>
+        </span>
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+        </span>
+      </a>
+    </li>
 
-    <article class="service-card" itemscope itemtype="https://schema.org/Service">
-      <span class="num" aria-hidden="true">03</span>
-      <h3 itemprop="name">Intégrations &amp; connecteurs</h3>
-      <p itemprop="description">
-        Connecter vos systèmes existants (CRM, e-mails, comptabilité, planning, e-commerce)
-        pour qu'ils communiquent en temps réel, sans changer vos outils.
-      </p>
-      <ul class="tags" aria-label="Plateformes">
-        <li>HubSpot</li><li>Bexio</li><li>Pipedrive</li><li>Google Workspace</li>
-      </ul>
-    </article>
+    <li itemscope itemtype="https://schema.org/Service">
+      <a href="services/integrations.html" aria-label="En savoir plus sur les intégrations et connecteurs">
+        <span class="num" aria-hidden="true">03</span>
+        <span class="body">
+          <h3 itemprop="name">Intégrations &amp; connecteurs</h3>
+          <p itemprop="description">Faire communiquer vos systèmes existants, sans les remplacer.</p>
+        </span>
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+        </span>
+      </a>
+    </li>
 
-    <article class="service-card" itemscope itemtype="https://schema.org/Service">
-      <span class="num" aria-hidden="true">04</span>
-      <h3 itemprop="name">Audit &amp; accompagnement</h3>
-      <p itemprop="description">
-        Diagnostic complet de vos processus pour identifier les leviers d'automatisation
-        à plus forte valeur. Suivi et accompagnement long terme, dans la durée.
-      </p>
-      <ul class="tags" aria-label="Prestations">
-        <li>Audit</li><li>Conseil</li><li>Suivi</li><li>Formation</li>
-      </ul>
-    </article>
-  </div>
+    <li itemscope itemtype="https://schema.org/Service">
+      <a href="services/audit.html" aria-label="En savoir plus sur l'audit et l'accompagnement">
+        <span class="num" aria-hidden="true">04</span>
+        <span class="body">
+          <h3 itemprop="name">Audit &amp; accompagnement</h3>
+          <p itemprop="description">Identifier les leviers d'automatisation à plus forte valeur.</p>
+        </span>
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+        </span>
+      </a>
+    </li>
+  </ul>
 </section>
 
 <button class="chat-launcher" id="chatLauncher" type="button" aria-label="Parler avec notre agent" aria-controls="chatPanel" aria-expanded="false">

@@ -380,9 +380,14 @@
 
   /* ===== HERO ===== */
   .hero {
-    position: relative;
+    position: sticky;
+    top: 0;
     height: 100vh;
     width: 100%;
+    z-index: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero { position: relative; }
   }
   /* Thin centered "bandeau" that floats over the fixed bg */
   .services {

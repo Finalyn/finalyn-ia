@@ -382,6 +382,7 @@
     position: relative;
     z-index: 2;
     background: var(--warm-white);
+    border-radius: 20px 20px 0 0;
     box-shadow: 0 -24px 60px -24px rgba(40, 30, 60, 0.18);
   }
   @media (prefers-reduced-motion: reduce) {
@@ -758,14 +759,14 @@
   /* ===== SECTION : SERVICES ===== */
   .services {
     position: relative;
-    padding: 8rem 4.5rem 6rem 9rem;
+    padding: 4rem 4.5rem 4rem 9rem;
     max-width: 1180px;
     margin: 0 auto;
     background: var(--warm-white);
   }
   .services-head {
     max-width: 720px;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
   }
   .services-head .eyebrow {
     display: inline-flex;
@@ -1539,12 +1540,12 @@
   /* Force title on 3 lines below 1280 */
   @media (max-width: 1280px) {
     h1 .rot-block { display: block; }
-    .services { padding: 7rem 3rem 5rem 5rem; }
-    .services-head { margin-bottom: 4rem; }
+    .services { padding: 3.5rem 3rem 3.5rem 5rem; }
+    .services-head { margin-bottom: 2rem; }
   }
 
   @media (max-width: 860px) {
-    .services { padding: 6rem 2rem 5rem; }
+    .services { padding: 3rem 2rem 3rem; border-radius: 16px 16px 0 0; }
     .services-head { margin-bottom: 2.25rem; }
     .services-head h2 { font-size: clamp(1.9rem, 6vw, 2.4rem); }
     .services-list a { padding: 1.5rem 0.25rem; gap: 1.25rem; }
@@ -1553,7 +1554,7 @@
     .services-list p { font-size: 0.88rem; }
   }
   @media (max-width: 560px) {
-    .services { padding: 5rem 1.25rem 4rem; }
+    .services { padding: 2.5rem 1.25rem 2.5rem; border-radius: 14px 14px 0 0; }
     .services-list a { padding: 1.35rem 0.15rem; gap: 1rem; }
     .services-list .num { font-size: 0.85rem; min-width: 24px; }
     .services-list h3 { font-size: 1.05rem; }

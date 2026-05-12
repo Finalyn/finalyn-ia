@@ -528,26 +528,11 @@
     z-index: 3;
     animation-play-state: paused;
   }
-  /* Suction state: all chips fly toward center prompt and fade */
+  /* Suction state — chips become non-interactive (real movement set by JS for accuracy) */
   .usecases-stage.chat-active .float-chip {
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) scale(0.4) rotate(0deg) !important;
-    opacity: 0;
     pointer-events: none;
     animation: none;
   }
-  .usecases-stage.chat-active .float-chip:nth-child(2) { transition-delay: 0.04s; }
-  .usecases-stage.chat-active .float-chip:nth-child(3) { transition-delay: 0.08s; }
-  .usecases-stage.chat-active .float-chip:nth-child(4) { transition-delay: 0.06s; }
-  .usecases-stage.chat-active .float-chip:nth-child(5) { transition-delay: 0.1s; }
-  .usecases-stage.chat-active .float-chip:nth-child(6) { transition-delay: 0.05s; }
-  .usecases-stage.chat-active .float-chip:nth-child(7) { transition-delay: 0.12s; }
-  .usecases-stage.chat-active .float-chip:nth-child(8) { transition-delay: 0.07s; }
-  .usecases-stage.chat-active .float-chip:nth-child(9) { transition-delay: 0.09s; }
-  .usecases-stage.chat-active .float-chip:nth-child(10){ transition-delay: 0.11s; }
-  .usecases-stage.chat-active .float-chip:nth-child(11){ transition-delay: 0.03s; }
-  .usecases-stage.chat-active .float-chip:nth-child(12){ transition-delay: 0.13s; }
   @media (prefers-reduced-motion: reduce) {
     .float-chip { animation: none; }
   }
@@ -2592,14 +2577,39 @@
     }
 
     var stage = document.getElementById('ucStage');
+    var promptEl = document.getElementById('usecasePrompt');
     var activated = false;
+
+    function suckChipsIntoPrompt() {
+      if (!stage || !promptEl) return;
+      var stageRect = stage.getBoundingClientRect();
+      var promptRect = promptEl.getBoundingClientRect();
+      var targetX = (promptRect.left + promptRect.width / 2 - stageRect.left);
+      var targetY = (promptRect.top + promptRect.height / 2 - stageRect.top);
+      var chips = document.querySelectorAll('.float-chip');
+      chips.forEach(function (chip, i) {
+        var delay = (i * 0.035).toFixed(3) + 's';
+        chip.style.transition =
+          'top 0.85s cubic-bezier(.5,.05,.55,1) ' + delay + ',' +
+          'left 0.85s cubic-bezier(.5,.05,.55,1) ' + delay + ',' +
+          'transform 0.85s cubic-bezier(.5,.05,.55,1) ' + delay + ',' +
+          'opacity 0.7s ease-in ' + delay + ',' +
+          'filter 0.7s ease-in ' + delay;
+        chip.style.top = targetY + 'px';
+        chip.style.left = targetX + 'px';
+        chip.style.transform = 'translate(-50%, -50%) scale(0.3) rotate(0deg)';
+        chip.style.opacity = '0';
+        chip.style.filter = 'blur(2px)';
+      });
+    }
 
     window.ucSend = function (e) {
       e.preventDefault();
       var text = input.value.trim();
       if (!text) return false;
-      // First send: trigger suction animation on chips
+      // First send: suck chips into the prompt bar
       if (!activated && stage) {
+        suckChipsIntoPrompt();
         stage.classList.add('chat-active');
         activated = true;
       }

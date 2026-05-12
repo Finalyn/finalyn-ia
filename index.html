@@ -2719,6 +2719,10 @@
         <span class="row"><span>Taux horaire</span><strong id="rateVal">80.-</strong></span>
         <input type="range" id="rateInput" min="20" max="500" step="5" value="80" aria-label="Taux horaire" />
       </label>
+      <label class="roi-input">
+        <span class="row"><span>Personnes impactées</span><strong id="peopleVal">1</strong></span>
+        <input type="range" id="peopleInput" min="1" max="50" step="1" value="1" aria-label="Nombre de personnes impactées" />
+      </label>
     </div>
 
     <div class="roi-output" aria-live="polite">
@@ -2790,11 +2794,13 @@
     var hoursInput = document.getElementById('hoursInput');
     var repsInput  = document.getElementById('repsInput');
     var rateInput  = document.getElementById('rateInput');
+    var peopleInput = document.getElementById('peopleInput');
     if (!hoursInput || !repsInput || !rateInput) return;
 
     var hoursVal = document.getElementById('hoursVal');
     var repsVal  = document.getElementById('repsVal');
     var rateVal  = document.getElementById('rateVal');
+    var peopleVal = document.getElementById('peopleVal');
     var hPerYear  = document.getElementById('hPerYear');
     var chfPerYear= document.getElementById('chfPerYear');
     var hPerMonth = document.getElementById('hPerMonth');
@@ -2811,16 +2817,18 @@
       var h = parseFloat(hoursInput.value);
       var r = parseInt(repsInput.value, 10);
       var rate = parseInt(rateInput.value, 10);
+      var p = peopleInput ? parseInt(peopleInput.value, 10) : 1;
 
-      var hPerWeek = h * r;
+      var hPerWeek = h * r * p;
       var hMonth = hPerWeek * 4.33;
       var hYear  = hPerWeek * 52;
       var chfMonth = hMonth * rate;
       var chfYear  = hYear * rate;
 
       hoursVal.textContent = (h % 1 === 0 ? h.toFixed(0) : h.toFixed(1)) + ' h';
-      repsVal.textContent  = r + (r > 1 ? ' fois' : ' fois');
+      repsVal.textContent  = r + ' fois';
       rateVal.textContent  = fmt(rate) + '.-';
+      if (peopleVal) peopleVal.textContent = p + (p > 1 ? ' personnes' : ' personne');
 
       hPerYear.textContent   = fmt(hYear);
       chfPerYear.textContent = fmt(chfYear);
@@ -2828,8 +2836,8 @@
       chfPerMonth.textContent= fmt(chfMonth);
     }
 
-    [hoursInput, repsInput, rateInput].forEach(function (el) {
-      el.addEventListener('input', update);
+    [hoursInput, repsInput, rateInput, peopleInput].forEach(function (el) {
+      if (el) el.addEventListener('input', update);
     });
     update();
   })();

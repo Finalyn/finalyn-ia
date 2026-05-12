@@ -153,6 +153,23 @@
 }
 </script>
 
+<!-- Structured data — ItemList des cas d'usage (boost SEO/GEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Cas d'usage finalyn.ia",
+  "description": "Exemples concrets d'automatisations IA déployées par finalyn.ia pour les PME et indépendants suisses.",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Automatisation des e-mails", "description": "Tri, priorisation et réponses pré-rédigées pour libérer plusieurs heures par semaine."},
+    {"@type": "ListItem", "position": 2, "name": "Génération automatique de devis et propositions", "description": "Création de devis depuis le CRM en quelques secondes."},
+    {"@type": "ListItem", "position": 3, "name": "Suivi et relance des prospects", "description": "Relances personnalisées, scoring et qualification automatique."},
+    {"@type": "ListItem", "position": 4, "name": "Support client automatisé", "description": "Assistant IA disponible 24/7, formé sur le savoir-faire de l'entreprise."},
+    {"@type": "ListItem", "position": 5, "name": "Reporting et tableaux de bord", "description": "Synthèses automatiques en temps réel, alertes intelligentes."}
+  ]
+}
+</script>
+
 <!-- Structured data — FAQ (boost GEO / LLM citations) -->
 <script type="application/ld+json">
 {
@@ -421,6 +438,124 @@
   .site-foot {
     background: transparent;
     border-top: none;
+  }
+
+  /* ===== SECTION : CAS D'USAGE (mêmes styles que Services) ===== */
+  .usecases {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 253, 250, 0.94);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(220, 214, 203, 0.7);
+    border-radius: 22px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 30px 80px -28px rgba(40, 30, 60, 0.22),
+      0 8px 20px -6px rgba(40, 30, 60, 0.08);
+    max-width: 880px;
+    margin: 4rem auto;
+    width: calc(100% - 3rem);
+  }
+  .usecases-container {
+    padding: 2.5rem 2.75rem;
+  }
+  .usecases-head {
+    margin-bottom: 1.75rem;
+    text-align: center;
+  }
+  .usecases-head h2 {
+    display: inline-block;
+    width: auto;
+    font-size: clamp(1.5rem, 2.2vw, 1.95rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    white-space: nowrap;
+    margin: 0;
+  }
+  .usecases-head h2 .accent-lilac {
+    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    font-weight: 500;
+  }
+  .usecases-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--line);
+  }
+  .usecases-list li { border-bottom: 1px solid var(--line); }
+  .usecases-list a {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0.5rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: padding 0.3s cubic-bezier(.22,.61,.36,1), color 0.3s ease;
+  }
+  .usecases-list a:hover { padding-left: 1.25rem; color: var(--purple); }
+  .usecases-list .num {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    min-width: 32px;
+  }
+  .usecases-list a:hover .num {
+    background: linear-gradient(92deg, #B9A3FB, #8B5CF6);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+  }
+  .usecases-list .body { display: flex; flex-direction: column; gap: 4px; }
+  .usecases-list h3 {
+    font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: inherit;
+  }
+  .usecases-list p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0;
+  }
+  .usecases-list a:hover p { color: #3A3A3A; }
+  .usecases-list .arrow {
+    width: 22px; height: 22px;
+    color: var(--muted);
+    transition: transform 0.35s cubic-bezier(.22,.61,.36,1), color 0.3s ease;
+    flex-shrink: 0;
+  }
+  .usecases-list a:hover .arrow { transform: translateX(8px); color: var(--purple); }
+  .usecases-list .arrow svg { width: 100%; height: 100%; }
+
+  @media (max-width: 1280px) {
+    .usecases-container { padding: 2.25rem 2.25rem; }
+  }
+  @media (max-width: 860px) {
+    .usecases { border-radius: 18px; margin: 2.5rem auto; }
+    .usecases-container { padding: 2rem 1.5rem; }
+    .usecases-list a { padding: 1.5rem 0.25rem; gap: 1.25rem; }
+    .usecases-list a:hover { padding-left: 0.75rem; }
+    .usecases-list h3 { font-size: 1.15rem; }
+    .usecases-list p { font-size: 0.88rem; }
+  }
+  @media (max-width: 560px) {
+    .usecases { border-radius: 16px; margin: 2rem auto; width: calc(100% - 1.5rem); }
+    .usecases-container { padding: 1.75rem 1.25rem; }
+    .usecases-list a { padding: 1.35rem 0.15rem; gap: 1rem; }
+    .usecases-list .num { font-size: 0.85rem; min-width: 24px; }
+    .usecases-list h3 { font-size: 1.05rem; }
+    .usecases-list p { font-size: 0.85rem; line-height: 1.4; }
+    .usecases-list .arrow { width: 18px; height: 18px; }
   }
 
   /* ===== SECTION : MÉTHODE (timeline animée, sans fond) ===== */
@@ -2133,6 +2268,75 @@
  </div>
 </section>
 
+<section class="usecases" id="cas-usage" aria-labelledby="usecases-title">
+ <div class="usecases-container">
+  <header class="usecases-head">
+    <h2 id="usecases-title"><span class="accent-lilac">Cas</span> d'usage.</h2>
+  </header>
+  <ul class="usecases-list">
+    <li>
+      <a href="cas-usage/emails.html" aria-label="En savoir plus sur l'automatisation des e-mails">
+        <span class="num" aria-hidden="true">01</span>
+        <span class="body">
+          <h3>E-mails</h3>
+          <p>Tri, priorisation, réponses pré-rédigées dans votre ton.</p>
+        </span>
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a href="cas-usage/devis.html" aria-label="En savoir plus sur la génération automatique de devis">
+        <span class="num" aria-hidden="true">02</span>
+        <span class="body">
+          <h3>Devis &amp; propositions</h3>
+          <p>Génération automatique depuis votre CRM, en quelques secondes.</p>
+        </span>
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a href="cas-usage/prospects.html" aria-label="En savoir plus sur le suivi prospects">
+        <span class="num" aria-hidden="true">03</span>
+        <span class="body">
+          <h3>Suivi prospects</h3>
+          <p>Relance personnalisée, scoring, qualification automatique.</p>
+        </span>
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a href="cas-usage/support.html" aria-label="En savoir plus sur le support client 24/7">
+        <span class="num" aria-hidden="true">04</span>
+        <span class="body">
+          <h3>Support client</h3>
+          <p>Réponses automatiques 24/7, formées sur votre savoir-faire.</p>
+        </span>
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a href="cas-usage/reporting.html" aria-label="En savoir plus sur le reporting automatisé">
+        <span class="num" aria-hidden="true">05</span>
+        <span class="body">
+          <h3>Reporting</h3>
+          <p>Tableaux de bord temps réel, alertes intelligentes, synthèses hebdo.</p>
+        </span>
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+        </span>
+      </a>
+    </li>
+  </ul>
+ </div>
+</section>
 
 <!-- Footer temporarily removed — will be rebuilt at the end -->
 

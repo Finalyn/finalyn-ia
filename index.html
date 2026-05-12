@@ -2582,14 +2582,7 @@
     var promptEl = document.getElementById('usecasePrompt');
     var activated = false;
 
-    window.ucSend = function (e) {
-      e.preventDefault();
-      var text = input.value.trim();
-      if (!text) return false;
-      if (!activated && stage) {
-        stage.classList.add('chat-active');
-        activated = true;
-      }
+    function runChat(text) {
       appendMsg('user', text);
       input.value = '';
       input.blur();
@@ -2597,7 +2590,21 @@
       setTimeout(function () {
         removeTyping();
         appendMsg('agent', getReply(text));
-      }, 1400 + Math.random() * 600);
+      }, 1500 + Math.random() * 500);
+    }
+
+    window.ucSend = function (e) {
+      e.preventDefault();
+      var text = input.value.trim();
+      if (!text) return false;
+      if (!activated && stage) {
+        stage.classList.add('chat-active');
+        activated = true;
+        // wait for chip fade-out before showing the user message
+        setTimeout(function () { runChat(text); }, 550);
+      } else {
+        runChat(text);
+      }
       return false;
     };
 

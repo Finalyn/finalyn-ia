@@ -2718,8 +2718,8 @@
         <input type="range" id="repsInput" min="1" max="100" step="1" value="5" aria-label="Répétitions par semaine" />
       </label>
       <label class="roi-input">
-        <span class="row"><span>Taux horaire</span><strong id="rateVal">80 CHF</strong></span>
-        <input type="range" id="rateInput" min="20" max="500" step="5" value="80" aria-label="Taux horaire en CHF" />
+        <span class="row"><span>Taux horaire</span><strong id="rateVal">80.-</strong></span>
+        <input type="range" id="rateInput" min="20" max="500" step="5" value="80" aria-label="Taux horaire" />
       </label>
     </div>
 
@@ -2734,14 +2734,14 @@
       <div class="roi-stat lilac">
         <span class="roi-num-row">
           <span class="roi-num" id="chfPerYear">10 400</span>
-          <span class="roi-unit">CHF</span>
+          <span class="roi-unit">.-</span>
         </span>
         <span class="roi-lbl">récupérés par an</span>
       </div>
       <div class="roi-mini">
         <span><strong id="hPerMonth">10.8</strong> h / mois</span>
         <span class="dot"></span>
-        <span><strong id="chfPerMonth">867</strong> CHF / mois</span>
+        <span><strong id="chfPerMonth">867</strong>.- / mois</span>
       </div>
     </div>
   </div>
@@ -2822,7 +2822,7 @@
 
       hoursVal.textContent = (h % 1 === 0 ? h.toFixed(0) : h.toFixed(1)) + ' h';
       repsVal.textContent  = r + (r > 1 ? ' fois' : ' fois');
-      rateVal.textContent  = fmt(rate) + ' CHF';
+      rateVal.textContent  = fmt(rate) + '.-';
 
       hPerYear.textContent   = fmt(hYear);
       chfPerYear.textContent = fmt(chfYear);

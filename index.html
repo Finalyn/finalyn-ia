@@ -153,6 +153,43 @@
 }
 </script>
 
+<!-- Structured data — HowTo (méthode de travail, boost GEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Comment finalyn.ia déploie une automatisation IA sur mesure",
+  "description": "La méthode finalyn.ia pour concevoir et déployer une automatisation IA dans une PME ou chez un indépendant suisse, en quatre étapes.",
+  "totalTime": "P14D",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Audit",
+      "text": "Comprendre vos processus métier, identifier les leviers d'automatisation à plus forte valeur."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Conception",
+      "text": "Concevoir la solution sur mesure, validée et co-construite avec vous."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Déploiement",
+      "text": "Mettre en place les automatisations directement dans votre environnement, sans rupture pour vos équipes."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Suivi",
+      "text": "Améliorer en continu, ajuster les workflows, accompagner sur le long terme."
+    }
+  ]
+}
+</script>
+
 <!-- Structured data — FAQ (boost GEO / LLM citations) -->
 <script type="application/ld+json">
 {
@@ -401,41 +438,118 @@
     margin: 4rem auto;
     width: calc(100% - 3rem);
   }
-  /* Side image flanking the services bandeau */
-  .services-side-img {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 300px;
-    aspect-ratio: 4 / 3;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.5) inset,
-      0 24px 60px -22px rgba(40, 30, 60, 0.20),
-      0 6px 18px -6px rgba(40, 30, 60, 0.08);
-    pointer-events: none;
-  }
-  .services-side-img.left { left: -340px; }
-  .services-side-img.right { right: -340px; }
-  .services-side-img img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: saturate(0.8);
-  }
-  @media (max-width: 1280px) {
-    .services-side-img { width: 240px; }
-    .services-side-img.left { left: -270px; }
-    .services-side-img.right { right: -270px; }
-  }
-  @media (max-width: 1100px) {
-    .services-side-img { display: none; }
-  }
   /* Footer stays simple, also over the fixed bg */
   .site-foot {
     background: transparent;
     border-top: none;
+  }
+
+  /* ===== SECTION : MÉTHODE (timeline) ===== */
+  .method {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 253, 250, 0.94);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(220, 214, 203, 0.7);
+    border-radius: 22px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 30px 80px -28px rgba(40, 30, 60, 0.22),
+      0 8px 20px -6px rgba(40, 30, 60, 0.08);
+    max-width: 720px;
+    margin: 4rem auto;
+    width: calc(100% - 3rem);
+  }
+  .method-container {
+    padding: 2.5rem 2.75rem;
+  }
+  .method-head {
+    margin-bottom: 2rem;
+  }
+  .method-head h2 {
+    font-size: clamp(1.5rem, 2.2vw, 1.95rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .method-head h2 .accent-lilac {
+    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    font-weight: 500;
+  }
+  .method-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+  }
+  .method-list::before {
+    content: "";
+    position: absolute;
+    left: 17px;
+    top: 14px;
+    bottom: 14px;
+    width: 1px;
+    background: linear-gradient(180deg, rgba(139, 92, 246, 0.4) 0%, rgba(139, 92, 246, 0.15) 100%);
+  }
+  .method-list li {
+    position: relative;
+    padding: 1.1rem 0 1.1rem 3rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .method-list li:last-child { border-bottom: none; }
+  .method-list .step {
+    position: absolute;
+    left: 0;
+    top: 1.1rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--warm-white);
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--purple);
+    letter-spacing: -0.005em;
+    z-index: 1;
+  }
+  .method-list h3 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .method-list p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  @media (max-width: 860px) {
+    .method { border-radius: 18px; margin: 2.5rem auto; }
+    .method-container { padding: 2rem 1.5rem; }
+  }
+  @media (max-width: 560px) {
+    .method { border-radius: 16px; margin: 2rem auto; width: calc(100% - 1.5rem); }
+    .method-container { padding: 1.75rem 1.25rem; }
+    .method-list li { padding-left: 2.6rem; padding-top: 0.9rem; padding-bottom: 0.9rem; }
+    .method-list .step { width: 30px; height: 30px; font-size: 0.72rem; top: 0.9rem; }
+    .method-list::before { left: 14px; }
+    .method-list h3 { font-size: 1rem; }
+    .method-list p { font-size: 0.85rem; }
   }
 
   /* ----- LEFT ----- */
@@ -1926,7 +2040,6 @@
 </section>
 
 <section class="services" id="services" aria-labelledby="services-title">
- <figure class="services-side-img right" aria-hidden="true"><img src="services-img.jpg" alt="" /></figure>
  <div class="services-container">
   <header class="services-head">
     <h2 id="services-title">Ce que nous concevons <span class="accent-lilac">pour vous</span>.</h2>
@@ -1998,6 +2111,36 @@
       </a>
     </li>
   </ul>
+ </div>
+</section>
+
+<section class="method" id="methode" aria-labelledby="method-title">
+ <div class="method-container">
+  <header class="method-head">
+    <h2 id="method-title">Notre méthode, en <span class="accent-lilac">quatre temps</span>.</h2>
+  </header>
+  <ol class="method-list" itemscope itemtype="https://schema.org/HowTo">
+    <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+      <span class="step" aria-hidden="true">01</span>
+      <h3 itemprop="name">Audit</h3>
+      <p itemprop="text">Comprendre vos processus, identifier les leviers d'automatisation à plus forte valeur.</p>
+    </li>
+    <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+      <span class="step" aria-hidden="true">02</span>
+      <h3 itemprop="name">Conception</h3>
+      <p itemprop="text">Concevoir la solution sur mesure, validée et co-construite avec vous.</p>
+    </li>
+    <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+      <span class="step" aria-hidden="true">03</span>
+      <h3 itemprop="name">Déploiement</h3>
+      <p itemprop="text">Mettre en place les automatisations dans votre environnement, sans rupture.</p>
+    </li>
+    <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+      <span class="step" aria-hidden="true">04</span>
+      <h3 itemprop="name">Suivi</h3>
+      <p itemprop="text">Améliorer en continu, ajuster les workflows, accompagner sur le long terme.</p>
+    </li>
+  </ol>
  </div>
 </section>
 

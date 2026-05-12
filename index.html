@@ -447,7 +447,7 @@
     border-top: none;
   }
 
-  /* ===== SECTION : CAS D'USAGE (chat agent) ===== */
+  /* ===== SECTION : CAS D'USAGE (chips gravitent → suction → chat) ===== */
   .usecases {
     position: relative;
     z-index: 2;
@@ -458,6 +458,20 @@
   }
   .usecases-stage {
     position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+    min-height: 640px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: min-height 0.5s ease;
+  }
+  .usecases-stage.chat-active { min-height: 460px; }
+  .uc-center {
+    position: relative;
+    z-index: 2;
+    width: 100%;
     max-width: 760px;
     margin: 0 auto;
     display: flex;
@@ -467,6 +481,75 @@
   .usecases-head {
     text-align: center;
     margin-bottom: 2rem;
+    transition: margin-bottom 0.4s ease;
+  }
+  .usecases-stage.chat-active .usecases-head { margin-bottom: 1.25rem; }
+  .usecases-stage.chat-active .usecases-sub { display: none; }
+
+  /* Floating chips gravitate then get sucked into the prompt */
+  .float-chip {
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+    transform: rotate(var(--r, 0deg));
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--ink);
+    background: rgba(255, 253, 250, 0.94);
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    border: 1px solid rgba(220, 214, 203, 0.85);
+    border-radius: 999px;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    box-shadow: 0 6px 18px -8px rgba(40, 30, 60, 0.16);
+    transition:
+      top 0.65s cubic-bezier(.55,.05,.65,.9),
+      left 0.65s cubic-bezier(.55,.05,.65,.9),
+      transform 0.7s cubic-bezier(.55,.05,.65,.9),
+      opacity 0.5s ease,
+      color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    z-index: 1;
+    animation: chipDrift var(--drift, 8s) ease-in-out infinite;
+  }
+  .float-chip:nth-child(2n) { animation-delay: -2s; }
+  .float-chip:nth-child(3n) { animation-delay: -4s; --drift: 10s; }
+  .float-chip:nth-child(5n) { animation-delay: -1s; --drift: 9s; }
+  @keyframes chipDrift {
+    0%, 100% { transform: rotate(var(--r, 0deg)) translateY(0); }
+    50%      { transform: rotate(var(--r, 0deg)) translateY(-6px); }
+  }
+  .float-chip:hover {
+    color: var(--purple);
+    border-color: rgba(139, 92, 246, 0.45);
+    background: rgba(167, 139, 250, 0.08);
+    z-index: 3;
+    animation-play-state: paused;
+  }
+  /* Suction state: all chips fly toward center prompt and fade */
+  .usecases-stage.chat-active .float-chip {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(0.4) rotate(0deg) !important;
+    opacity: 0;
+    pointer-events: none;
+    animation: none;
+  }
+  .usecases-stage.chat-active .float-chip:nth-child(2) { transition-delay: 0.04s; }
+  .usecases-stage.chat-active .float-chip:nth-child(3) { transition-delay: 0.08s; }
+  .usecases-stage.chat-active .float-chip:nth-child(4) { transition-delay: 0.06s; }
+  .usecases-stage.chat-active .float-chip:nth-child(5) { transition-delay: 0.1s; }
+  .usecases-stage.chat-active .float-chip:nth-child(6) { transition-delay: 0.05s; }
+  .usecases-stage.chat-active .float-chip:nth-child(7) { transition-delay: 0.12s; }
+  .usecases-stage.chat-active .float-chip:nth-child(8) { transition-delay: 0.07s; }
+  .usecases-stage.chat-active .float-chip:nth-child(9) { transition-delay: 0.09s; }
+  .usecases-stage.chat-active .float-chip:nth-child(10){ transition-delay: 0.11s; }
+  .usecases-stage.chat-active .float-chip:nth-child(11){ transition-delay: 0.03s; }
+  .usecases-stage.chat-active .float-chip:nth-child(12){ transition-delay: 0.13s; }
+  @media (prefers-reduced-motion: reduce) {
+    .float-chip { animation: none; }
   }
   .usecases-head h2 {
     display: inline-block;
@@ -643,13 +726,17 @@
   .big-prompt button.send:hover { background: var(--purple); transform: translateX(1px); }
   .big-prompt button.send svg { width: 17px; height: 17px; }
 
+  @media (max-width: 1024px) {
+    .float-chip { font-size: 0.78rem; padding: 0.5rem 0.85rem; }
+  }
   @media (max-width: 860px) {
     .usecases { margin: 4rem auto 3rem; padding: 0 1.25rem; }
+    .usecases-stage { min-height: 0; }
+    .usecases-stage .float-chip { display: none; }
     .usecases-head { margin-bottom: 1.5rem; }
     .big-prompt input { font-size: 1rem; }
     .big-prompt { padding: 0.5rem 0.5rem 0.5rem 1.1rem; }
     .big-prompt button.send { width: 40px; height: 40px; }
-    .uc-suggestions button { font-size: 0.78rem; padding: 0.45rem 0.8rem; }
   }
   @media (max-width: 560px) {
     .usecases-head h2 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
@@ -2368,33 +2455,39 @@
 </section>
 
 <section class="usecases" id="cas-usage" aria-labelledby="usecases-title">
- <div class="usecases-stage">
-  <header class="usecases-head">
-    <h2 id="usecases-title">Imaginez. <span class="accent-lilac">Nous concevons.</span></h2>
-    <p class="usecases-sub">Décrivez votre besoin. Notre agent répond en quelques secondes.</p>
-  </header>
+ <div class="usecases-stage" id="ucStage">
+  <!-- Floating chips that gravitate around the prompt initially -->
+  <button type="button" class="float-chip" style="--x: 3%;  --y: 4%;  --r: -3deg;" data-prompt="Trier 50 e-mails par priorité chaque matin">Trier 50 e-mails par priorité chaque matin</button>
+  <button type="button" class="float-chip" style="--x: 60%; --y: 2%;  --r: 2deg;"  data-prompt="Générer un devis Bexio en 30 secondes">Générer un devis Bexio en 30 secondes</button>
+  <button type="button" class="float-chip" style="--x: 26%; --y: 14%; --r: -1deg;" data-prompt="Relancer un prospect après 7 jours sans réponse">Relancer un prospect après 7 jours sans réponse</button>
+  <button type="button" class="float-chip" style="--x: 78%; --y: 14%; --r: 3deg;"  data-prompt="Extraire les données d'un PDF de facture">Extraire les données d'un PDF de facture</button>
+  <button type="button" class="float-chip" style="--x: 6%;  --y: 26%; --r: 1deg;"  data-prompt="Envoyer un SMS de rappel 24 h avant un rendez-vous">Envoyer un SMS de rappel 24 h avant un RDV</button>
+  <button type="button" class="float-chip" style="--x: 70%; --y: 26%; --r: -2deg;" data-prompt="Synchroniser Google Calendar et Notion">Synchroniser Google Calendar et Notion</button>
 
-  <div class="uc-chat" id="ucChat" aria-live="polite"></div>
+  <button type="button" class="float-chip" style="--x: 4%;  --y: 70%; --r: 2deg;"  data-prompt="Résumer une réunion Zoom en 5 points">Résumer une réunion Zoom en 5 points</button>
+  <button type="button" class="float-chip" style="--x: 64%; --y: 70%; --r: -3deg;" data-prompt="Notifier Slack quand un lead remplit le formulaire">Notifier Slack quand un lead remplit le formulaire</button>
+  <button type="button" class="float-chip" style="--x: 22%; --y: 82%; --r: 1deg;"  data-prompt="Créer une facture depuis un e-mail entrant">Créer une facture depuis un e-mail entrant</button>
+  <button type="button" class="float-chip" style="--x: 58%; --y: 84%; --r: -1deg;" data-prompt="Détecter un client à risque de churn">Détecter un client à risque de churn</button>
+  <button type="button" class="float-chip" style="--x: 4%;  --y: 92%; --r: 3deg;"  data-prompt="Catégoriser mes dépenses par projet">Catégoriser mes dépenses par projet</button>
+  <button type="button" class="float-chip" style="--x: 72%; --y: 94%; --r: -2deg;" data-prompt="Convertir un appel téléphonique en note CRM">Convertir un appel en note CRM</button>
 
-  <form class="big-prompt" id="usecasePrompt" onsubmit="return ucSend(event);" aria-label="Décrivez votre cas d'usage">
-    <input type="text" id="usecaseInput" placeholder="Ex : trier mes e-mails clients chaque matin…" aria-label="Décrivez votre besoin" autocomplete="off" />
-    <button type="submit" class="send" aria-label="Envoyer">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="12" y1="19" x2="12" y2="5"></line>
-        <polyline points="5 12 12 5 19 12"></polyline>
-      </svg>
-    </button>
-  </form>
+  <div class="uc-center">
+    <header class="usecases-head">
+      <h2 id="usecases-title">Imaginez. <span class="accent-lilac">Nous concevons.</span></h2>
+      <p class="usecases-sub">Décrivez votre besoin. Notre agent répond en quelques secondes.</p>
+    </header>
 
-  <div class="uc-suggestions" role="list" aria-label="Suggestions de cas d'usage">
-    <button type="button" data-prompt="Trier mes e-mails clients chaque matin">Trier mes e-mails</button>
-    <button type="button" data-prompt="Générer un devis depuis mon CRM">Générer un devis</button>
-    <button type="button" data-prompt="Relancer un prospect après 7 jours sans réponse">Relancer un prospect</button>
-    <button type="button" data-prompt="Résumer une réunion Zoom en 5 points">Résumer une réunion</button>
-    <button type="button" data-prompt="Synchroniser mes outils (CRM, e-mail, comptabilité)">Synchroniser mes outils</button>
-    <button type="button" data-prompt="Notifier mon équipe Slack à chaque nouveau lead">Notifier Slack</button>
-    <button type="button" data-prompt="Extraire les données d'un PDF de facture">Extraire un PDF</button>
-    <button type="button" data-prompt="Envoyer un SMS de rappel 24 h avant un rendez-vous">SMS de rappel</button>
+    <div class="uc-chat" id="ucChat" aria-live="polite"></div>
+
+    <form class="big-prompt" id="usecasePrompt" onsubmit="return ucSend(event);" aria-label="Décrivez votre cas d'usage">
+      <input type="text" id="usecaseInput" placeholder="Ex : trier mes e-mails clients chaque matin…" aria-label="Décrivez votre besoin" autocomplete="off" />
+      <button type="submit" class="send" aria-label="Envoyer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="19" x2="12" y2="5"></line>
+          <polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+      </button>
+    </form>
   </div>
  </div>
 </section>
@@ -2498,10 +2591,18 @@
       if (t) t.remove();
     }
 
+    var stage = document.getElementById('ucStage');
+    var activated = false;
+
     window.ucSend = function (e) {
       e.preventDefault();
       var text = input.value.trim();
       if (!text) return false;
+      // First send: trigger suction animation on chips
+      if (!activated && stage) {
+        stage.classList.add('chat-active');
+        activated = true;
+      }
       appendMsg('user', text);
       input.value = '';
       input.blur();
@@ -2513,8 +2614,8 @@
       return false;
     };
 
-    // Quick suggestions
-    document.querySelectorAll('.uc-suggestions button').forEach(function (btn) {
+    // Floating chips → pre-fill + submit (triggers suction)
+    document.querySelectorAll('.float-chip').forEach(function (btn) {
       btn.addEventListener('click', function () {
         input.value = btn.getAttribute('data-prompt') || btn.textContent.trim();
         document.getElementById('usecasePrompt').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));

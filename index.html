@@ -171,20 +171,26 @@
     {
       "@type": "HowToStep",
       "position": 2,
-      "name": "Conception",
-      "text": "Concevoir la solution sur mesure, validée et co-construite avec vous."
+      "name": "Stratégie",
+      "text": "Définir le plan d'automatisation et prioriser les chantiers en fonction de l'impact attendu."
     },
     {
       "@type": "HowToStep",
       "position": 3,
-      "name": "Déploiement",
-      "text": "Mettre en place les automatisations directement dans votre environnement, sans rupture pour vos équipes."
+      "name": "Implémentation",
+      "text": "Mise en place des workflows, agents IA et intégrations dans votre environnement."
     },
     {
       "@type": "HowToStep",
       "position": 4,
-      "name": "Suivi",
-      "text": "Améliorer en continu, ajuster les workflows, accompagner sur le long terme."
+      "name": "Tests",
+      "text": "Vérification de chaque automatisation, gestion des cas limites et optimisation des performances."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Déploiement",
+      "text": "Mise en production, formation des équipes, monitoring et suivi continu."
     }
   ]
 }
@@ -421,6 +427,22 @@
     height: 100vh;
     width: 100%;
   }
+  /* Wrapper that places Services + Method side by side */
+  .services-method {
+    position: relative;
+    z-index: 2;
+    max-width: 1240px;
+    margin: 4rem auto;
+    width: calc(100% - 3rem);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  @media (max-width: 1024px) {
+    .services-method { grid-template-columns: 1fr; }
+  }
+
   /* Thin centered "bandeau" that floats over the fixed bg */
   .services {
     position: relative;
@@ -434,9 +456,7 @@
       0 1px 0 rgba(255,255,255,0.6) inset,
       0 30px 80px -28px rgba(40, 30, 60, 0.22),
       0 8px 20px -6px rgba(40, 30, 60, 0.08);
-    max-width: 720px;
-    margin: 4rem auto;
-    width: calc(100% - 3rem);
+    margin: 0;
   }
   /* Footer stays simple, also over the fixed bg */
   .site-foot {
@@ -444,7 +464,7 @@
     border-top: none;
   }
 
-  /* ===== SECTION : MÉTHODE (timeline) ===== */
+  /* ===== SECTION : MÉTHODE (timeline animée) ===== */
   .method {
     position: relative;
     z-index: 2;
@@ -457,16 +477,12 @@
       0 1px 0 rgba(255,255,255,0.6) inset,
       0 30px 80px -28px rgba(40, 30, 60, 0.22),
       0 8px 20px -6px rgba(40, 30, 60, 0.08);
-    max-width: 720px;
-    margin: 4rem auto;
-    width: calc(100% - 3rem);
+    margin: 0;
   }
   .method-container {
     padding: 2.5rem 2.75rem;
   }
-  .method-head {
-    margin-bottom: 2rem;
-  }
+  .method-head { margin-bottom: 1.5rem; }
   .method-head h2 {
     font-size: clamp(1.5rem, 2.2vw, 1.95rem);
     font-weight: 500;
@@ -484,72 +500,119 @@
     color: transparent;
     font-weight: 500;
   }
+
   .method-list {
     list-style: none;
     padding: 0;
     margin: 0;
     position: relative;
   }
+  /* Connecting vertical line */
   .method-list::before {
     content: "";
     position: absolute;
-    left: 17px;
-    top: 14px;
-    bottom: 14px;
+    left: 24px;
+    top: 24px;
+    bottom: 24px;
     width: 1px;
-    background: linear-gradient(180deg, rgba(139, 92, 246, 0.4) 0%, rgba(139, 92, 246, 0.15) 100%);
+    background: var(--line);
+    z-index: 0;
   }
+  /* Animated lilac line that grows on scroll */
+  .method-list::after {
+    content: "";
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    width: 1px;
+    height: 0;
+    background: linear-gradient(180deg, rgba(139,92,246,0.85), rgba(139,92,246,0.35));
+    transition: height 0.9s cubic-bezier(.22,.61,.36,1);
+    z-index: 1;
+  }
+  .method-list.in-view::after { height: calc(100% - 48px); }
+
   .method-list li {
     position: relative;
-    padding: 1.1rem 0 1.1rem 3rem;
-    border-bottom: 1px solid var(--line);
+    padding: 0.7rem 0 0.7rem 4rem;
+    min-height: 70px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.22,.61,.36,1);
   }
-  .method-list li:last-child { border-bottom: none; }
+  .method-list li:nth-child(1) { transition-delay: 0.05s; }
+  .method-list li:nth-child(2) { transition-delay: 0.18s; }
+  .method-list li:nth-child(3) { transition-delay: 0.32s; }
+  .method-list li:nth-child(4) { transition-delay: 0.46s; }
+  .method-list li:nth-child(5) { transition-delay: 0.60s; }
+  .method-list.in-view li { opacity: 1; transform: translateY(0); }
+
   .method-list .step {
     position: absolute;
     left: 0;
-    top: 1.1rem;
-    width: 36px;
-    height: 36px;
+    top: 0.5rem;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    background: var(--warm-white);
-    border: 1px solid rgba(139, 92, 246, 0.35);
+    background: linear-gradient(160deg, rgba(167,139,250,0.18), rgba(167,139,250,0.06));
+    border: 1px solid rgba(139, 92, 246, 0.28);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.78rem;
-    font-weight: 500;
     color: var(--purple);
-    letter-spacing: -0.005em;
-    z-index: 1;
+    z-index: 2;
   }
+  .method-list .step svg { width: 22px; height: 22px; }
+  .method-list .step .badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--purple);
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 3px rgba(255, 253, 250, 0.95);
+  }
+
   .method-list h3 {
     font-size: 1.05rem;
     font-weight: 500;
     color: var(--ink);
     letter-spacing: -0.015em;
     line-height: 1.2;
+    margin-top: 6px;
     margin-bottom: 4px;
   }
   .method-list p {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     line-height: 1.5;
     color: var(--muted);
     margin: 0;
   }
 
   @media (max-width: 860px) {
-    .method { border-radius: 18px; margin: 2.5rem auto; }
+    .method { border-radius: 18px; }
     .method-container { padding: 2rem 1.5rem; }
   }
   @media (max-width: 560px) {
-    .method { border-radius: 16px; margin: 2rem auto; width: calc(100% - 1.5rem); }
+    .method { border-radius: 16px; }
     .method-container { padding: 1.75rem 1.25rem; }
-    .method-list li { padding-left: 2.6rem; padding-top: 0.9rem; padding-bottom: 0.9rem; }
-    .method-list .step { width: 30px; height: 30px; font-size: 0.72rem; top: 0.9rem; }
-    .method-list::before { left: 14px; }
+    .method-list li { padding-left: 3.5rem; }
+    .method-list .step { width: 42px; height: 42px; }
+    .method-list .step svg { width: 19px; height: 19px; }
+    .method-list::before, .method-list::after { left: 21px; }
     .method-list h3 { font-size: 1rem; }
     .method-list p { font-size: 0.85rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .method-list li { opacity: 1; transform: none; transition: none; }
+    .method-list::after { transition: none; height: calc(100% - 48px); }
   }
 
   /* ----- LEFT ----- */
@@ -2039,6 +2102,7 @@
 
 </section>
 
+<div class="services-method">
 <section class="services" id="services" aria-labelledby="services-title">
  <div class="services-container">
   <header class="services-head">
@@ -2117,32 +2181,53 @@
 <section class="method" id="methode" aria-labelledby="method-title">
  <div class="method-container">
   <header class="method-head">
-    <h2 id="method-title">Notre méthode, en <span class="accent-lilac">quatre temps</span>.</h2>
+    <h2 id="method-title">Notre <span class="accent-lilac">méthode</span>.</h2>
   </header>
-  <ol class="method-list" itemscope itemtype="https://schema.org/HowTo">
+  <ol class="method-list" id="methodList" itemscope itemtype="https://schema.org/HowTo">
     <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
-      <span class="step" aria-hidden="true">01</span>
+      <span class="step" aria-hidden="true">
+        <span class="badge">1</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </span>
       <h3 itemprop="name">Audit</h3>
-      <p itemprop="text">Comprendre vos processus, identifier les leviers d'automatisation à plus forte valeur.</p>
+      <p itemprop="text">Comprendre vos processus, identifier les leviers à plus forte valeur.</p>
     </li>
     <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
-      <span class="step" aria-hidden="true">02</span>
-      <h3 itemprop="name">Conception</h3>
-      <p itemprop="text">Concevoir la solution sur mesure, validée et co-construite avec vous.</p>
+      <span class="step" aria-hidden="true">
+        <span class="badge">2</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+      </span>
+      <h3 itemprop="name">Stratégie</h3>
+      <p itemprop="text">Définir le plan d'automatisation et prioriser les chantiers.</p>
     </li>
     <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
-      <span class="step" aria-hidden="true">03</span>
+      <span class="step" aria-hidden="true">
+        <span class="badge">3</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+      </span>
+      <h3 itemprop="name">Implémentation</h3>
+      <p itemprop="text">Mise en place des workflows, agents IA et intégrations.</p>
+    </li>
+    <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+      <span class="step" aria-hidden="true">
+        <span class="badge">4</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6v6l3 3v9H6v-9l3-3z"></path><line x1="9" y1="14" x2="15" y2="14"></line></svg>
+      </span>
+      <h3 itemprop="name">Tests</h3>
+      <p itemprop="text">Vérification, gestion des cas limites, optimisation des performances.</p>
+    </li>
+    <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+      <span class="step" aria-hidden="true">
+        <span class="badge">5</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
+      </span>
       <h3 itemprop="name">Déploiement</h3>
-      <p itemprop="text">Mettre en place les automatisations dans votre environnement, sans rupture.</p>
-    </li>
-    <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
-      <span class="step" aria-hidden="true">04</span>
-      <h3 itemprop="name">Suivi</h3>
-      <p itemprop="text">Améliorer en continu, ajuster les workflows, accompagner sur le long terme.</p>
+      <p itemprop="text">Mise en production, formation des équipes, suivi continu.</p>
     </li>
   </ol>
  </div>
 </section>
+</div>
 
 <!-- Footer temporarily removed — will be rebuilt at the end -->
 
@@ -2176,6 +2261,24 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') close();
     });
+  })();
+
+  // Reveal method timeline on scroll
+  (function () {
+    var list = document.getElementById('methodList');
+    if (!list || typeof IntersectionObserver === 'undefined') {
+      if (list) list.classList.add('in-view');
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          list.classList.add('in-view');
+          io.unobserve(list);
+        }
+      });
+    }, { threshold: 0.2 });
+    io.observe(list);
   })();
 
   // Align photo stage top/bottom with text content (title top → prompt-hint bottom)

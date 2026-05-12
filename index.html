@@ -370,9 +370,22 @@
 
   /* ===== HERO ===== */
   .hero {
-    position: relative;
+    position: sticky;
+    top: 0;
     height: 100vh;
     width: 100%;
+    z-index: 1;
+    overflow: hidden;
+  }
+  /* Section that follows lifts over the sticky hero */
+  .services {
+    position: relative;
+    z-index: 2;
+    background: var(--warm-white);
+    box-shadow: 0 -24px 60px -24px rgba(40, 30, 60, 0.18);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero { position: relative; }
   }
 
   /* ----- LEFT ----- */

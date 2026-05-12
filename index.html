@@ -2691,8 +2691,8 @@
   <div class="roi-grid">
     <div class="roi-inputs" role="group" aria-label="Paramètres du calcul">
       <label class="roi-input">
-        <span class="row"><span>Temps gagné par tâche</span><strong id="hoursVal">30 min</strong></span>
-        <input type="range" id="hoursInput" min="5" max="600" step="5" value="30" aria-label="Temps gagné par tâche" />
+        <span class="row"><span>Heures gagnées par tâche</span><strong id="hoursVal">0.5 h</strong></span>
+        <input type="range" id="hoursInput" min="0.1" max="10" step="0.1" value="0.5" aria-label="Heures gagnées par tâche" />
       </label>
       <label class="roi-input">
         <span class="row"><span>Répétitions par semaine</span><strong id="repsVal">5 fois</strong></span>
@@ -2796,16 +2796,8 @@
       var r = Math.round(n * 10) / 10;
       return r.toLocaleString('fr-CH', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     }
-    function formatTime(min) {
-      if (min < 60) return min + ' min';
-      var h = Math.floor(min / 60);
-      var m = min % 60;
-      return m === 0 ? h + ' h' : h + ' h ' + m;
-    }
-
     function update() {
-      var minPerTask = parseInt(hoursInput.value, 10);
-      var h = minPerTask / 60;
+      var h = parseFloat(hoursInput.value);
       var r = parseInt(repsInput.value, 10);
       var rate = parseInt(rateInput.value, 10);
       var p = peopleInput ? parseInt(peopleInput.value, 10) : 1;
@@ -2816,7 +2808,7 @@
       var chfMonth = hMonth * rate;
       var chfYear  = hYear * rate;
 
-      hoursVal.textContent = formatTime(minPerTask);
+      hoursVal.textContent = (h % 1 === 0 ? h.toFixed(0) : h.toFixed(1)) + ' h';
       repsVal.textContent  = r + ' fois';
       rateVal.textContent  = fmt(rate) + '.-';
       if (peopleVal) peopleVal.textContent = p + (p > 1 ? ' personnes' : ' personne');

@@ -153,6 +153,49 @@
 }
 </script>
 
+<!-- Structured data — Audit IA gratuit (offre dédiée, boost SEO/GEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://finalyn.com/#audit",
+  "name": "Audit IA gratuit",
+  "alternateName": ["Audit automatisation gratuit", "Diagnostic IA gratuit Suisse", "Audit digital PME"],
+  "description": "Audit gratuit de 30 minutes pour les PME et indépendants en Suisse romande. Diagnostic complet des processus, identification des leviers d'automatisation à plus forte valeur, estimation chiffrée du ROI et roadmap personnalisée. Sans engagement.",
+  "provider": {"@id": "https://finalyn.com/#organization"},
+  "areaServed": [
+    {"@type": "Country", "name": "Suisse"},
+    {"@type": "AdministrativeArea", "name": "Suisse romande"}
+  ],
+  "audience": {
+    "@type": "BusinessAudience",
+    "audienceType": "PME et indépendants"
+  },
+  "serviceType": "Consultation IA",
+  "category": "AI Consulting",
+  "offers": {
+    "@type": "Offer",
+    "name": "Audit IA gratuit · 30 minutes en visio",
+    "price": "0",
+    "priceCurrency": "CHF",
+    "availability": "https://schema.org/InStock",
+    "businessFunction": "https://schema.org/ProvideService",
+    "validFrom": "2026-01-01",
+    "eligibleRegion": [
+      {"@type": "Country", "name": "Suisse"},
+      {"@type": "Country", "name": "France"}
+    ]
+  },
+  "hasPart": [
+    {"@type": "Thing", "name": "Diagnostic des processus métier"},
+    {"@type": "Thing", "name": "Identification des leviers d'automatisation"},
+    {"@type": "Thing", "name": "Estimation chiffrée du retour sur investissement (ROI)"},
+    {"@type": "Thing", "name": "Roadmap personnalisée 4-6 pages"}
+  ],
+  "termsOfService": "Sans engagement, réponse sous 24 heures"
+}
+</script>
+
 <!-- Structured data — Image principale (hero photo) -->
 <script type="application/ld+json">
 {
@@ -274,6 +317,22 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "finalyn.ia intègre les principales plateformes utilisées par les PME suisses : CRM (HubSpot, Pipedrive, Salesforce), messageries (Gmail, Outlook), comptabilité (Bexio, Sage, Pennylane), agendas (Google Calendar, Outlook Calendar), e-commerce (Shopify), via les outils d'automatisation n8n, Make et Zapier, ou via APIs et webhooks directs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment se déroule l'audit gratuit finalyn.ia ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'audit gratuit dure 30 minutes en visio. Il comprend un diagnostic complet de vos processus, l'identification des leviers d'automatisation à plus forte valeur, une estimation chiffrée du ROI (temps économisé et coût récupéré), et une roadmap personnalisée de 4 à 6 pages avec les priorités et les options techniques. Sans engagement, réponse sous 24 h."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'audit IA est-il vraiment gratuit ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. L'audit initial de finalyn.ia est entièrement gratuit, sans engagement. Il dure 30 minutes en visioconférence et permet de comprendre vos processus, repérer les automatisations possibles et chiffrer le potentiel. Aucune obligation de poursuivre."
       }
     },
     {
@@ -502,6 +561,145 @@
   .site-foot {
     background: transparent;
     border-top: none;
+  }
+
+  /* ===== SECTION : AUDIT GRATUIT ===== */
+  .audit {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 253, 250, 0.94);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(220, 214, 203, 0.7);
+    border-radius: 22px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 30px 80px -28px rgba(40, 30, 60, 0.22),
+      0 8px 20px -6px rgba(40, 30, 60, 0.08);
+    max-width: 1080px;
+    margin: 9rem auto 5rem;
+    width: calc(100% - 3rem);
+  }
+  .audit-container { padding: 3rem 3rem 2.5rem; }
+  .audit-head { text-align: center; margin-bottom: 2.5rem; max-width: 680px; margin-left: auto; margin-right: auto; }
+  .audit-head h2 {
+    display: inline-block;
+    font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .audit-head h2 .accent-lilac {
+    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    font-weight: 500;
+  }
+  .audit-head .audit-sub {
+    margin-top: 0.75rem;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    letter-spacing: -0.005em;
+  }
+
+  .audit-list {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem 2.5rem;
+  }
+  .audit-list li {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+  .audit-list .audit-num {
+    flex-shrink: 0;
+    font-size: 1.4rem;
+    font-weight: 400;
+    background: linear-gradient(92deg, #B9A3FB, #8B5CF6);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    padding-top: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .audit-list h3 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin: 0 0 0.4rem 0;
+  }
+  .audit-list p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .audit-cta {
+    margin-top: 2.75rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .audit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.85rem;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 0.98rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 24px -8px rgba(40, 30, 60, 0.3);
+  }
+  .audit-btn .label {
+    background: linear-gradient(90deg, #b8b8b8 0%, #d4d4d4 20%, #ffffff 45%, #ffffff 55%, #d4d4d4 80%, #b8b8b8 100%);
+    background-size: 400% 100%;
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    animation: labelSheen 6s linear infinite;
+  }
+  .audit-btn:hover {
+    background: var(--purple);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px -10px rgba(139, 92, 246, 0.45);
+  }
+  .audit-btn:hover .label { animation-duration: 2.5s; }
+  .audit-btn svg { width: 18px; height: 18px; }
+  .audit-note {
+    margin-top: 1rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+    letter-spacing: 0.005em;
+  }
+
+  @media (max-width: 860px) {
+    .audit { margin: 5rem auto 3rem; border-radius: 18px; }
+    .audit-container { padding: 2.25rem 1.5rem 1.75rem; }
+    .audit-head { margin-bottom: 2rem; }
+    .audit-list { grid-template-columns: 1fr; gap: 1.5rem; }
+    .audit-cta { margin-top: 2rem; padding-top: 1.5rem; }
+    .audit-btn { padding: 0.9rem 1.5rem; font-size: 0.92rem; }
+  }
+  @media (max-width: 560px) {
+    .audit { border-radius: 16px; width: calc(100% - 1.5rem); }
+    .audit-container { padding: 1.75rem 1.25rem 1.5rem; }
   }
 
   /* ===== SECTION : SÉCURITÉ & CONFORMITÉ — full-width bandeau ===== */
@@ -3033,6 +3231,57 @@
     </article>
   </div>
 
+ </div>
+</section>
+
+<section class="audit" id="audit" aria-labelledby="audit-title">
+ <div class="audit-container">
+  <header class="audit-head">
+    <h2 id="audit-title">Démarrons par un <span class="accent-lilac">audit gratuit</span>.</h2>
+    <p class="audit-sub">30 minutes en visio. Vous repartez avec un diagnostic clair, des leviers chiffrés et un plan d'action concret. Sans engagement.</p>
+  </header>
+
+  <ul class="audit-list">
+    <li>
+      <span class="audit-num">01</span>
+      <div>
+        <h3>Diagnostic de vos processus</h3>
+        <p>On cartographie ensemble votre quotidien : outils, tâches répétitives, points de friction.</p>
+      </div>
+    </li>
+    <li>
+      <span class="audit-num">02</span>
+      <div>
+        <h3>Identification des leviers</h3>
+        <p>On repère les automatisations à plus forte valeur, classées par effort et impact.</p>
+      </div>
+    </li>
+    <li>
+      <span class="audit-num">03</span>
+      <div>
+        <h3>Estimation du ROI</h3>
+        <p>Temps économisé, coût récupéré, délai d'implémentation : on chiffre concrètement chaque piste.</p>
+      </div>
+    </li>
+    <li>
+      <span class="audit-num">04</span>
+      <div>
+        <h3>Roadmap personnalisée</h3>
+        <p>Un document de 4 à 6 pages avec les priorités, les options techniques et les prochaines étapes.</p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="audit-cta">
+    <a href="#contact" class="audit-btn">
+      <span class="label">Réserver mon audit gratuit</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="13 6 19 12 13 18"></polyline>
+      </svg>
+    </a>
+    <p class="audit-note">30 min · En visio · Sans engagement · Réponse sous 24 h</p>
+  </div>
  </div>
 </section>
 

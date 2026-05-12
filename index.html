@@ -767,34 +767,17 @@
     padding: 2.5rem 2.75rem;
   }
   .services-head {
-    max-width: 720px;
-    margin-bottom: 2.5rem;
-  }
-  .services-head .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    font-size: 0.72rem;
-    font-weight: 500;
-    color: var(--muted);
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    margin-bottom: 1.25rem;
-  }
-  .services-head .eyebrow::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--purple);
-    margin-right: 12px;
-    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.16);
+    margin-bottom: 1.75rem;
   }
   .services-head h2 {
-    font-size: clamp(2rem, 3.6vw, 3rem);
-    font-weight: 400;
-    line-height: 1.1;
-    letter-spacing: -0.035em;
+    font-size: clamp(1.5rem, 2.2vw, 1.95rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
     color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* Compact list — 1 row per service */
@@ -1895,7 +1878,6 @@
 <section class="services" id="services" aria-labelledby="services-title">
  <div class="services-container">
   <header class="services-head">
-    <span class="eyebrow">Nos services</span>
     <h2 id="services-title">Ce que nous concevons pour vous.</h2>
   </header>
 

@@ -153,19 +153,26 @@
 }
 </script>
 
-<!-- Structured data — ItemList des cas d'usage (boost SEO/GEO) -->
+<!-- Structured data — ItemList des cas d'usage concrets (boost SEO/GEO) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "Cas d'usage finalyn.ia",
-  "description": "Exemples concrets d'automatisations IA déployées par finalyn.ia pour les PME et indépendants suisses.",
+  "name": "Cas d'usage concrets finalyn.ia",
+  "description": "Exemples concrets d'automatisations IA déployées par finalyn.ia pour les PME et indépendants en Suisse romande.",
   "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "Automatisation des e-mails", "description": "Tri, priorisation et réponses pré-rédigées pour libérer plusieurs heures par semaine."},
-    {"@type": "ListItem", "position": 2, "name": "Génération automatique de devis et propositions", "description": "Création de devis depuis le CRM en quelques secondes."},
-    {"@type": "ListItem", "position": 3, "name": "Suivi et relance des prospects", "description": "Relances personnalisées, scoring et qualification automatique."},
-    {"@type": "ListItem", "position": 4, "name": "Support client automatisé", "description": "Assistant IA disponible 24/7, formé sur le savoir-faire de l'entreprise."},
-    {"@type": "ListItem", "position": 5, "name": "Reporting et tableaux de bord", "description": "Synthèses automatiques en temps réel, alertes intelligentes."}
+    {"@type": "ListItem", "position": 1,  "name": "Trier 50 e-mails par priorité chaque matin"},
+    {"@type": "ListItem", "position": 2,  "name": "Générer un devis Bexio en 30 secondes"},
+    {"@type": "ListItem", "position": 3,  "name": "Relancer un prospect après 7 jours sans réponse"},
+    {"@type": "ListItem", "position": 4,  "name": "Extraire les données d'un PDF de facture"},
+    {"@type": "ListItem", "position": 5,  "name": "Envoyer un SMS de rappel 24 h avant un rendez-vous"},
+    {"@type": "ListItem", "position": 6,  "name": "Synchroniser Google Calendar et Notion"},
+    {"@type": "ListItem", "position": 7,  "name": "Résumer une réunion Zoom en 5 points"},
+    {"@type": "ListItem", "position": 8,  "name": "Notifier Slack quand un lead remplit le formulaire"},
+    {"@type": "ListItem", "position": 9,  "name": "Créer une facture depuis un e-mail entrant"},
+    {"@type": "ListItem", "position": 10, "name": "Détecter un client à risque de churn"},
+    {"@type": "ListItem", "position": 11, "name": "Catégoriser les dépenses par projet"},
+    {"@type": "ListItem", "position": 12, "name": "Convertir un appel téléphonique en note CRM"}
   ]
 }
 </script>
@@ -440,27 +447,31 @@
     border-top: none;
   }
 
-  /* ===== SECTION : CAS D'USAGE (chat + marquees) ===== */
+  /* ===== SECTION : CAS D'USAGE (prompt centré + chips flottants statiques) ===== */
   .usecases {
     position: relative;
     z-index: 2;
-    margin: 5rem auto 4rem;
-    padding: 0;
+    margin: 6rem auto 5rem;
+    padding: 0 2rem;
     width: 100%;
     max-width: 100%;
-    overflow: hidden;
   }
-  .usecases-container {
-    padding: 0;
+  .usecases-stage {
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+    min-height: 620px;
   }
   .usecases-head {
+    position: relative;
+    z-index: 2;
     text-align: center;
-    padding: 0 1.5rem;
-    margin-bottom: 2.5rem;
+    padding-top: 35%;
+    margin-bottom: 1.4rem;
   }
   .usecases-head h2 {
     display: inline-block;
-    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-size: clamp(1.8rem, 3vw, 2.7rem);
     font-weight: 400;
     line-height: 1.15;
     letter-spacing: -0.035em;
@@ -475,66 +486,43 @@
     font-weight: 400;
   }
   .usecases-head .usecases-sub {
-    margin-top: 0.85rem;
+    margin-top: 0.75rem;
     font-size: 0.95rem;
     color: var(--muted);
     letter-spacing: -0.005em;
   }
 
-  /* Marquees rows */
-  .marquee-rows {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    margin: 1.5rem 0;
-    mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
-  }
-  .marquee-row {
-    overflow: hidden;
-    display: flex;
-  }
-  .marquee-track {
-    display: flex;
-    gap: 0.6rem;
-    flex-shrink: 0;
-    animation: marqueeMove 60s linear infinite;
-    will-change: transform;
-  }
-  .marquee-row.reverse .marquee-track {
-    animation-direction: reverse;
-    animation-duration: 75s;
-  }
-  .marquee-row:nth-child(1) .marquee-track { animation-duration: 55s; }
-  .marquee-row:nth-child(2) .marquee-track { animation-duration: 72s; }
-  @keyframes marqueeMove {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-  .marquee-track button {
-    flex-shrink: 0;
+  /* Floating chips around — static, positioned with --x, --y, --r */
+  .float-chip {
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+    transform: rotate(var(--r, 0deg));
     font-family: inherit;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     color: var(--ink);
     background: rgba(255, 253, 250, 0.94);
-    backdrop-filter: blur(8px) saturate(140%);
-    -webkit-backdrop-filter: blur(8px) saturate(140%);
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
     border: 1px solid rgba(220, 214, 203, 0.85);
     border-radius: 999px;
-    padding: 0.65rem 1.15rem;
+    padding: 0.6rem 1rem;
     cursor: pointer;
     letter-spacing: -0.005em;
     white-space: nowrap;
-    box-shadow: 0 6px 18px -8px rgba(40, 30, 60, 0.12);
-    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 6px 18px -8px rgba(40, 30, 60, 0.16);
+    transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease, transform 0.35s cubic-bezier(.22,.61,.36,1);
+    z-index: 1;
   }
-  .marquee-track button:hover {
+  .float-chip:hover {
     color: var(--purple);
-    border-color: rgba(139, 92, 246, 0.4);
+    border-color: rgba(139, 92, 246, 0.45);
     background: rgba(167, 139, 250, 0.08);
-    transform: translateY(-1px);
+    transform: rotate(0deg) translateY(-2px);
+    z-index: 3;
   }
-  .marquee-row:hover .marquee-track { animation-play-state: paused; }
+
+  .usecases-mobile { display: none; }
 
   /* Big prompt centered */
   .big-prompt {
@@ -590,20 +578,37 @@
   .big-prompt button.send:hover { background: var(--purple); transform: translateX(1px); }
   .big-prompt button.send svg { width: 17px; height: 17px; }
 
+  @media (max-width: 1100px) {
+    .float-chip { font-size: 0.78rem; padding: 0.5rem 0.85rem; }
+    .usecases-stage { min-height: 560px; }
+  }
   @media (max-width: 860px) {
-    .usecases-head { margin-bottom: 1.75rem; }
-    .marquee-track button { font-size: 0.82rem; padding: 0.55rem 0.95rem; }
+    .usecases { margin: 4rem auto 3rem; padding: 0 1.25rem; }
+    .usecases-stage { min-height: 0; }
+    .usecases-stage .float-chip { display: none; }
+    .usecases-head { padding-top: 0; margin-bottom: 1.5rem; }
     .big-prompt input { font-size: 1rem; }
     .big-prompt { padding: 0.5rem 0.5rem 0.5rem 1.1rem; }
     .big-prompt button.send { width: 40px; height: 40px; }
+    .usecases-mobile {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 0.5rem; margin: 1.75rem auto 0; max-width: 720px; padding: 0 0.5rem;
+      list-style: none;
+    }
+    .usecases-mobile li {
+      font-size: 0.8rem;
+      color: var(--ink);
+      background: rgba(255, 253, 250, 0.94);
+      border: 1px solid rgba(220, 214, 203, 0.85);
+      border-radius: 999px;
+      padding: 0.5rem 0.9rem;
+      letter-spacing: -0.005em;
+    }
   }
   @media (max-width: 560px) {
     .usecases-head h2 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
-    .marquee-track button { font-size: 0.78rem; padding: 0.5rem 0.85rem; }
     .big-prompt { width: calc(100% - 2rem); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-track { animation: none; }
+    .usecases-mobile li { font-size: 0.76rem; padding: 0.45rem 0.8rem; }
   }
 
   /* ===== SECTION : MÉTHODE (timeline animée, sans fond) ===== */
@@ -2317,58 +2322,30 @@
 </section>
 
 <section class="usecases" id="cas-usage" aria-labelledby="usecases-title">
- <div class="usecases-container">
+ <div class="usecases-stage">
+  <!-- Floating chips around (concrete cases) -->
+  <button type="button" class="float-chip" style="--x: 4%;  --y: 6%;  --r: -3deg;">Trier 50 e-mails par priorité chaque matin</button>
+  <button type="button" class="float-chip" style="--x: 62%; --y: 2%;  --r: 2deg;">Générer un devis Bexio en 30 secondes</button>
+  <button type="button" class="float-chip" style="--x: 30%; --y: 12%; --r: -1deg;">Relancer un prospect après 7 jours sans réponse</button>
+  <button type="button" class="float-chip" style="--x: 78%; --y: 14%; --r: 3deg;">Extraire les données d'un PDF de facture</button>
+  <button type="button" class="float-chip" style="--x: 8%;  --y: 24%; --r: 1deg;">Envoyer un SMS de rappel 24 h avant un RDV</button>
+  <button type="button" class="float-chip" style="--x: 56%; --y: 28%; --r: -2deg;">Synchroniser Google Calendar et Notion</button>
+
+  <button type="button" class="float-chip" style="--x: 6%;  --y: 76%; --r: 2deg;">Résumer une réunion Zoom en 5 points</button>
+  <button type="button" class="float-chip" style="--x: 72%; --y: 72%; --r: -3deg;">Notifier Slack quand un lead remplit le formulaire</button>
+  <button type="button" class="float-chip" style="--x: 26%; --y: 84%; --r: 1deg;">Créer une facture depuis un e-mail entrant</button>
+  <button type="button" class="float-chip" style="--x: 58%; --y: 86%; --r: -1deg;">Détecter un client à risque de churn</button>
+  <button type="button" class="float-chip" style="--x: 4%;  --y: 92%; --r: 3deg;">Catégoriser mes dépenses par projet</button>
+  <button type="button" class="float-chip" style="--x: 78%; --y: 94%; --r: -2deg;">Convertir un appel en note CRM</button>
+
+  <!-- Center content -->
   <header class="usecases-head">
     <h2 id="usecases-title">Imaginez. <span class="accent-lilac">Nous concevons.</span></h2>
-    <p class="usecases-sub">Décrivez votre besoin ou inspirez-vous des cas ci-dessous.</p>
+    <p class="usecases-sub">Décrivez votre besoin ou cliquez sur un cas concret.</p>
   </header>
 
-  <div class="marquee-rows" aria-hidden="true">
-    <div class="marquee-row"><div class="marquee-track">
-      <button type="button">Trier mes e-mails clients</button>
-      <button type="button">Générer un devis depuis mon CRM</button>
-      <button type="button">Relancer mes prospects sans réponse</button>
-      <button type="button">Créer un rapport hebdomadaire</button>
-      <button type="button">Synchroniser Notion et Slack</button>
-      <button type="button">Programmer mes rendez-vous</button>
-      <button type="button">Onboarder un nouveau client</button>
-      <button type="button">Archiver mes factures</button>
-      <button type="button">Détecter un spam</button>
-      <button type="button">Trier mes e-mails clients</button>
-      <button type="button">Générer un devis depuis mon CRM</button>
-      <button type="button">Relancer mes prospects sans réponse</button>
-      <button type="button">Créer un rapport hebdomadaire</button>
-      <button type="button">Synchroniser Notion et Slack</button>
-      <button type="button">Programmer mes rendez-vous</button>
-      <button type="button">Onboarder un nouveau client</button>
-      <button type="button">Archiver mes factures</button>
-      <button type="button">Détecter un spam</button>
-    </div></div>
-
-    <div class="marquee-row reverse"><div class="marquee-track">
-      <button type="button">Personnaliser un message LinkedIn</button>
-      <button type="button">Suivre une commande</button>
-      <button type="button">Générer un compte-rendu</button>
-      <button type="button">Notifier en cas d'erreur</button>
-      <button type="button">Traduire un document</button>
-      <button type="button">Filtrer les leads entrants</button>
-      <button type="button">Envoyer un SMS de rappel</button>
-      <button type="button">Automatiser ma TVA</button>
-      <button type="button">Faire un suivi de paiement</button>
-      <button type="button">Personnaliser un message LinkedIn</button>
-      <button type="button">Suivre une commande</button>
-      <button type="button">Générer un compte-rendu</button>
-      <button type="button">Notifier en cas d'erreur</button>
-      <button type="button">Traduire un document</button>
-      <button type="button">Filtrer les leads entrants</button>
-      <button type="button">Envoyer un SMS de rappel</button>
-      <button type="button">Automatiser ma TVA</button>
-      <button type="button">Faire un suivi de paiement</button>
-    </div></div>
-  </div>
-
   <form class="big-prompt" id="usecasePrompt" onsubmit="event.preventDefault();" aria-label="Décrivez votre cas d'usage">
-    <input type="text" id="usecaseInput" placeholder="Décrivez votre besoin…" aria-label="Décrivez votre besoin" />
+    <input type="text" id="usecaseInput" placeholder="Ex : générer mes devis depuis Bexio…" aria-label="Décrivez votre besoin" />
     <button type="submit" class="send" aria-label="Envoyer">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="12" y1="19" x2="12" y2="5"></line>
@@ -2376,51 +2353,23 @@
       </svg>
     </button>
   </form>
-
-  <div class="marquee-rows" aria-hidden="true">
-    <div class="marquee-row"><div class="marquee-track">
-      <button type="button">Résumer une réunion</button>
-      <button type="button">Extraire les données d'un PDF</button>
-      <button type="button">Connecter HubSpot et Bexio</button>
-      <button type="button">Suivre les KPIs en temps réel</button>
-      <button type="button">Programmer une publication</button>
-      <button type="button">Envoyer un mail de bienvenue</button>
-      <button type="button">Tagger automatiquement les leads</button>
-      <button type="button">Mettre à jour un fichier Excel</button>
-      <button type="button">Convertir un PDF en données</button>
-      <button type="button">Résumer une réunion</button>
-      <button type="button">Extraire les données d'un PDF</button>
-      <button type="button">Connecter HubSpot et Bexio</button>
-      <button type="button">Suivre les KPIs en temps réel</button>
-      <button type="button">Programmer une publication</button>
-      <button type="button">Envoyer un mail de bienvenue</button>
-      <button type="button">Tagger automatiquement les leads</button>
-      <button type="button">Mettre à jour un fichier Excel</button>
-      <button type="button">Convertir un PDF en données</button>
-    </div></div>
-
-    <div class="marquee-row reverse"><div class="marquee-track">
-      <button type="button">Détecter un client à risque</button>
-      <button type="button">Scoring des prospects</button>
-      <button type="button">Auto-réponse hors bureau</button>
-      <button type="button">Envoyer une enquête de satisfaction</button>
-      <button type="button">Mettre à jour le CRM en continu</button>
-      <button type="button">Synchroniser mon calendrier</button>
-      <button type="button">Notifier sur Slack</button>
-      <button type="button">Faire un rapport mensuel</button>
-      <button type="button">Catégoriser mes dépenses</button>
-      <button type="button">Détecter un client à risque</button>
-      <button type="button">Scoring des prospects</button>
-      <button type="button">Auto-réponse hors bureau</button>
-      <button type="button">Envoyer une enquête de satisfaction</button>
-      <button type="button">Mettre à jour le CRM en continu</button>
-      <button type="button">Synchroniser mon calendrier</button>
-      <button type="button">Notifier sur Slack</button>
-      <button type="button">Faire un rapport mensuel</button>
-      <button type="button">Catégoriser mes dépenses</button>
-    </div></div>
-  </div>
  </div>
+
+ <!-- Mobile fallback list -->
+ <ul class="usecases-mobile" aria-label="Cas d'usage">
+  <li>Trier 50 e-mails par priorité chaque matin</li>
+  <li>Générer un devis Bexio en 30 secondes</li>
+  <li>Relancer un prospect après 7 jours sans réponse</li>
+  <li>Extraire les données d'un PDF de facture</li>
+  <li>Envoyer un SMS de rappel 24 h avant un RDV</li>
+  <li>Synchroniser Google Calendar et Notion</li>
+  <li>Résumer une réunion Zoom en 5 points</li>
+  <li>Notifier Slack quand un lead remplit le formulaire</li>
+  <li>Créer une facture depuis un e-mail entrant</li>
+  <li>Détecter un client à risque de churn</li>
+  <li>Catégoriser mes dépenses par projet</li>
+  <li>Convertir un appel en note CRM</li>
+ </ul>
 </section>
 
 <!-- Footer temporarily removed — will be rebuilt at the end -->
@@ -2457,15 +2406,12 @@
     });
   })();
 
-  // Marquee chips pre-fill the use case prompt
+  // Floating chips pre-fill the use case prompt
   (function () {
     var input = document.getElementById('usecaseInput');
-    var tracks = document.querySelectorAll('.marquee-track');
-    if (!input || !tracks.length) return;
-    tracks.forEach(function (track) {
-      track.addEventListener('click', function (e) {
-        var btn = e.target.closest('button');
-        if (!btn) return;
+    if (!input) return;
+    document.querySelectorAll('.float-chip').forEach(function (btn) {
+      btn.addEventListener('click', function () {
         input.value = btn.textContent.trim();
         input.focus();
         input.scrollIntoView({ behavior: 'smooth', block: 'center' });

@@ -178,10 +178,10 @@
     },
     {
       "@type": "Question",
-      "name": "Les données du client sont-elles utilisées pour entraîner des modèles d'IA ?",
+      "name": "Comment garantir que les données ne servent pas à entraîner des modèles d'IA ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Non. finalyn.ia utilise des modèles avec garanties contractuelles d'isolement des données (OpenAI API, Anthropic Claude, Mistral via offres entreprise). Les données du client ne servent jamais à entraîner des modèles tiers."
+        "text": "Trois niveaux sont proposés selon les exigences du client : (1) API standard avec offres entreprise et garanties contractuelles d'isolement (OpenAI, Anthropic Claude), (2) API avec zéro rétention de données négociée, (3) modèles open-source 100% locaux (Mistral, Llama) déployés sur l'infrastructure du client — aucune donnée ne quitte alors son périmètre. Le choix dépend des exigences réglementaires et du niveau de confidentialité requis."
       }
     }
   ]
@@ -2956,24 +2956,25 @@
  <div class="trust-container">
   <header class="trust-head">
     <span class="trust-eyebrow">● Sécurité &amp; conformité</span>
-    <h2 id="trust-title">Vos données restent <span class="accent-lilac">chez vous</span>.</h2>
-    <p class="trust-sub">Nous concevons chaque automatisation en partant d'un principe simple :<br>vos données, vos outils, votre savoir-faire ne sortent jamais de votre périmètre.</p>
+    <h2 id="trust-title">Vos données. <span class="accent-lilac">Vos règles.</span></h2>
+    <p class="trust-sub">Trois niveaux d'IA selon vos exigences de confidentialité — du cloud standard au 100 % local sur vos propres serveurs.<br>Vous choisissez ce qui convient à votre activité.</p>
   </header>
 
   <div class="trust-grid">
     <article class="trust-card">
       <span class="trust-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2L4 6v6c0 5 3.5 9.4 8 10 4.5-.6 8-5 8-10V6l-8-4z"></path>
-          <polyline points="9 12 11 14 15 10"></polyline>
+          <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
         </svg>
       </span>
-      <h3>Vos données restent chez vous</h3>
-      <p>Nous opérons directement dans votre environnement (CRM, e-mail, comptabilité). Aucune donnée n'est extraite, copiée ou stockée hors de votre infrastructure.</p>
+      <h3>Modèles IA 100 % locaux</h3>
+      <p>Pour les cas les plus sensibles, nous déployons des modèles open-source (Mistral, Llama) directement sur vos serveurs. Aucune donnée ne quitte votre infrastructure.</p>
       <ul class="trust-points">
-        <li>Connexion via APIs officielles &amp; OAuth</li>
-        <li>Pas de copie sur des serveurs intermédiaires</li>
-        <li>Vous gardez le contrôle total des accès</li>
+        <li>Self-hosted sur votre matériel ou cloud privé</li>
+        <li>Fonctionnement même hors-ligne possible</li>
+        <li>Idéal pour santé, finance, juridique</li>
       </ul>
     </article>
 
@@ -2985,29 +2986,12 @@
           <polyline points="9 14 11 16 15 12"></polyline>
         </svg>
       </span>
-      <h3>nLPD &amp; RGPD conformes</h3>
-      <p>Conforme à la nouvelle loi suisse sur la protection des données (nLPD) ainsi qu'au RGPD européen. Documentation contractuelle complète fournie pour chaque mission.</p>
+      <h3>Conformité nLPD &amp; RGPD</h3>
+      <p>Documentation contractuelle complète : accord de traitement des données (DPA), registre des sous-traitants et processus de gestion des droits utilisateurs.</p>
       <ul class="trust-points">
-        <li>DPA (Data Processing Agreement) systématique</li>
-        <li>Registre des traitements</li>
-        <li>Droit à l'effacement &amp; portabilité</li>
-      </ul>
-    </article>
-
-    <article class="trust-card">
-      <span class="trust-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="11" width="18" height="11" rx="2"></rect>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          <line x1="3" y1="3" x2="21" y2="21"></line>
-        </svg>
-      </span>
-      <h3>Aucun entraînement tiers</h3>
-      <p>Vos données ne servent jamais à entraîner des modèles externes. Nous utilisons exclusivement des offres entreprise avec isolement contractuel des données.</p>
-      <ul class="trust-points">
-        <li>OpenAI API (zéro rétention)</li>
-        <li>Anthropic Claude entreprise</li>
-        <li>Modèles open-source self-hosted possibles</li>
+        <li>DPA fourni pour chaque mission</li>
+        <li>Sous-traitants identifiés et documentés</li>
+        <li>Droits d'accès, rectification, effacement</li>
       </ul>
     </article>
 
@@ -3018,12 +3002,27 @@
           <circle cx="12" cy="10" r="3"></circle>
         </svg>
       </span>
-      <h3>Hébergement Suisse &amp; Europe</h3>
-      <p>Infrastructure choisie selon votre juridiction. Pour les workflows critiques, nous privilégions des fournisseurs avec serveurs en Suisse ou dans l'UE.</p>
+      <h3>Hébergement Suisse ou Europe</h3>
+      <p>Vous choisissez la juridiction. Pour les workflows critiques, nous configurons l'infrastructure chez des fournisseurs suisses ou européens uniquement.</p>
       <ul class="trust-points">
-        <li>Infomaniak, Exoscale (CH)</li>
-        <li>OVH, Scaleway (FR)</li>
-        <li>Schrems II compatible</li>
+        <li>Infomaniak, Exoscale (Suisse)</li>
+        <li>OVH, Scaleway (France)</li>
+        <li>Compatibilité avec votre cloud existant</li>
+      </ul>
+    </article>
+
+    <article class="trust-card">
+      <span class="trust-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 8h16M4 16h16M9 4v16M15 4v16"></path>
+        </svg>
+      </span>
+      <h3>Vos outils, vos accès</h3>
+      <p>Nous nous connectons à vos systèmes via APIs officielles et OAuth. Les clés d'accès restent dans votre coffre-fort. Vous gardez le contrôle, à tout moment.</p>
+      <ul class="trust-points">
+        <li>Aucune création de compte parallèle</li>
+        <li>Révocation possible en un clic</li>
+        <li>Aucune copie hors de votre périmètre</li>
       </ul>
     </article>
 
@@ -3035,12 +3034,12 @@
           <circle cx="12" cy="16" r="1"></circle>
         </svg>
       </span>
-      <h3>Chiffrement de bout en bout</h3>
-      <p>Toutes les communications et stockages temporaires sont chiffrés. Les clés d'API restent chez vous, dans votre coffre-fort de secrets.</p>
+      <h3>Chiffrement standard</h3>
+      <p>Toutes les communications et stockages temporaires sont chiffrés selon les standards de l'industrie. Aucun raccourci sur la sécurité technique.</p>
       <ul class="trust-points">
-        <li>TLS 1.3 en transit</li>
-        <li>AES-256 au repos</li>
-        <li>Secrets gérés via votre vault (1Password, Doppler)</li>
+        <li>TLS 1.3 pour toutes les communications</li>
+        <li>AES-256 pour les données au repos</li>
+        <li>Secrets isolés dans votre vault</li>
       </ul>
     </article>
 
@@ -3054,9 +3053,9 @@
         </svg>
       </span>
       <h3>Audit &amp; traçabilité</h3>
-      <p>Chaque action exécutée par un agent est journalisée. Vous pouvez auditer, rejouer ou annuler n'importe quelle opération à tout moment.</p>
+      <p>Chaque action exécutée par un agent est journalisée. Vous pouvez consulter, auditer ou annuler n'importe quelle opération à tout moment.</p>
       <ul class="trust-points">
-        <li>Logs horodatés et signés</li>
+        <li>Logs horodatés de toutes les actions</li>
         <li>Tableau de bord d'audit en temps réel</li>
         <li>Export pour vos contrôles internes</li>
       </ul>
@@ -3066,10 +3065,9 @@
   <div class="trust-foot">
     <span class="badge">nLPD</span>
     <span class="badge">RGPD</span>
-    <span class="badge">ISO 27001 compatible</span>
-    <span class="badge">SOC 2 ready</span>
-    <span class="badge">Schrems II</span>
     <span class="badge">Hébergement CH / EU</span>
+    <span class="badge">Self-hosted disponible</span>
+    <span class="badge">DPA contractuel</span>
   </div>
  </div>
 </section>

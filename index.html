@@ -2089,8 +2089,8 @@
 <nav class="nav">
   <div class="brand">finalyn<span class="ia">.ia</span></div>
   <nav class="nav-links" aria-label="Navigation principale">
-    <a href="#services">Services</a>
     <a href="#cas-usage">Cas d'usage</a>
+    <a href="#services">Services</a>
     <a href="#realisations">Réalisations</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -2102,8 +2102,8 @@
       </span>
     </button>
     <div class="menu-panel" id="menuPanel" role="menu">
-      <a href="#services" role="menuitem">Services</a>
       <a href="#cas-usage" role="menuitem">Cas d'usage</a>
+      <a href="#services" role="menuitem">Services</a>
       <a href="#realisations" role="menuitem">Réalisations</a>
       <a href="#contact" role="menuitem">Contact</a>
     </div>
@@ -2252,6 +2252,57 @@
 
 </section>
 
+<section class="usecases" id="cas-usage" aria-labelledby="usecases-title">
+ <div class="usecases-stage">
+  <!-- Floating chips around (concrete cases) -->
+  <button type="button" class="float-chip" style="--x: 3%;  --y: 4%;  --r: -3deg;">Trier 50 e-mails par priorité chaque matin</button>
+  <button type="button" class="float-chip" style="--x: 60%; --y: 2%;  --r: 2deg;">Générer un devis Bexio en 30 secondes</button>
+  <button type="button" class="float-chip" style="--x: 26%; --y: 14%; --r: -1deg;">Relancer un prospect après 7 jours sans réponse</button>
+  <button type="button" class="float-chip" style="--x: 78%; --y: 14%; --r: 3deg;">Extraire les données d'un PDF de facture</button>
+  <button type="button" class="float-chip" style="--x: 6%;  --y: 26%; --r: 1deg;">Envoyer un SMS de rappel 24 h avant un RDV</button>
+  <button type="button" class="float-chip" style="--x: 70%; --y: 26%; --r: -2deg;">Synchroniser Google Calendar et Notion</button>
+
+  <button type="button" class="float-chip" style="--x: 4%;  --y: 70%; --r: 2deg;">Résumer une réunion Zoom en 5 points</button>
+  <button type="button" class="float-chip" style="--x: 64%; --y: 70%; --r: -3deg;">Notifier Slack quand un lead remplit le formulaire</button>
+  <button type="button" class="float-chip" style="--x: 22%; --y: 82%; --r: 1deg;">Créer une facture depuis un e-mail entrant</button>
+  <button type="button" class="float-chip" style="--x: 58%; --y: 84%; --r: -1deg;">Détecter un client à risque de churn</button>
+  <button type="button" class="float-chip" style="--x: 4%;  --y: 92%; --r: 3deg;">Catégoriser mes dépenses par projet</button>
+  <button type="button" class="float-chip" style="--x: 72%; --y: 94%; --r: -2deg;">Convertir un appel en note CRM</button>
+
+  <!-- Center content -->
+  <header class="usecases-head">
+    <h2 id="usecases-title">Imaginez. <span class="accent-lilac">Nous concevons.</span></h2>
+    <p class="usecases-sub">Décrivez votre besoin ou cliquez sur un cas concret.</p>
+  </header>
+
+  <form class="big-prompt" id="usecasePrompt" onsubmit="event.preventDefault();" aria-label="Décrivez votre cas d'usage">
+    <input type="text" id="usecaseInput" placeholder="Ex : générer mes devis depuis Bexio…" aria-label="Décrivez votre besoin" />
+    <button type="submit" class="send" aria-label="Envoyer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="19" x2="12" y2="5"></line>
+        <polyline points="5 12 12 5 19 12"></polyline>
+      </svg>
+    </button>
+  </form>
+ </div>
+
+ <!-- Mobile fallback list -->
+ <ul class="usecases-mobile" aria-label="Cas d'usage">
+  <li>Trier 50 e-mails par priorité chaque matin</li>
+  <li>Générer un devis Bexio en 30 secondes</li>
+  <li>Relancer un prospect après 7 jours sans réponse</li>
+  <li>Extraire les données d'un PDF de facture</li>
+  <li>Envoyer un SMS de rappel 24 h avant un RDV</li>
+  <li>Synchroniser Google Calendar et Notion</li>
+  <li>Résumer une réunion Zoom en 5 points</li>
+  <li>Notifier Slack quand un lead remplit le formulaire</li>
+  <li>Créer une facture depuis un e-mail entrant</li>
+  <li>Détecter un client à risque de churn</li>
+  <li>Catégoriser mes dépenses par projet</li>
+  <li>Convertir un appel en note CRM</li>
+ </ul>
+</section>
+
 <section class="services" id="services" aria-labelledby="services-title">
  <div class="services-container">
   <header class="services-head">
@@ -2325,57 +2376,6 @@
     </li>
   </ul>
  </div>
-</section>
-
-<section class="usecases" id="cas-usage" aria-labelledby="usecases-title">
- <div class="usecases-stage">
-  <!-- Floating chips around (concrete cases) -->
-  <button type="button" class="float-chip" style="--x: 3%;  --y: 4%;  --r: -3deg;">Trier 50 e-mails par priorité chaque matin</button>
-  <button type="button" class="float-chip" style="--x: 60%; --y: 2%;  --r: 2deg;">Générer un devis Bexio en 30 secondes</button>
-  <button type="button" class="float-chip" style="--x: 26%; --y: 14%; --r: -1deg;">Relancer un prospect après 7 jours sans réponse</button>
-  <button type="button" class="float-chip" style="--x: 78%; --y: 14%; --r: 3deg;">Extraire les données d'un PDF de facture</button>
-  <button type="button" class="float-chip" style="--x: 6%;  --y: 26%; --r: 1deg;">Envoyer un SMS de rappel 24 h avant un RDV</button>
-  <button type="button" class="float-chip" style="--x: 70%; --y: 26%; --r: -2deg;">Synchroniser Google Calendar et Notion</button>
-
-  <button type="button" class="float-chip" style="--x: 4%;  --y: 70%; --r: 2deg;">Résumer une réunion Zoom en 5 points</button>
-  <button type="button" class="float-chip" style="--x: 64%; --y: 70%; --r: -3deg;">Notifier Slack quand un lead remplit le formulaire</button>
-  <button type="button" class="float-chip" style="--x: 22%; --y: 82%; --r: 1deg;">Créer une facture depuis un e-mail entrant</button>
-  <button type="button" class="float-chip" style="--x: 58%; --y: 84%; --r: -1deg;">Détecter un client à risque de churn</button>
-  <button type="button" class="float-chip" style="--x: 4%;  --y: 92%; --r: 3deg;">Catégoriser mes dépenses par projet</button>
-  <button type="button" class="float-chip" style="--x: 72%; --y: 94%; --r: -2deg;">Convertir un appel en note CRM</button>
-
-  <!-- Center content -->
-  <header class="usecases-head">
-    <h2 id="usecases-title">Imaginez. <span class="accent-lilac">Nous concevons.</span></h2>
-    <p class="usecases-sub">Décrivez votre besoin ou cliquez sur un cas concret.</p>
-  </header>
-
-  <form class="big-prompt" id="usecasePrompt" onsubmit="event.preventDefault();" aria-label="Décrivez votre cas d'usage">
-    <input type="text" id="usecaseInput" placeholder="Ex : générer mes devis depuis Bexio…" aria-label="Décrivez votre besoin" />
-    <button type="submit" class="send" aria-label="Envoyer">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="12" y1="19" x2="12" y2="5"></line>
-        <polyline points="5 12 12 5 19 12"></polyline>
-      </svg>
-    </button>
-  </form>
- </div>
-
- <!-- Mobile fallback list -->
- <ul class="usecases-mobile" aria-label="Cas d'usage">
-  <li>Trier 50 e-mails par priorité chaque matin</li>
-  <li>Générer un devis Bexio en 30 secondes</li>
-  <li>Relancer un prospect après 7 jours sans réponse</li>
-  <li>Extraire les données d'un PDF de facture</li>
-  <li>Envoyer un SMS de rappel 24 h avant un RDV</li>
-  <li>Synchroniser Google Calendar et Notion</li>
-  <li>Résumer une réunion Zoom en 5 points</li>
-  <li>Notifier Slack quand un lead remplit le formulaire</li>
-  <li>Créer une facture depuis un e-mail entrant</li>
-  <li>Détecter un client à risque de churn</li>
-  <li>Catégoriser mes dépenses par projet</li>
-  <li>Convertir un appel en note CRM</li>
- </ul>
 </section>
 
 <!-- Footer temporarily removed — will be rebuilt at the end -->

@@ -237,15 +237,13 @@
     scroll-behavior: smooth;
   }
   body {
-    background: var(--warm-white);
-  }
-  .hero {
     background-image:
       linear-gradient(90deg, rgba(250,248,244,0.85) 0%, rgba(250,248,244,0.55) 35%, rgba(250,248,244,0.15) 60%, rgba(250,248,244,0) 80%),
       url('hero-bg.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
   /* ===== NAV ===== */
@@ -370,24 +368,31 @@
 
   /* ===== HERO ===== */
   .hero {
-    position: sticky;
-    top: 0;
+    position: relative;
     height: 100vh;
     width: 100%;
-    z-index: 1;
-    overflow: hidden;
   }
-  /* Section that follows lifts over the sticky hero */
+  /* Thin centered "bandeau" that floats over the fixed bg */
   .services {
     position: relative;
     z-index: 2;
-    background: var(--warm-white);
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0 -24px 60px -24px rgba(40, 30, 60, 0.18);
-    width: 100%;
+    background: rgba(255, 253, 250, 0.94);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(220, 214, 203, 0.7);
+    border-radius: 22px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 30px 80px -28px rgba(40, 30, 60, 0.22),
+      0 8px 20px -6px rgba(40, 30, 60, 0.08);
+    max-width: 720px;
+    margin: 4rem auto;
+    width: calc(100% - 3rem);
   }
-  @media (prefers-reduced-motion: reduce) {
-    .hero { position: relative; }
+  /* Footer stays simple, also over the fixed bg */
+  .site-foot {
+    background: transparent;
+    border-top: none;
   }
 
   /* ----- LEFT ----- */
@@ -757,11 +762,9 @@
     .photo-tag { animation: none; }
   }
 
-  /* ===== SECTION : SERVICES ===== */
+  /* ===== SECTION : SERVICES (bandeau) ===== */
   .services-container {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 4rem 4.5rem 4rem 9rem;
+    padding: 2.5rem 2.75rem;
   }
   .services-head {
     max-width: 720px;
@@ -1539,13 +1542,13 @@
   /* Force title on 3 lines below 1280 */
   @media (max-width: 1280px) {
     h1 .rot-block { display: block; }
-    .services-container { padding: 3.5rem 3rem 3.5rem 5rem; }
+    .services-container { padding: 2.25rem 2.25rem; }
     .services-head { margin-bottom: 2rem; }
   }
 
   @media (max-width: 860px) {
-    .services { border-radius: 16px 16px 0 0; }
-    .services-container { padding: 3rem 2rem 3rem; }
+    .services { border-radius: 18px; margin: 2.5rem auto; }
+    .services-container { padding: 2rem 1.5rem; }
     .services-head { margin-bottom: 2.25rem; }
     .services-head h2 { font-size: clamp(1.9rem, 6vw, 2.4rem); }
     .services-list a { padding: 1.5rem 0.25rem; gap: 1.25rem; }
@@ -1554,8 +1557,8 @@
     .services-list p { font-size: 0.88rem; }
   }
   @media (max-width: 560px) {
-    .services { border-radius: 14px 14px 0 0; }
-    .services-container { padding: 2.5rem 1.25rem 2.5rem; }
+    .services { border-radius: 16px; margin: 2rem auto; width: calc(100% - 1.5rem); }
+    .services-container { padding: 1.75rem 1.25rem; }
     .services-list a { padding: 1.35rem 0.15rem; gap: 1rem; }
     .services-list .num { font-size: 0.85rem; min-width: 24px; }
     .services-list h3 { font-size: 1.05rem; }

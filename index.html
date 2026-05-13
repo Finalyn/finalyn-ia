@@ -624,7 +624,9 @@
   }
   .audit-head { text-align: center; margin-bottom: 2rem; max-width: 720px; margin-left: auto; margin-right: auto; }
   .audit-head .audit-badge {
-    display: inline-flex; align-items: center;
+    display: flex;
+    width: fit-content;
+    align-items: center;
     gap: 0.55rem;
     padding: 0.4rem 0.85rem;
     background: rgba(167,139,250,0.1);
@@ -635,7 +637,7 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--purple);
-    margin-bottom: 1.25rem;
+    margin: 0 auto 1.25rem;
   }
   .audit-head .audit-badge .dot {
     width: 6px; height: 6px;
@@ -643,7 +645,7 @@
     background: var(--purple);
   }
   .audit-head h2 {
-    display: inline-block;
+    display: block;
     font-size: clamp(1.7rem, 3vw, 2.4rem);
     font-weight: 400;
     line-height: 1.12;
@@ -708,10 +710,11 @@
   }
   .audit-form .submit-row {
     grid-column: 1 / -1;
-    display: flex; flex-wrap: wrap;
+    display: flex; flex-direction: column;
     justify-content: center; align-items: center;
-    gap: 1rem;
-    margin-top: 0.5rem;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    text-align: center;
   }
   .audit-btn {
     display: inline-flex;
@@ -807,7 +810,7 @@
     border-radius: 50%;
     background: #ffffff;
     border: 1px solid var(--line);
-    display: inline-flex; align-items: center; justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-size: 0.82rem;
     font-weight: 500;
     color: var(--muted);
@@ -830,7 +833,7 @@
     letter-spacing: -0.01em;
     line-height: 1.2;
     margin: 0 0 0.4rem 0;
-    display: inline-flex; align-items: center; flex-wrap: wrap; gap: 0.4rem;
+    display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem;
     justify-content: center;
   }
   .audit-timeline li.highlight h3 { color: var(--purple); }

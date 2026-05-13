@@ -153,6 +153,44 @@
 }
 </script>
 
+<!-- Structured data — HowTo : déroulé de la mission après l'audit (boost SEO/GEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Comment finalyn.ia déploie une automatisation IA, étape par étape",
+  "description": "Le déroulé complet d'une mission finalyn.ia : audit gratuit, conception sur mesure, implémentation dans votre environnement, suivi continu.",
+  "totalTime": "P28D",
+  "estimatedCost": {"@type": "MonetaryAmount", "currency": "CHF", "value": "0", "name": "Audit initial gratuit"},
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Audit gratuit",
+      "text": "30 minutes en visioconférence. Cartographie des processus, identification des leviers d'automatisation, estimation chiffrée du ROI. Audit entièrement gratuit, sans engagement."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Conception",
+      "text": "Conception de la solution sur mesure, validée avec le client avant toute phase de développement."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Implémentation",
+      "text": "Déploiement direct dans l'environnement du client (CRM, e-mail, comptabilité). Tests, ajustements et formation des équipes inclus."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Suivi continu",
+      "text": "Monitoring des automatisations en production, optimisations et évolutions sur le long terme."
+    }
+  ]
+}
+</script>
+
 <!-- Structured data — Audit IA gratuit (offre dédiée, boost SEO/GEO) -->
 <script type="application/ld+json">
 {
@@ -563,7 +601,7 @@
     border-top: none;
   }
 
-  /* ===== SECTION : AUDIT GRATUIT (composition éditoriale Swiss) ===== */
+  /* ===== SECTION : AUDIT + TIMELINE ===== */
   .audit {
     position: relative;
     z-index: 2;
@@ -584,8 +622,8 @@
   .audit-container {
     padding: 3.5rem 3.5rem 3rem;
     display: grid;
-    grid-template-columns: minmax(280px, 0.85fr) 1.15fr;
-    gap: 3rem;
+    grid-template-columns: minmax(280px, 0.78fr) 1.22fr;
+    gap: 3.5rem;
     align-items: stretch;
   }
   /* Left poster: giant "0.-" */
@@ -661,36 +699,88 @@
     letter-spacing: -0.005em;
   }
 
-  .audit-list {
+  /* Timeline inside audit section */
+  .audit-timeline {
     list-style: none;
     padding: 0; margin: 0 0 2rem 0;
-    border-top: 1px solid var(--line);
+    position: relative;
   }
-  .audit-list li {
-    display: grid;
-    grid-template-columns: 36px 1fr;
-    gap: 1.25rem;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--line);
-    align-items: baseline;
+  /* Connecting vertical line (background) */
+  .audit-timeline::before {
+    content: "";
+    position: absolute;
+    left: 17px;
+    top: 18px;
+    bottom: 18px;
+    width: 1px;
+    background: var(--line);
   }
-  .audit-list .audit-num {
-    font-size: 0.85rem;
+  /* Animated lilac line that grows on scroll */
+  .audit-timeline::after {
+    content: "";
+    position: absolute;
+    left: 17px;
+    top: 18px;
+    width: 1px;
+    height: 0;
+    background: linear-gradient(180deg, rgba(139,92,246,0.85), rgba(139,92,246,0.3));
+    transition: height 1s cubic-bezier(.22,.61,.36,1);
+  }
+  .audit-timeline.in-view::after { height: calc(100% - 36px); }
+  .audit-timeline li {
+    position: relative;
+    padding: 0.6rem 0 1.4rem 3rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.22,.61,.36,1);
+  }
+  .audit-timeline li:nth-child(1) { transition-delay: 0.05s; }
+  .audit-timeline li:nth-child(2) { transition-delay: 0.18s; }
+  .audit-timeline li:nth-child(3) { transition-delay: 0.32s; }
+  .audit-timeline li:nth-child(4) { transition-delay: 0.46s; }
+  .audit-timeline.in-view li { opacity: 1; transform: translateY(0); }
+  .audit-timeline .dot {
+    position: absolute;
+    left: 0; top: 0.5rem;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 253, 250, 0.95);
+    border: 1px solid var(--line);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.78rem;
     font-weight: 500;
     color: var(--muted);
-    letter-spacing: 0.06em;
+    letter-spacing: -0.005em;
     font-variant-numeric: tabular-nums;
+    z-index: 1;
+    transition: border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
   }
-  .audit-list .audit-content { display: flex; flex-direction: column; gap: 0.35rem; }
-  .audit-list h3 {
+  .audit-timeline li.highlight .dot {
+    border-color: rgba(139, 92, 246, 0.45);
+    color: var(--purple);
+    box-shadow: 0 4px 14px -4px rgba(139, 92, 246, 0.3);
+  }
+  .audit-timeline h3 {
     font-size: 1.05rem;
     font-weight: 500;
     color: var(--ink);
     letter-spacing: -0.015em;
     line-height: 1.2;
-    margin: 0;
+    margin: 0 0 0.35rem 0;
+    display: flex; align-items: center; flex-wrap: wrap; gap: 0.55rem;
   }
-  .audit-list p {
+  .audit-timeline h3 .pill {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--purple);
+    padding: 0.2rem 0.5rem;
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    border-radius: 999px;
+    background: rgba(167,139,250,0.08);
+  }
+  .audit-timeline p {
     font-size: 0.88rem;
     line-height: 1.5;
     color: var(--muted);
@@ -748,6 +838,15 @@
       flex-wrap: wrap; gap: 1rem;
     }
     .audit-poster .poster-num { margin: 0; }
+  }
+  @media (max-width: 560px) {
+    .audit-timeline li { padding-left: 2.6rem; }
+    .audit-timeline .dot { width: 30px; height: 30px; font-size: 0.7rem; }
+    .audit-timeline::before, .audit-timeline::after { left: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .audit-timeline li { opacity: 1; transform: none; transition: none; }
+    .audit-timeline::after { transition: none; height: calc(100% - 36px); }
   }
   @media (max-width: 860px) {
     .audit { margin: 5rem auto 3rem; border-radius: 18px; }
@@ -3308,38 +3407,30 @@
 
   <div class="audit-body">
     <header class="audit-head">
-      <h2 id="audit-title">Démarrons par un <span class="accent-lilac">audit</span>.</h2>
-      <p class="audit-sub">30 minutes en visio. Vous repartez avec un diagnostic clair, des leviers chiffrés et un plan d'action concret. Sans engagement.</p>
+      <h2 id="audit-title">Tout commence par un <span class="accent-lilac">audit gratuit</span>.</h2>
+      <p class="audit-sub">Puis chaque étape construit la suivante. De la première visio au déploiement, vous savez exactement où on en est.</p>
     </header>
 
-    <ol class="audit-list">
-      <li>
-        <span class="audit-num">01</span>
-        <div class="audit-content">
-          <h3>Diagnostic</h3>
-          <p>Cartographie de vos processus : outils, tâches répétitives, points de friction.</p>
-        </div>
+    <ol class="audit-timeline" id="auditTimeline" itemscope itemtype="https://schema.org/HowTo">
+      <li class="highlight" itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+        <span class="dot">01</span>
+        <h3 itemprop="name">Audit <span class="pill">0.- CHF</span></h3>
+        <p itemprop="text">30 min en visio. On cartographie vos processus, on identifie les leviers, on chiffre le potentiel.</p>
       </li>
-      <li>
-        <span class="audit-num">02</span>
-        <div class="audit-content">
-          <h3>Leviers d'automatisation</h3>
-          <p>Les automatisations à plus forte valeur, classées par effort et impact.</p>
-        </div>
+      <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+        <span class="dot">02</span>
+        <h3 itemprop="name">Conception</h3>
+        <p itemprop="text">Solution sur mesure, validée avec vous avant tout développement.</p>
       </li>
-      <li>
-        <span class="audit-num">03</span>
-        <div class="audit-content">
-          <h3>Estimation du ROI</h3>
-          <p>Temps économisé, coût récupéré, délai d'implémentation — chiffrés.</p>
-        </div>
+      <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+        <span class="dot">03</span>
+        <h3 itemprop="name">Implémentation</h3>
+        <p itemprop="text">Déploiement direct dans votre environnement. Tests, ajustements, formation.</p>
       </li>
-      <li>
-        <span class="audit-num">04</span>
-        <div class="audit-content">
-          <h3>Roadmap personnalisée</h3>
-          <p>Document de 4 à 6 pages : priorités, options techniques, prochaines étapes.</p>
-        </div>
+      <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+        <span class="dot">04</span>
+        <h3 itemprop="name">Suivi continu</h3>
+        <p itemprop="text">Monitoring, optimisation et évolutions sur le long terme.</p>
       </li>
     </ol>
 
@@ -3389,6 +3480,24 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') close();
     });
+  })();
+
+  // Reveal audit timeline on scroll
+  (function () {
+    var list = document.getElementById('auditTimeline');
+    if (!list || typeof IntersectionObserver === 'undefined') {
+      if (list) list.classList.add('in-view');
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          list.classList.add('in-view');
+          io.unobserve(list);
+        }
+      });
+    }, { threshold: 0.2 });
+    io.observe(list);
   })();
 
   // ROI calculator (time saved)

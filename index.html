@@ -742,85 +742,123 @@
     letter-spacing: 0.005em;
   }
 
-  /* Right side: giant "01" + line + first step */
+  /* Right side: vertical timeline with current step highlighted */
   .audit-step {
     position: relative;
-    padding-left: 1rem;
+    padding-left: 2.25rem;
   }
-  .audit-step .step-num {
-    display: flex;
+  /* Vertical line (background) */
+  .audit-step::before {
+    content: "";
+    position: absolute;
+    left: 0.5rem;
+    top: 0.3rem;
+    bottom: 0.3rem;
+    width: 1px;
+    background: var(--line);
+  }
+  /* Animated vertical line that grows on scroll */
+  .audit-step::after {
+    content: "";
+    position: absolute;
+    left: 0.5rem;
+    top: 0.3rem;
+    width: 1px;
+    height: 0;
+    background: rgba(139,92,246,0.6);
+    transition: height 1.1s cubic-bezier(.22,.61,.36,1) 0.15s;
+  }
+  .audit-step.in-view::after { height: calc(100% - 0.6rem); }
+
+  .audit-step .step-eyebrow {
+    display: inline-flex;
     align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    gap: 0.55rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--purple);
   }
-  .audit-step .step-num .num {
-    font-size: clamp(5rem, 9vw, 8.5rem);
-    font-weight: 200;
-    line-height: 0.85;
-    letter-spacing: -0.06em;
-    background: linear-gradient(180deg, #1a1a1a 0%, #1a1a1a 55%, #8B5CF6 100%);
+  .audit-step .step-eyebrow::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 0.45rem;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--purple);
+    box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.2);
+  }
+  .audit-step h3 {
+    font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0 0 0.85rem 0;
+  }
+  .audit-step h3 .accent {
+    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
-    font-feature-settings: "tnum";
   }
-  .audit-step .step-num .line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, rgba(139,92,246,0.55), rgba(139,92,246,0.1));
-    transform-origin: left;
-    transform: scaleX(0);
-    transition: transform 1s cubic-bezier(.22,.61,.36,1) 0.2s;
-  }
-  .audit-step.in-view .step-num .line { transform: scaleX(1); }
-  .audit-step h3 {
-    font-size: 1.35rem;
-    font-weight: 500;
-    color: var(--ink);
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    margin: 0 0 0.65rem 0;
-    display: inline-flex; align-items: center; flex-wrap: wrap; gap: 0.55rem;
-  }
-  .audit-step h3 .pill {
-    font-size: 0.66rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--purple);
-    padding: 0.22rem 0.55rem;
-    border: 1px solid rgba(139, 92, 246, 0.35);
-    border-radius: 999px;
-    background: rgba(167,139,250,0.08);
-  }
-  .audit-step p {
-    font-size: 0.95rem;
+  .audit-step > p {
+    font-size: 0.98rem;
     line-height: 1.6;
-    color: var(--muted);
-    margin: 0 0 0.85rem 0;
-    max-width: 380px;
+    color: var(--ink-soft);
+    margin: 0 0 1.75rem 0;
+    max-width: 420px;
   }
-  .audit-step .step-next {
-    margin-top: 1.5rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
+  .audit-step .step-list {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex; flex-direction: column;
+    gap: 0.9rem;
+    position: relative;
   }
-  .audit-step .step-next span { color: var(--ink-soft); margin: 0 0.55rem; }
-  .audit-step .step-next span:first-of-type { margin-left: 0.85rem; }
+  .audit-step .step-list li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0.6rem;
+    align-items: baseline;
+  }
+  .audit-step .step-list li::before {
+    content: "";
+    position: absolute;
+    left: -1.75rem;
+    top: 0.55rem;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid var(--line);
+  }
+  .audit-step .step-list .num {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+  }
+  .audit-step .step-list .lbl {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    letter-spacing: -0.005em;
+  }
 
   @media (max-width: 860px) {
     .audit { margin: 5rem auto 3rem; }
     .audit-container { grid-template-columns: 1fr; gap: 2.5rem; padding: 0 0.25rem; }
-    .audit-step { padding-left: 0; }
-    .audit-step .step-num .num { font-size: clamp(4rem, 18vw, 6rem); }
+    .audit-step { padding-left: 2rem; }
   }
   @media (max-width: 560px) {
     .audit { width: calc(100% - 1.5rem); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .audit-step .step-num .line { transition: none; transform: scaleX(1); }
+    .audit-step::after { transition: none; height: calc(100% - 0.6rem); }
   }
 
   /* ===== SECTION : SÉCURITÉ & CONFORMITÉ — full-width bandeau ===== */
@@ -3387,15 +3425,16 @@
     </form>
   </div>
 
-  <!-- Right: giant "01" + line + first step -->
+  <!-- Right: vertical line with current step + next steps -->
   <aside class="audit-step" id="auditStep" itemscope itemtype="https://schema.org/HowToStep">
-    <div class="step-num">
-      <span class="num" aria-hidden="true">01</span>
-      <span class="line" aria-hidden="true"></span>
-    </div>
-    <h3 itemprop="name">Audit <span class="pill">Première étape</span></h3>
+    <span class="step-eyebrow">1<sup>ère</sup> étape</span>
+    <h3 itemprop="name"><span class="accent">Audit gratuit</span></h3>
     <p itemprop="text">30 minutes en visio. On cartographie vos processus, on identifie les leviers d'automatisation, et on chiffre concrètement le potentiel.</p>
-    <p class="step-next">Puis<span>02</span>Conception<span>03</span>Implémentation<span>04</span>Suivi</p>
+    <ul class="step-list" aria-label="Étapes suivantes">
+      <li><span class="num">02</span><span class="lbl">Conception sur mesure</span></li>
+      <li><span class="num">03</span><span class="lbl">Implémentation</span></li>
+      <li><span class="num">04</span><span class="lbl">Suivi continu</span></li>
+    </ul>
   </aside>
 
  </div>

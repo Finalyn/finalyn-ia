@@ -563,7 +563,7 @@
     border-top: none;
   }
 
-  /* ===== SECTION : AUDIT GRATUIT ===== */
+  /* ===== SECTION : AUDIT GRATUIT (composition éditoriale Swiss) ===== */
   .audit {
     position: relative;
     z-index: 2;
@@ -576,37 +576,73 @@
       0 1px 0 rgba(255,255,255,0.6) inset,
       0 30px 80px -28px rgba(40, 30, 60, 0.22),
       0 8px 20px -6px rgba(40, 30, 60, 0.08);
-    max-width: 1080px;
+    max-width: 1180px;
     margin: 9rem auto 5rem;
     width: calc(100% - 3rem);
+    overflow: hidden;
   }
-  .audit-container { padding: 3rem 3rem 2.5rem; }
-  .audit-head { text-align: center; margin-bottom: 2.5rem; max-width: 680px; margin-left: auto; margin-right: auto; }
-  .audit-head .audit-badge {
-    display: inline-flex; align-items: center;
-    gap: 0.55rem;
-    padding: 0.4rem 0.85rem;
-    background: rgba(167,139,250,0.1);
-    border: 1px solid rgba(139,92,246,0.3);
-    border-radius: 999px;
+  .audit-container {
+    padding: 3.5rem 3.5rem 3rem;
+    display: grid;
+    grid-template-columns: minmax(280px, 0.85fr) 1.15fr;
+    gap: 3rem;
+    align-items: stretch;
+  }
+  /* Left poster: giant "0.-" */
+  .audit-poster {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-right: 3rem;
+    border-right: 1px solid var(--line);
+  }
+  .audit-poster .poster-eyebrow {
     font-size: 0.72rem;
     font-weight: 500;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--purple);
-    margin-bottom: 1.25rem;
+    color: var(--muted);
   }
-  .audit-head .audit-badge .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--purple);
+  .audit-poster .poster-num {
+    display: block;
+    font-size: clamp(6rem, 12vw, 12rem);
+    font-weight: 200;
+    line-height: 0.85;
+    letter-spacing: -0.06em;
+    background: linear-gradient(180deg, #1a1a1a 0%, #1a1a1a 55%, #8B5CF6 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    margin: 1.25rem 0;
+    font-feature-settings: "tnum";
   }
-  .audit-head h2 {
-    display: inline-block;
-    font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+  .audit-poster .poster-meta {
+    display: flex; flex-wrap: wrap;
+    gap: 0.55rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
     font-weight: 500;
-    line-height: 1.15;
-    letter-spacing: -0.025em;
+  }
+  .audit-poster .poster-meta .sep {
+    color: var(--purple);
+    opacity: 0.7;
+  }
+
+  /* Right body */
+  .audit-body {
+    display: flex;
+    flex-direction: column;
+  }
+  .audit-head { text-align: left; margin: 0 0 2rem 0; max-width: none; }
+  .audit-head h2 {
+    display: block;
+    font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
     color: var(--ink);
     margin: 0;
   }
@@ -615,61 +651,57 @@
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
-    font-weight: 500;
+    font-weight: 400;
   }
   .audit-head .audit-sub {
-    margin-top: 0.75rem;
+    margin-top: 0.85rem;
     font-size: 0.98rem;
     line-height: 1.6;
-    color: var(--ink-soft);
+    color: var(--muted);
     letter-spacing: -0.005em;
   }
 
   .audit-list {
     list-style: none;
-    padding: 0; margin: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.75rem 2.5rem;
+    padding: 0; margin: 0 0 2rem 0;
+    border-top: 1px solid var(--line);
   }
   .audit-list li {
-    display: flex;
+    display: grid;
+    grid-template-columns: 36px 1fr;
     gap: 1.25rem;
-    align-items: flex-start;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
   }
   .audit-list .audit-num {
-    flex-shrink: 0;
-    font-size: 1.4rem;
-    font-weight: 400;
-    background: linear-gradient(92deg, #B9A3FB, #8B5CF6);
-    -webkit-background-clip: text;
-            background-clip: text;
-    color: transparent;
-    letter-spacing: -0.02em;
-    line-height: 1;
-    padding-top: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.06em;
     font-variant-numeric: tabular-nums;
   }
+  .audit-list .audit-content { display: flex; flex-direction: column; gap: 0.35rem; }
   .audit-list h3 {
     font-size: 1.05rem;
     font-weight: 500;
     color: var(--ink);
     letter-spacing: -0.015em;
     line-height: 1.2;
-    margin: 0 0 0.4rem 0;
+    margin: 0;
   }
   .audit-list p {
-    font-size: 0.9rem;
-    line-height: 1.55;
+    font-size: 0.88rem;
+    line-height: 1.5;
     color: var(--muted);
     margin: 0;
   }
 
   .audit-cta {
-    margin-top: 2.75rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--line);
-    text-align: center;
+    margin-top: auto;
+    display: flex; flex-direction: column;
+    gap: 0.7rem;
+    align-items: flex-start;
   }
   .audit-btn {
     display: inline-flex;
@@ -702,18 +734,25 @@
   .audit-btn:hover .label { animation-duration: 2.5s; }
   .audit-btn svg { width: 18px; height: 18px; }
   .audit-note {
-    margin-top: 1rem;
     font-size: 0.82rem;
     color: var(--muted);
     letter-spacing: 0.005em;
   }
 
+  @media (max-width: 1024px) {
+    .audit-container { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 2.5rem 2.5rem; }
+    .audit-poster {
+      padding-right: 0; padding-bottom: 2rem;
+      border-right: none; border-bottom: 1px solid var(--line);
+      flex-direction: row; align-items: baseline; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .audit-poster .poster-num { margin: 0; }
+  }
   @media (max-width: 860px) {
     .audit { margin: 5rem auto 3rem; border-radius: 18px; }
     .audit-container { padding: 2.25rem 1.5rem 1.75rem; }
-    .audit-head { margin-bottom: 2rem; }
-    .audit-list { grid-template-columns: 1fr; gap: 1.5rem; }
-    .audit-cta { margin-top: 2rem; padding-top: 1.5rem; }
+    .audit-poster .poster-num { font-size: clamp(4.5rem, 22vw, 8rem); }
     .audit-btn { padding: 0.9rem 1.5rem; font-size: 0.92rem; }
   }
   @media (max-width: 560px) {
@@ -3255,52 +3294,65 @@
 
 <section class="audit" id="audit" aria-labelledby="audit-title">
  <div class="audit-container">
-  <header class="audit-head">
-    <span class="audit-badge"><span class="dot"></span>Audit · 0.- CHF</span>
-    <h2 id="audit-title">Démarrons par un <span class="accent-lilac">audit gratuit</span>.</h2>
-    <p class="audit-sub">30 minutes en visio. Vous repartez avec un diagnostic clair, des leviers chiffrés et un plan d'action concret. Sans engagement.</p>
-  </header>
+  <aside class="audit-poster" aria-hidden="true">
+    <span class="poster-eyebrow">Audit gratuit</span>
+    <span class="poster-num">0.-</span>
+    <div class="poster-meta">
+      <span>CHF</span>
+      <span class="sep">·</span>
+      <span>30 min</span>
+      <span class="sep">·</span>
+      <span>En visio</span>
+    </div>
+  </aside>
 
-  <ul class="audit-list">
-    <li>
-      <span class="audit-num">01</span>
-      <div>
-        <h3>Diagnostic de vos processus</h3>
-        <p>On cartographie ensemble votre quotidien : outils, tâches répétitives, points de friction.</p>
-      </div>
-    </li>
-    <li>
-      <span class="audit-num">02</span>
-      <div>
-        <h3>Identification des leviers</h3>
-        <p>On repère les automatisations à plus forte valeur, classées par effort et impact.</p>
-      </div>
-    </li>
-    <li>
-      <span class="audit-num">03</span>
-      <div>
-        <h3>Estimation du ROI</h3>
-        <p>Temps économisé, coût récupéré, délai d'implémentation : on chiffre concrètement chaque piste.</p>
-      </div>
-    </li>
-    <li>
-      <span class="audit-num">04</span>
-      <div>
-        <h3>Roadmap personnalisée</h3>
-        <p>Un document de 4 à 6 pages avec les priorités, les options techniques et les prochaines étapes.</p>
-      </div>
-    </li>
-  </ul>
+  <div class="audit-body">
+    <header class="audit-head">
+      <h2 id="audit-title">Démarrons par un <span class="accent-lilac">audit</span>.</h2>
+      <p class="audit-sub">30 minutes en visio. Vous repartez avec un diagnostic clair, des leviers chiffrés et un plan d'action concret. Sans engagement.</p>
+    </header>
 
-  <div class="audit-cta">
-    <a href="#contact" class="audit-btn">
-      <span class="label">Réserver mon audit gratuit</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <line x1="5" y1="12" x2="19" y2="12"></line>
-        <polyline points="13 6 19 12 13 18"></polyline>
-      </svg>
-    </a>
-    <p class="audit-note">30 min · En visio · Sans engagement · Réponse sous 24 h</p>
+    <ol class="audit-list">
+      <li>
+        <span class="audit-num">01</span>
+        <div class="audit-content">
+          <h3>Diagnostic</h3>
+          <p>Cartographie de vos processus : outils, tâches répétitives, points de friction.</p>
+        </div>
+      </li>
+      <li>
+        <span class="audit-num">02</span>
+        <div class="audit-content">
+          <h3>Leviers d'automatisation</h3>
+          <p>Les automatisations à plus forte valeur, classées par effort et impact.</p>
+        </div>
+      </li>
+      <li>
+        <span class="audit-num">03</span>
+        <div class="audit-content">
+          <h3>Estimation du ROI</h3>
+          <p>Temps économisé, coût récupéré, délai d'implémentation — chiffrés.</p>
+        </div>
+      </li>
+      <li>
+        <span class="audit-num">04</span>
+        <div class="audit-content">
+          <h3>Roadmap personnalisée</h3>
+          <p>Document de 4 à 6 pages : priorités, options techniques, prochaines étapes.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="audit-cta">
+      <a href="#contact" class="audit-btn">
+        <span class="label">Réserver mon audit</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="13 6 19 12 13 18"></polyline>
+        </svg>
+      </a>
+      <p class="audit-note">Sans engagement · Réponse sous 24 h</p>
+    </div>
   </div>
  </div>
 </section>

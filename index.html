@@ -2673,9 +2673,90 @@
     .trust-map { height: auto; width: 160%; }
   }
   @media (max-width: 560px) {
-    .trust-container { padding: 2.5rem 1.25rem 2rem; }
+    .trust-container { padding: 2.5rem 0 2rem; }
+    .trust-head { padding: 0 1.25rem; }
     .trust-head h2 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
+    .trust-foot { margin-left: 1.25rem; margin-right: 1.25rem; }
+
+    /* Carrousel horizontal — scroll-snap + auto-scroll JS */
+    .trust-grid {
+      display: flex;
+      grid-template-columns: none;
+      gap: 0.85rem;
+      padding: 0.5rem 1.25rem;
+      margin: 0 -1.25rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-padding-left: 1.25rem;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+    }
+    .trust-grid::-webkit-scrollbar { display: none; }
+
+    .trust-card {
+      position: relative;
+      flex: 0 0 78vw;
+      max-width: 320px;
+      min-height: 230px;
+      padding: 1.4rem 1.3rem 1.5rem;
+      background: rgba(255, 253, 250, 0.85);
+      border: 1px solid rgba(220, 214, 203, 0.7);
+      border-radius: 20px;
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+      overflow: hidden;
+      box-shadow: 0 4px 18px -8px rgba(40, 30, 60, 0.08);
+    }
+
+    /* Carte suisse en filigrane sur chaque carte (haut-droite) */
+    .trust-card::before {
+      content: "";
+      position: absolute;
+      top: -22px;
+      right: -42px;
+      width: 170px;
+      height: 170px;
+      background-image: url('swiss.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      opacity: 0.07;
+      color: var(--purple);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .trust-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Pagination dots sous le carrousel */
+    .trust-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.45rem;
+      margin: 1.1rem 0 0;
+      padding: 0 1.25rem;
+    }
+    .trust-dots button {
+      width: 6px; height: 6px;
+      padding: 0;
+      border: none;
+      border-radius: 999px;
+      background: rgba(40, 30, 60, 0.2);
+      cursor: pointer;
+      transition: background 0.25s ease, width 0.25s ease;
+    }
+    .trust-dots button.is-active {
+      width: 18px;
+      background: var(--purple);
+    }
   }
+  /* Le carrousel reste un grid au-dessus de 560px : on cache les dots */
+  .trust-dots { display: none; }
 
   /* ===== SECTION : CALCULATEUR DE TEMPS GAGNÉ ===== */
   .roi {
@@ -5133,7 +5214,7 @@
     <p class="trust-sub">Trois niveaux d'IA selon vos exigences de confidentialité : du cloud standard au 100 % local sur vos propres ordinateurs ou serveurs.<br>Vous choisissez ce qui convient à votre activité.</p>
   </header>
 
-  <div class="trust-grid">
+  <div class="trust-grid" id="trustGrid">
     <article class="trust-card">
 <h3>Modèles IA 100 % locaux</h3>
       <p>Pour les cas les plus sensibles, nous déployons des modèles open-source (Mistral, Llama) directement sur vos ordinateurs, vos serveurs ou votre cloud privé. Aucune donnée ne quitte votre infrastructure.</p>
@@ -5194,6 +5275,8 @@
       </ul>
     </article>
   </div>
+
+  <div class="trust-dots" id="trustDots" aria-hidden="true"></div>
 
  </div>
 </section>
@@ -5993,6 +6076,119 @@
 
     // Kick off after a brief delay
     setTimeout(function () { setTyping(false); setTimeout(erase, HOLD_FULL); }, 900);
+  })();
+
+  // Trust cards carousel (mobile only) — auto-scroll + manual swipe + dots
+  (function () {
+    var grid = document.getElementById('trustGrid');
+    var dotsWrap = document.getElementById('trustDots');
+    if (!grid || !dotsWrap) return;
+
+    var cards = grid.querySelectorAll('.trust-card');
+    if (!cards.length) return;
+
+    var MOBILE_MQ = window.matchMedia('(max-width: 560px)');
+    var REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var AUTO_INTERVAL = 4500;
+    var RESUME_DELAY = 5000;
+    var autoTimer = null;
+    var resumeTimer = null;
+    var paused = false;
+    var dots = [];
+
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      dots = [];
+      for (var i = 0; i < cards.length; i++) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', 'Carte ' + (i + 1));
+        (function (idx) {
+          b.addEventListener('click', function () { goTo(idx); pauseTemporarily(); });
+        })(i);
+        dotsWrap.appendChild(b);
+        dots.push(b);
+      }
+      updateActiveDot(0);
+    }
+
+    function currentIndex() {
+      var center = grid.scrollLeft + grid.clientWidth / 2;
+      var best = 0, bestDist = Infinity;
+      for (var i = 0; i < cards.length; i++) {
+        var c = cards[i];
+        var mid = c.offsetLeft + c.offsetWidth / 2;
+        var d = Math.abs(mid - center);
+        if (d < bestDist) { bestDist = d; best = i; }
+      }
+      return best;
+    }
+
+    function updateActiveDot(idx) {
+      for (var i = 0; i < dots.length; i++) {
+        dots[i].classList.toggle('is-active', i === idx);
+      }
+    }
+
+    function goTo(idx) {
+      var c = cards[idx];
+      if (!c) return;
+      var target = c.offsetLeft - (grid.clientWidth - c.offsetWidth) / 2;
+      grid.scrollTo({ left: target, behavior: 'smooth' });
+    }
+
+    function advance() {
+      var idx = currentIndex();
+      var next = (idx + 1) % cards.length;
+      goTo(next);
+    }
+
+    function startAuto() {
+      if (REDUCED_MOTION.matches || !MOBILE_MQ.matches || paused) return;
+      stopAuto();
+      autoTimer = setInterval(advance, AUTO_INTERVAL);
+    }
+    function stopAuto() {
+      if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+    }
+    function pauseTemporarily() {
+      paused = true;
+      stopAuto();
+      if (resumeTimer) clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(function () { paused = false; startAuto(); }, RESUME_DELAY);
+    }
+
+    grid.addEventListener('scroll', function () {
+      updateActiveDot(currentIndex());
+    }, { passive: true });
+
+    grid.addEventListener('touchstart', pauseTemporarily, { passive: true });
+    grid.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse') pauseTemporarily();
+    });
+
+    // Only run on mobile, start when carousel enters viewport
+    function setup() {
+      if (!MOBILE_MQ.matches) { stopAuto(); return; }
+      buildDots();
+      if (REDUCED_MOTION.matches) return;
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) startAuto(); else stopAuto();
+          });
+        }, { threshold: 0.35 });
+        io.observe(grid);
+      } else {
+        startAuto();
+      }
+    }
+
+    MOBILE_MQ.addEventListener
+      ? MOBILE_MQ.addEventListener('change', setup)
+      : MOBILE_MQ.addListener(setup);
+
+    setup();
   })();
 </script>
 

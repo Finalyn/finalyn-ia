@@ -4991,13 +4991,24 @@
     opacity: 1;
     transform: scale(1.1);
   }
-  /* Icônes au viewBox serré (rond plein) → légèrement plus grandes pour
-     harmoniser la taille visuelle perçue vs les logos plats type Word/Excel */
+  /* Icônes au viewBox serré (rond plein) → légèrement plus grandes */
   .stack-logo[src*="whatsapp"],
-  .stack-logo[src*="slack-icon"],
-  .stack-logo[src*="notion-icon"],
+  .stack-logo[src*="slack-icon"] {
+    height: 40px;
+  }
+  /* Icônes qu'on veut un peu plus discrètes (paraissent trop grosses) */
+  .stack-logo[src*="discord-icon"],
   .stack-logo[src*="zoom-icon"],
-  .stack-logo[src*="discord-icon"] {
+  .stack-logo[src*="notion-icon"] {
+    height: 28px;
+  }
+  /* Icônes "plates" Microsoft Office et LinkedIn — bump pour gagner en présence */
+  .stack-logo[src*="file-type-outlook"],
+  .stack-logo[src*="file-type-excel"],
+  .stack-logo[src*="file-type-word"],
+  .stack-logo[src*="file-type-powerpoint"],
+  .stack-logo[src*="microsoft-teams"],
+  .stack-logo[src*="linkedin-icon"] {
     height: 40px;
   }
   .stack-foot {

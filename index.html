@@ -3461,27 +3461,27 @@
     .float-chip:nth-child(12) { display: none; }
     /* Grille 3 × 2 : gauche (left:0) / centre (left:50% + translateX) / droite (right:0)
        Centre = bulle la plus proche du texte (haut: y plus bas / bas: y plus haut) */
-    .float-chip:nth-child(1)  { --x: 0%   !important; --y: 0%  !important; --r: -2deg !important; }
+    .float-chip:nth-child(1)  { --x: 0%   !important; --y: 4%  !important; --r: -2deg !important; }
     .float-chip:nth-child(2)  {
       left: 50% !important; --x: auto;
-      --y: 10% !important; --r: 2deg !important;
+      --y: 14% !important; --r: 2deg !important;
       transform: translateX(-50%) rotate(2deg);
       animation-name: chipDriftCenter;
     }
     .float-chip:nth-child(3)  {
       left: auto !important; right: 0 !important; --x: auto;
-      --y: 0%  !important; --r: -1deg !important;
+      --y: 4%  !important; --r: -1deg !important;
     }
-    .float-chip:nth-child(9)  { --x: 0%   !important; --y: 94% !important; --r:  1deg !important; }
+    .float-chip:nth-child(9)  { --x: 0%   !important; --y: 90% !important; --r:  1deg !important; }
     .float-chip:nth-child(10) {
       left: 50% !important; --x: auto;
-      --y: 84% !important; --r: -1deg !important;
+      --y: 80% !important; --r: -1deg !important;
       transform: translateX(-50%) rotate(-1deg);
       animation-name: chipDriftCenterReverse;
     }
     .float-chip:nth-child(11) {
       left: auto !important; right: 0 !important; --x: auto;
-      --y: 94% !important; --r: 2deg !important;
+      --y: 90% !important; --r: 2deg !important;
     }
   }
   /* Keyframes dédiés au centrage (préservent translateX(-50%)) */

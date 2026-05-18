@@ -153,39 +153,72 @@
 }
 </script>
 
-<!-- Structured data — HowTo : déroulé de la mission après l'audit (boost SEO/GEO) -->
+<!-- Structured data — HowTo : déroulé complet d'une mission finalyn.ia en 6 étapes (boost SEO/GEO) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  "name": "Comment finalyn.ia déploie une automatisation IA, étape par étape",
-  "description": "Le déroulé complet d'une mission finalyn.ia : audit gratuit, conception sur mesure, implémentation dans votre environnement, suivi continu.",
+  "@id": "https://finalyn.com/#how-to-mission",
+  "name": "Comment se déroule une mission d'intégration IA avec finalyn.ia, étape par étape",
+  "description": "Parcours complet d'une mission finalyn.ia, de l'audit gratuit en visio au suivi continu : 6 étapes claires pour intégrer l'IA dans une PME ou chez un indépendant en Suisse, sans surprise, sans changement de stack.",
   "totalTime": "P28D",
   "estimatedCost": {"@type": "MonetaryAmount", "currency": "CHF", "value": "0", "name": "Audit initial gratuit"},
+  "inLanguage": "fr-CH",
+  "tool": [
+    {"@type": "HowToTool", "name": "n8n"},
+    {"@type": "HowToTool", "name": "OpenAI ChatGPT (GPT-4, GPT-5)"},
+    {"@type": "HowToTool", "name": "Anthropic Claude"},
+    {"@type": "HowToTool", "name": "Microsoft 365"},
+    {"@type": "HowToTool", "name": "Google Workspace"},
+    {"@type": "HowToTool", "name": "Slack"}
+  ],
   "step": [
     {
       "@type": "HowToStep",
       "position": 1,
+      "url": "https://finalyn.com/#etape-1-audit",
       "name": "Audit gratuit",
-      "text": "30 minutes en visioconférence. Cartographie des processus, identification des leviers d'automatisation, estimation chiffrée du ROI. Audit entièrement gratuit, sans engagement."
+      "text": "30 minutes en visioconférence pour comprendre vos processus, repérer les automatisations à plus fort impact et chiffrer concrètement le potentiel. Diagnostic, automatisations prioritaires, ROI chiffré et roadmap personnalisée envoyée sous 24 heures. Entièrement gratuit, sans engagement.",
+      "timeRequired": "PT30M"
     },
     {
       "@type": "HowToStep",
       "position": 2,
-      "name": "Conception",
-      "text": "Conception de la solution sur mesure, validée avec le client avant toute phase de développement."
+      "url": "https://finalyn.com/#etape-2-cadrage",
+      "name": "Cadrage et roadmap",
+      "text": "Précision du périmètre, chiffrage de la mission et planification des livraisons. Critères de succès mesurables définis. Le client valide budget et délais avant tout développement.",
+      "timeRequired": "P7D"
     },
     {
       "@type": "HowToStep",
       "position": 3,
-      "name": "Implémentation",
-      "text": "Déploiement direct dans l'environnement du client (CRM, e-mail, comptabilité). Tests, ajustements et formation des équipes inclus."
+      "url": "https://finalyn.com/#etape-3-conception",
+      "name": "Conception",
+      "text": "Design des agents IA, workflows d'automatisation et intégrations. Prototypes interactifs testés par les équipes du client en conditions réelles, ajustements jusqu'à validation.",
+      "timeRequired": "P14D"
     },
     {
       "@type": "HowToStep",
       "position": 4,
-      "name": "Suivi continu",
-      "text": "Monitoring des automatisations en production, optimisations et évolutions sur le long terme."
+      "url": "https://finalyn.com/#etape-4-deploiement",
+      "name": "Déploiement",
+      "text": "Mise en production dans les outils existants du client (Microsoft 365, Google Workspace, Slack, n8n, CRM, comptabilité). Connexion sécurisée via API officielles et OAuth, bascule progressive sans rupture, tests d'intégration avant ouverture aux équipes.",
+      "timeRequired": "P7D"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "url": "https://finalyn.com/#etape-5-formation",
+      "name": "Formation des équipes",
+      "text": "Formation à l'utilisation quotidienne, au pilotage et à l'évolution autonome de la solution livrée. Bonnes pratiques de prompting et de sécurité (nLPD, RGPD), documentation et vidéos personnalisées fournies.",
+      "timeRequired": "PT4H"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 6,
+      "url": "https://finalyn.com/#etape-6-suivi",
+      "name": "Suivi et évolution",
+      "text": "Maintenance et corrections incluses, nouvelles automatisations ajoutées au fil de l'eau, support réactif et reporting régulier au rythme de l'activité du client."
     }
   ]
 }
@@ -311,6 +344,127 @@
 }
 </script>
 
+<!-- Structured data — L'IA par métier (vue client-friendly, alignée sur la section #metiers) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": "https://finalyn.com/#metiers-ia",
+  "name": "L'IA dans vos métiers — automatisations finalyn.ia par fonction",
+  "description": "Comment l'IA peut intervenir dans chaque métier d'une PME suisse : commercial, support client, administration et comptabilité, marketing, opérations et direction. Exemples concrets d'automatisations finalyn.ia pour PME et indépendants en Suisse romande.",
+  "inLanguage": "fr-CH",
+  "numberOfItems": 7,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "ItemList",
+        "@id": "https://finalyn.com/#metier-commercial",
+        "name": "Commercial et ventes — IA pour les équipes commerciales",
+        "description": "Automatisations IA pour les équipes commerciales : relance de prospects, génération de devis, scoring de leads. Plus de temps en clientèle, moins de tâches répétitives.",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Relances automatiques de prospects après 7 jours sans réponse"},
+          {"@type": "ListItem", "position": 2, "name": "Génération de devis personnalisés en moins d'une minute"},
+          {"@type": "ListItem", "position": 3, "name": "Scoring automatique des leads entrants"}
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "ItemList",
+        "@id": "https://finalyn.com/#metier-support",
+        "name": "Support client — IA pour le service après-vente",
+        "description": "Automatisations IA pour le support client : réponses aux questions fréquentes, tri des tickets, détection de churn. Les clients ont une réponse plus vite, à toute heure.",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Réponses automatiques aux questions fréquentes (FAQ)"},
+          {"@type": "ListItem", "position": 2, "name": "Tri et priorisation des tickets entrants"},
+          {"@type": "ListItem", "position": 3, "name": "Détection des clients à risque de churn"}
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "ItemList",
+        "@id": "https://finalyn.com/#metier-admin",
+        "name": "Administration et comptabilité — IA pour le back-office",
+        "description": "Automatisations IA pour l'administration et la comptabilité : OCR de factures, catégorisation des dépenses, rapprochement bancaire. Fini la saisie manuelle.",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Saisie automatique des factures via OCR"},
+          {"@type": "ListItem", "position": 2, "name": "Catégorisation des dépenses par projet"},
+          {"@type": "ListItem", "position": 3, "name": "Rapprochement bancaire intelligent"}
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "ItemList",
+        "@id": "https://finalyn.com/#metier-marketing",
+        "name": "Marketing et contenu — IA pour la production de contenus",
+        "description": "Automatisations IA pour le marketing : génération de posts réseaux sociaux, visuels sur mesure, traduction multilingue. Plus de contenu sans dépendre d'une agence externe.",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Génération de posts pour les réseaux sociaux"},
+          {"@type": "ListItem", "position": 2, "name": "Création de visuels et illustrations sur mesure"},
+          {"@type": "ListItem", "position": 3, "name": "Traduction multilingue des contenus (FR, EN, DE, IT)"}
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "ItemList",
+        "@id": "https://finalyn.com/#metier-operations",
+        "name": "Opérations et terrain — IA pour la circulation de l'information",
+        "description": "Automatisations IA pour les opérations : comptes-rendus de réunion automatiques, notes vocales structurées, synchronisation d'outils. Les infos circulent, rien ne se perd.",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Comptes-rendus de réunion automatiques (Zoom, Teams, Meet)"},
+          {"@type": "ListItem", "position": 2, "name": "Notes vocales transformées en fiches CRM structurées"},
+          {"@type": "ListItem", "position": 3, "name": "Synchronisation entre outils (CRM, planning, comptabilité)"}
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "item": {
+        "@type": "ItemList",
+        "@id": "https://finalyn.com/#metier-analyse",
+        "name": "Analyse et questions — IA pour interroger vos documents",
+        "description": "Automatisations IA pour l'analyse documentaire et le questions-réponses : RAG (Retrieval-Augmented Generation) sur documents internes, analyse de feedback client en masse, synthèse multi-sources. Posez une question, obtenez une réponse sourcée.",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Questions-réponses sur vos documents internes (RAG)"},
+          {"@type": "ListItem", "position": 2, "name": "Analyse en masse de feedback client et verbatims"},
+          {"@type": "ListItem", "position": 3, "name": "Synthèse multi-sources (contrats, rapports, archives)"}
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "item": {
+        "@type": "ItemList",
+        "@id": "https://finalyn.com/#metier-direction",
+        "name": "Direction et pilotage — IA pour les dirigeants",
+        "description": "Automatisations IA pour la direction : dashboards conversationnels (text-to-SQL), veille concurrentielle, reporting périodique. Vos données parlent enfin une langue claire.",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Dashboards générés à la voix (text-to-SQL)"},
+          {"@type": "ListItem", "position": 2, "name": "Veille concurrentielle automatisée"},
+          {"@type": "ListItem", "position": 3, "name": "Reporting périodique sans intervention manuelle"}
+        ]
+      }
+    }
+  ]
+}
+</script>
+
+
 <!-- Structured data — FAQ (boost GEO / LLM citations) -->
 <script type="application/ld+json">
 {
@@ -359,10 +513,26 @@
     },
     {
       "@type": "Question",
+      "name": "Pourquoi intégrer l'IA dans une PME maintenant ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois facteurs rendent l'adoption IA particulièrement rentable en 2026 pour une PME : (1) le coût d'inférence IA a chuté de plus de 99 % depuis 2020 — une tâche qui coûtait 10 CHF en coûte aujourd'hui moins de 10 centimes, ce qui rend l'automatisation rentable même sur de faibles volumes ; (2) les modèles s'intègrent nativement aux outils existants (Microsoft 365, Google Workspace, Slack, CRM, Bexio) sans projet IT lourd ; (3) les bénéfices mesurés sont significatifs : environ 5 heures par semaine récupérées par collaborateur sur les tâches répétitives (source McKinsey), un ROI atteint en 3 à 6 mois sur une première automatisation bien ciblée (source BCG), et jusqu'à +22 % de conversion commerciale avec un scoring de leads piloté par IA (source Harvard Business Review). 82 % des dirigeants suisses estiment que l'IA transformera leur métier d'ici 2030 : attendre représente un coût d'opportunité réel face à des concurrents qui adoptent l'IA."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Comment se déroule l'audit gratuit finalyn.ia ?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "L'audit gratuit dure 30 minutes en visio. Il comprend un diagnostic complet de vos processus, l'identification des leviers d'automatisation à plus forte valeur, une estimation chiffrée du ROI (temps économisé et coût récupéré), et une roadmap personnalisée de 4 à 6 pages avec les priorités et les options techniques. Sans engagement, réponse sous 24 h."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment se déroule une mission d'intégration IA avec finalyn.ia, étape par étape ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Une mission finalyn.ia se déroule en 6 étapes claires : (1) Audit gratuit de 30 minutes en visio, avec roadmap personnalisée sous 24 h ; (2) Cadrage et roadmap en semaine 1, périmètre figé, budget et délais validés avant tout développement ; (3) Conception en semaines 2 et 3, design des agents IA, workflows et intégrations, avec prototypes testés en conditions réelles ; (4) Déploiement en semaine 4, mise en production dans les outils existants (Microsoft 365, Google Workspace, Slack, n8n, CRM, comptabilité), sans changement de stack ; (5) Formation des équipes à la livraison, prise en main des agents et automatisations, bonnes pratiques de prompting, documentation et vidéos personnalisées ; (6) Suivi et évolution en continu, maintenance, nouvelles automatisations et support réactif. Total environ 4 semaines pour la livraison initiale."
       }
     },
     {
@@ -585,15 +755,14 @@
     background: rgba(255, 253, 250, 0.94);
     backdrop-filter: blur(18px) saturate(140%);
     -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid rgba(220, 214, 203, 0.7);
-    border-radius: 22px;
+    border-top: 1px solid rgba(220, 214, 203, 0.7);
+    border-bottom: 1px solid rgba(220, 214, 203, 0.7);
     box-shadow:
       0 1px 0 rgba(255,255,255,0.6) inset,
-      0 30px 80px -28px rgba(40, 30, 60, 0.22),
-      0 8px 20px -6px rgba(40, 30, 60, 0.08);
-    max-width: 880px;
-    margin: 1.5rem auto 4rem;
-    width: calc(100% - 3rem);
+      0 30px 80px -28px rgba(40, 30, 60, 0.22);
+    width: 100%;
+    margin: 1.5rem 0 4rem;
+    overflow: hidden;
   }
   /* Footer stays simple, also over the fixed bg */
   .site-foot {
@@ -601,22 +770,24 @@
     border-top: none;
   }
 
-  /* ===== SECTION : AUDIT GRATUIT (no bandeau, open layout) ===== */
+  /* ===== SECTION : AUDIT GRATUIT (two columns, block centered) ===== */
   .audit {
     position: relative;
     z-index: 2;
-    max-width: 1080px;
+    max-width: 980px;
     margin: 9rem auto 5rem;
     width: calc(100% - 3rem);
   }
   .audit-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 3.5rem;
     align-items: center;
     padding: 0;
   }
-  .audit-head { text-align: left; margin: 0 0 1.75rem 0; max-width: none; }
+  .audit-left { display: flex; flex-direction: column; gap: 1.5rem; }
+  .audit-right { display: flex; align-items: center; justify-content: flex-start; }
+  .audit-head { text-align: left; margin: 0; max-width: 460px; }
   .audit-head .audit-badge {
     display: flex;
     width: fit-content;
@@ -662,12 +833,23 @@
     letter-spacing: -0.005em;
   }
 
-  /* Ultra-light form (left column) — underline-only inputs */
+  /* Form — translucent glass card that blends with the site bg */
   .audit-form {
+    width: 100%;
+    max-width: 440px;
+    margin: 0;
+    background: rgba(250, 248, 244, 0.55);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border: 1px solid rgba(220, 214, 203, 0.6);
+    border-radius: 18px;
+    padding: 1.75rem 1.6rem 1.5rem;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 10px 30px -18px rgba(40, 30, 60, 0.12);
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    max-width: 460px;
   }
   .audit-form .field { display: flex; flex-direction: column; gap: 0.35rem; }
   .audit-form label {
@@ -699,14 +881,17 @@
   }
   .audit-form .submit-row {
     display: flex; flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.7rem;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
+    text-align: center;
   }
   .audit-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.75rem;
+    width: 100%;
     padding: 0.95rem 1.85rem;
     background: var(--ink);
     color: #fff;
@@ -742,7 +927,37 @@
     letter-spacing: 0.005em;
   }
 
-  /* Right side: vertical timeline with current step highlighted */
+  /* Practical bullet list — left column, single vertical stack */
+  .audit-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    max-width: 460px;
+  }
+  .audit-points li {
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .audit-points li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 100%);
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.15);
+  }
+
+  /* Legacy timeline styles (kept harmless, no element references them) */
   .audit-step {
     position: relative;
     padding-left: 2.25rem;
@@ -859,6 +1074,1386 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .audit-step::after { transition: none; height: calc(100% - 0.6rem); }
+  }
+
+  /* ===== SECTION : WHY — puzzle UI "Pourquoi implémenter l'IA ?" ===== */
+  .why {
+    position: relative;
+    z-index: 2;
+    max-width: 960px;
+    margin: 9rem auto 5rem;
+    width: calc(100% - 3rem);
+  }
+  .why-container { display: flex; flex-direction: column; gap: 3.5rem; align-items: center; }
+  .why-head {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 640px;
+    text-align: center;
+    align-items: center;
+  }
+  .why-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--purple);
+  }
+  .why-title {
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .why-title .accent-lilac {
+    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    font-weight: 400;
+  }
+  .why-sub {
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: var(--muted);
+    letter-spacing: -0.005em;
+    margin: 0.25rem 0 0;
+    max-width: 540px;
+  }
+  /* Puzzle : 1 hero card (top, with 4 tabs on bottom) + 4 small cards (row 2, with notches on top) */
+  .puzzle {
+    width: 100%;
+    max-width: 880px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .puzzle-hero,
+  .puzzle-small {
+    position: relative;
+    height: 220px;
+  }
+  .puzzle-shape {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .puzzle-shape path {
+    fill: rgba(250, 248, 244, 0.62);
+    stroke: rgba(220, 214, 203, 0.65);
+    stroke-width: 0.6;
+    vector-effect: non-scaling-stroke;
+    filter: drop-shadow(0 10px 28px rgba(40, 30, 60, 0.10));
+    transition: fill 0.3s ease, stroke 0.3s ease, filter 0.3s ease;
+  }
+  /* Hero piece — larger surface, slightly more solid */
+  .puzzle-hero .puzzle-shape path {
+    fill: rgba(255, 253, 250, 0.85);
+    stroke: rgba(220, 214, 203, 0.7);
+  }
+  .puzzle-hero-content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    padding: 9% 10% 18% 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.85rem;
+  }
+  /* Row of 4 small pieces */
+  .puzzle-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .puzzle-small {
+    transition: transform 0.35s cubic-bezier(.22,.61,.36,1);
+  }
+  .puzzle-small:nth-child(odd) .puzzle-shape path { fill: rgba(244, 240, 233, 0.7); }
+  .puzzle-small:nth-child(even) .puzzle-shape path { fill: rgba(250, 248, 244, 0.7); }
+  .puzzle-small:hover {
+    transform: translateY(2px);
+    z-index: 2;
+  }
+  .puzzle-small:hover .puzzle-shape path {
+    fill: rgba(167, 139, 250, 0.10);
+    stroke: rgba(139, 92, 246, 0.55);
+    filter: drop-shadow(0 14px 32px rgba(139, 92, 246, 0.28));
+  }
+  .piece-content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    padding: 24% 14% 12% 14%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.35rem;
+  }
+  .piece-eyebrow {
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--purple);
+  }
+  .piece-stat {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.05rem;
+    line-height: 0.95;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    margin: 0.2rem 0 0.15rem;
+  }
+  .piece-stat .stat-pre {
+    font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+  }
+  .piece-stat .stat-val {
+    font-size: clamp(2.3rem, 4vw, 3rem);
+    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+  }
+  .piece-stat .stat-suf {
+    font-size: clamp(1rem, 1.7vw, 1.3rem);
+    color: var(--ink-soft);
+    letter-spacing: -0.02em;
+  }
+  .piece-context {
+    font-size: clamp(0.74rem, 1.05vw, 0.85rem);
+    line-height: 1.4;
+    color: var(--muted);
+    letter-spacing: -0.005em;
+    margin: 0;
+  }
+
+  /* Mobile fallback : stack everything as clean cards, hide puzzle shapes */
+  @media (max-width: 760px) {
+    .why { margin: 5rem auto 3rem; width: calc(100% - 1.5rem); }
+    .puzzle { gap: 0.85rem; max-width: 460px; }
+    .puzzle-hero,
+    .puzzle-small {
+      height: auto;
+      background: rgba(250, 248, 244, 0.62);
+      border: 1px solid rgba(220, 214, 203, 0.6);
+      border-radius: 18px;
+      padding: 1.4rem 1.5rem;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        0 12px 28px -20px rgba(40, 30, 60, 0.12);
+    }
+    .puzzle-hero { padding: 1.85rem 1.6rem 1.7rem; }
+    .puzzle-shape { display: none; }
+    .puzzle-row { grid-template-columns: 1fr; gap: 0.7rem; }
+    .puzzle-hero-content,
+    .piece-content { padding: 0; height: auto; gap: 0.45rem; }
+    .puzzle-small:hover { transform: translateY(-3px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .puzzle-small, .puzzle-shape path { transition: none; }
+  }
+
+  /* ===== SECTION : STATS — bento puzzle "Pourquoi l'IA pour les PME ?" ===== */
+  .stats {
+    position: relative;
+    z-index: 2;
+    max-width: 1120px;
+    margin: 9rem auto 5rem;
+    width: calc(100% - 3rem);
+  }
+  .stats-container { display: flex; flex-direction: column; }
+
+  /* Bento asymétrique : 4 cols × 2 rows, hero spans 3, feature violet spans 1×2 */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .stat-card {
+    background: rgba(244, 240, 233, 0.55);
+    border: 1px solid rgba(220, 214, 203, 0.55);
+    border-radius: 20px;
+    padding: 1.7rem 1.6rem 1.5rem;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      0 14px 32px -22px rgba(40, 30, 60, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .stat-card:hover {
+    border-color: rgba(139, 92, 246, 0.35);
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      0 18px 40px -22px rgba(139, 92, 246, 0.25);
+  }
+
+  /* Hero : white card, spans 3 cols on row 1 */
+  .stat-card.stat-hero {
+    grid-column: span 3;
+    grid-row: 1;
+    background: #FFFDFA;
+    border-color: rgba(220, 214, 203, 0.7);
+    padding: 2rem 1.9rem 1.75rem;
+    gap: 0.85rem;
+    justify-content: center;
+  }
+  .stat-card.stat-hero h2 {
+    font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .stat-card.stat-hero h2 .accent-lilac {
+    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    font-weight: 500;
+  }
+  .stat-hero-sub {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--muted);
+    letter-spacing: -0.005em;
+    margin: 0;
+    max-width: 580px;
+  }
+
+  /* Feature : violet filled card, spans 1 col × 2 rows (right side, tall) */
+  .stat-card.stat-feature {
+    grid-column: 4 / 5;
+    grid-row: 1 / span 2;
+    background: linear-gradient(150deg, #B9A3FB 0%, #8B5CF6 55%, #7C4DEF 100%);
+    border-color: transparent;
+    color: #fff;
+    padding: 1.85rem 1.65rem;
+    gap: 0.5rem;
+    justify-content: space-between;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.25),
+      0 22px 60px -22px rgba(139, 92, 246, 0.55);
+  }
+  .stat-card.stat-feature::before {
+    content: "";
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .stat-card.stat-feature:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.25),
+      0 28px 70px -22px rgba(139, 92, 246, 0.7);
+  }
+  .stat-feature-eyebrow {
+    align-self: flex-start;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.78);
+    padding: 0.3rem 0.7rem;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    position: relative;
+    z-index: 1;
+  }
+  .stat-feature-num {
+    display: flex;
+    align-items: baseline;
+    gap: 0.2rem;
+    line-height: 0.95;
+    margin-top: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .stat-feature-val {
+    font-size: clamp(4.5rem, 8vw, 6rem);
+    font-weight: 400;
+    letter-spacing: -0.05em;
+    color: #fff;
+  }
+  .stat-feature-suffix {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .stat-feature-unit {
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.35;
+    position: relative;
+    z-index: 1;
+  }
+  .stat-feature-desc {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.78);
+    letter-spacing: -0.005em;
+    margin: 0;
+    padding-top: 0.85rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Plain stat cards (row 2) : title statement + description */
+  .stat-card .stat-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .stat-card .stat-text {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--muted);
+    letter-spacing: -0.005em;
+    margin: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .stat-card.stat-hero { grid-column: span 2; grid-row: auto; }
+    .stat-card.stat-feature { grid-column: span 2; grid-row: auto; }
+    .stat-card.stat-feature { padding: 1.65rem 1.5rem; }
+    .stat-feature-num { margin-top: 0.25rem; }
+  }
+  @media (max-width: 640px) {
+    .stats { margin: 5rem auto 3rem; width: calc(100% - 1.5rem); }
+    .stats-grid { grid-template-columns: 1fr; gap: 0.85rem; }
+    .stat-card { padding: 1.5rem 1.4rem 1.3rem; }
+    .stat-card.stat-hero,
+    .stat-card.stat-feature { grid-column: span 1; }
+    .stat-card.stat-hero { padding: 1.75rem 1.5rem 1.5rem; }
+  }
+
+  /* ===== SECTION : PARCOURS (timeline audit → formation → suivi) ===== */
+  .parcours {
+    position: relative;
+    z-index: 2;
+    max-width: 820px;
+    margin: 9rem auto 5rem;
+    width: calc(100% - 3rem);
+  }
+  .parcours-container { display: flex; flex-direction: column; gap: 3.5rem; }
+  .parcours-head { text-align: center; max-width: 680px; margin: 0 auto; }
+  .parcours-head h2 {
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .parcours-head h2 .accent-lilac {
+    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    font-weight: 400;
+  }
+  .parcours-sub {
+    margin-top: 0.85rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--muted);
+    letter-spacing: -0.005em;
+  }
+
+  /* Mini horizontal timeline */
+  .parcours-mini {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+    position: relative;
+    max-width: 720px;
+    width: 100%;
+  }
+  .parcours-mini::before {
+    content: "";
+    position: absolute;
+    left: 8.333%;
+    right: 8.333%;
+    top: 19px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(220,214,203,0.7) 0%, rgba(220,214,203,0.4) 100%);
+    border-radius: 1px;
+    z-index: 0;
+  }
+  .parcours-mini-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.55rem;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    scroll-margin-top: 5rem;
+  }
+  .mini-num {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--warm-white);
+    border: 2px solid var(--line);
+    display: grid;
+    place-items: center;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--muted);
+    transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .parcours-mini-step.is-active .mini-num {
+    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 0 0 5px rgba(167, 139, 250, 0.18);
+    transform: scale(1.05);
+  }
+  .mini-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    letter-spacing: -0.005em;
+  }
+  .parcours-mini-step.is-active .mini-label { color: var(--purple); }
+
+  /* Audit block — minimal info on left (anchored top), calendar on right */
+  .audit-block {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .audit-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding-top: 0.5rem;
+  }
+  .audit-info .step-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--purple);
+    align-self: flex-start;
+  }
+  .audit-info h3 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .audit-info h3 .audit-grad {
+    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 55%, #7C4DEF 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    font-weight: 400;
+  }
+  .audit-info .audit-desc {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--muted);
+    letter-spacing: -0.005em;
+    margin: 0.25rem 0 0;
+    max-width: 460px;
+  }
+  .audit-info .audit-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    align-self: flex-start;
+    margin-top: 0.75rem;
+    padding: 0.9rem 1.5rem;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-soft);
+    font-family: inherit;
+    font-size: 0.98rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    cursor: pointer;
+    transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .audit-info .audit-primary:hover {
+    border-color: var(--purple);
+    color: var(--purple);
+    background: rgba(139, 92, 246, 0.06);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px -10px rgba(139, 92, 246, 0.35);
+  }
+  .audit-info .audit-primary svg { flex-shrink: 0; color: var(--purple); }
+  .audit-info .audit-secondary:hover {
+    border-color: var(--purple);
+    color: var(--purple);
+    background: rgba(139, 92, 246, 0.06);
+    transform: translateY(-1px);
+  }
+  .audit-info .audit-secondary svg {
+    color: var(--purple);
+    flex-shrink: 0;
+  }
+
+  /* Calendly-style widget */
+  .audit-cal-wrap { display: flex; justify-content: flex-end; }
+  .cal {
+    background: rgba(250, 248, 244, 0.62);
+    backdrop-filter: blur(10px) saturate(125%);
+    -webkit-backdrop-filter: blur(10px) saturate(125%);
+    border: 1px solid rgba(220, 214, 203, 0.55);
+    border-radius: 18px;
+    padding: 1.4rem 1.35rem 1.25rem;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 18px 50px -22px rgba(40, 30, 60, 0.18);
+    max-width: 440px;
+    width: 100%;
+    transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  }
+  .cal:hover,
+  .cal.is-spotlight {
+    border-color: rgba(139, 92, 246, 0.55);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 0 0 3px rgba(139, 92, 246, 0.18),
+      0 22px 60px -22px rgba(139, 92, 246, 0.45);
+  }
+  .cal.is-spotlight {
+    transform: translateY(-2px);
+    animation: cal-spotlight 1.4s cubic-bezier(.22,.61,.36,1);
+  }
+  @keyframes cal-spotlight {
+    0%   { box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 0 0 0 rgba(139, 92, 246, 0.55), 0 22px 60px -22px rgba(139, 92, 246, 0.45); }
+    40%  { box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 0 0 10px rgba(139, 92, 246, 0.20), 0 22px 60px -22px rgba(139, 92, 246, 0.45); }
+    100% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 0 0 3px rgba(139, 92, 246, 0.18), 0 22px 60px -22px rgba(139, 92, 246, 0.45); }
+  }
+  .cal-header { margin-bottom: 1rem; }
+  .cal-title {
+    font-size: 0.98rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .cal-sub {
+    font-size: 0.76rem;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+    margin-top: 0.15rem;
+  }
+  .cal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+  }
+  .cal-arrow {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    color: var(--ink-soft);
+    border-radius: 50%;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+  }
+  .cal-arrow:hover:not(:disabled) {
+    background: rgba(139, 92, 246, 0.12);
+    color: var(--purple);
+  }
+  .cal-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
+  .cal-month {
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+  .cal-grid-head,
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.25rem;
+  }
+  .cal-grid-head { margin-bottom: 0.3rem; }
+  .cal-grid-head span {
+    text-align: center;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+  .cal-day {
+    height: 34px;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    cursor: pointer;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    position: relative;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  }
+  .cal-day-blank { visibility: hidden; cursor: default; }
+  .cal-day:hover:not(.cal-day-disabled):not(.cal-day-selected) {
+    background: rgba(139, 92, 246, 0.12);
+    color: var(--purple);
+  }
+  .cal-day-today::after {
+    content: "";
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--purple);
+  }
+  .cal-day-disabled {
+    color: var(--concrete-dark);
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .cal-day-selected {
+    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 100%);
+    color: #fff;
+    font-weight: 500;
+    box-shadow: 0 6px 16px -6px rgba(139, 92, 246, 0.45);
+    transform: scale(1.04);
+  }
+  .cal-day-selected.cal-day-today::after { background: #fff; }
+
+  .cal-slots {
+    margin-top: 1rem;
+    display: none;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .cal-slots.is-open { display: flex; }
+  .cal-slots-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--purple);
+  }
+  .cal-slots-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .cal-slot {
+    border: 1px solid var(--line);
+    background: transparent;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    padding: 0.5rem 0.85rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  }
+  .cal-slot:hover {
+    border-color: var(--purple);
+    color: var(--purple);
+  }
+  .cal-slot.is-selected {
+    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 6px 14px -6px rgba(139, 92, 246, 0.45);
+  }
+
+  .cal-cta {
+    margin-top: 1.1rem;
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .cal-cta:hover:not(:disabled) {
+    background: var(--purple);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px -10px rgba(139, 92, 246, 0.45);
+  }
+  .cal-cta:disabled {
+    background: var(--concrete);
+    color: var(--muted);
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  .cal-cta:disabled svg { display: none; }
+  .cal-cta svg { width: 14px; height: 14px; }
+
+  @media (max-width: 860px) {
+    .parcours { margin: 5rem auto 3rem; }
+    .parcours-container { gap: 2.5rem; }
+    .parcours-mini { gap: 0.3rem; max-width: none; }
+    .parcours-mini::before { top: 17px; }
+    .mini-num { width: 34px; height: 34px; font-size: 0.85rem; }
+    .mini-label { font-size: 0.7rem; }
+    .audit-block { grid-template-columns: 1fr; gap: 2rem; }
+    .audit-cal-wrap { justify-content: center; }
+  }
+  @media (max-width: 560px) {
+    .parcours { width: calc(100% - 1.5rem); }
+    .parcours-mini { gap: 0.15rem; }
+    .parcours-mini::before { left: 8.333%; right: 8.333%; top: 14px; }
+    .mini-num { width: 28px; height: 28px; font-size: 0.75rem; }
+    .mini-label { font-size: 0.62rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mini-num, .cal-day, .cal-slot, .cal-cta { transition: none; }
+  }
+
+  /* ===== SECTION : MÉTIERS (l'IA dans vos fonctions) ===== */
+  .metiers {
+    position: relative;
+    z-index: 2;
+    max-width: 1120px;
+    margin: 9rem auto 5rem;
+    width: calc(100% - 3rem);
+  }
+  .metiers-container { display: flex; flex-direction: column; gap: 3rem; }
+  .metiers-head { text-align: center; max-width: 680px; margin: 0 auto; }
+  .metiers-head h2 {
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .metiers-head h2 .accent-lilac {
+    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    font-weight: 400;
+  }
+  .metiers-sub {
+    margin-top: 0.85rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--muted);
+    letter-spacing: -0.005em;
+  }
+
+  /* Pills (tabs) */
+  .metier-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0 auto;
+    max-width: 920px;
+  }
+  .metier-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.65rem 1.1rem;
+    background: rgba(250, 248, 244, 0.55);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-soft);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  }
+  .metier-pill svg { width: 16px; height: 16px; color: var(--purple); flex-shrink: 0; transition: color 0.25s ease; }
+  .metier-pill:hover {
+    border-color: rgba(139, 92, 246, 0.4);
+    color: var(--purple);
+    transform: translateY(-1px);
+  }
+  .metier-pill.is-active {
+    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 10px 24px -10px rgba(139, 92, 246, 0.5);
+  }
+  .metier-pill.is-active svg { color: #fff; }
+
+  /* Stage : grid stacking so all panels occupy the same cell */
+  .metiers-stage {
+    display: grid;
+    grid-template-columns: 1fr;
+    position: relative;
+  }
+  .metier-detail {
+    grid-area: 1 / 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(8px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s;
+  }
+  .metier-detail.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0s;
+  }
+  .metier-detail[hidden] { display: grid; } /* keep grid-stacking even when hidden */
+
+  .metier-text { display: flex; flex-direction: column; gap: 0.9rem; max-width: 460px; }
+  .metier-text h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .role-outcome {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    letter-spacing: -0.005em;
+    margin: 0;
+  }
+  .role-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.3rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .role-list li {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 0.93rem;
+    line-height: 1.5;
+    color: var(--muted);
+    letter-spacing: -0.005em;
+  }
+  .role-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 100%);
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.15);
+  }
+
+  /* Mockup card (shared) */
+  .metier-mockup { display: flex; justify-content: flex-end; }
+  .mockup {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255, 253, 250, 0.85);
+    backdrop-filter: blur(12px) saturate(125%);
+    -webkit-backdrop-filter: blur(12px) saturate(125%);
+    border: 1px solid rgba(220, 214, 203, 0.55);
+    border-radius: 18px;
+    padding: 1.25rem 1.2rem;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.55),
+      0 22px 60px -28px rgba(40, 30, 60, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    font-size: 0.85rem;
+  }
+  .mockup-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid rgba(220, 214, 203, 0.5);
+  }
+  .mockup-app {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .mockup-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 100%);
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.18);
+  }
+  .mockup-status {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--purple);
+    background: rgba(139, 92, 246, 0.1);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    letter-spacing: 0.02em;
+  }
+  .mockup-rows { display: flex; flex-direction: column; gap: 0.55rem; }
+
+  /* Commercial CRM rows */
+  .mockup-row {
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    gap: 0.65rem;
+    align-items: center;
+    padding: 0.55rem 0.45rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.35);
+  }
+  .mockup-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(185, 163, 251, 0.4), rgba(139, 92, 246, 0.4));
+    color: var(--ink);
+    display: grid;
+    place-items: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .mockup-rowbody { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
+  .mockup-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .mockup-meta { font-size: 0.7rem; color: var(--muted); }
+  .mockup-tag {
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--purple);
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .mockup-tag.tag-violet {
+    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 100%);
+    border-color: transparent;
+    color: #fff;
+  }
+
+  /* Support tickets */
+  .ticket {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    gap: 0.65rem;
+    align-items: center;
+    padding: 0.55rem 0.5rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.35);
+  }
+  .ticket-prio {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 0.25rem 0.4rem;
+    border-radius: 6px;
+    letter-spacing: 0.03em;
+  }
+  .prio-p1 { background: rgba(239, 68, 68, 0.12); color: #c53030; border: 1px solid rgba(239, 68, 68, 0.3); }
+  .prio-p2 { background: rgba(245, 158, 11, 0.12); color: #b45309; border: 1px solid rgba(245, 158, 11, 0.3); }
+  .prio-p3 { background: rgba(100, 116, 139, 0.12); color: var(--muted); border: 1px solid rgba(100, 116, 139, 0.25); }
+  .prio-faq { background: rgba(139, 92, 246, 0.12); color: var(--purple); border: 1px solid rgba(139, 92, 246, 0.3); }
+  .ticket-body {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .ticket-resolved {
+    font-size: 0.66rem;
+    font-weight: 500;
+    color: var(--purple);
+    white-space: nowrap;
+  }
+
+  /* Admin invoice */
+  .invoice-lines { display: flex; flex-direction: column; gap: 0.5rem; }
+  .invoice-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem 0.55rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.35);
+  }
+  .invoice-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .invoice-val {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .mockup-pill {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--purple);
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+  }
+
+  /* Marketing post */
+  .post-body {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    padding: 0.85rem;
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 10px;
+    border-left: 3px solid var(--purple);
+  }
+  .post-body strong { color: var(--ink); font-weight: 600; }
+  .post-hashtags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .hashtag {
+    font-size: 0.72rem;
+    color: var(--purple);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  /* Operations meeting */
+  .meeting-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.55rem;
+  }
+  .meeting-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.85rem 0.75rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  .meeting-num {
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+  }
+  .meeting-label {
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* Analyse Q&R */
+  .qa-question {
+    font-size: 0.88rem;
+    color: var(--ink);
+    padding: 0.7rem 0.85rem;
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 10px;
+    font-style: italic;
+    letter-spacing: -0.005em;
+  }
+  .qa-answer {
+    padding: 0.85rem 0.9rem;
+    background: linear-gradient(135deg, rgba(185, 163, 251, 0.10), rgba(139, 92, 246, 0.10));
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .qa-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--purple);
+  }
+  .qa-answer p {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  .qa-answer p strong { color: var(--ink); font-weight: 600; }
+  .qa-sources {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.1rem;
+  }
+  .qa-src {
+    font-size: 0.7rem;
+    color: var(--purple);
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    letter-spacing: -0.005em;
+  }
+
+  /* Direction dashboard */
+  .dash-question {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: italic;
+    padding: 0.6rem 0.85rem;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+    border-left: 3px solid var(--purple);
+  }
+  .dash-result {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.4rem 0.2rem;
+  }
+  .dash-big {
+    font-size: 2.2rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+  }
+  .dash-cap { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.005em; }
+  .dash-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.4rem;
+    height: 70px;
+    padding-top: 0.25rem;
+  }
+  .dash-chart .bar {
+    flex: 1;
+    height: var(--h);
+    border-radius: 4px 4px 0 0;
+    background: linear-gradient(180deg, rgba(185, 163, 251, 0.85) 0%, rgba(139, 92, 246, 1) 100%);
+    box-shadow: 0 4px 12px -6px rgba(139, 92, 246, 0.4);
+  }
+
+  @media (max-width: 860px) {
+    .metiers { margin: 5rem auto 3rem; width: calc(100% - 1.5rem); }
+    .metiers-container { gap: 2rem; }
+    .metier-pill { font-size: 0.82rem; padding: 0.55rem 0.95rem; }
+    .metier-pill svg { width: 14px; height: 14px; }
+    .metier-detail { grid-template-columns: 1fr; gap: 1.75rem; align-items: stretch; }
+    .metier-mockup { justify-content: stretch; }
+    .mockup { max-width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .metier-pill, .metier-detail { transition: none; }
+  }
+
+  /* ===== SECTION : FORMATION ===== */
+  .formation {
+    position: relative;
+    z-index: 2;
+    max-width: 1120px;
+    margin: 7rem auto 5rem;
+    width: calc(100% - 3rem);
+  }
+  .formation-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  .formation-head { text-align: center; max-width: 680px; margin: 0 auto; }
+  .formation-head h2 {
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .formation-head h2 .accent-lilac {
+    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    font-weight: 400;
+  }
+  .formation-sub {
+    margin-top: 0.85rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--muted);
+    letter-spacing: -0.005em;
+  }
+  .formation-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+  .formation-card {
+    position: relative;
+    background: rgba(250, 248, 244, 0.55);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border: 1px solid rgba(220, 214, 203, 0.6);
+    border-radius: 18px;
+    padding: 1.75rem 1.6rem;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 10px 30px -18px rgba(40, 30, 60, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .formation-card-primary {
+    border-color: rgba(139, 92, 246, 0.35);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 14px 36px -20px rgba(139, 92, 246, 0.35);
+  }
+  .formation-tag {
+    align-self: flex-start;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--purple);
+    background: rgba(167, 139, 250, 0.12);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+  }
+  .formation-card h3 {
+    font-size: 1.15rem;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .formation-card > p {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--muted);
+    letter-spacing: -0.005em;
+    margin: 0;
+  }
+  .formation-points {
+    list-style: none;
+    padding: 0;
+    margin: 0.25rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .formation-points li {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  .formation-points li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 100%);
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.15);
+  }
+  @media (max-width: 860px) {
+    .formation { margin: 5rem auto 3rem; }
+    .formation-grid { grid-template-columns: 1fr; gap: 1rem; }
+  }
+  @media (max-width: 560px) {
+    .formation { width: calc(100% - 1.5rem); }
   }
 
   /* ===== SECTION : SÉCURITÉ & CONFORMITÉ — full-width bandeau ===== */
@@ -1318,6 +2913,21 @@
   @media (prefers-reduced-motion: reduce) {
     .float-chip { animation: none; }
   }
+  .usecases-head .usecases-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.85rem;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--purple);
+    background: rgba(167, 139, 250, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: 999px;
+  }
   .usecases-head h2 {
     display: inline-block;
     font-size: clamp(1.8rem, 3vw, 2.7rem);
@@ -1411,6 +3021,127 @@
     0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
     30%           { transform: translateY(-4px); opacity: 1; }
   }
+
+  /* Interactive choice pills inside an agent bubble */
+  .uc-choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+  }
+  .uc-choice {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.95rem;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(220, 214, 203, 0.8);
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    cursor: pointer;
+    letter-spacing: -0.005em;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.18s ease;
+  }
+  .uc-choice:hover:not(:disabled) {
+    border-color: var(--purple);
+    color: var(--purple);
+    transform: translateY(-1px);
+  }
+  .uc-choice.is-selected {
+    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 100%);
+    border-color: transparent;
+    color: #fff;
+  }
+  .uc-choice:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Proposal cards inside an agent bubble */
+  .uc-proposals {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-top: 0.85rem;
+  }
+  .uc-proposal {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.95rem 1rem;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(139, 92, 246, 0.18);
+    border-left: 3px solid var(--purple);
+    border-radius: 12px;
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .uc-proposal:hover {
+    border-color: var(--purple);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px -16px rgba(139, 92, 246, 0.4);
+  }
+  .uc-proposal-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .uc-proposal-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  .uc-proposal-stat {
+    align-self: flex-start;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--purple);
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    letter-spacing: 0.005em;
+  }
+  .uc-cta-row {
+    margin-top: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .uc-cta-primary,
+  .uc-cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.6rem 1.15rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: -0.005em;
+    text-decoration: none;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+  }
+  .uc-cta-primary {
+    background: var(--ink);
+    color: #fff;
+    border: 1px solid var(--ink);
+  }
+  .uc-cta-primary:hover {
+    background: var(--purple);
+    border-color: var(--purple);
+    transform: translateY(-1px);
+  }
+  .uc-cta-secondary {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+  }
+  .uc-cta-secondary:hover { border-color: var(--purple); color: var(--purple); }
 
   /* Suggestions row */
   .uc-suggestions {
@@ -2026,23 +3757,24 @@
     .photo-tag { animation: none; }
   }
 
-  /* ===== SECTION : SERVICES (bandeau) ===== */
+  /* ===== SECTION : SERVICES (sommaire éditorial) ===== */
   .services-container {
-    padding: 2.5rem 2.75rem;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem 3.5rem;
   }
   .services-head {
-    margin-bottom: 1.75rem;
+    margin-bottom: 2.5rem;
     text-align: center;
   }
   .services-head h2 {
     display: inline-block;
     width: auto;
-    font-size: clamp(1.5rem, 2.2vw, 1.95rem);
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
     font-weight: 500;
     line-height: 1.15;
     letter-spacing: -0.025em;
     color: var(--ink);
-    white-space: nowrap;
     margin: 0;
   }
   .services-head h2 .accent-lilac {
@@ -2053,61 +3785,94 @@
     font-weight: 500;
   }
 
-  /* Compact list — 1 row per service */
-  .services-list {
+  .svc-index {
     list-style: none;
     padding: 0;
     margin: 0;
+  }
+  .svc-index li {
     border-top: 1px solid var(--line);
   }
-  .services-list li { border-bottom: 1px solid var(--line); }
-  .services-list a {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 2rem;
-    padding: 2rem 0.5rem;
+  .svc-index li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .svc-index__row {
+    display: block;
     text-decoration: none;
     color: var(--ink);
-    transition: padding 0.3s cubic-bezier(.22,.61,.36,1), color 0.3s ease;
+    padding: 1.65rem 0 1.4rem;
+    position: relative;
   }
-  .services-list a:hover { padding-left: 1.25rem; color: var(--purple); }
-  .services-list .num {
-    font-size: 1rem;
+  .svc-index__row::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    opacity: 0;
+    transition: opacity .35s ease;
+  }
+  .svc-index__row:hover::before { opacity: 1; }
+  .svc-index li:last-child .svc-index__row::after {
+    content: "";
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    opacity: 0;
+    transition: opacity .35s ease;
+  }
+  .svc-index li:last-child .svc-index__row:hover::after { opacity: 1; }
+
+  .svc-index__main {
+    display: flex;
+    align-items: baseline;
+    gap: 1.2rem;
+  }
+  .svc-index__title {
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
     font-weight: 500;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-    min-width: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    transition: color .3s ease, background .3s ease;
+    flex: 1;
   }
-  .services-list a:hover .num {
-    background: linear-gradient(92deg, #B9A3FB, #8B5CF6);
+  .svc-index__row:hover .svc-index__title {
+    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
   }
-  .services-list .body { display: flex; flex-direction: column; gap: 4px; }
-  .services-list h3 {
-    font-size: clamp(1.2rem, 1.8vw, 1.6rem);
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    color: inherit;
+
+  .svc-index__arrow {
+    flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px;
+    color: var(--muted);
+    transition: transform .4s cubic-bezier(.22,.61,.36,1), color .3s ease;
   }
-  .services-list p {
+  .svc-index__arrow svg { width: 100%; height: 100%; }
+  .svc-index__row:hover .svc-index__arrow {
+    transform: translateX(8px);
+    color: #8B5CF6;
+  }
+
+  .svc-index__sub {
+    display: block;
+    margin: 0.55rem 0 0;
     font-size: 0.95rem;
     line-height: 1.5;
     color: var(--muted);
-    margin: 0;
   }
-  .services-list a:hover p { color: #3A3A3A; }
-  .services-list .arrow {
-    width: 22px; height: 22px;
-    color: var(--muted);
-    transition: transform 0.35s cubic-bezier(.22,.61,.36,1), color 0.3s ease;
-    flex-shrink: 0;
+
+  @media (max-width: 720px) {
+    .services-container { padding: 2rem 1.4rem 2.5rem; }
+    .svc-index__title { font-size: 1.4rem; }
+    .svc-index__sub { font-size: 0.88rem; }
+    .svc-index__row { padding: 1.2rem 0 1.1rem; }
   }
-  .services-list a:hover .arrow { transform: translateX(8px); color: var(--purple); }
-  .services-list .arrow svg { width: 100%; height: 100%; }
 
   /* ----- FLOATING CHAT LAUNCHER (bottom-left, light) ----- */
   .chat-launcher {
@@ -2802,23 +4567,29 @@
     .services-head { margin-bottom: 2rem; }
   }
 
+  @media (max-width: 1024px) {
+    .services-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .services-list li { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .services-list li:nth-child(2n) { border-right: none; }
+    .services-list li:nth-last-child(-n+2) { border-bottom: none; }
+    .services-list li:last-child:nth-child(odd) { grid-column: span 2; border-right: none; }
+  }
   @media (max-width: 860px) {
-    .services { border-radius: 18px; margin: 2.5rem auto; }
-    .services-container { padding: 2rem 1.5rem; }
-    .services-head { margin-bottom: 2.25rem; }
-    .services-head h2 { font-size: clamp(1.9rem, 6vw, 2.4rem); }
-    .services-list a { padding: 1.5rem 0.25rem; gap: 1.25rem; }
-    .services-list a:hover { padding-left: 0.75rem; }
-    .services-list h3 { font-size: 1.15rem; }
-    .services-list p { font-size: 0.88rem; }
+    .services { margin: 2.5rem 0; }
+    .services-container { padding: 2rem 1.5rem 0; }
+    .services-head { margin-bottom: 1.5rem; }
+    .services-head h2 { font-size: clamp(1.6rem, 6vw, 2rem); }
+    .services-list a { padding: 1.5rem 1rem; }
+    .services-list h3 { font-size: 1.05rem; }
+    .services-list p { font-size: 0.85rem; }
   }
   @media (max-width: 560px) {
-    .services { border-radius: 16px; margin: 2rem auto; width: calc(100% - 1.5rem); }
-    .services-container { padding: 1.75rem 1.25rem; }
-    .services-list a { padding: 1.35rem 0.15rem; gap: 1rem; }
-    .services-list .num { font-size: 0.85rem; min-width: 24px; }
-    .services-list h3 { font-size: 1.05rem; }
-    .services-list p { font-size: 0.85rem; line-height: 1.4; }
+    .services-list { grid-template-columns: 1fr; }
+    .services-list li { border-right: none; border-bottom: 1px solid var(--line); }
+    .services-list li:last-child { border-bottom: none; }
+    .services-list li:last-child:nth-child(odd) { grid-column: span 1; }
+    .services-container { padding: 1.75rem 1.25rem 0; }
+    .services-list a { padding: 1.35rem 0.5rem; gap: 0.5rem; }
     .services-list .arrow { width: 18px; height: 18px; }
   }
 
@@ -2977,6 +4748,218 @@
     .left { padding: 5rem 1rem 2rem; }
     .nav { padding: 0.8rem 1rem; }
     .brand { font-size: 1.25rem; }
+  }
+
+  /* ===== SECTION : FAQ (accordéon natif <details>) ===== */
+  .faq {
+    position: relative;
+    z-index: 2;
+    background: var(--warm-white);
+    width: 100%;
+    margin: 0;
+    padding: 5rem 0 6rem;
+    border-top: 1px solid var(--line);
+  }
+  .faq-container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+  .faq-head {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .faq-head h2 {
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin: 0 0 0.8rem;
+  }
+  .faq-head h2 .accent-lilac {
+    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    font-weight: 500;
+  }
+  .faq-sub {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .faq-sub a { color: var(--ink); text-decoration: underline; text-decoration-color: rgba(139, 92, 246, 0.45); text-underline-offset: 3px; }
+  .faq-sub a:hover { color: #8B5CF6; }
+
+  .faq-list { display: flex; flex-direction: column; }
+  .faq-item {
+    border-top: 1px solid var(--line);
+  }
+  .faq-item:last-child { border-bottom: 1px solid var(--line); }
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.3rem 0;
+    color: var(--ink);
+    transition: color .3s ease;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover { color: #8B5CF6; }
+  .faq-q {
+    flex: 1;
+    font-size: clamp(1.02rem, 1.4vw, 1.15rem);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.35;
+  }
+  .faq-toggle {
+    flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px;
+    color: var(--muted);
+    transition: transform .35s cubic-bezier(.22,.61,.36,1), color .3s ease;
+  }
+  .faq-toggle svg { width: 100%; height: 100%; }
+  .faq-item summary:hover .faq-toggle { color: #8B5CF6; }
+  .faq-item[open] .faq-toggle {
+    transform: rotate(45deg);
+    color: #8B5CF6;
+  }
+  .faq-a {
+    padding: 0 0 1.4rem;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 70ch;
+  }
+  .faq-a p { margin: 0; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .faq-item[open] .faq-a { animation: faqReveal .4s ease both; }
+    @keyframes faqReveal {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  }
+
+  /* ===== FOOTER ===== */
+  .site-footer {
+    position: relative;
+    z-index: 2;
+    background: var(--paper);
+    color: var(--ink);
+    padding: 4.5rem 0 1.8rem;
+    border-top: 1px solid var(--line);
+  }
+  .footer-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+  }
+  .footer-brand { display: flex; flex-direction: column; gap: 1rem; }
+  .footer-logo img {
+    width: auto;
+    height: 32px;
+    object-fit: contain;
+  }
+  .footer-tag {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0;
+    max-width: 32ch;
+  }
+  .footer-mail {
+    font-size: 0.92rem;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    align-self: flex-start;
+    padding-bottom: 1px;
+    transition: color .3s ease;
+  }
+  .footer-mail:hover { color: #8B5CF6; }
+
+  .footer-nav h4,
+  .footer-meta h4 {
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    margin: 0 0 1.1rem;
+  }
+  .footer-nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+  .footer-nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.93rem;
+    transition: color .3s ease;
+  }
+  .footer-nav a:hover { color: #8B5CF6; }
+
+  .footer-meta p {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0 0 0.55rem;
+  }
+  .footer-meta .footer-stamp {
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 0.8rem;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--line);
+    padding-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .footer-bottom p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+  .footer-legal {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex; gap: 1.4rem;
+    flex-wrap: wrap;
+  }
+  .footer-legal a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    transition: color .3s ease;
+  }
+  .footer-legal a:hover { color: #8B5CF6; }
+
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+    .footer-brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 540px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .faq-container { padding: 0 1.4rem; }
+    .faq { padding: 3.5rem 0 4rem; }
   }
 </style>
 </head>
@@ -3148,102 +5131,94 @@
 
 </section>
 
-<section class="services" id="services" aria-labelledby="services-title">
- <div class="services-container">
-  <header class="services-head">
-    <h2 id="services-title">Ce que nous concevons <span class="accent-lilac">pour vous</span>.</h2>
-  </header>
+<section class="why" id="pourquoi" aria-labelledby="pourquoi-title-inner">
+ <div class="why-container">
+  <div class="puzzle" role="list" aria-label="Quatre raisons d'implémenter l'IA">
 
-  <ul class="services-list">
-    <li itemscope itemtype="https://schema.org/Service">
-      <a href="services/agents-ia.html" aria-label="En savoir plus sur les agents IA sur mesure">
-        <span class="num" aria-hidden="true">01</span>
-        <span class="body">
-          <h3 itemprop="name">Agents IA sur mesure</h3>
-          <p itemprop="description">Des assistants intelligents qui exécutent vos tâches métier.</p>
-        </span>
-        <span class="arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
-        </span>
-      </a>
-    </li>
+    <!-- Hero piece (big card with rounded top corners + 4 tabs on bottom edge) -->
+    <div class="puzzle-hero">
+      <svg class="puzzle-shape" viewBox="0 0 400 100" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 0 8 Q 0 0 8 0 L 392 0 Q 400 0 400 8 L 400 100 L 362 100 C 362 116 338 116 338 100 L 262 100 C 262 116 238 116 238 100 L 162 100 C 162 116 138 116 138 100 L 62 100 C 62 116 38 116 38 100 L 0 100 Z"/>
+      </svg>
+      <div class="puzzle-hero-content">
+        <h2 id="pourquoi-title-inner" class="why-title">Pourquoi implémenter <span class="accent-lilac">l'IA</span>&nbsp;?</h2>
+        <p class="why-sub">L'IA s'intègre dans votre activité comme une pièce de puzzle. Elle complète, elle s'emboîte, elle libère ce qui était bloqué.</p>
+      </div>
+    </div>
 
-    <li itemscope itemtype="https://schema.org/Service">
-      <a href="services/automatisation.html" aria-label="En savoir plus sur l'automatisation de processus">
-        <span class="num" aria-hidden="true">02</span>
-        <span class="body">
-          <h3 itemprop="name">Automatisation de processus</h3>
-          <p itemprop="description">Des workflows qui orchestrent vos outils en silence.</p>
-        </span>
-        <span class="arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
-        </span>
-      </a>
-    </li>
+    <!-- 4 small pieces with notch on top, connecting to the hero tabs -->
+    <div class="puzzle-row">
 
-    <li itemscope itemtype="https://schema.org/Service">
-      <a href="services/integrations.html" aria-label="En savoir plus sur les intégrations et connecteurs">
-        <span class="num" aria-hidden="true">03</span>
-        <span class="body">
-          <h3 itemprop="name">Intégrations &amp; connecteurs</h3>
-          <p itemprop="description">Faire communiquer vos systèmes existants, sans les remplacer.</p>
-        </span>
-        <span class="arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
-        </span>
-      </a>
-    </li>
+      <div class="puzzle-small" role="listitem">
+        <svg class="puzzle-shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 0 0 L 38 0 C 38 16 62 16 62 0 L 100 0 L 100 100 L 8 100 Q 0 100 0 92 Z"/>
+        </svg>
+        <div class="piece-content">
+          <span class="piece-eyebrow">Productivité</span>
+          <div class="piece-stat"><span class="stat-pre">×</span><span class="stat-val">3</span></div>
+          <p class="piece-context">sur les tâches automatisées par IA</p>
+        </div>
+      </div>
 
-    <li itemscope itemtype="https://schema.org/Service">
-      <a href="services/audit.html" aria-label="En savoir plus sur l'audit et l'accompagnement">
-        <span class="num" aria-hidden="true">04</span>
-        <span class="body">
-          <h3 itemprop="name">Audit &amp; accompagnement</h3>
-          <p itemprop="description">Identifier les leviers d'automatisation à plus forte valeur.</p>
-        </span>
-        <span class="arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
-        </span>
-      </a>
-    </li>
+      <div class="puzzle-small" role="listitem">
+        <svg class="puzzle-shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 0 0 L 38 0 C 38 16 62 16 62 0 L 100 0 L 100 100 L 0 100 Z"/>
+        </svg>
+        <div class="piece-content">
+          <span class="piece-eyebrow">Saisie manuelle</span>
+          <div class="piece-stat"><span class="stat-pre">−</span><span class="stat-val">85</span><span class="stat-suf">&nbsp;%</span></div>
+          <p class="piece-context">de temps perdu sur le répétitif</p>
+        </div>
+      </div>
 
-    <li itemscope itemtype="https://schema.org/Service">
-      <a href="services/personnalisation.html" aria-label="En savoir plus sur la personnalisation sur mesure">
-        <span class="num" aria-hidden="true">05</span>
-        <span class="body">
-          <h3 itemprop="name">Personnalisation sur mesure</h3>
-          <p itemprop="description">Une solution sur mesure, conçue pour votre activité.</p>
-        </span>
-        <span class="arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
-        </span>
-      </a>
-    </li>
-  </ul>
+      <div class="puzzle-small" role="listitem">
+        <svg class="puzzle-shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 0 0 L 38 0 C 38 16 62 16 62 0 L 100 0 L 100 100 L 0 100 Z"/>
+        </svg>
+        <div class="piece-content">
+          <span class="piece-eyebrow">Disponibilité</span>
+          <div class="piece-stat"><span class="stat-val">24</span><span class="stat-suf">/7</span></div>
+          <p class="piece-context">sans pause, sans absence, sans turnover</p>
+        </div>
+      </div>
+
+      <div class="puzzle-small" role="listitem">
+        <svg class="puzzle-shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 0 0 L 38 0 C 38 16 62 16 62 0 L 100 0 L 100 92 Q 100 100 92 100 L 0 100 Z"/>
+        </svg>
+        <div class="piece-content">
+          <span class="piece-eyebrow">Mise en production</span>
+          <div class="piece-stat"><span class="stat-val">4</span><span class="stat-suf">&nbsp;sem</span></div>
+          <p class="piece-context">pour voir les premiers résultats</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
  </div>
 </section>
 
 <section class="usecases" id="cas-usage" aria-labelledby="usecases-title">
  <div class="usecases-stage" id="ucStage">
   <!-- Floating chips that gravitate around the prompt initially -->
-  <button type="button" class="float-chip" style="--x: 3%;  --y: 4%;  --r: -3deg;" data-prompt="Trier 50 e-mails par priorité chaque matin">Trier 50 e-mails par priorité chaque matin</button>
-  <button type="button" class="float-chip" style="--x: 60%; --y: 2%;  --r: 2deg;"  data-prompt="Générer un devis Bexio en 30 secondes">Générer un devis Bexio en 30 secondes</button>
-  <button type="button" class="float-chip" style="--x: 26%; --y: 14%; --r: -1deg;" data-prompt="Relancer un prospect après 7 jours sans réponse">Relancer un prospect après 7 jours sans réponse</button>
-  <button type="button" class="float-chip" style="--x: 78%; --y: 14%; --r: 3deg;"  data-prompt="Extraire les données d'un PDF de facture">Extraire les données d'un PDF de facture</button>
-  <button type="button" class="float-chip" style="--x: 6%;  --y: 26%; --r: 1deg;"  data-prompt="Envoyer un SMS de rappel 24 h avant un rendez-vous">Envoyer un SMS de rappel 24 h avant un RDV</button>
-  <button type="button" class="float-chip" style="--x: 70%; --y: 26%; --r: -2deg;" data-prompt="Synchroniser Google Calendar et Notion">Synchroniser Google Calendar et Notion</button>
+  <button type="button" class="float-chip" style="--x: 3%;  --y: 4%;  --r: -3deg;" data-prompt="Trier mes mails Outlook par priorité chaque matin">Trier mes mails Outlook par priorité chaque matin</button>
+  <button type="button" class="float-chip" style="--x: 60%; --y: 2%;  --r: 2deg;"  data-prompt="Trouver des prospects qualifiés sur LinkedIn">Trouver des prospects qualifiés sur LinkedIn</button>
+  <button type="button" class="float-chip" style="--x: 26%; --y: 14%; --r: -1deg;" data-prompt="Répondre aux clients sur WhatsApp 24h/24">Répondre aux clients sur WhatsApp 24h/24</button>
+  <button type="button" class="float-chip" style="--x: 78%; --y: 14%; --r: 3deg;"  data-prompt="Importer mes factures PDF directement dans ma compta">Importer mes factures PDF directement dans ma compta</button>
+  <button type="button" class="float-chip" style="--x: 6%;  --y: 26%; --r: 1deg;"  data-prompt="Synchroniser HubSpot et Microsoft 365">Synchroniser HubSpot et Microsoft 365</button>
+  <button type="button" class="float-chip" style="--x: 70%; --y: 26%; --r: -2deg;" data-prompt="Pré-rédiger mes mails dans Outlook dans mon style">Pré-rédiger mes mails dans Outlook dans mon style</button>
 
-  <button type="button" class="float-chip" style="--x: 4%;  --y: 70%; --r: 2deg;"  data-prompt="Résumer une réunion Zoom en 5 points">Résumer une réunion Zoom en 5 points</button>
-  <button type="button" class="float-chip" style="--x: 64%; --y: 70%; --r: -3deg;" data-prompt="Notifier Slack quand un lead remplit le formulaire">Notifier Slack quand un lead remplit le formulaire</button>
-  <button type="button" class="float-chip" style="--x: 22%; --y: 82%; --r: 1deg;"  data-prompt="Créer une facture depuis un e-mail entrant">Créer une facture depuis un e-mail entrant</button>
-  <button type="button" class="float-chip" style="--x: 58%; --y: 84%; --r: -1deg;" data-prompt="Détecter un client à risque de churn">Détecter un client à risque de churn</button>
-  <button type="button" class="float-chip" style="--x: 4%;  --y: 92%; --r: 3deg;"  data-prompt="Catégoriser mes dépenses par projet">Catégoriser mes dépenses par projet</button>
-  <button type="button" class="float-chip" style="--x: 72%; --y: 94%; --r: -2deg;" data-prompt="Convertir un appel téléphonique en note CRM">Convertir un appel en note CRM</button>
+  <button type="button" class="float-chip" style="--x: 4%;  --y: 70%; --r: 2deg;"  data-prompt="Résumer mes réunions Zoom en compte-rendu envoyé">Résumer mes réunions Zoom en compte-rendu envoyé</button>
+  <button type="button" class="float-chip" style="--x: 64%; --y: 70%; --r: -3deg;" data-prompt="Poser une question à tous mes documents internes (RAG)">Poser une question à tous mes documents internes (RAG)</button>
+  <button type="button" class="float-chip" style="--x: 22%; --y: 82%; --r: 1deg;"  data-prompt="Préparer mes rendez-vous depuis mon CRM">Préparer mes rendez-vous depuis mon CRM</button>
+  <button type="button" class="float-chip" style="--x: 58%; --y: 84%; --r: -1deg;" data-prompt="Un agent IA personnalisé connecté à mon environnement">Un agent IA personnalisé connecté à mon environnement</button>
+  <button type="button" class="float-chip" style="--x: 4%;  --y: 92%; --r: 3deg;"  data-prompt="Notifier Slack au bon moment quand un lead arrive">Notifier Slack au bon moment quand un lead arrive</button>
+  <button type="button" class="float-chip" style="--x: 72%; --y: 94%; --r: -2deg;" data-prompt="Relancer automatiquement les factures impayées">Relancer automatiquement les factures impayées</button>
 
   <div class="uc-center">
     <header class="usecases-head">
       <h2 id="usecases-title">Quel est votre <span class="accent-lilac">besoin</span> ?</h2>
-      <p class="usecases-sub">Posez-le. Notre agent vous explique comment on le réalise, en moins de 3 secondes.</p>
+      <p class="usecases-sub">Dites ce que vous voulez automatiser. Notre agent vous propose des cas d'usage adaptés à votre métier et à vos outils, en moins de 3 secondes.</p>
     </header>
 
     <div class="uc-chat" id="ucChat" aria-live="polite"></div>
@@ -3258,6 +5233,170 @@
       </button>
     </form>
   </div>
+ </div>
+</section>
+
+<section class="parcours" id="parcours" aria-labelledby="parcours-title">
+ <div class="parcours-container">
+  <header class="parcours-head">
+    <h2 id="parcours-title">Une intégration IA en <span class="accent-lilac">6 étapes claires.</span></h2>
+    <p class="parcours-sub">De l'audit gratuit à l'évolution continue.</p>
+  </header>
+
+  <!-- Mini timeline horizontale (6 étapes) -->
+  <ol class="parcours-mini" aria-label="Mission finalyn.ia en 6 étapes">
+    <li class="parcours-mini-step is-active" id="etape-1-audit" aria-current="step">
+      <span class="mini-num">1</span>
+      <span class="mini-label">Audit</span>
+    </li>
+    <li class="parcours-mini-step" id="etape-2-cadrage">
+      <span class="mini-num">2</span>
+      <span class="mini-label">Cadrage</span>
+    </li>
+    <li class="parcours-mini-step" id="etape-3-conception">
+      <span class="mini-num">3</span>
+      <span class="mini-label">Conception</span>
+    </li>
+    <li class="parcours-mini-step" id="etape-4-deploiement">
+      <span class="mini-num">4</span>
+      <span class="mini-label">Déploiement</span>
+    </li>
+    <li class="parcours-mini-step" id="etape-5-formation">
+      <span class="mini-num">5</span>
+      <span class="mini-label">Formation</span>
+    </li>
+    <li class="parcours-mini-step" id="etape-6-suivi">
+      <span class="mini-num">6</span>
+      <span class="mini-label">Suivi</span>
+    </li>
+  </ol>
+
+  <!-- Section audit : infos à gauche, calendrier Calendly-style à droite -->
+  <div class="audit-block" id="audit">
+    <div class="audit-info">
+      <span class="step-eyebrow">Étape 1</span>
+      <h3>Audit <span class="audit-grad">Gratuit</span></h3>
+      <p class="audit-desc"><time datetime="PT30M">30 minutes</time> en visioconférence pour comprendre vos processus, identifier les leviers d'automatisation à plus fort impact et chiffrer concrètement le potentiel. Vous repartez avec une roadmap personnalisée de 4 à 6 pages, livrée sous 24 h. Sans engagement, ni de notre côté, ni du vôtre.</p>
+      <button type="button" class="audit-primary" id="auditPrimary" aria-controls="auditCal">
+        <span>Réservez un audit</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="13 6 19 12 13 18"></polyline>
+        </svg>
+      </button>
+    </div>
+
+    <div class="audit-cal-wrap">
+      <div class="cal" id="auditCal" role="region" aria-label="Réservation de l'audit gratuit">
+        <header class="cal-header">
+          <div class="cal-title">Réservez votre audit · 30 min</div>
+          <div class="cal-sub">Visio · Heure de Zurich (GMT+1)</div>
+        </header>
+
+        <div class="cal-nav">
+          <button type="button" class="cal-arrow" id="calPrev" data-dir="-1" aria-label="Mois précédent">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="10 4 6 8 10 12"></polyline></svg>
+          </button>
+          <span class="cal-month" id="calMonth">—</span>
+          <button type="button" class="cal-arrow" id="calNext" data-dir="1" aria-label="Mois suivant">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 4 10 8 6 12"></polyline></svg>
+          </button>
+        </div>
+
+        <div class="cal-grid-head" aria-hidden="true">
+          <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
+        </div>
+        <div class="cal-grid" id="calGrid" role="grid"></div>
+
+        <div class="cal-slots" id="calSlots" aria-live="polite">
+          <span class="cal-slots-label">Choisissez un créneau</span>
+          <div class="cal-slots-list" id="calSlotsList">
+            <button type="button" class="cal-slot" data-time="09:00">09:00</button>
+            <button type="button" class="cal-slot" data-time="10:00">10:00</button>
+            <button type="button" class="cal-slot" data-time="11:00">11:00</button>
+            <button type="button" class="cal-slot" data-time="14:00">14:00</button>
+            <button type="button" class="cal-slot" data-time="15:00">15:00</button>
+            <button type="button" class="cal-slot" data-time="16:00">16:00</button>
+          </div>
+        </div>
+
+        <button type="button" class="cal-cta" id="calCta" disabled>
+          <span class="cal-cta-label">Sélectionnez un jour</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="13 6 19 12 13 18"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+ </div>
+</section>
+
+<section class="services" id="services" aria-labelledby="services-title">
+ <div class="services-container">
+  <header class="services-head">
+    <h2 id="services-title">Ce que nous concevons <span class="accent-lilac">pour vous</span>.</h2>
+  </header>
+
+  <ol class="svc-index">
+    <li itemscope itemtype="https://schema.org/Service">
+      <a href="services/agents-ia.html" class="svc-index__row">
+        <span class="svc-index__main">
+          <span class="svc-index__title" itemprop="name">Agents IA</span>
+          <span class="svc-index__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+          </span>
+        </span>
+        <span class="svc-index__sub" itemprop="description">Des assistants intelligents qui exécutent vraiment vos tâches métier.</span>
+      </a>
+    </li>
+    <li itemscope itemtype="https://schema.org/Service">
+      <a href="services/automatisation.html" class="svc-index__row">
+        <span class="svc-index__main">
+          <span class="svc-index__title" itemprop="name">Workflows</span>
+          <span class="svc-index__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+          </span>
+        </span>
+        <span class="svc-index__sub" itemprop="description">Vos outils enfin synchronisés, en silence.</span>
+      </a>
+    </li>
+    <li itemscope itemtype="https://schema.org/Service">
+      <a href="services/integrations.html" class="svc-index__row">
+        <span class="svc-index__main">
+          <span class="svc-index__title" itemprop="name">Intégrations</span>
+          <span class="svc-index__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+          </span>
+        </span>
+        <span class="svc-index__sub" itemprop="description">Faire dialoguer vos systèmes existants, sans les remplacer.</span>
+      </a>
+    </li>
+    <li itemscope itemtype="https://schema.org/Service">
+      <a href="services/audit.html" class="svc-index__row">
+        <span class="svc-index__main">
+          <span class="svc-index__title" itemprop="name">Audit</span>
+          <span class="svc-index__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+          </span>
+        </span>
+        <span class="svc-index__sub" itemprop="description">30 minutes pour repérer les leviers à plus forte valeur.</span>
+      </a>
+    </li>
+    <li itemscope itemtype="https://schema.org/Service">
+      <a href="services/personnalisation.html" class="svc-index__row">
+        <span class="svc-index__main">
+          <span class="svc-index__title" itemprop="name">Sur mesure</span>
+          <span class="svc-index__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+          </span>
+        </span>
+        <span class="svc-index__sub" itemprop="description">Votre stack, taillée à votre métier.</span>
+      </a>
+    </li>
+  </ol>
  </div>
 </section>
 
@@ -3393,54 +5532,133 @@
  </div>
 </section>
 
-<section class="audit" id="audit" aria-labelledby="audit-title">
- <div class="audit-container">
+<section class="faq" id="faq" aria-labelledby="faq-title">
+ <div class="faq-container">
+  <header class="faq-head">
+    <h2 id="faq-title">Questions <span class="accent-lilac">fréquentes</span>.</h2>
+    <p class="faq-sub">Les réponses aux questions qu'on nous pose le plus souvent. Sinon, <a href="#audit">posez-les-nous directement</a>.</p>
+  </header>
 
-  <!-- Left: title + ultra light form -->
-  <div class="audit-left">
-    <header class="audit-head">
-      <h2 id="audit-title">Audit <span class="accent-lilac">gratuit</span>.</h2>
-      <p class="audit-sub">Remplissez ces deux champs. On revient sous 24 h avec un premier diagnostic.</p>
-    </header>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>
+        <span class="faq-q">Qu'est-ce que finalyn.ia ?</span>
+        <span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="18" y2="12"></line><line x1="12" y1="6" x2="12" y2="18"></line></svg></span>
+      </summary>
+      <div class="faq-a"><p>finalyn.ia est une agence suisse basée à Lausanne qui conçoit des systèmes d'automatisation IA sur mesure pour les PME et les indépendants. L'agence élimine les tâches répétitives, intègre les outils existants et optimise les processus internes.</p></div>
+    </details>
 
-    <form class="audit-form" id="auditForm" onsubmit="event.preventDefault(); alert('Merci ! Nous revenons vers vous sous 24 h.'); this.reset();">
-      <div class="field">
-        <label for="auditName">Nom</label>
-        <input type="text" id="auditName" name="name" placeholder="Jean Dupont" required autocomplete="name" />
-      </div>
-      <div class="field">
-        <label for="auditEmail">E-mail</label>
-        <input type="email" id="auditEmail" name="email" placeholder="vous@exemple.ch" required autocomplete="email" />
-      </div>
-      <div class="submit-row">
-        <button type="submit" class="audit-btn">
-          <span class="label">Réserver mon audit</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="13 6 19 12 13 18"></polyline>
-          </svg>
-        </button>
-        <span class="audit-note">30 min · Sans engagement · Réponse sous 24 h</span>
-      </div>
-    </form>
+    <details class="faq-item">
+      <summary>
+        <span class="faq-q">Quels services propose finalyn.ia ?</span>
+        <span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="18" y2="12"></line><line x1="12" y1="6" x2="12" y2="18"></line></svg></span>
+      </summary>
+      <div class="faq-a"><p>finalyn.ia propose cinq services : conception d'agents IA sur mesure (assistants autonomes basés sur LLM et RAG), automatisation de processus avec n8n, Make ou Zapier, intégrations et connecteurs entre vos outils existants (CRM, e-mails, comptabilité), audit et accompagnement pour identifier les leviers à plus forte valeur, et configuration sur mesure de votre stack.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-q">Qu'est-ce qu'un agent IA sur mesure ?</span>
+        <span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="18" y2="12"></line><line x1="12" y1="6" x2="12" y2="18"></line></svg></span>
+      </summary>
+      <div class="faq-a"><p>Un agent IA sur mesure est un assistant intelligent autonome conçu pour exécuter des tâches métier spécifiques : trier des e-mails, générer des devis, suivre des prospects, répondre à des demandes clients. Il s'appuie sur des modèles de langage (GPT, Claude) combinés à des architectures de récupération d'information (RAG) qui exploitent vos données internes.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-q">Quels outils finalyn.ia intègre-t-elle ?</span>
+        <span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="18" y2="12"></line><line x1="12" y1="6" x2="12" y2="18"></line></svg></span>
+      </summary>
+      <div class="faq-a"><p>finalyn.ia intègre les principales plateformes utilisées par les PME suisses : CRM (HubSpot, Pipedrive, Salesforce), messageries (Gmail, Outlook), comptabilité (Bexio, Sage, Pennylane), agendas (Google Calendar, Outlook Calendar), e-commerce (Shopify), via les outils d'automatisation n8n, Make et Zapier, ou via APIs et webhooks directs.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-q">Pourquoi intégrer l'IA dans une PME maintenant ?</span>
+        <span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="18" y2="12"></line><line x1="12" y1="6" x2="12" y2="18"></line></svg></span>
+      </summary>
+      <div class="faq-a"><p>Trois facteurs rendent l'adoption IA particulièrement rentable en 2026 : (1) le coût d'inférence a chuté de plus de 99 % depuis 2020, une tâche qui coûtait 10 CHF en coûte aujourd'hui moins de 10 centimes ; (2) les modèles s'intègrent nativement aux outils existants (Microsoft 365, Google Workspace, Slack, CRM, Bexio) sans projet IT lourd ; (3) les bénéfices mesurés sont significatifs : environ 5 heures par semaine récupérées par collaborateur, ROI atteint en 3 à 6 mois, jusqu'à +22 % de conversion commerciale avec un scoring de leads piloté par IA. 82 % des dirigeants suisses estiment que l'IA transformera leur métier d'ici 2030.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-q">Comment se déroule l'audit gratuit ?</span>
+        <span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="18" y2="12"></line><line x1="12" y1="6" x2="12" y2="18"></line></svg></span>
+      </summary>
+      <div class="faq-a"><p>L'audit gratuit dure 30 minutes en visio. Il comprend un diagnostic complet de vos processus, l'identification des leviers d'automatisation à plus forte valeur, une estimation chiffrée du ROI (temps économisé et coût récupéré), et une roadmap personnalisée de 4 à 6 pages avec les priorités et les options techniques. Sans engagement, réponse sous 24 h.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-q">Combien de temps pour mettre en place une automatisation ?</span>
+        <span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="18" y2="12"></line><line x1="12" y1="6" x2="12" y2="18"></line></svg></span>
+      </summary>
+      <div class="faq-a"><p>La plupart des automatisations sont livrées en 2 à 4 semaines. Le délai dépend de la complexité du processus et du nombre d'outils à intégrer. Un audit préalable de 1 à 2 semaines permet de cadrer précisément le périmètre.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-q">Mes données restent-elles confidentielles ?</span>
+        <span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="18" y2="12"></line><line x1="12" y1="6" x2="12" y2="18"></line></svg></span>
+      </summary>
+      <div class="faq-a"><p>Oui. finalyn.ia opère dans votre environnement : vos données restent chez vous, vos outils restent vos outils. Aucune donnée n'est extraite ni utilisée pour entraîner des modèles tiers. Les automatisations respectent les exigences suisses de confidentialité (nLPD).</p></div>
+    </details>
   </div>
-
-  <!-- Right: vertical line with current step + next steps -->
-  <aside class="audit-step" id="auditStep" itemscope itemtype="https://schema.org/HowToStep">
-    <span class="step-eyebrow">1<sup>ère</sup> étape</span>
-    <h3 itemprop="name"><span class="accent">Audit gratuit</span></h3>
-    <p itemprop="text">30 minutes en visio. On cartographie vos processus, on identifie les leviers d'automatisation, et on chiffre concrètement le potentiel.</p>
-    <ul class="step-list" aria-label="Étapes suivantes">
-      <li><span class="num">02</span><span class="lbl">Conception sur mesure</span></li>
-      <li><span class="num">03</span><span class="lbl">Implémentation</span></li>
-      <li><span class="num">04</span><span class="lbl">Suivi continu</span></li>
-    </ul>
-  </aside>
-
  </div>
 </section>
 
-<!-- Footer temporarily removed — will be rebuilt at the end -->
+<footer class="site-footer" role="contentinfo">
+ <div class="footer-container">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="footer-logo" aria-label="finalyn.ia — accueil">
+        <img src="logo-finalyn.webp" alt="" width="120" height="32" />
+      </a>
+      <p class="footer-tag">Agence d'automatisation IA basée en Suisse romande. Nous concevons des agents et workflows sur mesure pour les PME.</p>
+      <a href="mailto:contact@finalyn.com" class="footer-mail">contact@finalyn.com</a>
+    </div>
+
+    <nav class="footer-nav" aria-label="Services">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="services/agents-ia.html">Agents IA</a></li>
+        <li><a href="services/automatisation.html">Workflows</a></li>
+        <li><a href="services/integrations.html">Intégrations</a></li>
+        <li><a href="services/audit.html">Audit</a></li>
+        <li><a href="services/personnalisation.html">Sur mesure</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-nav" aria-label="Naviguer">
+      <h4>Sur le site</h4>
+      <ul>
+        <li><a href="#pourquoi">Pourquoi l'IA</a></li>
+        <li><a href="#cas-usage">Cas d'usage</a></li>
+        <li><a href="#audit">Audit gratuit</a></li>
+        <li><a href="#calculateur">Calculateur ROI</a></li>
+        <li><a href="#securite">Sécurité &amp; données</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer-meta">
+      <h4>finalyn.ia</h4>
+      <p>Lausanne, Suisse</p>
+      <p>Disponible dans toute la Suisse romande, en visio partout ailleurs.</p>
+      <p class="footer-stamp">nLPD · données hébergées en Suisse / UE selon le projet.</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© <time datetime="2026">2026</time> finalyn.ia — tous droits réservés.</p>
+    <ul class="footer-legal">
+      <li><a href="mentions-legales.html">Mentions légales</a></li>
+      <li><a href="confidentialite.html">Confidentialité</a></li>
+      <li><a href="cgv.html">CGV</a></li>
+    </ul>
+  </div>
+ </div>
+</footer>
 
 <button class="chat-launcher" id="chatLauncher" type="button" aria-label="Parler avec notre agent" aria-controls="chatPanel" aria-expanded="false">
   <span class="pulse" aria-hidden="true"></span>
@@ -3474,22 +5692,158 @@
     });
   })();
 
-  // Reveal audit step line on scroll
+  // Métiers — pills tabs swap the visible detail panel
   (function () {
-    var el = document.getElementById('auditStep');
-    if (!el || typeof IntersectionObserver === 'undefined') {
-      if (el) el.classList.add('in-view');
-      return;
-    }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          el.classList.add('in-view');
-          io.unobserve(el);
-        }
+    var pills = document.querySelectorAll('.metier-pill');
+    var details = document.querySelectorAll('.metier-detail');
+    if (!pills.length || !details.length) return;
+    function show(key) {
+      pills.forEach(function (p) {
+        var active = p.getAttribute('data-metier') === key;
+        p.classList.toggle('is-active', active);
+        p.setAttribute('aria-selected', active ? 'true' : 'false');
       });
-    }, { threshold: 0.2 });
-    io.observe(el);
+      details.forEach(function (d) {
+        var active = d.getAttribute('data-metier') === key;
+        d.classList.toggle('is-active', active);
+        if (active) d.removeAttribute('hidden'); else d.setAttribute('hidden', '');
+      });
+    }
+    pills.forEach(function (p) {
+      p.addEventListener('click', function () { show(p.getAttribute('data-metier')); });
+    });
+  })();
+
+  // Primary CTA — spotlight calendar + smooth scroll
+  (function () {
+    var btn = document.getElementById('auditPrimary');
+    var cal = document.getElementById('auditCal');
+    if (!btn || !cal) return;
+    btn.addEventListener('click', function () {
+      cal.classList.remove('is-spotlight');
+      // restart animation
+      void cal.offsetWidth;
+      cal.classList.add('is-spotlight');
+      cal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      var clear = function () {
+        cal.classList.remove('is-spotlight');
+        cal.removeEventListener('click', clear);
+      };
+      cal.addEventListener('click', clear);
+    });
+  })();
+
+  // Calendly-style calendar widget for audit booking
+  (function () {
+    var grid = document.getElementById('calGrid');
+    if (!grid) return;
+    var monthEl = document.getElementById('calMonth');
+    var prevBtn = document.getElementById('calPrev');
+    var nextBtn = document.getElementById('calNext');
+    var slotsBox = document.getElementById('calSlots');
+    var slotList = document.getElementById('calSlotsList');
+    var ctaBtn = document.getElementById('calCta');
+    var ctaLabel = ctaBtn ? ctaBtn.querySelector('.cal-cta-label') : null;
+    if (!ctaBtn || !ctaLabel) return;
+
+    var monthNames = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+    var dayShort = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var view = new Date(today.getFullYear(), today.getMonth(), 1);
+    var selectedDay = null;
+    var selectedSlot = null;
+
+    function render() {
+      grid.innerHTML = '';
+      monthEl.textContent = monthNames[view.getMonth()] + ' ' + view.getFullYear();
+      var year = view.getFullYear(), month = view.getMonth();
+      var first = new Date(year, month, 1);
+      var last = new Date(year, month + 1, 0);
+      var startCol = (first.getDay() + 6) % 7; // Mon=0
+      for (var i = 0; i < startCol; i++) {
+        var blank = document.createElement('span');
+        blank.className = 'cal-day cal-day-blank';
+        grid.appendChild(blank);
+      }
+      for (var d = 1; d <= last.getDate(); d++) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'cal-day';
+        btn.textContent = d;
+        var date = new Date(year, month, d);
+        var dow = date.getDay();
+        var isWeekend = (dow === 0 || dow === 6);
+        var isPast = date < today;
+        if (isPast || isWeekend) {
+          btn.disabled = true;
+          btn.classList.add('cal-day-disabled');
+        }
+        if (date.getTime() === today.getTime()) btn.classList.add('cal-day-today');
+        if (selectedDay && date.getTime() === selectedDay.getTime()) btn.classList.add('cal-day-selected');
+        (function (date) {
+          btn.addEventListener('click', function () { pickDay(date); });
+        })(date);
+        grid.appendChild(btn);
+      }
+      var thisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      prevBtn.disabled = (view.getTime() <= thisMonth.getTime());
+    }
+
+    function pickDay(d) {
+      selectedDay = d;
+      selectedSlot = null;
+      Array.prototype.forEach.call(slotList.querySelectorAll('.cal-slot'), function (s) {
+        s.classList.remove('is-selected');
+      });
+      slotsBox.classList.add('is-open');
+      render();
+      updateCta();
+    }
+
+    function pickSlot(btn) {
+      Array.prototype.forEach.call(slotList.querySelectorAll('.cal-slot'), function (s) {
+        s.classList.remove('is-selected');
+      });
+      btn.classList.add('is-selected');
+      selectedSlot = btn.getAttribute('data-time');
+      updateCta();
+    }
+
+    function updateCta() {
+      if (selectedDay && selectedSlot) {
+        ctaBtn.disabled = false;
+        var d = selectedDay;
+        var label = dayShort[d.getDay()] + ' ' + d.getDate() + ' ' + monthNames[d.getMonth()].toLowerCase() + ' · ' + selectedSlot;
+        ctaLabel.textContent = 'Confirmer · ' + label;
+      } else if (selectedDay) {
+        ctaBtn.disabled = true;
+        ctaLabel.textContent = 'Choisissez un créneau';
+      } else {
+        ctaBtn.disabled = true;
+        ctaLabel.textContent = 'Sélectionnez un jour';
+      }
+    }
+
+    prevBtn.addEventListener('click', function () {
+      view = new Date(view.getFullYear(), view.getMonth() - 1, 1);
+      var thisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      if (view < thisMonth) view = thisMonth;
+      render();
+    });
+    nextBtn.addEventListener('click', function () {
+      view = new Date(view.getFullYear(), view.getMonth() + 1, 1);
+      render();
+    });
+    Array.prototype.forEach.call(slotList.querySelectorAll('.cal-slot'), function (s) {
+      s.addEventListener('click', function () { pickSlot(s); });
+    });
+    ctaBtn.addEventListener('click', function () {
+      if (ctaBtn.disabled) return;
+      alert('Merci ! Votre audit gratuit est réservé pour le ' + selectedDay.toLocaleDateString('fr-CH') + ' à ' + selectedSlot + '. Vous recevrez le lien visio par e-mail sous 24 h.');
+    });
+
+    render();
   })();
 
   // ROI calculator (time saved)
@@ -3545,58 +5899,125 @@
     update();
   })();
 
-  // Use case agent chat
+  // Use case agent chat — smart wizard (detects domain & tools, asks only what's missing, proposes)
   (function () {
     var input = document.getElementById('usecaseInput');
     var chat  = document.getElementById('ucChat');
     if (!input || !chat) return;
 
-    var responses = [
-      { match: /e[- ]?mail|mail|inbox|boîte/i, reply:
-        "Bien sûr. Un agent IA analyse vos e-mails en temps réel, les priorise selon vos critères (urgents, clients, prospects), classe les newsletters et pré-rédige des réponses dans votre style. Vous gardez le dernier mot avant envoi. Déploiement en 1 à 2 semaines." },
-      { match: /devis|proposition|tarif/i, reply:
-        "Oui. L'agent récupère les données client dans votre CRM (HubSpot, Pipedrive, Bexio…), applique votre grille tarifaire et génère le devis en quelques secondes. PDF prêt à envoyer, signature électronique incluse." },
-      { match: /relance|prospect|lead|suivi|relancer/i, reply:
-        "Faisable. Le système surveille vos prospects, détecte ceux sans réponse depuis X jours et envoie un message personnalisé selon l'historique. Scoring automatique, intégration LinkedIn/email possible." },
-      { match: /réunion|réun|meeting|zoom|teams|résum|résumer/i, reply:
-        "Parfait. L'agent enregistre, transcrit et résume vos réunions Zoom, Teams ou Meet en 5 à 10 points clés avec to-do list. Envoi automatique aux participants, archivage dans Notion ou Drive." },
-      { match: /synchron|connect|intégr|crm.*compt|outils/i, reply:
-        "Possible. Nous connectons vos outils (CRM, e-mail, comptabilité, planning) via API, webhooks ou plateformes (n8n, Make). Synchronisation bidirectionnelle en temps réel, sans rupture pour vos équipes." },
-      { match: /slack|notif|alerte|teams/i, reply:
-        "Bien sûr. L'agent envoie des notifications ciblées dans Slack ou Teams à chaque événement défini (nouveau lead, paiement reçu, erreur système…). Vous décidez qui reçoit quoi, quand et comment." },
-      { match: /pdf|extra|facture|document/i, reply:
-        "Faisable. L'agent extrait automatiquement les données structurées d'un PDF (factures, devis, contrats) et les pousse dans votre CRM, comptabilité ou base de données. Précision >95 %." },
-      { match: /sms|rappel|rdv|rendez/i, reply:
-        "Possible. SMS automatique 24 h avant chaque rendez-vous, personnalisé selon le client. Confirmation, report ou annulation en un clic. Réduction des no-shows mesurable dès la 2e semaine." },
-      { match: /support|client|chat|24\/7|faq/i, reply:
-        "Oui. Un assistant IA formé sur votre savoir-faire répond aux questions clients 24/7 dans votre ton. Escalade automatique vers l'humain pour les cas complexes. Intégration site, WhatsApp ou e-mail." },
-      { match: /rapport|reporting|kpi|dashboard|tableau/i, reply:
-        "Bien sûr. Tableaux de bord en temps réel, synthèses hebdo automatiques, alertes intelligentes sur vos KPIs critiques. Connecté à vos données existantes, livré en 2 à 3 semaines." },
-      { match: /facture|comptabilité|tva|paiement/i, reply:
-        "Possible. Génération automatique de factures depuis e-mails ou commandes, envoi, suivi de paiement et relances impayés. Intégration Bexio, Pennylane, Sage ou autre selon votre stack." }
+    var DOMAINS = [
+      { key:'commercial', name:'Commercial',      match:/vente|prospect|lead|devis|commercial|relanc/i },
+      { key:'support',    name:'Support client',  match:/support|ticket|sav|service apr[èe]s[- ]vente|faq|customer/i },
+      { key:'admin',      name:'Admin & compta',  match:/compta|comptabilit[ée]|facture|tva|paiement|d[ée]pense|administr/i },
+      { key:'marketing',  name:'Marketing',       match:/marketing|post|r[ée]seau|linkedin|insta|instagram|facebook|contenu|copywrit|publicit|seo/i },
+      { key:'operations', name:'Op[é]rations',    match:/r[ée]union|compte[- ]rendu|note vocale|synchron|terrain|op[ée]ration|workflow/i },
+      { key:'analyse',    name:'Analyse',         match:/analyse|q&r|rag|recherche|document|pdf|contrat|verbatim|feedback|question/i },
+      { key:'direction',  name:'Direction',       match:/direction|pilotage|dashboard|kpi|rapport|reporting|veille|tableau de bord|strat[ée]gie/i }
+    ];
+    var TOOLS = [
+      { key:'m365',  name:'Microsoft 365',     match:/microsoft|outlook|excel|office|word|powerpoint|\b365\b/i },
+      { key:'gws',   name:'Google Workspace',  match:/google\s*workspace|gmail|google\s*sheets|google\s*drive|\bgws\b/i },
+      { key:'slack', name:'Slack',             match:/\bslack\b/i },
+      { key:'bexio', name:'Bexio',             match:/\bbexio\b/i },
+      { key:'sage',  name:'Sage',              match:/\bsage\b/i },
+      { key:'crm',   name:'CRM (HubSpot, Pipedrive…)', match:/hubspot|pipedrive|salesforce|\bcrm\b/i },
+      { key:'zoom',  name:'Zoom / Teams / Meet', match:/\bzoom\b|\bteams\b|google\s*meet/i }
     ];
 
-    var defaultReply = "Intéressant. Ce type d'automatisation est tout à fait dans notre champ. Pour en discuter concrètement, cliquez sur « Planifier un appel ». Nous revenons vers vous sous 24 h avec une première piste d'implémentation.";
+    var PROPOSALS = {
+      commercial: [
+        { t:"Relances de prospects automatiques", d:"Chaque prospect relancé après 7 jours sans réponse, avec un message contextualisé.", s:"≈ 5 h/sem économisées" },
+        { t:"Génération de devis en 47 secondes",  d:"À partir d'un brief court, devis prêt à signer, prérempli depuis votre catalogue.",    s:"−85 % de saisie" },
+        { t:"Scoring automatique des leads",       d:"Chaque lead entrant qualifié, priorisé et routé vers le bon commercial.",              s:"+22 % de conversion" }
+      ],
+      support: [
+        { t:"Réponses automatiques aux FAQ",      d:"Vos clients ont une réponse instantanée 24/7 sur les questions répétitives.",         s:"70 % du volume géré auto" },
+        { t:"Tri et priorisation des tickets",    d:"P1/P2/P3 classés automatiquement avant d'arriver sur votre équipe.",                  s:"≈ 3 h/jour gagnées" },
+        { t:"Détection des clients à risque",     d:"Alerte quand un client montre des signes de désengagement.",                          s:"−18 % de churn" }
+      ],
+      admin: [
+        { t:"Saisie automatique des factures (OCR)", d:"Tous les champs (montant, TVA, échéance) extraits et importés dans votre compta.", s:"≈ 4 h/sem économisées" },
+        { t:"Catégorisation des dépenses",           d:"Chaque dépense classée par projet, centre de coût ou catégorie comptable.",         s:"100 % traçabilité" },
+        { t:"Rapprochement bancaire intelligent",    d:"Vos écritures bancaires rapprochées automatiquement avec vos factures.",            s:"−90 % de saisie" }
+      ],
+      marketing: [
+        { t:"Posts réseaux sociaux générés",        d:"À partir d'une idée, posts adaptés à chaque réseau dans votre ton.",                 s:"3 posts en 5 min" },
+        { t:"Visuels et illustrations à la demande", d:"Banques d'images sur mesure, dans votre charte, sans agence externe.",              s:"−70 % de coût visuel" },
+        { t:"Traduction multilingue automatique",    d:"Vos contenus en FR/EN/DE/IT, en respectant le ton.",                                s:"4 langues, 30 secondes" }
+      ],
+      operations: [
+        { t:"Compte-rendus de réunion automatiques", d:"Décisions, actions et prochaines étapes générés pour chaque réunion.",              s:"−2 h/sem en CR" },
+        { t:"Notes vocales → fiches CRM",            d:"Vous dictez, la fiche structurée arrive directement dans le CRM.",                  s:"100 % capture" },
+        { t:"Synchronisation entre vos outils",      d:"CRM ↔ planning ↔ compta : les infos circulent sans double saisie.",                 s:"−1 outil à ouvrir/jour" }
+      ],
+      analyse: [
+        { t:"Q&R sur vos documents internes (RAG)", d:"Posez une question, obtenez une réponse sourcée dans vos archives.",                 s:"≈ 5 s par réponse" },
+        { t:"Analyse de feedback client en masse",  d:"Tous vos avis triés par thème, sentiment et priorité d'action.",                     s:"100 % d'avis analysés" },
+        { t:"Synthèse multi-sources",                d:"Contrats, rapports, archives : synthèse croisée sur n'importe quel sujet.",          s:"−6 h de lecture" }
+      ],
+      direction: [
+        { t:"Dashboard à la voix (text-to-SQL)",   d:"« Combien de ventes ce mois ? » → graphique + chiffre en 2 secondes.",                s:"Aucun TBd à construire" },
+        { t:"Veille concurrentielle automatisée",  d:"Alertes quotidiennes sur vos concurrents et votre secteur.",                          s:"30 min/jour gagnées" },
+        { t:"Reporting périodique sans saisie",    d:"Vos rapports mensuels générés et envoyés automatiquement.",                           s:"−1 jour/mois en reporting" }
+      ],
+      autre: [
+        { t:"Agent IA personnalisé",                  d:"Décrivez la tâche, on conçoit l'agent qui l'exécute pour vous.",                    s:"100 % sur mesure" },
+        { t:"Audit gratuit de vos processus",         d:"On regarde votre journée type et on identifie les leviers cachés.",                 s:"Roadmap sous 24 h" },
+        { t:"Démonstration sur un cas réel",          d:"Donnez-nous un cas concret, on montre le résultat en 7 jours.",                     s:"Proof of value" }
+      ]
+    };
 
-    function getReply(text) {
-      for (var i = 0; i < responses.length; i++) {
-        if (responses[i].match.test(text)) return responses[i].reply;
-      }
-      return defaultReply;
+    var state = { domain: null, tools: [], texts: [], proposed: false };
+    var stage = document.getElementById('ucStage');
+    var activated = false;
+
+    function detectDomain(text) {
+      for (var i = 0; i < DOMAINS.length; i++) if (DOMAINS[i].match.test(text)) return DOMAINS[i].key;
+      return null;
+    }
+    function detectTools(text) {
+      var out = [];
+      for (var i = 0; i < TOOLS.length; i++) if (TOOLS[i].match.test(text)) out.push(TOOLS[i].key);
+      return out;
+    }
+    function domainName(key) {
+      for (var i = 0; i < DOMAINS.length; i++) if (DOMAINS[i].key === key) return DOMAINS[i].name;
+      return 'Autre';
+    }
+    function toolName(key) {
+      for (var i = 0; i < TOOLS.length; i++) if (TOOLS[i].key === key) return TOOLS[i].name;
+      return key;
+    }
+    function suggestedTools(domain) {
+      if (domain === 'commercial') return ['crm','m365','gws'];
+      if (domain === 'support')    return ['m365','gws','slack'];
+      if (domain === 'admin')      return ['bexio','sage','m365'];
+      if (domain === 'marketing')  return ['m365','gws'];
+      if (domain === 'operations') return ['zoom','crm','slack'];
+      if (domain === 'analyse')    return ['m365','gws'];
+      if (domain === 'direction')  return ['m365','gws'];
+      return ['m365','gws','crm','bexio','slack','zoom'];
     }
 
-    function appendMsg(role, text) {
+    function appendUser(text) {
       var msg = document.createElement('div');
-      msg.className = 'uc-msg ' + role;
-      var roleLabel = role === 'user' ? 'Vous' : 'finalyn.ia';
-      var roleClass = role === 'agent' ? '<span class="accent">' + roleLabel + '</span>' : roleLabel;
-      msg.innerHTML = '<span class="role">' + roleClass + '</span><div class="bubble"></div>';
+      msg.className = 'uc-msg user';
+      msg.innerHTML = '<span class="role">Vous</span><div class="bubble"></div>';
       msg.querySelector('.bubble').textContent = text;
       chat.appendChild(msg);
       chat.classList.add('has-content');
       chat.scrollTop = chat.scrollHeight;
     }
-
+    function appendAgent(html) {
+      var msg = document.createElement('div');
+      msg.className = 'uc-msg agent';
+      msg.innerHTML = '<span class="role"><span class="accent">finalyn.ia</span></span><div class="bubble"></div>';
+      msg.querySelector('.bubble').innerHTML = html;
+      chat.appendChild(msg);
+      chat.classList.add('has-content');
+      chat.scrollTop = chat.scrollHeight;
+      return msg;
+    }
     function showTyping() {
       var t = document.createElement('div');
       t.className = 'uc-typing';
@@ -3612,39 +6033,166 @@
       setTimeout(function () { t.remove(); if (cb) cb(); }, 280);
     }
 
-    var stage = document.getElementById('ucStage');
-    var promptEl = document.getElementById('usecasePrompt');
-    var activated = false;
+    function thinkThen(then) {
+      showTyping();
+      setTimeout(function () { removeTyping(then); }, 1300 + Math.random() * 400);
+    }
 
-    function runChat(text) {
-      appendMsg('user', text);
-      input.value = '';
-      input.blur();
-      // small breathing pause before typing
-      setTimeout(showTyping, 300);
-      setTimeout(function () {
-        removeTyping(function () {
-          appendMsg('agent', getReply(text));
+    function askDomain() {
+      var bubble = appendAgent("Compris ! Pour vous proposer les bonnes automatisations, quel est votre domaine principal ?");
+      var box = document.createElement('div');
+      box.className = 'uc-choices';
+      var opts = DOMAINS.concat([{ key:'autre', name:'Autre / Je sais pas' }]);
+      opts.forEach(function (d) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'uc-choice';
+        b.textContent = d.name;
+        b.addEventListener('click', function () {
+          if (b.disabled) return;
+          box.querySelectorAll('.uc-choice').forEach(function (x) { x.disabled = true; });
+          b.classList.add('is-selected');
+          onChoice('domain', d.key, d.name);
         });
-      }, 1900 + Math.random() * 400);
+        box.appendChild(b);
+      });
+      bubble.querySelector('.bubble').appendChild(box);
+    }
+
+    function askTools() {
+      var dn = domainName(state.domain);
+      var bubble = appendAgent("Bien noté&nbsp;: <strong>" + dn + "</strong>. Quel est votre outil principal au quotidien&nbsp;?");
+      var box = document.createElement('div');
+      box.className = 'uc-choices';
+      var keys = suggestedTools(state.domain);
+      keys.forEach(function (key) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'uc-choice';
+        b.textContent = toolName(key);
+        b.addEventListener('click', function () {
+          if (b.disabled) return;
+          box.querySelectorAll('.uc-choice').forEach(function (x) { x.disabled = true; });
+          b.classList.add('is-selected');
+          onChoice('tool', key, toolName(key));
+        });
+        box.appendChild(b);
+      });
+      var b2 = document.createElement('button');
+      b2.type = 'button';
+      b2.className = 'uc-choice';
+      b2.textContent = "Je sais pas";
+      b2.addEventListener('click', function () {
+        if (b2.disabled) return;
+        box.querySelectorAll('.uc-choice').forEach(function (x) { x.disabled = true; });
+        b2.classList.add('is-selected');
+        onChoice('tool', 'dontknow', 'Je sais pas');
+      });
+      box.appendChild(b2);
+      bubble.querySelector('.bubble').appendChild(box);
+    }
+
+    function showProposals() {
+      state.proposed = true;
+      var domain = state.domain || 'autre';
+      var props = (PROPOSALS[domain] || PROPOSALS.autre).slice(0, 3);
+      var hasTool = state.tools.length && state.tools.indexOf('dontknow') < 0;
+      var head;
+      if (hasTool) {
+        head = "Voici 3 automatisations à fort impact pour vous, adaptées à votre stack.";
+      } else if (state.domain && state.domain !== 'autre') {
+        head = "Voici 3 automatisations qui marchent dans la plupart des cas pour <strong>" + domainName(state.domain).toLowerCase() + "</strong>. On affinera ensemble pendant l'audit.";
+      } else {
+        head = "Voici 3 pistes pour démarrer. On affinera ensemble pendant l'audit.";
+      }
+      var bubble = appendAgent(head);
+      var bdiv = bubble.querySelector('.bubble');
+      var list = document.createElement('div');
+      list.className = 'uc-proposals';
+      props.forEach(function (p) {
+        var card = document.createElement('div');
+        card.className = 'uc-proposal';
+        card.innerHTML =
+          '<div class="uc-proposal-title"></div>' +
+          '<p class="uc-proposal-desc"></p>' +
+          '<span class="uc-proposal-stat"></span>';
+        card.querySelector('.uc-proposal-title').textContent = p.t;
+        card.querySelector('.uc-proposal-desc').textContent = p.d;
+        card.querySelector('.uc-proposal-stat').textContent = p.s;
+        list.appendChild(card);
+      });
+      bdiv.appendChild(list);
+      var ctaRow = document.createElement('div');
+      ctaRow.className = 'uc-cta-row';
+      ctaRow.innerHTML =
+        '<a class="uc-cta-primary" href="#audit">Réserver un audit gratuit ' +
+        '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></a>' +
+        '<button type="button" class="uc-cta-secondary" id="ucRestart">Recommencer</button>';
+      bdiv.appendChild(ctaRow);
+      var restartBtn = document.getElementById('ucRestart');
+      if (restartBtn) restartBtn.addEventListener('click', restart);
+    }
+
+    function restart() {
+      state = { domain: null, tools: [], texts: [], proposed: false };
+      chat.innerHTML = '';
+      chat.classList.remove('has-content');
+      if (stage) stage.classList.remove('chat-active');
+      activated = false;
+      input.value = '';
+      input.focus();
+    }
+
+    function onChoice(kind, value, label) {
+      appendUser(label);
+      if (kind === 'domain') state.domain = value === 'autre' ? null : value;
+      if (kind === 'tool') {
+        if (value === 'dontknow') state.tools.push('dontknow');
+        else if (state.tools.indexOf(value) < 0) state.tools.push(value);
+      }
+      // If domain "autre" picked, skip directly to proposals
+      if (kind === 'domain' && value === 'autre') {
+        state.domain = 'autre';
+        thinkThen(showProposals);
+        return;
+      }
+      advance();
+    }
+
+    function advance() {
+      thinkThen(function () {
+        if (!state.domain)         { askDomain(); return; }
+        if (!state.tools.length)   { askTools();  return; }
+        if (!state.proposed)       { showProposals(); }
+      });
+    }
+
+    function handleUserText(text) {
+      appendUser(text);
+      state.texts.push(text);
+      var d = detectDomain(text);
+      if (d && !state.domain) state.domain = d;
+      var ts = detectTools(text);
+      ts.forEach(function (k) { if (state.tools.indexOf(k) < 0) state.tools.push(k); });
+      advance();
     }
 
     window.ucSend = function (e) {
       e.preventDefault();
       var text = input.value.trim();
       if (!text) return false;
+      input.value = '';
+      input.blur();
       if (!activated && stage) {
         stage.classList.add('chat-active');
         activated = true;
-        // wait for chip fade-out before showing the user message
-        setTimeout(function () { runChat(text); }, 550);
+        setTimeout(function () { handleUserText(text); }, 550);
       } else {
-        runChat(text);
+        handleUserText(text);
       }
       return false;
     };
 
-    // Floating chips → pre-fill + submit (triggers suction)
     document.querySelectorAll('.float-chip').forEach(function (btn) {
       btn.addEventListener('click', function () {
         input.value = btn.getAttribute('data-prompt') || btn.textContent.trim();

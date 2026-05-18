@@ -3403,7 +3403,10 @@
   }
   @media (max-width: 860px) {
     .usecases { margin: 2rem auto 3rem; padding: 0 1.25rem; }
-    .usecases-stage { min-height: 420px; }
+    .usecases-stage {
+      min-height: 460px;
+      overflow: hidden; /* évite que les chips débordent horizontalement */
+    }
     .usecases-head { margin-bottom: 1.5rem; }
     .big-prompt input { font-size: 1rem; }
     .big-prompt { padding: 0.5rem 0.5rem 0.5rem 1.1rem; }
@@ -3412,25 +3415,46 @@
     .float-chip {
       font-size: 0.68rem;
       padding: 0.32rem 0.7rem;
-      max-width: 42vw;
+      max-width: 38vw;
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    /* Sur tablette/mobile, on ne garde que les chips des zones HAUT et BAS
+       pour éviter qu'elles chevauchent le titre et l'input au milieu */
+    .float-chip:nth-child(5),
+    .float-chip:nth-child(6),
+    .float-chip:nth-child(7),
+    .float-chip:nth-child(8) { display: none; }
   }
   @media (max-width: 560px) {
     .usecases { margin: 1.5rem auto 2.5rem; }
     .usecases-stage { min-height: 380px; }
+    .usecases-head { margin-bottom: 0.6rem; }
     .usecases-head h2 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
-    .big-prompt { width: calc(100% - 2rem); }
+    .usecases-head .usecases-sub {
+      margin-top: 0.5rem;
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+    .big-prompt { width: calc(100% - 2rem); margin-top: 0.5rem; }
     .uc-msg .bubble { font-size: 0.9rem; padding: 0.7rem 0.95rem; }
     .float-chip {
-      font-size: 0.62rem;
-      padding: 0.28rem 0.6rem;
-      max-width: 44vw;
+      font-size: 0.6rem;
+      padding: 0.26rem 0.55rem;
+      max-width: 40vw;
       box-shadow: 0 4px 12px -6px rgba(40, 30, 60, 0.14);
     }
-    /* Sur très petit écran, on garde 8 chips visibles (les autres encombrent trop) */
-    .float-chip:nth-child(n+9) { display: none; }
+    /* Sur petit mobile, on garde 6 chips : 3 en haut, 3 en bas, bien réparties */
+    .float-chip:nth-child(4),
+    .float-chip:nth-child(12) { display: none; }
+    /* Réécriture des positions (override inline style via !important) pour éviter
+       chevauchement avec titre/input et garder les chips dans le viewport */
+    .float-chip:nth-child(1)  { --x: 2%  !important; --y: 2%  !important; --r: -2deg !important; }
+    .float-chip:nth-child(2)  { --x: 52% !important; --y: 0%  !important; --r:  2deg !important; }
+    .float-chip:nth-child(3)  { --x: 8%  !important; --y: 12% !important; --r: -1deg !important; }
+    .float-chip:nth-child(9)  { --x: 2%  !important; --y: 86% !important; --r:  1deg !important; }
+    .float-chip:nth-child(10) { --x: 50% !important; --y: 86% !important; --r: -1deg !important; }
+    .float-chip:nth-child(11) { --x: 14% !important; --y: 94% !important; --r:  2deg !important; }
   }
 
   /* ===== SECTION : MÉTHODE (timeline animée, sans fond) ===== */

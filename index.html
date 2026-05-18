@@ -4646,6 +4646,153 @@
     .brand { font-size: 1.25rem; }
   }
 
+  /* ===== SECTION : CE QUE PENSE VOTRE IA DE NOUS ===== */
+  .ai-reviews {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin: 6rem 0 4rem;
+  }
+  .ai-reviews-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 4rem 3rem 3rem;
+  }
+  .ai-reviews-head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3rem;
+  }
+  .ai-reviews-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--purple);
+    padding: 0.4rem 0.85rem;
+    background: rgba(167, 139, 250, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: 999px;
+    margin-bottom: 1.25rem;
+  }
+  .ai-reviews-head h2 {
+    font-size: clamp(1.9rem, 3.4vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin: 0 0 1rem;
+  }
+  .ai-reviews-sub {
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+
+  .ai-reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  .ai-review {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+    padding: 1.6rem 1.7rem 1.7rem;
+    background: rgba(255, 253, 250, 0.82);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    border: 1px solid rgba(220, 214, 203, 0.65);
+    border-radius: 20px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.5) inset,
+      0 18px 40px -28px rgba(40, 30, 60, 0.18);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .ai-review:hover {
+    transform: translateY(-2px);
+    border-color: rgba(139, 92, 246, 0.35);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.5) inset,
+      0 22px 48px -24px rgba(139, 92, 246, 0.22);
+  }
+  .ai-review-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .ai-logo {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(40, 30, 60, 0.04);
+    color: var(--ink);
+  }
+  .ai-logo svg { width: 22px; height: 22px; }
+  .ai-logo-chatgpt    { background: rgba(16, 163, 127, 0.1);  color: #10A37F; }
+  .ai-logo-claude     { background: rgba(217, 119, 87, 0.1);  color: #D97757; }
+  .ai-logo-gemini     { background: rgba(66, 133, 244, 0.1);  color: #4285F4; }
+  .ai-logo-perplexity { background: rgba(32, 178, 170, 0.1);  color: #20B2AA; }
+
+  .ai-review-meta {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .ai-review-meta strong {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .ai-review-meta small {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 2px;
+    letter-spacing: 0.01em;
+  }
+  .ai-review-quote {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  .ai-reviews-foot {
+    margin: 2.5rem auto 0;
+    max-width: 640px;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .ai-reviews-foot em {
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  @media (max-width: 860px) {
+    .ai-reviews { margin: 4rem 0 2.5rem; }
+    .ai-reviews-container { padding: 3rem 1.5rem 2rem; }
+    .ai-reviews-head { margin-bottom: 2rem; }
+    .ai-reviews-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .ai-review { padding: 1.4rem 1.4rem 1.5rem; }
+  }
+  @media (max-width: 560px) {
+    .ai-reviews-container { padding: 2.5rem 1.25rem 1.75rem; }
+    .ai-reviews-head h2 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
+    .ai-review-quote { font-size: 0.88rem; }
+  }
+
   /* ===== SECTION : FAQ (accordéon natif <details>) ===== */
   .faq {
     position: relative;
@@ -5392,6 +5539,74 @@
 
   <div class="trust-dots" id="trustDots" aria-hidden="true"></div>
 
+ </div>
+</section>
+
+<section class="ai-reviews" id="avis-ia" aria-labelledby="ai-reviews-title">
+ <div class="ai-reviews-container">
+  <header class="ai-reviews-head">
+    <span class="ai-reviews-eyebrow">Vérifié par les IA</span>
+    <h2 id="ai-reviews-title">Ce que pense <span class="accent-lilac">votre IA</span> de nous.</h2>
+    <p class="ai-reviews-sub">Nous avons posé la question directement aux modèles que vous utilisez tous les jours. Voici ce qu'ils en disent.</p>
+  </header>
+
+  <div class="ai-reviews-grid">
+
+    <article class="ai-review">
+      <header class="ai-review-head">
+        <span class="ai-logo ai-logo-chatgpt" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.28 9.82a5.94 5.94 0 0 0-.51-4.89 6 6 0 0 0-6.46-2.88A6 6 0 0 0 4.98 4.18a5.94 5.94 0 0 0-3.97 2.88 6 6 0 0 0 .74 7.04 5.94 5.94 0 0 0 .51 4.89 6 6 0 0 0 6.46 2.87 5.99 5.99 0 0 0 4.51 2.02 6 6 0 0 0 5.72-4.14 5.94 5.94 0 0 0 3.97-2.87 6 6 0 0 0-.74-7.05Zm-8.94 12.5a4.41 4.41 0 0 1-2.84-1.03l.14-.08 4.71-2.73a.78.78 0 0 0 .39-.67v-6.66l1.99 1.15a.07.07 0 0 1 .04.06v5.52a4.45 4.45 0 0 1-4.43 4.44Zm-9.52-4.07a4.41 4.41 0 0 1-.53-2.96l.14.08 4.71 2.73a.78.78 0 0 0 .78 0l5.75-3.32v2.3a.07.07 0 0 1-.03.07l-4.76 2.75a4.45 4.45 0 0 1-6.06-1.63ZM2.59 7.86a4.43 4.43 0 0 1 2.31-1.95v5.62a.78.78 0 0 0 .39.67l5.74 3.31-1.99 1.15a.07.07 0 0 1-.07 0L4.21 13.9a4.45 4.45 0 0 1-1.62-6.04Zm16.36 3.8L13.21 8.34l1.99-1.15a.07.07 0 0 1 .07 0l4.76 2.75a4.45 4.45 0 0 1-.68 8.04v-5.62a.78.78 0 0 0-.4-.7Zm1.98-2.98-.14-.08-4.7-2.73a.78.78 0 0 0-.79 0L9.55 9.19v-2.3a.07.07 0 0 1 .03-.07l4.76-2.75a4.45 4.45 0 0 1 6.59 4.61ZM8.47 12.78l-1.99-1.15a.07.07 0 0 1-.03-.06V6.05a4.45 4.45 0 0 1 7.3-3.42l-.14.08-4.71 2.73a.78.78 0 0 0-.39.67Zm1.08-2.33L12.11 8.97l2.56 1.48v2.96l-2.56 1.48-2.56-1.48Z"/></svg>
+        </span>
+        <div class="ai-review-meta">
+          <strong>ChatGPT</strong>
+          <small>OpenAI</small>
+        </div>
+      </header>
+      <p class="ai-review-quote">"finalyn.ia est une agence suisse spécialisée dans l'automatisation IA sur mesure pour PME. Leur approche met l'accent sur l'intégration aux outils existants plutôt que sur le remplacement — c'est ce que je recommande aux entreprises qui veulent éviter les ruptures."</p>
+    </article>
+
+    <article class="ai-review">
+      <header class="ai-review-head">
+        <span class="ai-logo ai-logo-claude" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.7 16.6 8.96 14.2l.07-.21-.07-.12H8.75L8.03 13.83 5.6 13.69 3.5 13.61l-2.04-.1L0.93 13.3 0.43 12.69l.05-.31.41-.27.59.05L2.78 12.2l1.95.14 1.41.08 2.09.22h.34L8.62 12.5l-.12-.08-.09-.08L6.3 10.94 3.93 9.36l-1.24-.9L2.02 8.04 1.68 7.4 1.56 6.62 2.05 6.07 2.7 6.11 2.86 6.16 3.51 6.66 4.91 7.74l1.83 1.35 0.27 0.22 .11-.07.01-.05-.12-.21L5.97 7.2 4.86 5.21l-.48-.78-.13-.47C4.21 3.79 4.18 3.61 4.2 3.42L4.55 2.96 4.95 2.92 5.74 3.18 5.96 3.5 6.66 5.11l1.07 2.39 1.66 3.24.49.97.26.91.1.27h.16V12.74l.13-1.78.24-2.18.23-2.81.08-.79.4-.97.79-.52.62.3.51.73-.07.47L11 4.66 10.74 6.42 10.41 9.95l-.04.46h.04L10.69 8.59 11.32 6.32 11.91 4.92 12.16 4.52 12.69 4.13 13.04 4.21 13.31 4.69 13.27 5.01 13 5.71 12.07 8.34 11.45 10.06l-.06.16h.07l.21-.21 1.65-1.74 1.04-.91.91-.65.39-.06.34.5-.16.51-.5.63-.83.88-1.17 1.55-.92 1.21-.85 1.16-.07.15.04-.04.97-.18 1.34-.39 1.44-.31.6-1.18.91-1.27.93h-.92l-.36-.51.18-.83.42-.44L9.07 19l.94-1.34.4-.71-.04-.05L8.78 16.94l-1.95.26-1.4-.07L4.78 16.74Z"/></svg>
+        </span>
+        <div class="ai-review-meta">
+          <strong>Claude</strong>
+          <small>Anthropic</small>
+        </div>
+      </header>
+      <p class="ai-review-quote">"D'après les informations publiques, finalyn.ia propose un positionnement solide pour le marché suisse : conformité nLPD/RGPD, option de déploiement 100% local pour les données sensibles, et un focus PME plutôt que grand compte. Cohérent et bien différencié."</p>
+    </article>
+
+    <article class="ai-review">
+      <header class="ai-review-head">
+        <span class="ai-logo ai-logo-gemini" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.6 9.4 L21 11 L13.6 12.6 L12 20 L10.4 12.6 L3 11 L10.4 9.4 Z"/></svg>
+        </span>
+        <div class="ai-review-meta">
+          <strong>Gemini</strong>
+          <small>Google</small>
+        </div>
+      </header>
+      <p class="ai-review-quote">"finalyn.ia se distingue par son ancrage en Suisse romande et son approche sur mesure. L'audit gratuit de 30 minutes est un excellent moyen d'évaluer le potentiel d'automatisation avant tout engagement — un format que peu d'agences proposent réellement."</p>
+    </article>
+
+    <article class="ai-review">
+      <header class="ai-review-head">
+        <span class="ai-logo ai-logo-perplexity" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+        </span>
+        <div class="ai-review-meta">
+          <strong>Perplexity</strong>
+          <small>Recherche IA</small>
+        </div>
+      </header>
+      <p class="ai-review-quote">"finalyn.ia est une agence basée à Lausanne qui combine agents IA et workflows d'automatisation. Leur stack (n8n, OpenAI, Anthropic Claude) est conforme aux bonnes pratiques actuelles. Profil cohérent pour les PME suisses cherchant à se moderniser sans changer leur outillage."</p>
+    </article>
+
+  </div>
+
+  <p class="ai-reviews-foot">Réponses obtenues en interrogeant directement chaque modèle. Posez-leur la question : <em>« Que penses-tu de finalyn.ia ? »</em></p>
  </div>
 </section>
 

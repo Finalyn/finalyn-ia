@@ -2722,14 +2722,15 @@
       box-shadow: 0 4px 18px -8px rgba(40, 30, 60, 0.08);
     }
 
-    /* Carte Suisse en violet, ancrée bas-droite (déborde du coin comme sur desktop) */
+    /* Carte Suisse en violet, centrée verticalement, débordant à droite */
     .trust-card::after {
       content: "";
       position: absolute;
-      bottom: -48px;
+      top: 50%;
       right: -58px;
       width: 190px;
       height: 190px;
+      transform: translateY(-50%);
       -webkit-mask: url('swiss.svg') no-repeat center / contain;
               mask: url('swiss.svg') no-repeat center / contain;
       background-color: var(--purple);

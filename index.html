@@ -1606,13 +1606,19 @@
     font-size: 0.92rem;
     font-weight: 500;
     color: var(--muted);
+    overflow: hidden;
+    background-clip: padding-box;
+    isolation: isolate;
     transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
   }
   .parcours-mini-step.is-active .mini-num {
-    background: linear-gradient(135deg, #B9A3FB 0%, #8B5CF6 100%);
+    /* Couleur unie au lieu d'un gradient pour éviter les coins du gradient qui peuvent "fuir" du masque arrondi avec transform: scale */
+    background: #8B5CF6;
     border-color: transparent;
     color: #fff;
-    box-shadow: 0 0 0 5px rgba(167, 139, 250, 0.18);
+    box-shadow:
+      0 0 0 5px rgba(167, 139, 250, 0.18),
+      0 4px 12px -2px rgba(139, 92, 246, 0.35);
     transform: scale(1.05);
   }
   .mini-label {

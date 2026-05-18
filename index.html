@@ -3411,7 +3411,8 @@
       overflow: hidden; /* évite que les chips débordent horizontalement */
     }
     .usecases-head { margin-bottom: 1.5rem; }
-    .big-prompt input { font-size: 1rem; }
+    .big-prompt input { font-size: 0.92rem; }
+    .big-prompt input::placeholder { font-size: 0.82rem; }
     .big-prompt { padding: 0.5rem 0.5rem 0.5rem 1.1rem; }
     .big-prompt button.send { width: 40px; height: 40px; }
     /* Chips visibles, version courte du texte */
@@ -4987,19 +4988,19 @@
 <section class="usecases" id="cas-usage" aria-labelledby="usecases-title">
  <div class="usecases-stage" id="ucStage">
   <!-- Floating chips that gravitate around the prompt initially -->
-  <button type="button" class="float-chip" style="--x: 3%;  --y: 4%;  --r: -3deg;" data-prompt="Trier mes mails Outlook par priorité chaque matin"><span class="chip-full">Trier mes mails Outlook par priorité chaque matin</span><span class="chip-short">Tri des mails</span></button>
-  <button type="button" class="float-chip" style="--x: 60%; --y: 2%;  --r: 2deg;"  data-prompt="Trouver des prospects qualifiés sur LinkedIn"><span class="chip-full">Trouver des prospects qualifiés sur LinkedIn</span><span class="chip-short">Leads LinkedIn</span></button>
-  <button type="button" class="float-chip" style="--x: 26%; --y: 14%; --r: -1deg;" data-prompt="Répondre aux clients sur WhatsApp 24h/24"><span class="chip-full">Répondre aux clients sur WhatsApp 24h/24</span><span class="chip-short">WhatsApp 24/7</span></button>
-  <button type="button" class="float-chip" style="--x: 78%; --y: 14%; --r: 3deg;"  data-prompt="Importer mes factures PDF directement dans ma compta"><span class="chip-full">Importer mes factures PDF directement dans ma compta</span><span class="chip-short">Factures PDF</span></button>
-  <button type="button" class="float-chip" style="--x: 6%;  --y: 26%; --r: 1deg;"  data-prompt="Synchroniser HubSpot et Microsoft 365"><span class="chip-full">Synchroniser HubSpot et Microsoft 365</span><span class="chip-short">Sync HubSpot</span></button>
-  <button type="button" class="float-chip" style="--x: 70%; --y: 26%; --r: -2deg;" data-prompt="Pré-rédiger mes mails dans Outlook dans mon style"><span class="chip-full">Pré-rédiger mes mails dans Outlook dans mon style</span><span class="chip-short">Mails Outlook</span></button>
+  <button type="button" class="float-chip" style="--x: 3%;  --y: 4%;  --r: -3deg;" data-prompt="Trier mes mails Outlook par priorité chaque matin"><span class="chip-full">Trier mes mails Outlook par priorité chaque matin</span><span class="chip-short">Trier mes mails</span></button>
+  <button type="button" class="float-chip" style="--x: 60%; --y: 2%;  --r: 2deg;"  data-prompt="Trouver des prospects qualifiés sur LinkedIn"><span class="chip-full">Trouver des prospects qualifiés sur LinkedIn</span><span class="chip-short">Prospects LinkedIn</span></button>
+  <button type="button" class="float-chip" style="--x: 26%; --y: 14%; --r: -1deg;" data-prompt="Répondre aux clients sur WhatsApp 24h/24"><span class="chip-full">Répondre aux clients sur WhatsApp 24h/24</span><span class="chip-short">Support WhatsApp 24/7</span></button>
+  <button type="button" class="float-chip" style="--x: 78%; --y: 14%; --r: 3deg;"  data-prompt="Importer mes factures PDF directement dans ma compta"><span class="chip-full">Importer mes factures PDF directement dans ma compta</span><span class="chip-short">Importer factures PDF</span></button>
+  <button type="button" class="float-chip" style="--x: 6%;  --y: 26%; --r: 1deg;"  data-prompt="Synchroniser HubSpot et Microsoft 365"><span class="chip-full">Synchroniser HubSpot et Microsoft 365</span><span class="chip-short">Sync HubSpot + 365</span></button>
+  <button type="button" class="float-chip" style="--x: 70%; --y: 26%; --r: -2deg;" data-prompt="Pré-rédiger mes mails dans Outlook dans mon style"><span class="chip-full">Pré-rédiger mes mails dans Outlook dans mon style</span><span class="chip-short">Mails dans mon style</span></button>
 
-  <button type="button" class="float-chip" style="--x: 4%;  --y: 70%; --r: 2deg;"  data-prompt="Résumer mes réunions Zoom en compte-rendu envoyé"><span class="chip-full">Résumer mes réunions Zoom en compte-rendu envoyé</span><span class="chip-short">Résumés Zoom</span></button>
-  <button type="button" class="float-chip" style="--x: 64%; --y: 70%; --r: -3deg;" data-prompt="Poser une question à tous mes documents internes (RAG)"><span class="chip-full">Poser une question à tous mes documents internes (RAG)</span><span class="chip-short">RAG documents</span></button>
-  <button type="button" class="float-chip" style="--x: 22%; --y: 82%; --r: 1deg;"  data-prompt="Préparer mes rendez-vous depuis mon CRM"><span class="chip-full">Préparer mes rendez-vous depuis mon CRM</span><span class="chip-short">Prép RDV CRM</span></button>
-  <button type="button" class="float-chip" style="--x: 58%; --y: 84%; --r: -1deg;" data-prompt="Un agent IA personnalisé connecté à mon environnement"><span class="chip-full">Un agent IA personnalisé connecté à mon environnement</span><span class="chip-short">Agent IA perso</span></button>
-  <button type="button" class="float-chip" style="--x: 4%;  --y: 92%; --r: 3deg;"  data-prompt="Notifier Slack au bon moment quand un lead arrive"><span class="chip-full">Notifier Slack au bon moment quand un lead arrive</span><span class="chip-short">Alertes Slack</span></button>
-  <button type="button" class="float-chip" style="--x: 72%; --y: 94%; --r: -2deg;" data-prompt="Relancer automatiquement les factures impayées"><span class="chip-full">Relancer automatiquement les factures impayées</span><span class="chip-short">Relances auto</span></button>
+  <button type="button" class="float-chip" style="--x: 4%;  --y: 70%; --r: 2deg;"  data-prompt="Résumer mes réunions Zoom en compte-rendu envoyé"><span class="chip-full">Résumer mes réunions Zoom en compte-rendu envoyé</span><span class="chip-short">Résumés de réunions Zoom</span></button>
+  <button type="button" class="float-chip" style="--x: 64%; --y: 70%; --r: -3deg;" data-prompt="Poser une question à tous mes documents internes (RAG)"><span class="chip-full">Poser une question à tous mes documents internes (RAG)</span><span class="chip-short">RAG sur mes docs</span></button>
+  <button type="button" class="float-chip" style="--x: 22%; --y: 82%; --r: 1deg;"  data-prompt="Préparer mes rendez-vous depuis mon CRM"><span class="chip-full">Préparer mes rendez-vous depuis mon CRM</span><span class="chip-short">Préparer RDV depuis CRM</span></button>
+  <button type="button" class="float-chip" style="--x: 58%; --y: 84%; --r: -1deg;" data-prompt="Un agent IA personnalisé connecté à mon environnement"><span class="chip-full">Un agent IA personnalisé connecté à mon environnement</span><span class="chip-short">Agent IA personnel</span></button>
+  <button type="button" class="float-chip" style="--x: 4%;  --y: 92%; --r: 3deg;"  data-prompt="Notifier Slack au bon moment quand un lead arrive"><span class="chip-full">Notifier Slack au bon moment quand un lead arrive</span><span class="chip-short">Alertes Slack auto</span></button>
+  <button type="button" class="float-chip" style="--x: 72%; --y: 94%; --r: -2deg;" data-prompt="Relancer automatiquement les factures impayées"><span class="chip-full">Relancer automatiquement les factures impayées</span><span class="chip-short">Relances factures auto</span></button>
 
   <div class="uc-center">
     <header class="usecases-head">

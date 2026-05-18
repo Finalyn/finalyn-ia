@@ -767,7 +767,7 @@
   "suggestedAnswer": [
     {
       "@type": "Answer",
-      "text": "finalyn.ia est une agence IA basée à Rolle (Vaud, Suisse), active dans toute la Suisse romande, fondée par Jack Guisolan. Elle implémente, optimise et conçoit des systèmes IA sur mesure pour PME et indépendants : agents IA autonomes, automatisation de processus métier, intégration aux outils existants (Microsoft 365, Google Workspace, Bexio, HubSpot, etc.) plutôt que leur remplacement. Trois niveaux de confidentialité sont proposés (API cloud, API zéro-rétention, modèles open-source 100 % locaux), avec conformité nLPD et RGPD."
+      "text": "finalyn.ia est une agence IA suisse active dans toute la Suisse romande. Elle implémente, optimise et conçoit des systèmes IA sur mesure pour PME et indépendants : agents IA autonomes, automatisation de processus métier, intégration aux outils existants (Microsoft 365, Google Workspace, Bexio, HubSpot, etc.) plutôt que leur remplacement. Trois niveaux de confidentialité sont proposés (API cloud, API zéro-rétention, modèles open-source 100 % locaux), avec conformité nLPD et RGPD."
     }
   ]
 }
@@ -5093,9 +5093,9 @@
   /* Question prominente avec bouton copier */
   .ai-ask-prompt {
     position: relative;
-    max-width: 580px;
+    max-width: 520px;
     margin: 0 auto 2rem;
-    padding: 1.4rem 1.4rem 1.3rem 2.4rem;
+    padding: 1.6rem 1.4rem 1.4rem;
     background: rgba(255, 253, 250, 0.82);
     backdrop-filter: blur(12px) saturate(140%);
     -webkit-backdrop-filter: blur(12px) saturate(140%);
@@ -5105,24 +5105,14 @@
       0 1px 0 rgba(255,255,255,0.55) inset,
       0 20px 44px -28px rgba(40, 30, 60, 0.18);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    text-align: left;
-  }
-  .ai-ask-quote {
-    position: absolute;
-    top: 0;
-    left: 0.7rem;
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 3rem;
-    line-height: 1;
-    color: rgba(139, 92, 246, 0.28);
-    pointer-events: none;
+    gap: 1.1rem;
+    text-align: center;
   }
   .ai-ask-text {
-    flex: 1;
     margin: 0;
-    font-size: 1.08rem;
+    font-size: 1.1rem;
     font-weight: 500;
     color: var(--ink);
     letter-spacing: -0.015em;
@@ -5195,13 +5185,10 @@
     .ai-ask-container { padding: 2.5rem 1.5rem 2rem; }
     .ai-ask-head { margin-bottom: 1.75rem; }
     .ai-ask-prompt {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0.85rem;
-      padding: 1.4rem 1.25rem 1.2rem 2rem;
+      gap: 1rem;
+      padding: 1.4rem 1.25rem 1.2rem;
     }
     .ai-ask-text { font-size: 1rem; }
-    .ai-ask-copy { align-self: flex-end; }
   }
   @media (max-width: 560px) {
     .ai-ask-head h2 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
@@ -6171,7 +6158,6 @@
   </header>
 
   <div class="ai-ask-prompt" id="aiAskPrompt">
-    <span class="ai-ask-quote" aria-hidden="true">"</span>
     <p class="ai-ask-text">Que penses-tu de finalyn.ia ?</p>
     <button type="button" class="ai-ask-copy" id="aiAskCopy" aria-label="Copier la question">
       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

@@ -3440,22 +3440,21 @@
     .uc-chat:empty { margin: 0; min-height: 0; }
     .uc-msg .bubble { font-size: 0.9rem; padding: 0.7rem 0.95rem; }
     .float-chip {
-      font-size: 0.6rem;
-      padding: 0.26rem 0.55rem;
-      max-width: 40vw;
+      font-size: 0.7rem;
+      padding: 0.36rem 0.75rem;
+      max-width: 36vw;
       box-shadow: 0 4px 12px -6px rgba(40, 30, 60, 0.14);
     }
-    /* Sur petit mobile, on garde 6 chips : 3 en haut, 3 en bas, bien réparties */
+    /* On garde 6 chips : 3 en haut (gauche / centre / droite) + 3 en bas */
     .float-chip:nth-child(4),
     .float-chip:nth-child(12) { display: none; }
-    /* Réécriture des positions (override inline style via !important) pour éviter
-       chevauchement avec titre/input et garder les chips dans le viewport */
-    .float-chip:nth-child(1)  { --x: 2%  !important; --y: 2%  !important; --r: -2deg !important; }
-    .float-chip:nth-child(2)  { --x: 52% !important; --y: 0%  !important; --r:  2deg !important; }
-    .float-chip:nth-child(3)  { --x: 8%  !important; --y: 12% !important; --r: -1deg !important; }
-    .float-chip:nth-child(9)  { --x: 2%  !important; --y: 86% !important; --r:  1deg !important; }
-    .float-chip:nth-child(10) { --x: 50% !important; --y: 86% !important; --r: -1deg !important; }
-    .float-chip:nth-child(11) { --x: 14% !important; --y: 94% !important; --r:  2deg !important; }
+    /* Grille 3 × 2 (gauche / centre / droite) — override inline style via !important */
+    .float-chip:nth-child(1)  { --x: 0%  !important; --y: 4%  !important; --r: -2deg !important; }
+    .float-chip:nth-child(2)  { --x: 32% !important; --y: 0%  !important; --r:  2deg !important; }
+    .float-chip:nth-child(3)  { --x: 64% !important; --y: 4%  !important; --r: -1deg !important; }
+    .float-chip:nth-child(9)  { --x: 0%  !important; --y: 88% !important; --r:  1deg !important; }
+    .float-chip:nth-child(10) { --x: 32% !important; --y: 94% !important; --r: -1deg !important; }
+    .float-chip:nth-child(11) { --x: 64% !important; --y: 88% !important; --r:  2deg !important; }
   }
 
   /* ===== SECTION : MÉTHODE (timeline animée, sans fond) ===== */

@@ -4756,7 +4756,7 @@
     align-items: center;
     width: max-content;
     gap: 3rem;
-    animation: stackMarquee 32s linear infinite;
+    animation: stackMarquee 38s linear infinite;
     will-change: transform;
     /* GPU acceleration : translate3d + backface hidden = scroll plus fluide */
     transform: translate3d(0, 0, 0);
@@ -4765,7 +4765,6 @@
   }
   .logo-marquee.reverse .logo-track {
     animation-direction: reverse;
-    animation-duration: 38s;
   }
   .logo-marquee:hover .logo-track {
     animation-play-state: paused;
@@ -4774,10 +4773,11 @@
     from { transform: translate3d(0, 0, 0); }
     to   { transform: translate3d(-50%, 0, 0); }
   }
+  /* Boîte fixe + object-fit:contain → tous les logos occupent visuellement la même surface,
+     que ce soit un logo rond serré (Discord, WhatsApp) ou plat (Word, Excel) */
   .stack-logo {
-    height: 32px;
-    width: auto;
-    max-width: 130px;
+    width: 44px;
+    height: 44px;
     object-fit: contain;
     opacity: 0.92;
     flex-shrink: 0;
@@ -4787,17 +4787,8 @@
     opacity: 1;
     transform: scale(1.1);
   }
-  /* Icônes au viewBox serré (rond plein) → légèrement plus grandes pour
-     harmoniser la taille visuelle perçue vs les logos plats type Word/Excel */
-  .stack-logo[src*="whatsapp"],
-  .stack-logo[src*="slack-icon"],
-  .stack-logo[src*="notion-icon"],
-  .stack-logo[src*="zoom-icon"],
-  .stack-logo[src*="discord-icon"] {
-    height: 40px;
-  }
   .stack-foot {
-    margin: 2.25rem auto 0;
+    margin: 0.9rem auto 0;
     max-width: 620px;
     text-align: center;
     font-size: 0.92rem;
@@ -4841,15 +4832,13 @@
     .stack { margin: 3.5rem 0 2.5rem; }
     .stack-container { padding: 2.5rem 0 2rem; }
     .stack-head { margin-bottom: 2rem; }
-    .logo-track { gap: 2rem; animation-duration: 26s; }
-    .logo-marquee.reverse .logo-track { animation-duration: 30s; }
-    .stack-logo { height: 26px; max-width: 100px; }
+    .logo-track { gap: 2rem; animation-duration: 28s; }
+    .stack-logo { width: 38px; height: 38px; }
   }
   @media (max-width: 560px) {
     .stack-head h2 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
-    .logo-track { gap: 1.5rem; animation-duration: 22s; }
-    .logo-marquee.reverse .logo-track { animation-duration: 25s; }
-    .stack-logo { height: 24px; max-width: 90px; }
+    .logo-track { gap: 1.5rem; animation-duration: 24s; }
+    .stack-logo { width: 32px; height: 32px; }
   }
 
   /* ===== SECTION : FAQ (accordéon natif <details>) ===== */

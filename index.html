@@ -4652,6 +4652,120 @@
     .brand { font-size: 1.25rem; }
   }
 
+  /* ===== SECTION : COMPATIBLE AVEC VOTRE STACK (marquee logos) ===== */
+  .stack {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin: 5rem 0 4rem;
+  }
+  .stack-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 3rem 0 2.5rem;
+    text-align: center;
+  }
+  .stack-head {
+    max-width: 720px;
+    margin: 0 auto 2.75rem;
+    padding: 0 1.5rem;
+  }
+  .stack-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--purple);
+    padding: 0.4rem 0.85rem;
+    background: rgba(167, 139, 250, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: 999px;
+    margin-bottom: 1.25rem;
+  }
+  .stack-head h2 {
+    font-size: clamp(1.9rem, 3.4vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin: 0 0 0.85rem;
+  }
+  .stack-sub {
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+
+  /* Marquee — défilement infini avec fade-out sur les bords */
+  .logo-marquee {
+    overflow: hidden;
+    padding: 0.9rem 0;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  }
+  .logo-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    gap: 3.5rem;
+    animation: stackMarquee 60s linear infinite;
+    will-change: transform;
+  }
+  .logo-marquee.reverse .logo-track {
+    animation-direction: reverse;
+    animation-duration: 70s;
+  }
+  .logo-marquee:hover .logo-track {
+    animation-play-state: paused;
+  }
+  @keyframes stackMarquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .stack-logo {
+    height: 28px;
+    width: auto;
+    max-width: 110px;
+    object-fit: contain;
+    opacity: 0.55;
+    flex-shrink: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .stack-logo:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  .stack-foot {
+    margin: 2.25rem auto 0;
+    max-width: 520px;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--muted);
+    letter-spacing: -0.005em;
+    padding: 0 1.5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-track { animation: none; }
+  }
+  @media (max-width: 860px) {
+    .stack { margin: 3.5rem 0 2.5rem; }
+    .stack-container { padding: 2.5rem 0 2rem; }
+    .stack-head { margin-bottom: 2rem; }
+    .logo-track { gap: 2.5rem; animation-duration: 45s; }
+    .logo-marquee.reverse .logo-track { animation-duration: 52s; }
+    .stack-logo { height: 24px; max-width: 90px; }
+  }
+  @media (max-width: 560px) {
+    .stack-head h2 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
+    .logo-track { gap: 2rem; animation-duration: 38s; }
+    .stack-logo { height: 22px; max-width: 80px; }
+  }
+
   /* ===== SECTION : FAQ (accordéon natif <details>) ===== */
   .faq {
     position: relative;
@@ -5398,6 +5512,135 @@
 
   <div class="trust-dots" id="trustDots" aria-hidden="true"></div>
 
+ </div>
+</section>
+
+<section class="stack" id="stack" aria-labelledby="stack-title">
+ <div class="stack-container">
+  <header class="stack-head">
+    <span class="stack-eyebrow">Aucun changement à prévoir</span>
+    <h2 id="stack-title">Compatible avec <span class="accent-lilac">votre stack</span>.</h2>
+    <p class="stack-sub">On plug à ce que vous avez déjà — productivité, CRM, comptabilité, IA, automation. Vous gardez vos outils, vos accès, vos habitudes.</p>
+  </header>
+
+  <!-- Row 1 — gauche à droite -->
+  <div class="logo-marquee" aria-hidden="true">
+    <div class="logo-track">
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftoutlook/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftteams/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftexcel/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftword/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftonedrive/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/gmail/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googledrive/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googledocs/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlesheets/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlecalendar/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/slack/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/notion/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/zoom/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/whatsapp/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/telegram/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/discord/8a8275"/>
+      <!-- duplicata pour boucle infinie -->
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftoutlook/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftteams/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftexcel/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftword/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftonedrive/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/gmail/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googledrive/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googledocs/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlesheets/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlecalendar/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/slack/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/notion/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/zoom/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/whatsapp/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/telegram/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/discord/8a8275"/>
+    </div>
+  </div>
+
+  <!-- Row 2 — droite à gauche -->
+  <div class="logo-marquee reverse" aria-hidden="true">
+    <div class="logo-track">
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/hubspot/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/salesforce/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/pipedrive/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/stripe/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/shopify/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/woocommerce/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/mailchimp/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/brevo/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/airtable/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/clickup/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/trello/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/asana/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/mondaydotcom/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/calendly/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/typeform/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/dropbox/8a8275"/>
+      <!-- duplicata -->
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/hubspot/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/salesforce/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/pipedrive/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/stripe/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/shopify/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/woocommerce/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/mailchimp/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/brevo/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/airtable/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/clickup/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/trello/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/asana/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/mondaydotcom/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/calendly/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/typeform/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/dropbox/8a8275"/>
+    </div>
+  </div>
+
+  <!-- Row 3 — gauche à droite -->
+  <div class="logo-marquee" aria-hidden="true">
+    <div class="logo-track">
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/openai/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/anthropic/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlegemini/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/huggingface/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/ollama/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/n8n/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/make/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/zapier/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/github/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/supabase/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/postgresql/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/amazonaws/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlecloud/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/twilio/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/wordpress/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/webflow/8a8275"/>
+      <!-- duplicata -->
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/openai/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/anthropic/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlegemini/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/huggingface/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/ollama/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/n8n/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/make/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/zapier/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/github/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/supabase/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/postgresql/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/amazonaws/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlecloud/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/twilio/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/wordpress/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/webflow/8a8275"/>
+    </div>
+  </div>
+
+  <p class="stack-foot">+ tout ce qui expose une API ou un webhook.</p>
  </div>
 </section>
 

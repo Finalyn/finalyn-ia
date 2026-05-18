@@ -4866,6 +4866,177 @@
     .stack-logo { height: 24px; max-width: 90px; }
   }
 
+  /* ===== SECTION : DEMANDEZ À VOTRE IA ===== */
+  .ai-ask {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin: 5rem 0 4rem;
+  }
+  .ai-ask-container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 3rem 3rem 2.5rem;
+    text-align: center;
+  }
+  .ai-ask-head { max-width: 640px; margin: 0 auto 2.25rem; }
+  .ai-ask-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--purple);
+    padding: 0.4rem 0.85rem;
+    background: rgba(167, 139, 250, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: 999px;
+    margin-bottom: 1.25rem;
+  }
+  .ai-ask-head h2 {
+    font-size: clamp(1.9rem, 3.4vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin: 0 0 0.85rem;
+  }
+  .ai-ask-head h2 .accent-lilac {
+    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    font-weight: 500;
+  }
+  .ai-ask-sub {
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  /* Question prominente avec bouton copier */
+  .ai-ask-prompt {
+    position: relative;
+    max-width: 580px;
+    margin: 0 auto 2rem;
+    padding: 1.4rem 1.4rem 1.3rem 2.4rem;
+    background: rgba(255, 253, 250, 0.82);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    border: 1px solid rgba(220, 214, 203, 0.7);
+    border-radius: 18px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.55) inset,
+      0 20px 44px -28px rgba(40, 30, 60, 0.18);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+  }
+  .ai-ask-quote {
+    position: absolute;
+    top: 0;
+    left: 0.7rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(139, 92, 246, 0.28);
+    pointer-events: none;
+  }
+  .ai-ask-text {
+    flex: 1;
+    margin: 0;
+    font-size: 1.08rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+    line-height: 1.35;
+  }
+  .ai-ask-copy {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.6rem 1rem;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  }
+  .ai-ask-copy:hover {
+    background: var(--purple);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px -10px rgba(139, 92, 246, 0.45);
+  }
+  .ai-ask-copy.is-copied { background: var(--purple); }
+  .ai-ask-copy svg { flex-shrink: 0; }
+
+  /* Logos cliquables */
+  .ai-ask-launchers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.65rem;
+  }
+  .ai-launcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.6rem 1rem 0.6rem 0.7rem;
+    background: rgba(255, 253, 250, 0.85);
+    border: 1px solid rgba(220, 214, 203, 0.8);
+    border-radius: 999px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    transition: transform 0.2s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .ai-launcher:hover {
+    border-color: var(--purple);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px -10px rgba(139, 92, 246, 0.3);
+  }
+  .ai-launcher-logo {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .ai-launcher-name { white-space: nowrap; }
+  .ai-launcher-arrow { color: var(--muted); font-size: 0.78rem; margin-left: 2px; }
+  .ai-launcher:hover .ai-launcher-arrow { color: var(--purple); }
+
+  @media (max-width: 860px) {
+    .ai-ask { margin: 3.5rem 0 2.5rem; }
+    .ai-ask-container { padding: 2.5rem 1.5rem 2rem; }
+    .ai-ask-head { margin-bottom: 1.75rem; }
+    .ai-ask-prompt {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.85rem;
+      padding: 1.4rem 1.25rem 1.2rem 2rem;
+    }
+    .ai-ask-text { font-size: 1rem; }
+    .ai-ask-copy { align-self: flex-end; }
+  }
+  @media (max-width: 560px) {
+    .ai-ask-head h2 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
+    .ai-ask-text { font-size: 0.92rem; }
+    .ai-launcher { font-size: 0.82rem; padding: 0.5rem 0.85rem 0.5rem 0.55rem; }
+    .ai-launcher-logo { width: 18px; height: 18px; }
+    .ai-ask-launchers { gap: 0.5rem; }
+  }
+
   /* ===== SECTION : FAQ (accordéon natif <details>) ===== */
   .faq {
     position: relative;
@@ -5818,6 +5989,55 @@
  </div>
 </section>
 
+<section class="ai-ask" id="avis-ia" aria-labelledby="ai-ask-title">
+ <div class="ai-ask-container">
+  <header class="ai-ask-head">
+    <span class="ai-ask-eyebrow">Vérifiez par vous-même</span>
+    <h2 id="ai-ask-title">Demandez à <span class="accent-lilac">votre IA</span> ce qu'elle pense de nous.</h2>
+    <p class="ai-ask-sub">Copiez la question, ouvrez votre IA préférée, collez.</p>
+  </header>
+
+  <div class="ai-ask-prompt" id="aiAskPrompt">
+    <span class="ai-ask-quote" aria-hidden="true">"</span>
+    <p class="ai-ask-text">Que penses-tu de finalyn.ia ?</p>
+    <button type="button" class="ai-ask-copy" id="aiAskCopy" aria-label="Copier la question">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+      </svg>
+      <span>Copier</span>
+    </button>
+  </div>
+
+  <div class="ai-ask-launchers">
+    <a class="ai-launcher" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">
+      <img class="ai-launcher-logo" alt="" src="https://api.iconify.design/logos:openai-icon.svg"/>
+      <span class="ai-launcher-name">ChatGPT</span>
+      <span class="ai-launcher-arrow" aria-hidden="true">↗</span>
+    </a>
+    <a class="ai-launcher" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">
+      <img class="ai-launcher-logo" alt="" src="https://api.iconify.design/logos:claude.svg"/>
+      <span class="ai-launcher-name">Claude</span>
+      <span class="ai-launcher-arrow" aria-hidden="true">↗</span>
+    </a>
+    <a class="ai-launcher" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">
+      <img class="ai-launcher-logo" alt="" src="https://api.iconify.design/logos:google-gemini.svg"/>
+      <span class="ai-launcher-name">Gemini</span>
+      <span class="ai-launcher-arrow" aria-hidden="true">↗</span>
+    </a>
+    <a class="ai-launcher" href="https://www.perplexity.ai/?q=Que+penses-tu+de+finalyn.ia" target="_blank" rel="noopener noreferrer">
+      <img class="ai-launcher-logo" alt="" src="https://cdn.simpleicons.org/perplexity"/>
+      <span class="ai-launcher-name">Perplexity</span>
+      <span class="ai-launcher-arrow" aria-hidden="true">↗</span>
+    </a>
+    <a class="ai-launcher" href="https://chat.mistral.ai/chat" target="_blank" rel="noopener noreferrer">
+      <img class="ai-launcher-logo" alt="" src="https://api.iconify.design/logos:mistral-ai-icon.svg"/>
+      <span class="ai-launcher-name">Mistral</span>
+      <span class="ai-launcher-arrow" aria-hidden="true">↗</span>
+    </a>
+  </div>
+ </div>
+</section>
+
 <section class="faq" id="faq" aria-labelledby="faq-title">
  <div class="faq-container">
   <header class="faq-head">
@@ -6530,6 +6750,39 @@
     window.addEventListener('resize', align);
     // Re-align after fonts load (title height changes once Inter loads)
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(align);
+  })();
+
+  // 'Demandez à votre IA' — bouton copier la question
+  (function () {
+    var btn = document.getElementById('aiAskCopy');
+    if (!btn) return;
+    var label = btn.querySelector('span');
+    var originalText = label ? label.textContent : 'Copier';
+    var PROMPT = 'Que penses-tu de finalyn.ia ?';
+
+    btn.addEventListener('click', function () {
+      var done = function () {
+        btn.classList.add('is-copied');
+        if (label) label.textContent = 'Copié ✓';
+        setTimeout(function () {
+          btn.classList.remove('is-copied');
+          if (label) label.textContent = originalText;
+        }, 2200);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(PROMPT).then(done).catch(function () {
+          var t = document.createElement('textarea');
+          t.value = PROMPT;
+          t.setAttribute('readonly', '');
+          t.style.position = 'absolute';
+          t.style.left = '-9999px';
+          document.body.appendChild(t);
+          t.select();
+          try { document.execCommand('copy'); done(); } catch (_) {}
+          document.body.removeChild(t);
+        });
+      }
+    });
   })();
 
   // Chat launcher toggle

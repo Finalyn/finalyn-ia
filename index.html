@@ -2987,7 +2987,7 @@
   .usecases {
     position: relative;
     z-index: 2;
-    margin: 9rem auto 4rem;
+    margin: 3.5rem auto 4rem;
     padding: 0 2rem;
     width: 100%;
     max-width: 100%;
@@ -3391,18 +3391,35 @@
     .float-chip { font-size: 0.78rem; padding: 0.5rem 0.85rem; }
   }
   @media (max-width: 860px) {
-    .usecases { margin: 4rem auto 3rem; padding: 0 1.25rem; }
-    .usecases-stage { min-height: 0; }
-    .usecases-stage .float-chip { display: none; }
+    .usecases { margin: 2rem auto 3rem; padding: 0 1.25rem; }
+    .usecases-stage { min-height: 420px; }
     .usecases-head { margin-bottom: 1.5rem; }
     .big-prompt input { font-size: 1rem; }
     .big-prompt { padding: 0.5rem 0.5rem 0.5rem 1.1rem; }
     .big-prompt button.send { width: 40px; height: 40px; }
+    /* Chips visibles mais plus petites, texte tronqué */
+    .float-chip {
+      font-size: 0.68rem;
+      padding: 0.32rem 0.7rem;
+      max-width: 42vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
   @media (max-width: 560px) {
+    .usecases { margin: 1.5rem auto 2.5rem; }
+    .usecases-stage { min-height: 380px; }
     .usecases-head h2 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
     .big-prompt { width: calc(100% - 2rem); }
     .uc-msg .bubble { font-size: 0.9rem; padding: 0.7rem 0.95rem; }
+    .float-chip {
+      font-size: 0.62rem;
+      padding: 0.28rem 0.6rem;
+      max-width: 44vw;
+      box-shadow: 0 4px 12px -6px rgba(40, 30, 60, 0.14);
+    }
+    /* Sur très petit écran, on garde 8 chips visibles (les autres encombrent trop) */
+    .float-chip:nth-child(n+9) { display: none; }
   }
 
   /* ===== SECTION : MÉTHODE (timeline animée, sans fond) ===== */

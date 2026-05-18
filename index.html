@@ -4727,17 +4727,20 @@
     to   { transform: translateX(-50%); }
   }
   .stack-logo {
-    height: 28px;
+    height: 30px;
     width: auto;
-    max-width: 110px;
+    max-width: 120px;
     object-fit: contain;
-    opacity: 0.55;
+    opacity: 0.7;
     flex-shrink: 0;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    /* Unifie le rendu : les logos full-color (Iconify) passent en muted, comme les grey (Simple Icons) */
+    filter: grayscale(0.7) brightness(0.95);
+    transition: opacity 0.25s ease, transform 0.25s ease, filter 0.25s ease;
   }
   .stack-logo:hover {
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.1);
+    filter: grayscale(0) brightness(1);
   }
   .stack-foot {
     margin: 2.25rem auto 0;
@@ -5523,25 +5526,23 @@
     <p class="stack-sub">On plug à ce que vous avez déjà — productivité, CRM, comptabilité, IA, automation. Vous gardez vos outils, vos accès, vos habitudes.</p>
   </header>
 
-  <!-- Row — gauche à droite -->
+  <!-- Row — gauche à droite (24 logos) -->
   <div class="logo-marquee" aria-hidden="true">
     <div class="logo-track">
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftoutlook/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftteams/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftexcel/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftword/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftpowerpoint/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftonedrive/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftsharepoint/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftonenote/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:microsoft-teams.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/vscode-icons:file-type-outlook.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/vscode-icons:file-type-excel.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/vscode-icons:file-type-word.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/vscode-icons:file-type-powerpoint.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:microsoft-onedrive.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/vscode-icons:file-type-copilot.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:microsoft-azure.svg"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/gmail/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googledrive/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googledocs/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlesheets/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlecalendar/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlemeet/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/youtube/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googleforms/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:google-meet.svg"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/slack/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/notion/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/zoom/8a8275"/>
@@ -5550,23 +5551,23 @@
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/discord/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/signal/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/skype/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:linkedin-icon.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:youtube-icon.svg"/>
       <!-- duplicata pour boucle infinie -->
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftoutlook/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftteams/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftexcel/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftword/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftpowerpoint/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftonedrive/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftsharepoint/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftonenote/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:microsoft-teams.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/vscode-icons:file-type-outlook.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/vscode-icons:file-type-excel.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/vscode-icons:file-type-word.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/vscode-icons:file-type-powerpoint.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:microsoft-onedrive.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/vscode-icons:file-type-copilot.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:microsoft-azure.svg"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/gmail/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googledrive/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googledocs/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlesheets/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlecalendar/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlemeet/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/youtube/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googleforms/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:google-meet.svg"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/slack/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/notion/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/zoom/8a8275"/>
@@ -5575,10 +5576,12 @@
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/discord/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/signal/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/skype/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:linkedin-icon.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:youtube-icon.svg"/>
     </div>
   </div>
 
-  <!-- Row — droite à gauche -->
+  <!-- Row — droite à gauche (24 logos) -->
   <div class="logo-marquee reverse" aria-hidden="true">
     <div class="logo-track">
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/hubspot/8a8275"/>
@@ -5600,11 +5603,11 @@
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/shopify/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/woocommerce/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/prestashop/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/bigcommerce/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/intercom/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/zendesk/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/dropbox/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/wetransfer/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:google-analytics.svg"/>
       <!-- duplicata pour boucle infinie -->
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/hubspot/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/salesforce/8a8275"/>
@@ -5625,15 +5628,15 @@
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/shopify/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/woocommerce/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/prestashop/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/bigcommerce/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/intercom/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/zendesk/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/dropbox/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/wetransfer/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:google-analytics.svg"/>
     </div>
   </div>
 
-  <!-- Row — gauche à droite -->
+  <!-- Row — gauche à droite (24 logos) -->
   <div class="logo-marquee" aria-hidden="true">
     <div class="logo-track">
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/openai/8a8275"/>
@@ -5654,12 +5657,12 @@
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/docker/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/amazonaws/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlecloud/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftazure/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/vercel/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/netlify/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/twilio/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/wordpress/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:wordpress-icon.svg"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/webflow/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:visual-studio-code.svg"/>
       <!-- duplicata pour boucle infinie -->
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/openai/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/anthropic/8a8275"/>
@@ -5679,14 +5682,15 @@
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/docker/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/amazonaws/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/googlecloud/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/microsoftazure/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/vercel/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/netlify/8a8275"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/twilio/8a8275"/>
-      <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/wordpress/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:wordpress-icon.svg"/>
       <img class="stack-logo" loading="lazy" alt="" src="https://cdn.simpleicons.org/webflow/8a8275"/>
+      <img class="stack-logo" loading="lazy" alt="" src="https://api.iconify.design/logos:visual-studio-code.svg"/>
     </div>
   </div>
+
 
 
   <p class="stack-foot">+ tout ce qui expose une API ou un webhook.</p>

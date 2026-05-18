@@ -1,20 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
   <defs>
-    <linearGradient id="copilot-blue" x1="0%" y1="50%" x2="100%" y2="50%">
-      <stop offset="0%" stop-color="#0078D4"/>
-      <stop offset="50%" stop-color="#26C6F9"/>
-      <stop offset="100%" stop-color="#7AD9FF"/>
-    </linearGradient>
-    <linearGradient id="copilot-purple" x1="100%" y1="50%" x2="0%" y2="50%">
-      <stop offset="0%" stop-color="#8C2DE5"/>
-      <stop offset="50%" stop-color="#BB48F1"/>
-      <stop offset="100%" stop-color="#E976FF"/>
+    <linearGradient id="cs-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A87FF"/>
+      <stop offset="55%" stop-color="#22C8E0"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
     </linearGradient>
   </defs>
-  <!-- Ruban gauche (cyan) -->
-  <path d="M5 11 C 7 7, 11 6, 15 8 C 18 9.5, 20 13, 21 16 C 19 14, 16 12, 13 12 C 10 12, 8 13, 7 15 C 6 13, 5 12, 5 11 Z" fill="url(#copilot-blue)"/>
-  <!-- Ruban droit (violet) -->
-  <path d="M27 21 C 25 25, 21 26, 17 24 C 14 22.5, 12 19, 11 16 C 13 18, 16 20, 19 20 C 22 20, 24 19, 25 17 C 26 19, 27 20, 27 21 Z" fill="url(#copilot-purple)"/>
-  <!-- Connecteur central -->
-  <path d="M11 16 C 12 14, 14 13, 16 13 C 18 13, 20 14, 21 16 C 20 18, 18 19, 16 19 C 14 19, 12 18, 11 16 Z" fill="url(#copilot-purple)" opacity="0.7"/>
+  <!-- Mark Microsoft Copilot Studio : deux rubans courbes entrelacés en gradient cyan→violet -->
+  <path d="M16 4 C 9 4, 4 9, 4 16 C 4 23, 9 28, 16 28 C 21 28, 25 25, 27 21 L 23 19 C 21.5 21.5, 19 23, 16 23 C 12 23, 9 20, 9 16 C 9 12, 12 9, 16 9 C 19 9, 21.5 10.5, 23 13 L 27 11 C 25 7, 21 4, 16 4 Z" fill="url(#cs-grad)"/>
+  <!-- Accent étoile -->
+  <path d="M24 6 L 25 9 L 28 10 L 25 11 L 24 14 L 23 11 L 20 10 L 23 9 Z" fill="url(#cs-grad)" opacity="0.85"/>
 </svg>

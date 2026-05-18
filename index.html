@@ -1929,6 +1929,11 @@
     .mini-label { font-size: 0.7rem; }
     .audit-block { grid-template-columns: 1fr; gap: 2rem; }
     .audit-cal-wrap { justify-content: center; }
+    /* Centrer le bloc info pour qu'il s'aligne avec le calendrier centré */
+    .audit-info { align-items: center; text-align: center; }
+    .audit-info .step-eyebrow { align-self: auto; }
+    .audit-info .audit-primary { align-self: auto; }
+    .audit-info .audit-desc { max-width: 520px; margin-left: auto; margin-right: auto; }
   }
   @media (max-width: 560px) {
     .parcours { width: calc(100% - 1.5rem); }

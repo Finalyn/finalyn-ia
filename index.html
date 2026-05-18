@@ -4752,6 +4752,32 @@
   .stack-logo[src*="discord-icon"] {
     height: 40px;
   }
+  /* Fallback texte pour les marques qu'on ne peut pas avoir en vrai logo
+     (Bexio, Crésus, Banana, Klara, Copilot Studio) — pill discret */
+  .stack-name {
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 0.9rem;
+    background: rgba(40, 30, 60, 0.05);
+    border: 1px solid rgba(40, 30, 60, 0.12);
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    opacity: 0.92;
+    transition: opacity 0.25s ease, transform 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+  .stack-name:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    border-color: var(--purple);
+    color: var(--purple);
+  }
   .stack-foot {
     margin: 2.25rem auto 0;
     max-width: 520px;
@@ -5559,7 +5585,7 @@
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-word.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-powerpoint.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:microsoft-onedrive.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="microsoft-copilot.svg"/>
+      <span class="stack-name">Copilot Studio</span>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-meet.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-drive.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/googlecalendar"/>
@@ -5586,7 +5612,7 @@
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-word.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-powerpoint.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:microsoft-onedrive.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="microsoft-copilot.svg"/>
+      <span class="stack-name">Copilot Studio</span>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-meet.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-drive.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/googlecalendar"/>
@@ -5610,10 +5636,10 @@
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:hubspot.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:pipedrive.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:salesforce.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="bexio.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="cresus.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="banana.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="klara.svg"/>
+      <span class="stack-name">Bexio</span>
+      <span class="stack-name">Crésus</span>
+      <span class="stack-name">Banana</span>
+      <span class="stack-name">Klara</span>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/quickbooks"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:xero.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/sage"/>
@@ -5644,10 +5670,10 @@
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:hubspot.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:pipedrive.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:salesforce.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="bexio.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="cresus.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="banana.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="klara.svg"/>
+      <span class="stack-name">Bexio</span>
+      <span class="stack-name">Crésus</span>
+      <span class="stack-name">Banana</span>
+      <span class="stack-name">Klara</span>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/quickbooks"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:xero.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/sage"/>
@@ -5679,7 +5705,7 @@
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:openai-icon.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:claude.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-gemini.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="microsoft-copilot.svg"/>
+      <span class="stack-name">Copilot Studio</span>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:mistral-ai-icon.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/perplexity"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/n8n"/>
@@ -5696,7 +5722,7 @@
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:openai-icon.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:claude.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-gemini.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="microsoft-copilot.svg"/>
+      <span class="stack-name">Copilot Studio</span>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:mistral-ai-icon.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/perplexity"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/n8n"/>

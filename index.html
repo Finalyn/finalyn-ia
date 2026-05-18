@@ -660,19 +660,22 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
   }
-  /* Mobile : décaler vers la droite pour voir les rayons lilas + voile vertical (texte lisible en haut) */
+  /* Mobile : zoom + recadrage pour montrer le point focal des rayons lilas (côté droit de l'image)
+     + voile beaucoup plus léger pour que les couleurs ressortent */
   @media (max-width: 860px) {
     body {
       background-image:
-        linear-gradient(180deg, rgba(250,248,244,0.92) 0%, rgba(250,248,244,0.65) 30%, rgba(250,248,244,0.25) 60%, rgba(250,248,244,0) 90%),
+        linear-gradient(180deg, rgba(250,248,244,0.78) 0%, rgba(250,248,244,0.32) 35%, rgba(250,248,244,0) 80%),
         url('hero-bg.webp');
-      background-position: 78% center;
+      background-size: 180% auto;
+      background-position: 72% 45%;
       background-attachment: scroll;
     }
   }
   @media (max-width: 560px) {
     body {
-      background-position: 82% center;
+      background-size: 220% auto;
+      background-position: 75% 48%;
     }
   }
 

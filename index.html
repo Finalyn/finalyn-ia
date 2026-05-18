@@ -4991,25 +4991,25 @@
     opacity: 1;
     transform: scale(1.1);
   }
-  /* Icônes au viewBox serré (rond plein) → légèrement plus grandes */
-  .stack-logo[src*="whatsapp"],
-  .stack-logo[src*="slack-icon"] {
-    height: 40px;
-  }
-  /* Icônes qu'on veut un peu plus discrètes (paraissent trop grosses) */
-  .stack-logo[src*="discord-icon"],
-  .stack-logo[src*="zoom-icon"],
-  .stack-logo[src*="notion-icon"] {
-    height: 28px;
-  }
-  /* Icônes "plates" Microsoft Office et LinkedIn — bump pour gagner en présence */
-  .stack-logo[src*="file-type-outlook"],
-  .stack-logo[src*="file-type-excel"],
-  .stack-logo[src*="file-type-word"],
-  .stack-logo[src*="file-type-powerpoint"],
-  .stack-logo[src*="microsoft-teams"],
-  .stack-logo[src*="linkedin-icon"] {
-    height: 40px;
+  /* Overrides de taille per-logo : DESKTOP UNIQUEMENT (mobile = uniforme pour éviter chaos visuel) */
+  @media (min-width: 861px) {
+    .stack-logo[src*="whatsapp"],
+    .stack-logo[src*="slack-icon"] {
+      height: 40px;
+    }
+    .stack-logo[src*="discord-icon"],
+    .stack-logo[src*="zoom-icon"],
+    .stack-logo[src*="notion-icon"] {
+      height: 28px;
+    }
+    .stack-logo[src*="file-type-outlook"],
+    .stack-logo[src*="file-type-excel"],
+    .stack-logo[src*="file-type-word"],
+    .stack-logo[src*="file-type-powerpoint"],
+    .stack-logo[src*="microsoft-teams"],
+    .stack-logo[src*="linkedin-icon"] {
+      height: 40px;
+    }
   }
   .stack-foot {
     margin: 0.9rem auto 0;
@@ -5627,175 +5627,175 @@
   <!-- Row - gauche a droite (21 entrees) -->
   <div class="logo-marquee" aria-hidden="true">
     <div class="logo-track" style="animation-duration: 50.2s">
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-excel.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-word.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-powerpoint.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:microsoft-onedrive.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-drive.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/googlecalendar"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-meet.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/googledocs"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/googlesheets"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:zoom-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:discord-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:youtube-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:figma.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:miro.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:loom.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/dropbox"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:box.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/wetransfer"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:adobe.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:sketch.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:framer.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-excel.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-word.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-powerpoint.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:microsoft-onedrive.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-drive.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/googlecalendar"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-meet.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/googledocs"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/googlesheets"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:zoom-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:discord-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:youtube-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:figma.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:miro.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:loom.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/dropbox"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:box.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/wetransfer"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:adobe.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:sketch.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:framer.svg"/>
       <!-- duplicata pour boucle infinie -->
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-excel.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-word.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-powerpoint.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:microsoft-onedrive.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-drive.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/googlecalendar"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-meet.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/googledocs"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/googlesheets"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:zoom-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:discord-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:youtube-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:figma.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:miro.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:loom.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/dropbox"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:box.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/wetransfer"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:adobe.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:sketch.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:framer.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-excel.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-word.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-powerpoint.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:microsoft-onedrive.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-drive.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/googlecalendar"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-meet.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/googledocs"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/googlesheets"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:zoom-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:discord-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:youtube-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:figma.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:miro.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:loom.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/dropbox"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:box.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/wetransfer"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:adobe.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:sketch.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:framer.svg"/>
     </div>
   </div>
 
   <!-- Row — droite à gauche (33 entrées) -->
   <div class="logo-marquee reverse" aria-hidden="true">
     <div class="logo-track" style="animation-duration: 50.2s">
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:microsoft-teams.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:hubspot.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-outlook.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:stripe.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:whatsapp-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:salesforce.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/gmail"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:pipedrive.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:linkedin-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:mailchimp-freddie.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:shopify.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="bexio.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:slack-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:paypal.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/calendly"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:typeform.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/quickbooks"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:xero.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/brevo"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:notion-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:asana-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:monday-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:trello.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:woocommerce.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:airtable.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/clickup"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/sage"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/wise"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/revolut"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:active-campaign.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:sendgrid.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:intercom-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:zendesk-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:microsoft-teams.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:hubspot.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-outlook.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:stripe.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:whatsapp-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:salesforce.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/gmail"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:pipedrive.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:linkedin-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:mailchimp-freddie.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:shopify.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="bexio.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:slack-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:paypal.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/calendly"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:typeform.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/quickbooks"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:xero.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/brevo"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:notion-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:asana-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:monday-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:trello.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:woocommerce.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:airtable.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/clickup"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/sage"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/wise"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/revolut"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:active-campaign.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:sendgrid.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:intercom-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:zendesk-icon.svg"/>
       <!-- duplicata pour boucle infinie -->
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:microsoft-teams.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:hubspot.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-outlook.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:stripe.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:whatsapp-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:salesforce.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/gmail"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:pipedrive.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:linkedin-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:mailchimp-freddie.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:shopify.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="bexio.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:slack-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:paypal.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/calendly"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:typeform.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/quickbooks"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:xero.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/brevo"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:notion-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:asana-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:monday-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:trello.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:woocommerce.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:airtable.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/clickup"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/sage"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/wise"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/revolut"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:active-campaign.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:sendgrid.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:intercom-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:zendesk-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:microsoft-teams.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:hubspot.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/vscode-icons:file-type-outlook.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:stripe.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:whatsapp-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:salesforce.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/gmail"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:pipedrive.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:linkedin-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:mailchimp-freddie.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:shopify.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="bexio.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:slack-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:paypal.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/calendly"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:typeform.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/quickbooks"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:xero.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/brevo"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:notion-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:asana-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:monday-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:trello.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:woocommerce.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:airtable.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/clickup"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/sage"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/wise"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/revolut"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:active-campaign.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:sendgrid.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:intercom-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:zendesk-icon.svg"/>
     </div>
   </div>
 
   <!-- Row - gauche a droite (23 entrees) -->
   <div class="logo-marquee" aria-hidden="true">
     <div class="logo-track" style="animation-duration: 50.2s">
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:openai-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:claude.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-gemini.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="copilot.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:mistral-ai-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/n8n"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/make"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:zapier-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/perplexity"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:hugging-face-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/ollama"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/replicate"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:microsoft-azure.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-cloud.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:aws.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:cloudflare.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:wordpress-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:webflow.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:github-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:vercel-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:netlify-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:supabase-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:linear-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:openai-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:claude.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-gemini.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="copilot.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:mistral-ai-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/n8n"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/make"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:zapier-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/perplexity"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:hugging-face-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/ollama"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/replicate"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:microsoft-azure.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-cloud.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:aws.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:cloudflare.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:wordpress-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:webflow.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:github-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:vercel-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:netlify-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:supabase-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:linear-icon.svg"/>
       <!-- duplicata pour boucle infinie -->
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:openai-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:claude.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-gemini.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="copilot.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:mistral-ai-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/n8n"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/make"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:zapier-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/perplexity"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:hugging-face-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/ollama"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/replicate"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:microsoft-azure.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-cloud.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:aws.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:cloudflare.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:wordpress-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:webflow.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:github-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:vercel-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:netlify-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:supabase-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:linear-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:openai-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:claude.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-gemini.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="copilot.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:mistral-ai-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/n8n"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/make"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:zapier-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/perplexity"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:hugging-face-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/ollama"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/replicate"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:microsoft-azure.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:google-cloud.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:aws.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:cloudflare.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:wordpress-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:webflow.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:github-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:vercel-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:netlify-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:supabase-icon.svg"/>
+      <img class="stack-logo" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:linear-icon.svg"/>
     </div>
   </div>
   </div>

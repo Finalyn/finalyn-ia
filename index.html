@@ -86,6 +86,7 @@
     "latitude": 46.4593,
     "longitude": 6.3380
   },
+  "hasMap": "https://www.google.com/maps/place/Rolle/@46.4593,6.3380,14z",
   "email": "contact@finalyn.com",
   "contactPoint": [{
     "@type": "ContactPoint",
@@ -94,6 +95,24 @@
     "availableLanguage": ["French", "English"],
     "areaServed": "CH"
   }],
+  "priceRange": "CHF$$",
+  "currenciesAccepted": "CHF, EUR",
+  "paymentAccepted": "Virement bancaire, Carte de crédit, Facture",
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "09:00",
+    "closes": "18:00"
+  }],
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": 46.4593,
+      "longitude": 6.3380
+    },
+    "geoRadius": "150000"
+  },
   "inLanguage": ["fr-CH", "fr"],
   "knowsAbout": [
     "Implémentation d'IA en entreprise",
@@ -750,6 +769,49 @@
     {"@type": "Action", "name": "Demander à Gemini",    "target": "https://gemini.google.com/app"},
     {"@type": "Action", "name": "Demander à Perplexity","target": "https://www.perplexity.ai/?q=Que+penses-tu+de+finalyn.ia"},
     {"@type": "Action", "name": "Demander à Mistral",   "target": "https://chat.mistral.ai/chat"}
+  ]
+}
+</script>
+
+<!-- Structured data — WebSite (signal global du site + potentialAction SearchAction) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://finalyn.com/#website",
+  "url": "https://finalyn.com/",
+  "name": "finalyn.ia",
+  "alternateName": "Finalyn",
+  "description": "Agence IA en Suisse romande, basée à Rolle. Implémentation, optimisation et conception de systèmes IA sur mesure pour PME et indépendants.",
+  "inLanguage": "fr-CH",
+  "publisher": {"@id": "https://finalyn.com/#organization"},
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://finalyn.com/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- Structured data — BreadcrumbList des sections principales (navigation sémantique) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "https://finalyn.com/#breadcrumb",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Accueil",            "item": "https://finalyn.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Cas d'usage",        "item": "https://finalyn.com/#cas-usage"},
+    {"@type": "ListItem", "position": 3, "name": "Outils compatibles", "item": "https://finalyn.com/#stack"},
+    {"@type": "ListItem", "position": 4, "name": "Calculateur ROI",    "item": "https://finalyn.com/#calculateur"},
+    {"@type": "ListItem", "position": 5, "name": "Parcours et audit",  "item": "https://finalyn.com/#parcours"},
+    {"@type": "ListItem", "position": 6, "name": "Services",           "item": "https://finalyn.com/#services"},
+    {"@type": "ListItem", "position": 7, "name": "Sécurité",           "item": "https://finalyn.com/#securite"},
+    {"@type": "ListItem", "position": 8, "name": "Avis IA",            "item": "https://finalyn.com/#avis-ia"},
+    {"@type": "ListItem", "position": 9, "name": "FAQ",                "item": "https://finalyn.com/#faq"}
   ]
 }
 </script>
@@ -6261,16 +6323,23 @@
       <ul>
         <li><a href="#pourquoi">Pourquoi l'IA</a></li>
         <li><a href="#cas-usage">Cas d'usage</a></li>
+        <li><a href="#stack">Outils compatibles</a></li>
         <li><a href="#audit">Audit gratuit</a></li>
         <li><a href="#calculateur">Calculateur ROI</a></li>
         <li><a href="#securite">Sécurité &amp; données</a></li>
+        <li><a href="#avis-ia">Avis IA</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
 
-    <div class="footer-meta">
-      <h4>finalyn.ia</h4>
-      <p>Rolle, Vaud, Suisse</p>
+    <div class="footer-meta" itemscope itemtype="https://schema.org/Organization">
+      <h4 itemprop="name">finalyn.ia</h4>
+      <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+        <span itemprop="streetAddress" hidden></span>
+        <span itemprop="addressLocality">Rolle</span>,
+        <span itemprop="addressRegion">Vaud</span>,
+        <span itemprop="addressCountry">Suisse</span>
+      </p>
       <p>Active dans toute la Suisse romande, en visio partout ailleurs.</p>
       <p class="footer-stamp">nLPD · données hébergées en Suisse / UE selon le projet.</p>
     </div>

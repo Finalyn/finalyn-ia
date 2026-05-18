@@ -660,16 +660,27 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
   }
-  /* Mobile : même fond que desktop, fixe pendant le scroll, cadré sur le coin bas-droite */
+  /* Mobile : workaround iOS Safari (background-attachment:fixed cassé)
+     → pseudo-element ::before en position:fixed, image cadrée bas-droite
+     Body devient transparent pour laisser apparaître le ::before en z-index -1 */
   @media (max-width: 860px) {
+    html { background: var(--warm-white); }
     body {
+      background-image: none;
+      background-color: transparent;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
       background-image:
         linear-gradient(180deg, rgba(250,248,244,0.78) 0%, rgba(250,248,244,0.32) 35%, rgba(250,248,244,0) 80%),
         url('hero-bg.webp');
       background-size: cover;
       background-position: right bottom;
-      background-attachment: fixed;
       background-repeat: no-repeat;
+      pointer-events: none;
     }
   }
 

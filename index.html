@@ -3442,19 +3442,33 @@
     .float-chip {
       font-size: 0.7rem;
       padding: 0.36rem 0.75rem;
-      max-width: 36vw;
+      max-width: 30vw;
       box-shadow: 0 4px 12px -6px rgba(40, 30, 60, 0.14);
     }
     /* On garde 6 chips : 3 en haut (gauche / centre / droite) + 3 en bas */
     .float-chip:nth-child(4),
     .float-chip:nth-child(12) { display: none; }
-    /* Grille 3 × 2 (gauche / centre / droite) — override inline style via !important */
-    .float-chip:nth-child(1)  { --x: 0%  !important; --y: 4%  !important; --r: -2deg !important; }
-    .float-chip:nth-child(2)  { --x: 32% !important; --y: 0%  !important; --r:  2deg !important; }
-    .float-chip:nth-child(3)  { --x: 64% !important; --y: 4%  !important; --r: -1deg !important; }
-    .float-chip:nth-child(9)  { --x: 0%  !important; --y: 88% !important; --r:  1deg !important; }
-    .float-chip:nth-child(10) { --x: 32% !important; --y: 94% !important; --r: -1deg !important; }
-    .float-chip:nth-child(11) { --x: 64% !important; --y: 88% !important; --r:  2deg !important; }
+    /* Grille 3 × 2 : gauche (left:0) / centre (left:50% + translateX) / droite (right:0) */
+    .float-chip:nth-child(1)  { --x: 0%   !important; --y: 4%  !important; --r: -2deg !important; }
+    .float-chip:nth-child(2)  {
+      left: 50% !important; --x: auto;
+      margin-left: -15vw; /* moitié de max-width pour centrer */
+      --y: 0%  !important; --r: 2deg !important;
+    }
+    .float-chip:nth-child(3)  {
+      left: auto !important; right: 0 !important; --x: auto;
+      --y: 4%  !important; --r: -1deg !important;
+    }
+    .float-chip:nth-child(9)  { --x: 0%   !important; --y: 88% !important; --r:  1deg !important; }
+    .float-chip:nth-child(10) {
+      left: 50% !important; --x: auto;
+      margin-left: -15vw;
+      --y: 94% !important; --r: -1deg !important;
+    }
+    .float-chip:nth-child(11) {
+      left: auto !important; right: 0 !important; --x: auto;
+      --y: 88% !important; --r: 2deg !important;
+    }
   }
 
   /* ===== SECTION : MÉTHODE (timeline animée, sans fond) ===== */

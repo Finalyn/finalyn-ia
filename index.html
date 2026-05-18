@@ -56,21 +56,41 @@
   "image": "https://finalyn.com/og-cover.jpg",
   "description": "Agence suisse d'automatisation IA sur mesure pour PME et indépendants. Conception de systèmes intelligents qui éliminent les tâches répétitives, optimisent les processus et libèrent du temps.",
   "slogan": "Concentrez-vous sur ce qui compte. Nous automatisons le reste.",
-  "founder": {
-    "@type": "Person",
-    "name": "Jack Guisolan"
-  },
+  "founder": {"@id": "https://finalyn.com/#jack-guisolan"},
   "areaServed": [
     { "@type": "Country", "name": "Suisse" },
-    { "@type": "AdministrativeArea", "name": "Suisse romande" }
+    { "@type": "AdministrativeArea", "name": "Suisse romande" },
+    { "@type": "City", "name": "Lausanne" },
+    { "@type": "City", "name": "Genève" },
+    { "@type": "City", "name": "Montreux" },
+    { "@type": "City", "name": "Vevey" },
+    { "@type": "City", "name": "Yverdon-les-Bains" },
+    { "@type": "City", "name": "Nyon" },
+    { "@type": "City", "name": "Fribourg" },
+    { "@type": "City", "name": "Neuchâtel" },
+    { "@type": "City", "name": "Sion" },
+    { "@type": "City", "name": "Bulle" }
   ],
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Lausanne",
     "addressRegion": "Vaud",
+    "postalCode": "1000",
     "addressCountry": "CH"
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 46.5197,
+    "longitude": 6.6323
+  },
   "email": "contact@finalyn.com",
+  "contactPoint": [{
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "email": "contact@finalyn.com",
+    "availableLanguage": ["French", "English"],
+    "areaServed": "CH"
+  }],
   "inLanguage": ["fr-CH", "fr"],
   "knowsAbout": [
     "Automatisation des processus métier",
@@ -149,6 +169,41 @@
         }
       }
     ]
+  }
+}
+</script>
+
+<!-- Structured data — Person : fondateur (boost E-E-A-T + citations LLM) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://finalyn.com/#jack-guisolan",
+  "name": "Jack Guisolan",
+  "givenName": "Jack",
+  "familyName": "Guisolan",
+  "jobTitle": "Fondateur de finalyn.ia",
+  "description": "Fondateur de finalyn.ia, agence suisse d'automatisation IA sur mesure pour PME et indépendants. Spécialiste de l'intégration d'agents IA, des workflows d'automatisation (n8n, Make, Zapier) et de la connexion sécurisée d'outils SaaS aux processus métier.",
+  "email": "contact@finalyn.com",
+  "knowsAbout": [
+    "Intelligence artificielle appliquée aux PME",
+    "Agents IA conversationnels",
+    "Automatisation de processus métier",
+    "Intégrations API et webhooks",
+    "n8n", "Make", "Zapier",
+    "OpenAI GPT", "Anthropic Claude",
+    "Architectures RAG",
+    "Conformité nLPD et RGPD"
+  ],
+  "knowsLanguage": ["fr", "en"],
+  "nationality": {"@type": "Country", "name": "Suisse"},
+  "worksFor": {"@id": "https://finalyn.com/#organization"},
+  "founderOf": {"@id": "https://finalyn.com/#organization"},
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Lausanne",
+    "addressRegion": "Vaud",
+    "addressCountry": "CH"
   }
 }
 </script>
@@ -273,8 +328,8 @@
   "@context": "https://schema.org",
   "@type": "ImageObject",
   "@id": "https://finalyn.com/#hero-image",
-  "contentUrl": "https://finalyn.github.io/finalyn-ia/team.webp",
-  "url": "https://finalyn.github.io/finalyn-ia/team.webp",
+  "contentUrl": "https://finalyn.com/team.webp",
+  "url": "https://finalyn.com/team.webp",
   "caption": "Équipe finalyn.ia en réunion de travail, agence d'automatisation IA sur mesure, Lausanne, Suisse",
   "creditText": "finalyn.ia",
   "creator": {"@id": "https://finalyn.com/#organization"},
@@ -569,7 +624,7 @@
 <!-- Preload critical hero assets -->
 <link rel="preload" as="image" href="hero-bg.webp" type="image/webp" />
 <link rel="preload" as="image" href="team.webp" type="image/webp" fetchpriority="high" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
     --warm-white: #FAF8F4;
@@ -4180,360 +4235,6 @@
     }
   }
 
-  /* ----- CONSTELLATION (legacy, unused) ----- */
-  .constellation {
-    position: absolute;
-    z-index: 2;
-    top: 50%;
-    right: -20px;
-    transform: translateY(-50%);
-    width: 580px;
-    height: 580px;
-    pointer-events: none;
-  }
-  .constellation .rings {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-  }
-  .constellation .rings circle {
-    fill: none;
-    stroke: rgba(139, 92, 246, 0.18);
-    stroke-width: 0.8;
-    stroke-dasharray: 2 5;
-  }
-  .constellation .rings circle:nth-child(2) { stroke-opacity: 0.1; }
-  .constellation .center {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 170px; height: 170px;
-    border-radius: 50%;
-    background:
-      radial-gradient(circle at 50% 40%, rgba(255,255,255,0.95) 0%, rgba(255,253,250,0.6) 55%, rgba(255,253,250,0) 100%);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-  }
-  .constellation .center .halo {
-    position: absolute;
-    inset: 18%;
-    border-radius: 50%;
-    border: 1px solid rgba(139, 92, 246, 0.25);
-    animation: cstHalo 3.2s ease-out infinite;
-  }
-  .constellation .center::after {
-    content: "";
-    position: absolute;
-    inset: 38%;
-    border-radius: 50%;
-    background: var(--purple);
-    box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.18);
-  }
-  @keyframes cstHalo {
-    0%   { transform: scale(0.85); opacity: 0.7; }
-    100% { transform: scale(1.6); opacity: 0; }
-  }
-  .constellation .center strong {
-    position: relative;
-    z-index: 2;
-    margin-top: 0.4rem;
-    font-size: 1.25rem;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-  }
-  .constellation .center strong .ia { color: var(--purple); }
-  .constellation .center small {
-    position: relative;
-    z-index: 2;
-    display: block;
-    margin-top: 3px;
-    font-size: 0.66rem;
-    color: var(--muted);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  /* Rotation rings */
-  .ring {
-    position: absolute; inset: 0;
-    animation: ringSpin var(--d, 30s) linear infinite;
-    will-change: transform;
-  }
-  .ring.inner { --d: 28s; }
-  .ring.outer { --d: 48s; animation-direction: reverse; }
-  @keyframes ringSpin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-
-  .ring .seat {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: rotate(var(--a)) translateX(var(--r));
-  }
-  .ring .chip {
-    position: absolute;
-    transform: translate(-50%, -50%) rotate(calc(-1 * var(--a)));
-    padding: 0.55rem 1rem;
-    background: rgba(255, 253, 250, 0.92);
-    backdrop-filter: blur(8px) saturate(140%);
-    -webkit-backdrop-filter: blur(8px) saturate(140%);
-    border: 1px solid rgba(220, 214, 203, 0.7);
-    border-radius: 999px;
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.7) inset,
-      0 8px 20px -8px rgba(40, 30, 60, 0.15),
-      0 3px 8px -3px rgba(40, 30, 60, 0.06);
-    color: var(--ink);
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: -0.005em;
-    white-space: nowrap;
-    line-height: 1;
-    animation: chipCounter var(--d, 30s) linear infinite;
-  }
-  .ring.inner .chip { animation-duration: 28s; }
-  .ring.outer .chip { animation-duration: 48s; animation-direction: reverse; }
-  /* Lilac accent — text colored lilac + subtle border tint */
-  .ring .chip.accent {
-    color: var(--purple);
-    border-color: rgba(139, 92, 246, 0.3);
-    background: linear-gradient(180deg, rgba(255,253,250,0.95), rgba(167,139,250,0.05));
-  }
-  /* Optional dot prefix on some chips */
-  .ring .chip .bullet {
-    display: inline-block;
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--purple);
-    margin-right: 7px;
-    vertical-align: middle;
-    transform: translateY(-1px);
-  }
-  @keyframes chipCounter {
-    from { transform: translate(-50%, -50%) rotate(calc(-1 * var(--a))) rotate(0deg); }
-    to   { transform: translate(-50%, -50%) rotate(calc(-1 * var(--a))) rotate(-360deg); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .ring, .ring .chip { animation: none; }
-  }
-  @media (max-width: 1280px) {
-    .constellation { right: -120px; width: 480px; height: 480px; }
-  }
-  @media (max-width: 1024px) {
-    .constellation { display: none; }
-  }
-
-  /* ----- (legacy SOLAR — unused) ----- */
-  .solar {
-    position: relative;
-    width: 340px;
-    height: 340px;
-    margin: 0 auto;
-  }
-  .solar .orbits {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-  }
-  .solar .orbits circle {
-    fill: none;
-    stroke: rgba(139, 92, 246, 0.28);
-    stroke-width: 0.8;
-    stroke-dasharray: 2 4;
-  }
-  .solar .orbits circle.r3 { stroke-opacity: 0.16; }
-
-  /* Sun = finalyn.ia */
-  .solar .sun {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 110px;
-  }
-  .solar .sun .core {
-    position: relative;
-    width: 46px; height: 46px;
-    margin: 0 auto 0.45rem;
-    border-radius: 50%;
-    background: linear-gradient(160deg, #1a1a1a, #050505);
-    color: #fff;
-    display: inline-flex; align-items: center; justify-content: center;
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.1) inset,
-      0 6px 18px -4px rgba(139, 92, 246, 0.4),
-      0 0 0 1px rgba(139, 92, 246, 0.25);
-  }
-  .solar .sun .core svg { width: 16px; height: 16px; }
-  .solar .sun .core::before,
-  .solar .sun .core::after {
-    content: "";
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    border: 1px solid rgba(139, 92, 246, 0.35);
-    animation: sunPulse 3s ease-out infinite;
-  }
-  .solar .sun .core::after { animation-delay: 1.5s; }
-  @keyframes sunPulse {
-    0%   { transform: scale(0.9); opacity: 0.7; }
-    100% { transform: scale(1.7); opacity: 0; }
-  }
-  .solar .sun strong {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--ink);
-    letter-spacing: -0.01em;
-  }
-  .solar .sun strong .accent { color: var(--purple); }
-  .solar .sun small {
-    display: block;
-    font-size: 0.66rem;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-
-  /* Orbits (rotation wrappers) */
-  .orbit {
-    position: absolute;
-    inset: 0;
-    animation-name: orbitSpin;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-  }
-  .orbit-1 { animation-duration: 24s; }
-  .orbit-2 { animation-duration: 38s; animation-direction: reverse; }
-  .orbit-3 { animation-duration: 56s; }
-  @keyframes orbitSpin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-
-  /* Planet wrappers — positioned on the orbit radius */
-  .orbit .pos {
-    position: absolute;
-    top: 50%; left: 50%;
-  }
-  .orbit-1 .pos { transform: translateX(72px); }
-  .orbit-2 .pos { transform: translateX(108px); }
-  .orbit-3 .pos { transform: translateX(146px); }
-
-  /* Counter-rotate the planet content to keep text upright */
-  .orbit .planet {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    white-space: nowrap;
-    padding: 0.32rem 0.65rem 0.32rem 0.4rem;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: rgba(255,253,250,0.92);
-    font-size: 0.72rem;
-    color: var(--ink);
-    box-shadow: 0 4px 14px -6px rgba(40, 30, 60, 0.18);
-    animation-name: planetCounter;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-  }
-  .orbit-1 .planet { animation-duration: 24s; }
-  .orbit-2 .planet { animation-duration: 38s; animation-direction: reverse; }
-  .orbit-3 .planet { animation-duration: 56s; }
-  @keyframes planetCounter {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to   { transform: translate(-50%, -50%) rotate(-360deg); }
-  }
-  .planet .glyph {
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    background: rgba(139, 92, 246, 0.12);
-    color: var(--purple);
-    display: inline-flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .planet .glyph svg { width: 10px; height: 10px; }
-
-  .env-foot {
-    display: flex; align-items: center;
-    margin-top: 1.1rem;
-    padding-top: 0.85rem;
-    border-top: 1px solid var(--line);
-    font-size: 0.72rem;
-    color: var(--muted);
-    letter-spacing: 0.005em;
-  }
-  .env-foot .lock {
-    width: 12px; height: 12px;
-    margin-right: 8px;
-    color: var(--purple);
-    flex-shrink: 0;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .orbit, .orbit .planet { animation: none; }
-    .solar .sun .core::before,
-    .solar .sun .core::after { animation: none; }
-  }
-
-  /* ----- UI CARD ----- */
-  .ui-card {
-    position: absolute;
-    z-index: 2;
-    bottom: 2.5rem;
-    right: 3rem;
-    display: flex;
-    align-items: center;
-    gap: 0.95rem;
-    background: rgba(255, 253, 250, 0.78);
-    backdrop-filter: blur(22px) saturate(140%);
-    -webkit-backdrop-filter: blur(22px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    border-radius: 18px;
-    padding: 1.1rem 1.35rem 1.1rem 1.15rem;
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.6) inset,
-      0 18px 50px -12px rgba(40, 30, 60, 0.16),
-      0 4px 14px -4px rgba(40, 30, 60, 0.08);
-    max-width: 320px;
-    animation: floatUp 0.9s cubic-bezier(.2,.7,.2,1) 0.4s both;
-  }
-  @keyframes floatUp {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .ui-card .pulse {
-    position: relative;
-    width: 9px; height: 9px;
-    border-radius: 50%;
-    background: var(--purple);
-    flex-shrink: 0;
-  }
-  .ui-card .pulse::after {
-    content: "";
-    position: absolute; inset: -6px;
-    border-radius: 50%;
-    background: var(--lilac);
-    opacity: 0.18;
-    animation: pulse 2.4s ease-out infinite;
-  }
-  @keyframes pulse {
-    0%   { transform: scale(0.6); opacity: 0.35; }
-    100% { transform: scale(1.6); opacity: 0; }
-  }
-  .ui-card .copy { font-size: 0.86rem; color: var(--ink); letter-spacing: -0.005em; }
-  .ui-card .copy strong { font-weight: 500; }
-  .ui-card .copy small {
-    display: block;
-    margin-top: 3px;
-    font-size: 0.72rem;
-    color: var(--muted);
-    letter-spacing: 0.01em;
-  }
-
   /* ===== RESPONSIVE ===== */
 
   /* Very large screens (≥1900px) — center everything as if on a laptop */
@@ -5094,108 +4795,6 @@
     </form>
   </aside>
 
-  <div class="constellation" aria-hidden="true" style="display:none">
-    <svg class="rings" viewBox="0 0 560 560">
-      <circle cx="280" cy="280" r="135" />
-      <circle cx="280" cy="280" r="235" />
-    </svg>
-
-    <div class="center">
-      <span class="halo" aria-hidden="true"></span>
-      <strong>finalyn<span class="ia">.ia</span></strong>
-      <small>Au cœur de votre activité</small>
-    </div>
-
-    <!-- Inner ring : 6 core concepts -->
-    <div class="ring inner">
-      <div class="seat" style="--a:   0deg; --r: 135px;"><div class="chip">Vos outils</div></div>
-      <div class="seat" style="--a:  60deg; --r: 135px;"><div class="chip accent">Vos données</div></div>
-      <div class="seat" style="--a: 120deg; --r: 135px;"><div class="chip">Vos besoins</div></div>
-      <div class="seat" style="--a: 180deg; --r: 135px;"><div class="chip accent">Votre savoir-faire</div></div>
-      <div class="seat" style="--a: 240deg; --r: 135px;"><div class="chip">Votre environnement</div></div>
-      <div class="seat" style="--a: 300deg; --r: 135px;"><div class="chip accent">Vos questions</div></div>
-    </div>
-
-    <!-- Outer ring : 8 surrounding labels -->
-    <div class="ring outer">
-      <div class="seat" style="--a:   0deg; --r: 235px;"><div class="chip">Vos équipes</div></div>
-      <div class="seat" style="--a:  45deg; --r: 235px;"><div class="chip accent">Vos clients</div></div>
-      <div class="seat" style="--a:  90deg; --r: 235px;"><div class="chip">Vos processus</div></div>
-      <div class="seat" style="--a: 135deg; --r: 235px;"><div class="chip">Votre quotidien</div></div>
-      <div class="seat" style="--a: 180deg; --r: 235px;"><div class="chip accent">Votre temps</div></div>
-      <div class="seat" style="--a: 225deg; --r: 235px;"><div class="chip">Vos workflows</div></div>
-      <div class="seat" style="--a: 270deg; --r: 235px;"><div class="chip accent">Vos rapports</div></div>
-      <div class="seat" style="--a: 315deg; --r: 235px;"><div class="chip">Votre planning</div></div>
-    </div>
-  </div>
-
-</section>
-
-<section class="why" id="pourquoi" aria-labelledby="pourquoi-title-inner">
- <div class="why-container">
-  <div class="puzzle" role="list" aria-label="Quatre raisons d'implémenter l'IA">
-
-    <!-- Hero piece (big card with rounded top corners + 4 tabs on bottom edge) -->
-    <div class="puzzle-hero">
-      <svg class="puzzle-shape" viewBox="0 0 400 100" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M 0 8 Q 0 0 8 0 L 392 0 Q 400 0 400 8 L 400 100 L 362 100 C 362 116 338 116 338 100 L 262 100 C 262 116 238 116 238 100 L 162 100 C 162 116 138 116 138 100 L 62 100 C 62 116 38 116 38 100 L 0 100 Z"/>
-      </svg>
-      <div class="puzzle-hero-content">
-        <h2 id="pourquoi-title-inner" class="why-title">Pourquoi implémenter <span class="accent-lilac">l'IA</span>&nbsp;?</h2>
-        <p class="why-sub">L'IA s'intègre dans votre activité comme une pièce de puzzle. Elle complète, elle s'emboîte, elle libère ce qui était bloqué.</p>
-      </div>
-    </div>
-
-    <!-- 4 small pieces with notch on top, connecting to the hero tabs -->
-    <div class="puzzle-row">
-
-      <div class="puzzle-small" role="listitem">
-        <svg class="puzzle-shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M 0 0 L 38 0 C 38 16 62 16 62 0 L 100 0 L 100 100 L 8 100 Q 0 100 0 92 Z"/>
-        </svg>
-        <div class="piece-content">
-          <span class="piece-eyebrow">Productivité</span>
-          <div class="piece-stat"><span class="stat-pre">×</span><span class="stat-val">3</span></div>
-          <p class="piece-context">sur les tâches automatisées par IA</p>
-        </div>
-      </div>
-
-      <div class="puzzle-small" role="listitem">
-        <svg class="puzzle-shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M 0 0 L 38 0 C 38 16 62 16 62 0 L 100 0 L 100 100 L 0 100 Z"/>
-        </svg>
-        <div class="piece-content">
-          <span class="piece-eyebrow">Saisie manuelle</span>
-          <div class="piece-stat"><span class="stat-pre">−</span><span class="stat-val">85</span><span class="stat-suf">&nbsp;%</span></div>
-          <p class="piece-context">de temps perdu sur le répétitif</p>
-        </div>
-      </div>
-
-      <div class="puzzle-small" role="listitem">
-        <svg class="puzzle-shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M 0 0 L 38 0 C 38 16 62 16 62 0 L 100 0 L 100 100 L 0 100 Z"/>
-        </svg>
-        <div class="piece-content">
-          <span class="piece-eyebrow">Disponibilité</span>
-          <div class="piece-stat"><span class="stat-val">24</span><span class="stat-suf">/7</span></div>
-          <p class="piece-context">sans pause, sans absence, sans turnover</p>
-        </div>
-      </div>
-
-      <div class="puzzle-small" role="listitem">
-        <svg class="puzzle-shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M 0 0 L 38 0 C 38 16 62 16 62 0 L 100 0 L 100 92 Q 100 100 92 100 L 0 100 Z"/>
-        </svg>
-        <div class="piece-content">
-          <span class="piece-eyebrow">Mise en production</span>
-          <div class="piece-stat"><span class="stat-val">4</span><span class="stat-suf">&nbsp;sem</span></div>
-          <p class="piece-context">pour voir les premiers résultats</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
- </div>
 </section>
 
 <section class="usecases" id="cas-usage" aria-labelledby="usecases-title">
@@ -5232,6 +4831,63 @@
         </svg>
       </button>
     </form>
+  </div>
+ </div>
+</section>
+
+<section class="roi" id="calculateur" aria-labelledby="roi-title">
+ <div class="roi-container">
+  <header class="roi-head">
+    <h2 id="roi-title">Combien pourriez-vous <span class="accent-lilac">gagner</span> ?</h2>
+    <p class="roi-sub">Estimez en temps réel ce que vous récupérez avec une automatisation sur mesure.</p>
+  </header>
+
+  <div class="roi-grid">
+    <div class="roi-inputs" role="group" aria-label="Paramètres du calcul">
+      <label class="roi-input">
+        <span class="row"><span>Heures gagnées par tâche</span><strong id="hoursVal">0.5 h</strong></span>
+        <input type="range" id="hoursInput" min="0.1" max="10" step="0.1" value="0.5" aria-label="Heures gagnées par tâche" />
+      </label>
+      <label class="roi-input">
+        <span class="row"><span>Répétitions par semaine</span><strong id="repsVal">5 fois</strong></span>
+        <input type="range" id="repsInput" min="1" max="100" step="1" value="5" aria-label="Répétitions par semaine" />
+      </label>
+      <label class="roi-input">
+        <span class="row"><span>Taux horaire</span><strong id="rateVal">80.-</strong></span>
+        <input type="range" id="rateInput" min="5" max="500" step="5" value="80" aria-label="Taux horaire" />
+      </label>
+      <label class="roi-input">
+        <span class="row"><span>Personnes impactées</span><strong id="peopleVal">1</strong></span>
+        <input type="range" id="peopleInput" min="1" max="500" step="1" value="1" aria-label="Nombre de personnes impactées" />
+      </label>
+    </div>
+
+    <div class="roi-output" aria-live="polite">
+      <div class="roi-stat">
+        <span class="roi-num-row">
+          <span class="roi-num" id="hPerYear">130</span>
+          <span class="roi-unit">heures</span>
+        </span>
+        <span class="roi-lbl">économisées par an</span>
+      </div>
+      <div class="roi-stat lilac">
+        <span class="roi-num-row">
+          <span class="roi-num" id="chfPerYear">10 400</span>
+          <span class="roi-unit">.-</span>
+        </span>
+        <span class="roi-lbl">récupérés par an</span>
+      </div>
+      <div class="roi-mini">
+        <span><strong id="hPerMonth">10.8</strong> h / mois</span>
+        <span class="dot"></span>
+        <span><strong id="chfPerMonth">867</strong>.- / mois</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="roi-foot">
+    <a href="#contact" class="roi-cta">Discutons de votre cas <span aria-hidden="true">→</span></a>
+    <span class="roi-note">Estimation indicative, basée sur vos paramètres.</span>
   </div>
  </div>
 </section>
@@ -5400,59 +5056,69 @@
  </div>
 </section>
 
-<section class="roi" id="calculateur" aria-labelledby="roi-title">
- <div class="roi-container">
-  <header class="roi-head">
-    <h2 id="roi-title">Combien pourriez-vous <span class="accent-lilac">gagner</span> ?</h2>
-    <p class="roi-sub">Estimez en temps réel ce que vous récupérez avec une automatisation sur mesure.</p>
-  </header>
+<section class="why" id="pourquoi" aria-labelledby="pourquoi-title-inner">
+ <div class="why-container">
+  <div class="puzzle" role="list" aria-label="Quatre raisons d'implémenter l'IA">
 
-  <div class="roi-grid">
-    <div class="roi-inputs" role="group" aria-label="Paramètres du calcul">
-      <label class="roi-input">
-        <span class="row"><span>Heures gagnées par tâche</span><strong id="hoursVal">0.5 h</strong></span>
-        <input type="range" id="hoursInput" min="0.1" max="10" step="0.1" value="0.5" aria-label="Heures gagnées par tâche" />
-      </label>
-      <label class="roi-input">
-        <span class="row"><span>Répétitions par semaine</span><strong id="repsVal">5 fois</strong></span>
-        <input type="range" id="repsInput" min="1" max="100" step="1" value="5" aria-label="Répétitions par semaine" />
-      </label>
-      <label class="roi-input">
-        <span class="row"><span>Taux horaire</span><strong id="rateVal">80.-</strong></span>
-        <input type="range" id="rateInput" min="5" max="500" step="5" value="80" aria-label="Taux horaire" />
-      </label>
-      <label class="roi-input">
-        <span class="row"><span>Personnes impactées</span><strong id="peopleVal">1</strong></span>
-        <input type="range" id="peopleInput" min="1" max="500" step="1" value="1" aria-label="Nombre de personnes impactées" />
-      </label>
-    </div>
-
-    <div class="roi-output" aria-live="polite">
-      <div class="roi-stat">
-        <span class="roi-num-row">
-          <span class="roi-num" id="hPerYear">130</span>
-          <span class="roi-unit">heures</span>
-        </span>
-        <span class="roi-lbl">économisées par an</span>
-      </div>
-      <div class="roi-stat lilac">
-        <span class="roi-num-row">
-          <span class="roi-num" id="chfPerYear">10 400</span>
-          <span class="roi-unit">.-</span>
-        </span>
-        <span class="roi-lbl">récupérés par an</span>
-      </div>
-      <div class="roi-mini">
-        <span><strong id="hPerMonth">10.8</strong> h / mois</span>
-        <span class="dot"></span>
-        <span><strong id="chfPerMonth">867</strong>.- / mois</span>
+    <!-- Hero piece (big card with rounded top corners + 4 tabs on bottom edge) -->
+    <div class="puzzle-hero">
+      <svg class="puzzle-shape" viewBox="0 0 400 100" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 0 8 Q 0 0 8 0 L 392 0 Q 400 0 400 8 L 400 100 L 362 100 C 362 116 338 116 338 100 L 262 100 C 262 116 238 116 238 100 L 162 100 C 162 116 138 116 138 100 L 62 100 C 62 116 38 116 38 100 L 0 100 Z"/>
+      </svg>
+      <div class="puzzle-hero-content">
+        <h2 id="pourquoi-title-inner" class="why-title">Pourquoi implémenter <span class="accent-lilac">l'IA</span>&nbsp;?</h2>
+        <p class="why-sub">L'IA s'intègre dans votre activité comme une pièce de puzzle. Elle complète, elle s'emboîte, elle libère ce qui était bloqué.</p>
       </div>
     </div>
-  </div>
 
-  <div class="roi-foot">
-    <a href="#contact" class="roi-cta">Discutons de votre cas <span aria-hidden="true">→</span></a>
-    <span class="roi-note">Estimation indicative, basée sur vos paramètres.</span>
+    <!-- 4 small pieces with notch on top, connecting to the hero tabs -->
+    <div class="puzzle-row">
+
+      <div class="puzzle-small" role="listitem">
+        <svg class="puzzle-shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 0 0 L 38 0 C 38 16 62 16 62 0 L 100 0 L 100 100 L 8 100 Q 0 100 0 92 Z"/>
+        </svg>
+        <div class="piece-content">
+          <span class="piece-eyebrow">Productivité</span>
+          <div class="piece-stat"><span class="stat-pre">×</span><span class="stat-val">3</span></div>
+          <p class="piece-context">sur les tâches automatisées par IA</p>
+        </div>
+      </div>
+
+      <div class="puzzle-small" role="listitem">
+        <svg class="puzzle-shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 0 0 L 38 0 C 38 16 62 16 62 0 L 100 0 L 100 100 L 0 100 Z"/>
+        </svg>
+        <div class="piece-content">
+          <span class="piece-eyebrow">Saisie manuelle</span>
+          <div class="piece-stat"><span class="stat-pre">−</span><span class="stat-val">85</span><span class="stat-suf">&nbsp;%</span></div>
+          <p class="piece-context">de temps perdu sur le répétitif</p>
+        </div>
+      </div>
+
+      <div class="puzzle-small" role="listitem">
+        <svg class="puzzle-shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 0 0 L 38 0 C 38 16 62 16 62 0 L 100 0 L 100 100 L 0 100 Z"/>
+        </svg>
+        <div class="piece-content">
+          <span class="piece-eyebrow">Disponibilité</span>
+          <div class="piece-stat"><span class="stat-val">24</span><span class="stat-suf">/7</span></div>
+          <p class="piece-context">sans pause, sans absence, sans turnover</p>
+        </div>
+      </div>
+
+      <div class="puzzle-small" role="listitem">
+        <svg class="puzzle-shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 0 0 L 38 0 C 38 16 62 16 62 0 L 100 0 L 100 92 Q 100 100 92 100 L 0 100 Z"/>
+        </svg>
+        <div class="piece-content">
+          <span class="piece-eyebrow">Mise en production</span>
+          <div class="piece-stat"><span class="stat-val">4</span><span class="stat-suf">&nbsp;sem</span></div>
+          <p class="piece-context">pour voir les premiers résultats</p>
+        </div>
+      </div>
+
+    </div>
   </div>
  </div>
 </section>

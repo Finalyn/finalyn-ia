@@ -4356,6 +4356,50 @@
     30%           { transform: translateY(-4px); opacity: 1; }
   }
 
+  /* Typing dots animés dans une bulle agent */
+  .typing-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 0;
+  }
+  .typing-dots span {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--muted);
+    opacity: 0.45;
+    animation: typingBlink 1.2s ease-in-out infinite;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: 0.15s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes typingBlink {
+    0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+    30%           { opacity: 1;    transform: translateY(-3px); }
+  }
+  /* CTA inséré dans une bulle agent */
+  .chat-ctas {
+    display: flex;
+    margin-top: 0.7rem;
+  }
+  .chat-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 0.95rem;
+    background: var(--ink);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .chat-cta-primary:hover {
+    background: var(--purple);
+    transform: translateY(-1px);
+  }
+
   /* Quick reply buttons */
   .chat-quick {
     display: flex; flex-wrap: wrap;
@@ -4754,13 +4798,41 @@
   }
   .stack-foot {
     margin: 2.25rem auto 0;
-    max-width: 520px;
+    max-width: 620px;
     text-align: center;
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     color: var(--muted);
     letter-spacing: -0.005em;
     padding: 0 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
   }
+  .stack-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1rem;
+    background: rgba(167, 139, 250, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.32);
+    border-radius: 999px;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  }
+  .stack-cta:hover {
+    background: rgba(167, 139, 250, 0.2);
+    border-color: var(--purple);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px -10px rgba(139, 92, 246, 0.4);
+  }
+  .stack-cta svg { color: var(--purple); flex-shrink: 0; }
 
   @media (prefers-reduced-motion: reduce) {
     .logo-track { animation: none; }
@@ -5593,27 +5665,27 @@
     </div>
   </div>
 
-  <!-- Row — droite à gauche (32 entrées) -->
+  <!-- Row — droite à gauche (29 entrées) -->
   <div class="logo-marquee reverse" aria-hidden="true">
     <div class="logo-track">
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:hubspot.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:salesforce.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:pipedrive.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="bexio.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:stripe.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:mailchimp-freddie.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/calendly"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:typeform.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:paypal.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:hubspot.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:shopify.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/brevo"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:mailchimp-freddie.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:paypal.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:salesforce.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/calendly"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="bexio.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:pipedrive.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:typeform.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/quickbooks"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:xero.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/brevo"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:trello.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:asana-icon.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:monday-icon.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:woocommerce.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:airtable.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:monday-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:asana-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:trello.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/clickup"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/sage"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/wise"/>
@@ -5626,24 +5698,24 @@
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/bigcommerce"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:squarespace.svg"/>
       <!-- duplicata pour boucle infinie -->
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:hubspot.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:salesforce.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:pipedrive.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="bexio.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:stripe.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:mailchimp-freddie.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/calendly"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:typeform.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:paypal.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:hubspot.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:shopify.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/brevo"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:mailchimp-freddie.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:paypal.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:salesforce.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/calendly"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="bexio.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:pipedrive.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:typeform.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/quickbooks"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:xero.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/brevo"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:trello.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:asana-icon.svg"/>
+      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:monday-icon.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:woocommerce.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:airtable.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:monday-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:asana-icon.svg"/>
-      <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://api.iconify.design/logos:trello.svg"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/clickup"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/sage"/>
       <img class="stack-logo" loading="lazy" alt="" onerror="this.style.display='none'" src="https://cdn.simpleicons.org/wise"/>
@@ -5704,7 +5776,16 @@
 
 
 
-  <p class="stack-foot">+ tout ce qui expose une API ou un webhook.</p>
+  <p class="stack-foot">
+    Votre outil n'est pas dans la liste ?
+    <button type="button" class="stack-cta" id="stackAskBtn">
+      <span>Demander à l'agent</span>
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="13 6 19 12 13 18"></polyline>
+      </svg>
+    </button>
+  </p>
  </div>
 </section>
 
@@ -6441,6 +6522,96 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && document.body.classList.contains('chat-open')) toggle();
     });
+  })();
+
+  // Stack : CTA "Demander à l'agent" → ouvre le chat avec flow intégration
+  (function () {
+    var btn = document.getElementById('stackAskBtn');
+    var panel = document.getElementById('chatPanel');
+    var launcher = document.getElementById('chatLauncher');
+    if (!btn || !panel) return;
+
+    var body = panel.querySelector('.chat-body');
+    var form = panel.querySelector('.chat-foot');
+    var input = form ? form.querySelector('input') : null;
+    var stepActive = false; // true entre la question et la réponse utilisateur
+
+    function addMsg(role, html) {
+      var msg = document.createElement('div');
+      msg.className = 'msg ' + role;
+      msg.innerHTML = (role === 'agent'
+        ? '<span class="role"><span class="accent">finalyn.ia</span></span>'
+        : '<span class="role">Vous</span>'
+      ) + '<div class="bubble">' + html + '</div>';
+      body.appendChild(msg);
+      body.scrollTop = body.scrollHeight;
+      return msg;
+    }
+
+    function typingDot() {
+      var msg = document.createElement('div');
+      msg.className = 'msg agent';
+      msg.innerHTML = '<span class="role"><span class="accent">finalyn.ia</span></span>' +
+                      '<div class="bubble"><span class="typing-dots"><span></span><span></span><span></span></span></div>';
+      body.appendChild(msg);
+      body.scrollTop = body.scrollHeight;
+      return msg;
+    }
+
+    function openChat() {
+      if (!document.body.classList.contains('chat-open')) {
+        document.body.classList.add('chat-open');
+        if (launcher) {
+          launcher.setAttribute('aria-expanded', 'true');
+          launcher.setAttribute('aria-label', 'Fermer la conversation');
+        }
+      }
+    }
+
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      openChat();
+
+      // Retire les quick-buttons s'ils sont encore là
+      var quick = body.querySelector('.chat-quick');
+      if (quick) quick.remove();
+
+      addMsg('user', 'Peux-tu t\'implémenter dans mon environnement&nbsp;?');
+
+      var typing = typingDot();
+      setTimeout(function () {
+        typing.remove();
+        addMsg('agent', 'Bien sûr 👌 Quel outil utilisez-vous au quotidien&nbsp;? Tapez son nom ci-dessous et je vous dis si on peut s\'y connecter.');
+        stepActive = true;
+        if (input) {
+          input.placeholder = 'Ex : Bexio, Outlook, Pipedrive…';
+          input.focus();
+        }
+      }, 700);
+    });
+
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        if (!stepActive) return;
+        e.preventDefault();
+        var val = input.value.trim();
+        if (!val) return;
+        addMsg('user', val.replace(/</g, '&lt;'));
+        input.value = '';
+        stepActive = false;
+        input.placeholder = 'Posez votre question…';
+
+        var typing = typingDot();
+        setTimeout(function () {
+          typing.remove();
+          addMsg('agent',
+            '✅ Oui, on peut s\'y connecter — soit via leur API officielle, soit via webhook, soit via un connecteur n8n/Make.<br><br>' +
+            'On peut en discuter en 30 min sans engagement pour valider concrètement comment ça s\'intégrerait à votre activité.' +
+            '<div class="chat-ctas"><a href="#audit" class="chat-cta-primary">Réserver l\'audit gratuit</a></div>'
+          );
+        }, 900);
+      });
+    }
   })();
 
   // Typewriter rotating word in headline

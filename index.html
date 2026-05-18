@@ -2673,22 +2673,33 @@
     .trust-map { height: auto; width: 160%; }
   }
   @media (max-width: 560px) {
+    /* Pas de fond sur la section en mobile */
+    .trust {
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-top: none;
+      border-bottom: none;
+      box-shadow: none;
+      margin: 4rem 0 2rem;
+    }
+    .trust-map { display: none; }
+
     .trust-container { padding: 2.5rem 0 2rem; }
     .trust-head { padding: 0 1.25rem; }
     .trust-head h2 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
     .trust-foot { margin-left: 1.25rem; margin-right: 1.25rem; }
 
-    /* Carrousel horizontal — scroll-snap + auto-scroll JS */
+    /* Carrousel horizontal — scroll-snap + auto-scroll JS (infini via clonage) */
     .trust-grid {
       display: flex;
       grid-template-columns: none;
       gap: 0.85rem;
       padding: 0.5rem 1.25rem;
-      margin: 0 -1.25rem;
+      margin: 0;
       overflow-x: auto;
       overflow-y: hidden;
       scroll-snap-type: x mandatory;
-      scroll-padding-left: 1.25rem;
       scroll-behavior: smooth;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
@@ -2700,9 +2711,9 @@
       position: relative;
       flex: 0 0 78vw;
       max-width: 320px;
-      min-height: 230px;
+      min-height: 240px;
       padding: 1.4rem 1.3rem 1.5rem;
-      background: rgba(255, 253, 250, 0.85);
+      background: rgba(255, 253, 250, 0.92);
       border: 1px solid rgba(220, 214, 203, 0.7);
       border-radius: 20px;
       scroll-snap-align: center;
@@ -2711,20 +2722,18 @@
       box-shadow: 0 4px 18px -8px rgba(40, 30, 60, 0.08);
     }
 
-    /* Carte suisse en filigrane sur chaque carte (haut-droite) */
-    .trust-card::before {
+    /* Carte Suisse en violet, en bas à droite */
+    .trust-card::after {
       content: "";
       position: absolute;
-      top: -22px;
-      right: -42px;
-      width: 170px;
-      height: 170px;
-      background-image: url('swiss.svg');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-      opacity: 0.07;
-      color: var(--purple);
+      bottom: -18px;
+      right: -22px;
+      width: 130px;
+      height: 130px;
+      -webkit-mask: url('swiss.svg') no-repeat center / contain;
+              mask: url('swiss.svg') no-repeat center / contain;
+      background-color: var(--purple);
+      opacity: 0.22;
       pointer-events: none;
       z-index: 0;
     }
@@ -6078,45 +6087,79 @@
     setTimeout(function () { setTyping(false); setTimeout(erase, HOLD_FULL); }, 900);
   })();
 
-  // Trust cards carousel (mobile only) — auto-scroll + manual swipe + dots
+  // Trust cards carousel (mobile only) — infini + auto-scroll + swipe + dots
   (function () {
     var grid = document.getElementById('trustGrid');
     var dotsWrap = document.getElementById('trustDots');
     if (!grid || !dotsWrap) return;
 
-    var cards = grid.querySelectorAll('.trust-card');
-    if (!cards.length) return;
+    var originalCards = Array.prototype.slice.call(grid.querySelectorAll('.trust-card'));
+    if (!originalCards.length) return;
+    var N = originalCards.length;
 
     var MOBILE_MQ = window.matchMedia('(max-width: 560px)');
     var REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)');
     var AUTO_INTERVAL = 4500;
     var RESUME_DELAY = 5000;
+
     var autoTimer = null;
     var resumeTimer = null;
     var paused = false;
+    var cloned = false;
+    var allCards = originalCards.slice();
     var dots = [];
+    var isJumping = false; // suppress scroll handler during silent resets
+
+    function clone() {
+      if (cloned) return;
+      // Clone everything once at the end AND once at the start for two-way infinite
+      var endFrag = document.createDocumentFragment();
+      var startFrag = document.createDocumentFragment();
+      originalCards.forEach(function (c) {
+        var cE = c.cloneNode(true); cE.setAttribute('aria-hidden', 'true'); cE.dataset.clone = 'end';
+        var cS = c.cloneNode(true); cS.setAttribute('aria-hidden', 'true'); cS.dataset.clone = 'start';
+        endFrag.appendChild(cE);
+        startFrag.appendChild(cS);
+      });
+      grid.appendChild(endFrag);
+      grid.insertBefore(startFrag, grid.firstChild);
+      allCards = Array.prototype.slice.call(grid.querySelectorAll('.trust-card'));
+      cloned = true;
+    }
+
+    function unclone() {
+      if (!cloned) return;
+      Array.prototype.slice.call(grid.querySelectorAll('.trust-card[data-clone]')).forEach(function (c) {
+        c.parentNode.removeChild(c);
+      });
+      allCards = originalCards.slice();
+      cloned = false;
+    }
 
     function buildDots() {
       dotsWrap.innerHTML = '';
       dots = [];
-      for (var i = 0; i < cards.length; i++) {
+      for (var i = 0; i < N; i++) {
         var b = document.createElement('button');
         b.type = 'button';
         b.setAttribute('aria-label', 'Carte ' + (i + 1));
         (function (idx) {
-          b.addEventListener('click', function () { goTo(idx); pauseTemporarily(); });
+          b.addEventListener('click', function () { goToOriginal(idx); pauseTemporarily(); });
         })(i);
         dotsWrap.appendChild(b);
         dots.push(b);
       }
-      updateActiveDot(0);
     }
 
-    function currentIndex() {
+    function centerOf(card) {
+      return card.offsetLeft - (grid.clientWidth - card.offsetWidth) / 2;
+    }
+
+    function indexInGrid() {
       var center = grid.scrollLeft + grid.clientWidth / 2;
       var best = 0, bestDist = Infinity;
-      for (var i = 0; i < cards.length; i++) {
-        var c = cards[i];
+      for (var i = 0; i < allCards.length; i++) {
+        var c = allCards[i];
         var mid = c.offsetLeft + c.offsetWidth / 2;
         var d = Math.abs(mid - center);
         if (d < bestDist) { bestDist = d; best = i; }
@@ -6124,23 +6167,62 @@
       return best;
     }
 
-    function updateActiveDot(idx) {
-      for (var i = 0; i < dots.length; i++) {
-        dots[i].classList.toggle('is-active', i === idx);
+    function updateActiveDot() {
+      var i = indexInGrid();
+      // Map any cloned slot back to original 0..N-1
+      var realIdx = ((i - N) % N + N) % N;
+      for (var k = 0; k < dots.length; k++) {
+        dots[k].classList.toggle('is-active', k === realIdx);
       }
     }
 
-    function goTo(idx) {
-      var c = cards[idx];
-      if (!c) return;
-      var target = c.offsetLeft - (grid.clientWidth - c.offsetWidth) / 2;
-      grid.scrollTo({ left: target, behavior: 'smooth' });
+    function goToOriginal(realIdx) {
+      // Navigate to the corresponding card in the middle (original) block
+      var target = allCards[N + realIdx];
+      if (!target) return;
+      grid.scrollTo({ left: centerOf(target), behavior: 'smooth' });
     }
 
     function advance() {
-      var idx = currentIndex();
-      var next = (idx + 1) % cards.length;
-      goTo(next);
+      var i = indexInGrid();
+      var next = i + 1;
+      if (next >= allCards.length) next = allCards.length - 1;
+      var target = allCards[next];
+      grid.scrollTo({ left: centerOf(target), behavior: 'smooth' });
+    }
+
+    // After a smooth-scroll lands on a clone, jump silently back to the equivalent original.
+    function maybeRecenter() {
+      if (isJumping) return;
+      var i = indexInGrid();
+      if (i < N) {
+        // We are in the prepended-clone zone; jump forward by N
+        isJumping = true;
+        var target = allCards[i + N];
+        var prev = grid.style.scrollBehavior;
+        grid.style.scrollBehavior = 'auto';
+        grid.scrollLeft = centerOf(target);
+        grid.style.scrollBehavior = prev || '';
+        requestAnimationFrame(function () { isJumping = false; });
+      } else if (i >= 2 * N) {
+        // We are in the appended-clone zone; jump back by N
+        isJumping = true;
+        var target2 = allCards[i - N];
+        var prev2 = grid.style.scrollBehavior;
+        grid.style.scrollBehavior = 'auto';
+        grid.scrollLeft = centerOf(target2);
+        grid.style.scrollBehavior = prev2 || '';
+        requestAnimationFrame(function () { isJumping = false; });
+      }
+    }
+
+    // Scroll settle detection (scrollend not yet universal)
+    var settleTimer = null;
+    function onScroll() {
+      if (isJumping) return;
+      updateActiveDot();
+      if (settleTimer) clearTimeout(settleTimer);
+      settleTimer = setTimeout(maybeRecenter, 120);
     }
 
     function startAuto() {
@@ -6158,19 +6240,28 @@
       resumeTimer = setTimeout(function () { paused = false; startAuto(); }, RESUME_DELAY);
     }
 
-    grid.addEventListener('scroll', function () {
-      updateActiveDot(currentIndex());
-    }, { passive: true });
-
+    grid.addEventListener('scroll', onScroll, { passive: true });
     grid.addEventListener('touchstart', pauseTemporarily, { passive: true });
     grid.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'mouse') pauseTemporarily();
     });
 
-    // Only run on mobile, start when carousel enters viewport
     function setup() {
-      if (!MOBILE_MQ.matches) { stopAuto(); return; }
+      if (!MOBILE_MQ.matches) {
+        stopAuto();
+        unclone();
+        return;
+      }
+      clone();
       buildDots();
+      // Land on the first original card without smooth
+      requestAnimationFrame(function () {
+        var prev = grid.style.scrollBehavior;
+        grid.style.scrollBehavior = 'auto';
+        grid.scrollLeft = centerOf(allCards[N]);
+        grid.style.scrollBehavior = prev || '';
+        updateActiveDot();
+      });
       if (REDUCED_MOTION.matches) return;
       if ('IntersectionObserver' in window) {
         var io = new IntersectionObserver(function (entries) {
@@ -6184,9 +6275,10 @@
       }
     }
 
+    var mqHandler = function () { setup(); };
     MOBILE_MQ.addEventListener
-      ? MOBILE_MQ.addEventListener('change', setup)
-      : MOBILE_MQ.addListener(setup);
+      ? MOBILE_MQ.addEventListener('change', mqHandler)
+      : MOBILE_MQ.addListener(mqHandler);
 
     setup();
   })();

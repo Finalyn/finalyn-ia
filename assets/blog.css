@@ -55,6 +55,12 @@
   background-position: center;
   background-color: var(--paper);
 }
+/* Carte Microsoft Copilot Studio : logo sur gradient officiel */
+.blog-card-image.copilot-logo-bg {
+  background:
+    url('../copilot.svg') no-repeat center / 32% auto,
+    linear-gradient(135deg, #1A87FF 0%, #22C8E0 35%, #E976FF 70%, #FFA94D 100%);
+}
 .blog-card-content {
   display: flex;
   flex-direction: column;

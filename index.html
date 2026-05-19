@@ -96,7 +96,13 @@
     "email": "contact@finalyn.com",
     "availableLanguage": ["French", "English"],
     "areaServed": "CH",
-    "contactOption": "TollFree"
+    "contactOption": "TollFree",
+    "hoursAvailable": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "08:00",
+      "closes": "18:00"
+    }
   },
   {
     "@type": "ContactPoint",
@@ -104,7 +110,13 @@
     "telephone": "+41796393684",
     "url": "https://wa.me/41796393684",
     "availableLanguage": ["French", "English"],
-    "areaServed": "CH"
+    "areaServed": "CH",
+    "hoursAvailable": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "08:00",
+      "closes": "18:00"
+    }
   }],
   "priceRange": "CHF$$",
   "currenciesAccepted": "CHF, EUR",
@@ -112,8 +124,9 @@
   "openingHoursSpecification": [{
     "@type": "OpeningHoursSpecification",
     "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    "opens": "09:00",
-    "closes": "18:00"
+    "opens": "08:00",
+    "closes": "18:00",
+    "description": "Audit gratuit en visio · créneaux dès 8 h du matin du lundi au vendredi (heure de Zurich)"
   }],
   "serviceArea": {
     "@type": "GeoCircle",
@@ -822,7 +835,121 @@
     {"@type": "ListItem", "position": 6, "name": "Services",           "item": "https://finalyn.com/#services"},
     {"@type": "ListItem", "position": 7, "name": "Sécurité",           "item": "https://finalyn.com/#securite"},
     {"@type": "ListItem", "position": 8, "name": "Avis IA",            "item": "https://finalyn.com/#avis-ia"},
-    {"@type": "ListItem", "position": 9, "name": "FAQ",                "item": "https://finalyn.com/#faq"}
+    {"@type": "ListItem", "position": 9, "name": "Blog",               "item": "https://finalyn.com/#blog"},
+    {"@type": "ListItem", "position": 10, "name": "FAQ",               "item": "https://finalyn.com/#faq"}
+  ]
+}
+</script>
+
+<!-- Structured data — Articles vedettes du blog sur la home (AEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": "https://finalyn.com/#blog-featured",
+  "name": "Articles vedettes du blog finalyn.ia",
+  "description": "Sélection d'articles mis en avant sur la page d'accueil de finalyn.ia : guides pratiques, comparatifs et fondamentaux sur l'intégration de l'IA dans les PME suisses.",
+  "url": "https://finalyn.com/#blog",
+  "inLanguage": "fr-CH",
+  "numberOfItems": 6,
+  "itemListOrder": "https://schema.org/ItemListOrderAscending",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "url": "https://finalyn.com/blog/intelligence-artificielle-pme-suisse-guide-2026.html",
+      "item": {
+        "@type": "BlogPosting",
+        "headline": "L'IA dans les PME suisses : guide pratique 2026",
+        "url": "https://finalyn.com/blog/intelligence-artificielle-pme-suisse-guide-2026.html",
+        "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80",
+        "datePublished": "2026-05-19",
+        "author": {"@id": "https://finalyn.com/#organization"},
+        "publisher": {"@id": "https://finalyn.com/#organization"},
+        "articleSection": "Stratégie",
+        "inLanguage": "fr-CH"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "url": "https://finalyn.com/blog/calcul-roi-agent-ia-pme.html",
+      "item": {
+        "@type": "BlogPosting",
+        "headline": "Calcul du ROI d'un agent IA pour PME : méthode et exemple chiffré",
+        "url": "https://finalyn.com/blog/calcul-roi-agent-ia-pme.html",
+        "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80",
+        "datePublished": "2026-05-19",
+        "author": {"@id": "https://finalyn.com/#organization"},
+        "publisher": {"@id": "https://finalyn.com/#organization"},
+        "articleSection": "Business",
+        "inLanguage": "fr-CH"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "url": "https://finalyn.com/blog/quest-ce-quun-agent-ia-definition-decideurs.html",
+      "item": {
+        "@type": "BlogPosting",
+        "headline": "Qu'est-ce qu'un agent IA ? Définition claire pour décideurs PME",
+        "url": "https://finalyn.com/blog/quest-ce-quun-agent-ia-definition-decideurs.html",
+        "image": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1600&q=80",
+        "datePublished": "2026-05-19",
+        "author": {"@id": "https://finalyn.com/#organization"},
+        "publisher": {"@id": "https://finalyn.com/#organization"},
+        "articleSection": "Fondamentaux",
+        "inLanguage": "fr-CH"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "url": "https://finalyn.com/blog/ia-vs-embauche-comment-choisir-pme.html",
+      "item": {
+        "@type": "BlogPosting",
+        "headline": "IA ou embauche : comment choisir quand on dirige une PME suisse",
+        "url": "https://finalyn.com/blog/ia-vs-embauche-comment-choisir-pme.html",
+        "image": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1600&q=80",
+        "datePublished": "2026-05-19",
+        "author": {"@id": "https://finalyn.com/#organization"},
+        "publisher": {"@id": "https://finalyn.com/#organization"},
+        "articleSection": "Business",
+        "inLanguage": "fr-CH"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "url": "https://finalyn.com/blog/securite-donnees-hebergement-ia-pme-suisse.html",
+      "item": {
+        "@type": "BlogPosting",
+        "headline": "Sécurité, données et hébergement IA en PME suisse : le guide 2026",
+        "url": "https://finalyn.com/blog/securite-donnees-hebergement-ia-pme-suisse.html",
+        "image": "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=1600&q=80",
+        "datePublished": "2026-05-19",
+        "author": {"@id": "https://finalyn.com/#organization"},
+        "publisher": {"@id": "https://finalyn.com/#organization"},
+        "articleSection": "Sécurité",
+        "inLanguage": "fr-CH"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "url": "https://finalyn.com/blog/comparatif-modeles-ia-2026-pme.html",
+      "item": {
+        "@type": "BlogPosting",
+        "headline": "Claude 4.7, GPT-5, Gemini 2.5, Mistral : quel modèle IA pour quelle PME en 2026 ?",
+        "url": "https://finalyn.com/blog/comparatif-modeles-ia-2026-pme.html",
+        "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1600&q=80",
+        "datePublished": "2026-05-19",
+        "author": {"@id": "https://finalyn.com/#organization"},
+        "publisher": {"@id": "https://finalyn.com/#organization"},
+        "articleSection": "Tech",
+        "inLanguage": "fr-CH"
+      }
+    }
   ]
 }
 </script>
@@ -973,44 +1100,76 @@
     transform: translateY(-4.2px) rotate(-45deg);
   }
 
-  .menu-panel {
-    position: absolute;
-    top: calc(100% + 14px);
-    right: 0;
-    min-width: 200px;
-    background: rgba(255, 253, 250, 0.85);
-    backdrop-filter: blur(22px) saturate(140%);
-    -webkit-backdrop-filter: blur(22px) saturate(140%);
-    border: 1px solid rgba(220, 214, 203, 0.7);
-    border-radius: 14px;
-    padding: 0.6rem;
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.6) inset,
-      0 18px 50px -12px rgba(40, 30, 60, 0.16),
-      0 4px 14px -4px rgba(40, 30, 60, 0.08);
+  /* Trigger stays above the panel + backdrop */
+  .menu-trigger {
+    position: relative;
+    z-index: 101;
+  }
+
+  /* Backdrop derrière le panneau */
+  .menu-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(14, 14, 14, 0.35);
     opacity: 0;
-    transform: translateY(-6px);
     pointer-events: none;
-    transition: opacity 0.28s ease, transform 0.28s ease;
+    transition: opacity 0.35s ease;
+    z-index: 99;
+  }
+  .menu-wrap.open .menu-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Panneau plein écran à droite */
+  .menu-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(85%, 420px);
+    background: var(--warm-white);
+    border-left: 1px solid var(--line);
+    border-radius: 0;
+    padding: 5.5rem 2.25rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    box-shadow: -16px 0 50px -16px rgba(40, 30, 60, 0.2);
+    transform: translateX(100%);
+    pointer-events: none;
+    transition: transform 0.45s cubic-bezier(.22,.61,.36,1);
+    z-index: 100;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .menu-wrap.open .menu-panel {
-    opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
     pointer-events: auto;
   }
   .menu-panel a {
     display: block;
-    padding: 0.65rem 0.85rem;
-    font-size: 0.9rem;
+    padding: 1.1rem 0;
+    font-size: 1.7rem;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
     color: var(--ink);
     text-decoration: none;
-    letter-spacing: -0.005em;
-    border-radius: 8px;
-    transition: background 0.2s ease, color 0.2s ease;
+    border-bottom: 1px solid var(--line);
+    transition: color 0.25s ease, transform 0.25s ease;
   }
-  .menu-panel a:hover {
-    background: rgba(167, 139, 250, 0.08);
+  .menu-panel a:hover,
+  .menu-panel a:focus-visible {
     color: var(--purple);
+    transform: translateX(4px);
+    outline: none;
+  }
+  .menu-panel a:last-child { border-bottom: none; }
+
+  /* Bloque le scroll du body quand le menu est ouvert */
+  body.menu-open {
+    overflow: hidden;
   }
 
   /* ===== HERO ===== */
@@ -1754,12 +1913,21 @@
     margin: 9rem auto 5rem;
     width: calc(100% - 3rem);
   }
-  .parcours-container { display: flex; flex-direction: column; gap: 3.5rem; }
-  .parcours-head { text-align: center; max-width: 680px; margin: 0 auto; }
+  .parcours-container { display: flex; flex-direction: column; gap: 3rem; }
+  .parcours-head { text-align: center; max-width: 720px; margin: 0 auto; }
+  .parcours-head .parcours-eyebrow {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 0.85rem;
+  }
   .parcours-head h2 {
-    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-size: clamp(1.9rem, 3.6vw, 2.8rem);
     font-weight: 400;
-    line-height: 1.12;
+    line-height: 1.1;
     letter-spacing: -0.035em;
     color: var(--ink);
     margin: 0;
@@ -1779,72 +1947,67 @@
     letter-spacing: -0.005em;
   }
 
-  /* Mini horizontal timeline */
+  /* Mini horizontal timeline — version discrète (sous le bloc audit) */
   .parcours-mini {
     list-style: none;
-    padding: 0;
+    padding: 1.75rem 0 0;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 0.5rem;
     position: relative;
-    max-width: 720px;
+    max-width: 640px;
     width: 100%;
+    border-top: 1px solid var(--line);
   }
   .parcours-mini::before {
     content: "";
     position: absolute;
     left: 8.333%;
     right: 8.333%;
-    top: 19px;
-    height: 2px;
-    background: linear-gradient(90deg, rgba(220,214,203,0.7) 0%, rgba(220,214,203,0.4) 100%);
-    border-radius: 1px;
+    top: calc(1.75rem + 13px);
+    height: 1px;
+    background: var(--line);
     z-index: 0;
   }
   .parcours-mini-step {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.55rem;
+    gap: 0.45rem;
     position: relative;
     z-index: 1;
     text-align: center;
     scroll-margin-top: 5rem;
   }
   .mini-num {
-    width: 38px;
-    height: 38px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background: var(--warm-white);
-    border: 2px solid var(--line);
+    border: 1px solid var(--line);
     display: grid;
     place-items: center;
-    font-size: 0.92rem;
-    font-weight: 500;
-    color: var(--muted);
-    overflow: hidden;
-    background-clip: padding-box;
-    isolation: isolate;
-    transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-  }
-  .parcours-mini-step.is-active .mini-num {
-    /* Couleur unie au lieu d'un gradient pour éviter les coins du gradient qui peuvent "fuir" du masque arrondi avec transform: scale */
-    background: #8B5CF6;
-    border-color: transparent;
-    color: #fff;
-    box-shadow:
-      0 0 0 5px rgba(167, 139, 250, 0.18),
-      0 4px 12px -2px rgba(139, 92, 246, 0.35);
-    transform: scale(1.05);
-  }
-  .mini-label {
     font-size: 0.78rem;
     font-weight: 500;
-    color: var(--ink-soft);
+    color: var(--muted);
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  }
+  .parcours-mini-step.is-done .mini-num {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: #fff;
+  }
+  .mini-label {
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--muted);
     letter-spacing: -0.005em;
   }
-  .parcours-mini-step.is-active .mini-label { color: var(--purple); }
+  .parcours-mini-step.is-done .mini-label {
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
 
   /* Audit block — minimal info on left (anchored top), calendar on right */
   .audit-block {
@@ -1866,6 +2029,13 @@
     text-transform: uppercase;
     color: var(--purple);
     align-self: flex-start;
+  }
+  .audit-info .audit-note {
+    align-self: flex-start;
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+    margin-top: 0.6rem;
   }
   .audit-info h3 {
     font-size: clamp(2rem, 4.5vw, 3rem);
@@ -2137,13 +2307,126 @@
   .cal-cta:disabled svg { display: none; }
   .cal-cta svg { width: 14px; height: 14px; }
 
+  /* Étape 2 : formulaire d'information */
+  .cal-form { display: none; flex-direction: column; gap: 0.85rem; }
+  .cal.is-form .cal-header,
+  .cal.is-form .cal-nav,
+  .cal.is-form .cal-grid-head,
+  .cal.is-form .cal-grid,
+  .cal.is-form .cal-slots,
+  .cal.is-form > #calCta { display: none; }
+  .cal.is-form .cal-form { display: flex; }
+
+  .cal-form-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    align-self: flex-start;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-bottom: 0.2rem;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  .cal-form-back:hover { color: var(--purple); }
+  .cal-form-recap {
+    margin: 0 0 0.4rem;
+    padding: 0.7rem 0.85rem;
+    background: rgba(167, 139, 250, 0.08);
+    border: 1px solid rgba(139, 92, 246, 0.18);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    color: var(--ink);
+    text-align: center;
+    letter-spacing: -0.005em;
+  }
+  .cal-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+  .cal-input { display: flex; flex-direction: column; gap: 0.3rem; }
+  .cal-input > span {
+    font-size: 0.76rem;
+    color: var(--muted);
+    letter-spacing: -0.005em;
+  }
+  .cal-input input {
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--ink);
+    padding: 0.7rem 0.85rem;
+    background: var(--warm-white);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cal-input input:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
+  }
+  .cal-input input:invalid:not(:placeholder-shown):not(:focus) {
+    border-color: rgba(220, 80, 80, 0.5);
+  }
+  .cal-cta-final { margin-top: 0.3rem; }
+  .cal-form-trust {
+    margin: 0.2rem 0 0;
+    font-size: 0.74rem;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.45;
+  }
+
+  /* Étape 3 : confirmation */
+  .cal-success { display: none; flex-direction: column; align-items: center; text-align: center; gap: 0.6rem; padding: 1.25rem 0.5rem 0.5rem; }
+  .cal.is-done .cal-header,
+  .cal.is-done .cal-nav,
+  .cal.is-done .cal-grid-head,
+  .cal.is-done .cal-grid,
+  .cal.is-done .cal-slots,
+  .cal.is-done > #calCta,
+  .cal.is-done .cal-form { display: none; }
+  .cal.is-done .cal-success { display: flex; }
+
+  .cal-success-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: rgba(139, 92, 246, 0.12);
+    color: var(--purple);
+    display: grid;
+    place-items: center;
+  }
+  .cal-success h4 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0.3rem 0 0;
+  }
+  .cal-success p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    max-width: 32ch;
+  }
+  .cal-success-note {
+    margin-top: 0.5rem !important;
+    font-size: 0.82rem !important;
+    color: var(--muted) !important;
+  }
+
   @media (max-width: 860px) {
     .parcours { margin: 5rem auto 3rem; }
     .parcours-container { gap: 2.5rem; }
     .parcours-mini { gap: 0.3rem; max-width: none; }
-    .parcours-mini::before { top: 17px; }
-    .mini-num { width: 34px; height: 34px; font-size: 0.85rem; }
-    .mini-label { font-size: 0.7rem; }
+    .parcours-mini::before { top: calc(1.75rem + 12px); }
+    .mini-num { width: 24px; height: 24px; font-size: 0.72rem; }
+    .mini-label { font-size: 0.68rem; }
     .audit-block { grid-template-columns: 1fr; gap: 2rem; }
     .audit-cal-wrap { justify-content: center; }
     /* Centrer le bloc info pour qu'il s'aligne avec le calendrier centré */
@@ -2154,9 +2437,9 @@
   }
   @media (max-width: 560px) {
     .parcours { width: calc(100% - 1.5rem); }
-    .parcours-mini { gap: 0.15rem; }
-    .parcours-mini::before { left: 8.333%; right: 8.333%; top: 14px; }
-    .mini-num { width: 28px; height: 28px; font-size: 0.75rem; }
+    .parcours-mini { gap: 0.15rem; padding-top: 1.25rem; }
+    .parcours-mini::before { left: 8.333%; right: 8.333%; top: calc(1.25rem + 11px); }
+    .mini-num { width: 22px; height: 22px; font-size: 0.68rem; }
     .mini-label { font-size: 0.62rem; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -3060,76 +3343,72 @@
     align-items: center;
   }
 
-  /* Inputs */
-  .roi-inputs { display: flex; flex-direction: column; gap: 1.5rem; }
-  .roi-input { display: flex; flex-direction: column; gap: 0.6rem; cursor: pointer; }
-  .roi-input .row {
-    display: flex; justify-content: space-between; align-items: baseline;
-    font-size: 0.88rem;
+  /* Sliders simples : track fin + thumb rond */
+  .roi-inputs { display: flex; flex-direction: column; gap: 1.4rem; }
+  .roi-field { display: flex; flex-direction: column; gap: 0.55rem; cursor: pointer; }
+  .roi-field-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.92rem;
     color: var(--ink-soft);
     letter-spacing: -0.005em;
   }
-  .roi-input .row strong {
-    font-weight: 500;
+  .roi-field-value {
     color: var(--purple);
+    font-weight: 500;
     font-variant-numeric: tabular-nums;
   }
-  /* Slider style toggle : track épaisse (hauteur du thumb), gauche du thumb en lilas */
-  .roi-input input[type=range] {
+  .roi-field input[type=range] {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 28px;
+    height: 4px;
+    border-radius: 999px;
     background: linear-gradient(
       to right,
-      var(--lilac) 0%,
-      var(--lilac) var(--val, 0%),
-      rgba(220, 214, 203, 0.6) var(--val, 0%),
-      rgba(220, 214, 203, 0.6) 100%
+      var(--purple) 0%,
+      var(--purple) var(--val, 0%),
+      var(--line) var(--val, 0%),
+      var(--line) 100%
     );
-    border: 1px solid var(--line);
-    border-radius: 999px;
     outline: none;
     cursor: pointer;
-    transition: background 0.1s linear;
+    margin: 0.4rem 0;
   }
-  .roi-input input[type=range]::-webkit-slider-thumb {
+  .roi-field input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 22px; height: 22px;
+    width: 18px; height: 18px;
     border-radius: 50%;
-    background: var(--ink);
-    border: 3px solid #fff;
-    box-shadow:
-      0 0 0 1px rgba(40, 30, 60, 0.1),
-      0 3px 8px -2px rgba(40, 30, 60, 0.35);
+    background: #fff;
+    border: 2px solid var(--purple);
+    box-shadow: 0 2px 5px rgba(40, 30, 60, 0.18);
     cursor: pointer;
-    transition: transform 0.15s ease, background 0.2s ease;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
   }
-  .roi-input input[type=range]::-webkit-slider-thumb:hover {
+  .roi-field input[type=range]::-webkit-slider-thumb:hover,
+  .roi-field input[type=range]:focus::-webkit-slider-thumb {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.15);
+  }
+  .roi-field input[type=range]::-moz-range-thumb {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--purple);
+    box-shadow: 0 2px 5px rgba(40, 30, 60, 0.18);
+    cursor: pointer;
+  }
+  .roi-field input[type=range]::-moz-range-track {
+    height: 4px;
+    background: var(--line);
+    border-radius: 999px;
+  }
+  .roi-field input[type=range]::-moz-range-progress {
+    height: 4px;
     background: var(--purple);
-    transform: scale(1.1);
-  }
-  .roi-input input[type=range]::-moz-range-thumb {
-    width: 22px; height: 22px;
-    border-radius: 50%;
-    background: var(--ink);
-    border: 3px solid #fff;
-    box-shadow:
-      0 0 0 1px rgba(40, 30, 60, 0.1),
-      0 3px 8px -2px rgba(40, 30, 60, 0.35);
-    cursor: pointer;
-  }
-  /* Firefox : utilise la pseudo-class native pour la partie "fill" à gauche du thumb */
-  .roi-input input[type=range]::-moz-range-progress {
-    background: var(--lilac);
     border-radius: 999px;
-    height: 26px;
-  }
-  .roi-input input[type=range]::-moz-range-track {
-    background: rgba(220, 214, 203, 0.6);
-    border-radius: 999px;
-    height: 26px;
   }
 
   /* Output */
@@ -3200,28 +3479,37 @@
     opacity: 0.6;
   }
 
-  /* Footer of section */
+  /* Footer of section : un seul CTA centré */
   .roi-foot {
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 1rem;
+    display: flex;
+    justify-content: center;
     margin-top: 2rem;
-    padding-top: 1.5rem;
+    padding-top: 1.75rem;
     border-top: 1px solid var(--line);
-    font-size: 0.85rem;
   }
   .roi-foot .roi-cta {
-    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.6rem;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 999px;
     text-decoration: none;
+    font-size: 0.93rem;
     font-weight: 500;
     letter-spacing: -0.005em;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 2px;
-    transition: color 0.25s ease, border-color 0.25s ease;
+    transition: background 0.25s ease, transform 0.25s ease;
   }
-  .roi-foot .roi-cta:hover { color: var(--purple); border-color: var(--purple); }
-  .roi-foot .roi-cta span { display: inline-block; transition: transform 0.25s ease; margin-left: 4px; }
-  .roi-foot .roi-cta:hover span { transform: translateX(4px); }
-  .roi-foot .roi-note { color: var(--muted); font-size: 0.78rem; }
+  .roi-foot .roi-cta:hover {
+    background: var(--purple);
+    transform: translateY(-1px);
+  }
+  .roi-foot .roi-cta span {
+    display: inline-block;
+    transition: transform 0.25s ease;
+  }
+  .roi-foot .roi-cta:hover span { transform: translateX(3px); }
 
   @media (max-width: 860px) {
     .roi { margin: 4rem auto 3rem; border-radius: 18px; }
@@ -4899,7 +5187,8 @@
     .nav { padding: 0.9rem 1.25rem; }
     .brand { font-size: 1.35rem; }
     .menu-trigger { font-size: 0.85rem; }
-    .menu-panel { min-width: 200px; right: 0; }
+    .menu-panel { padding: 5rem 1.75rem 2rem; }
+    .menu-panel a { font-size: 1.5rem; padding: 0.95rem 0; }
 
     .left { padding: 5.5rem 1.25rem 7rem; }
     h1 { font-size: clamp(1.95rem, 9vw, 2.5rem); letter-spacing: -0.03em; line-height: 1.12; }
@@ -5275,6 +5564,242 @@
     .ai-ask-launchers { gap: 0.5rem; }
   }
 
+  /* ===== SECTION : BLOG HOME (extraits articles) ===== */
+  .blog-home {
+    position: relative;
+    z-index: 2;
+    background: var(--warm-white);
+    width: 100%;
+    margin: 0;
+    padding: 5rem 0 5rem;
+    border-top: 1px solid var(--line);
+  }
+  .blog-home-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+  .blog-home-head {
+    text-align: center;
+    margin-bottom: 2.75rem;
+  }
+  .blog-home-head h2 {
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin: 0 0 0.8rem;
+  }
+  .blog-home-head h2 .accent-lilac {
+    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    font-weight: 500;
+  }
+  .blog-home-sub {
+    color: var(--muted);
+    font-size: 0.98rem;
+    line-height: 1.55;
+    margin: 0;
+    max-width: 620px;
+    margin-left: auto; margin-right: auto;
+  }
+
+  .blog-home-deck {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1.5rem 0 2.5rem;
+    min-height: 420px;
+  }
+
+  /* Slot = porte l'écartement horizontal. Transition lente + retardée par défaut
+     pour que les slots se ré-insèrent APRÈS le retour de la carte survolée. */
+  .blog-home-slot {
+    position: relative;
+    flex-shrink: 0;
+    width: 260px;
+    margin-left: -90px;
+    will-change: margin-left;
+    transition:
+      margin-left 0.55s cubic-bezier(.22,.61,.36,1) 0.15s,
+      z-index 0s linear 0.7s;
+  }
+  .blog-home-slot:first-child { margin-left: 0; }
+  .blog-home-slot:nth-child(2) { z-index: 2; }
+  .blog-home-slot:nth-child(3) { z-index: 3; }
+  .blog-home-slot:nth-child(4) { z-index: 4; }
+  .blog-home-slot:nth-child(5) { z-index: 5; }
+  .blog-home-slot:nth-child(6) { z-index: 6; }
+
+  /* Au survol du deck : les cartes s'écartent (entrée snappy, immédiate) */
+  .blog-home-deck:hover .blog-home-slot {
+    margin-left: 8px;
+    transition:
+      margin-left 0.35s cubic-bezier(.22,.61,.36,1),
+      z-index 0s linear 0s;
+  }
+  .blog-home-deck:hover .blog-home-slot:first-child { margin-left: 0; }
+
+  /* Slot dont la carte est survolée : passe au-dessus */
+  .blog-home-slot:has(.blog-home-card:hover) {
+    z-index: 50;
+  }
+
+  /* Carte = porte le lift vertical. Transition courte et sans délai
+     pour qu'elle se repose vite avant que les voisines reviennent. */
+  .blog-home-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 360px;
+    background: rgba(255, 253, 250, 0.96);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    box-shadow: 0 12px 24px -16px rgba(40, 30, 60, 0.25);
+    transition:
+      transform 0.25s cubic-bezier(.22,.61,.36,1),
+      box-shadow 0.3s ease,
+      border-color 0.25s ease;
+  }
+  .blog-home-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 32px 60px -22px rgba(139, 92, 246, 0.45);
+  }
+
+  .blog-home-card-image {
+    width: 100%;
+    height: 140px;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--paper);
+    flex-shrink: 0;
+  }
+  /* Carte Microsoft Copilot Studio : logo sur gradient officiel */
+  .blog-home-card-image.copilot-logo-bg {
+    background:
+      url('copilot.svg') no-repeat center / 38% auto,
+      linear-gradient(135deg, #1A87FF 0%, #22C8E0 35%, #E976FF 70%, #FFA94D 100%);
+  }
+  .blog-home-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 1.15rem 1rem;
+    flex: 1;
+    min-height: 0;
+  }
+  .blog-home-card-tag {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 0;
+  }
+  .blog-home-card h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .blog-home-card p {
+    font-size: 0.84rem;
+    line-height: 1.45;
+    color: var(--muted);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .blog-home-card-meta {
+    margin-top: auto;
+    padding-top: 0.4rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+  .blog-home-card-meta strong { color: var(--purple); font-weight: 500; }
+
+  .blog-home-foot {
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+  .blog-home-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 0.95rem;
+    font-weight: 500;
+    background: rgba(255, 253, 250, 0.82);
+    transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  }
+  .blog-home-all:hover {
+    border-color: rgba(139, 92, 246, 0.4);
+    color: var(--purple);
+    transform: translateY(-1px);
+  }
+  .blog-home-all svg { width: 16px; height: 16px; }
+
+  @media (max-width: 1080px) {
+    .blog-home-slot { width: 220px; margin-left: -70px; }
+    .blog-home-card { height: 340px; }
+  }
+  @media (max-width: 880px) {
+    .blog-home-deck {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      padding: 0;
+      min-height: 0;
+    }
+    .blog-home-slot,
+    .blog-home-slot:first-child {
+      width: auto;
+      margin-left: 0;
+      transform: none !important;
+      z-index: auto !important;
+      transition: none;
+    }
+    .blog-home-card {
+      width: auto;
+      height: auto;
+      transform: none !important;
+    }
+    .blog-home-card:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 18px 40px -28px rgba(139, 92, 246, 0.25);
+    }
+    .blog-home-card-image { height: auto; aspect-ratio: 16 / 9; }
+  }
+  @media (max-width: 560px) {
+    .blog-home { padding: 3.5rem 0 3.5rem; }
+    .blog-home-container { padding: 0 1.4rem; }
+    .blog-home-head { margin-bottom: 2rem; }
+    .blog-home-deck { grid-template-columns: 1fr; gap: 1rem; }
+    .blog-home-foot { margin-top: 2rem; }
+  }
+
   /* ===== SECTION : FAQ (accordéon natif <details>) ===== */
   .faq {
     position: relative;
@@ -5523,12 +6048,13 @@
         <span></span><span></span><span></span>
       </span>
     </button>
+    <div class="menu-backdrop" aria-hidden="true"></div>
     <div class="menu-panel" id="menuPanel" role="menu">
       <a href="#services" role="menuitem">Services</a>
       <a href="#cas-usage" role="menuitem">Cas d'usage</a>
       <a href="#stack" role="menuitem">Outils compatibles</a>
-      <a href="blog/index.html" role="menuitem">Blog</a>
       <a href="#audit" role="menuitem">Audit gratuit</a>
+      <a href="#blog" role="menuitem">Blog</a>
       <a href="#faq" role="menuitem">FAQ</a>
     </div>
   </div>
@@ -5555,7 +6081,7 @@
     </ul>
 
     <div class="cta-row">
-      <button class="btn-primary"><span class="label">Planifier un appel</span></button>
+      <a href="#audit" class="btn-primary" id="heroCtaPlan"><span class="label">Planifier un appel</span></a>
       <a href="#fonctionnement" class="link-secondary">
         Voir comment ça fonctionne
         <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -5878,7 +6404,6 @@
       </svg>
     </button>
   </p>
-  <p class="stack-note">Liste non exhaustive. Tout outil avec API ou webhook est connectable.</p>
  </div>
 </section>
 
@@ -5891,20 +6416,32 @@
 
   <div class="roi-grid">
     <div class="roi-inputs" role="group" aria-label="Paramètres du calcul">
-      <label class="roi-input">
-        <span class="row"><span>Heures gagnées par tâche</span><strong id="hoursVal">0.5 h</strong></span>
+      <label class="roi-field">
+        <span class="roi-field-head">
+          <span class="roi-field-label">Heures gagnées par tâche</span>
+          <strong class="roi-field-value" id="hoursVal">0.5 h</strong>
+        </span>
         <input type="range" id="hoursInput" min="0.1" max="10" step="0.1" value="0.5" aria-label="Heures gagnées par tâche" />
       </label>
-      <label class="roi-input">
-        <span class="row"><span>Répétitions par semaine</span><strong id="repsVal">5 fois</strong></span>
+      <label class="roi-field">
+        <span class="roi-field-head">
+          <span class="roi-field-label">Répétitions par semaine</span>
+          <strong class="roi-field-value" id="repsVal">5 fois</strong>
+        </span>
         <input type="range" id="repsInput" min="1" max="100" step="1" value="5" aria-label="Répétitions par semaine" />
       </label>
-      <label class="roi-input">
-        <span class="row"><span>Taux horaire</span><strong id="rateVal">80.-</strong></span>
+      <label class="roi-field">
+        <span class="roi-field-head">
+          <span class="roi-field-label">Taux horaire</span>
+          <strong class="roi-field-value" id="rateVal">80 CHF</strong>
+        </span>
         <input type="range" id="rateInput" min="5" max="500" step="5" value="80" aria-label="Taux horaire" />
       </label>
-      <label class="roi-input">
-        <span class="row"><span>Personnes impactées</span><strong id="peopleVal">1</strong></span>
+      <label class="roi-field">
+        <span class="roi-field-head">
+          <span class="roi-field-label">Personnes impactées</span>
+          <strong class="roi-field-value" id="peopleVal">1 personne</strong>
+        </span>
         <input type="range" id="peopleInput" min="1" max="500" step="1" value="1" aria-label="Nombre de personnes impactées" />
       </label>
     </div>
@@ -5920,66 +6457,31 @@
       <div class="roi-stat lilac">
         <span class="roi-num-row">
           <span class="roi-num" id="chfPerYear">10 400</span>
-          <span class="roi-unit">.-</span>
+          <span class="roi-unit">CHF</span>
         </span>
         <span class="roi-lbl">récupérés par an</span>
       </div>
       <div class="roi-mini">
         <span><strong id="hPerMonth">10.8</strong> h / mois</span>
         <span class="dot"></span>
-        <span><strong id="chfPerMonth">867</strong>.- / mois</span>
+        <span><strong id="chfPerMonth">867</strong> CHF / mois</span>
       </div>
     </div>
   </div>
 
   <div class="roi-foot">
-    <a href="#contact" class="roi-cta">Discutons de votre cas <span aria-hidden="true">→</span></a>
-    <span class="roi-note">Estimation indicative, basée sur vos paramètres.</span>
+    <a href="#audit" class="roi-cta">Discutons de votre cas <span aria-hidden="true">→</span></a>
   </div>
  </div>
 </section>
 
 <section class="parcours" id="parcours" aria-labelledby="parcours-title">
  <div class="parcours-container">
-  <header class="parcours-head">
-    <h2 id="parcours-title">Une intégration IA en <span class="accent-lilac">6 étapes claires.</span></h2>
-    <p class="parcours-sub">De l'audit gratuit à l'évolution continue.</p>
-  </header>
-
-  <!-- Mini timeline horizontale (6 étapes) -->
-  <ol class="parcours-mini" aria-label="Mission finalyn.ia en 6 étapes">
-    <li class="parcours-mini-step is-active" id="etape-1-audit" aria-current="step">
-      <span class="mini-num">1</span>
-      <span class="mini-label">Audit</span>
-    </li>
-    <li class="parcours-mini-step" id="etape-2-cadrage">
-      <span class="mini-num">2</span>
-      <span class="mini-label">Cadrage</span>
-    </li>
-    <li class="parcours-mini-step" id="etape-3-conception">
-      <span class="mini-num">3</span>
-      <span class="mini-label">Conception</span>
-    </li>
-    <li class="parcours-mini-step" id="etape-4-deploiement">
-      <span class="mini-num">4</span>
-      <span class="mini-label">Déploiement</span>
-    </li>
-    <li class="parcours-mini-step" id="etape-5-formation">
-      <span class="mini-num">5</span>
-      <span class="mini-label">Formation</span>
-    </li>
-    <li class="parcours-mini-step" id="etape-6-suivi">
-      <span class="mini-num">6</span>
-      <span class="mini-label">Suivi</span>
-    </li>
-  </ol>
-
   <!-- Section audit : infos à gauche, calendrier Calendly-style à droite -->
   <div class="audit-block" id="audit">
     <div class="audit-info">
-      <span class="step-eyebrow">Étape 1</span>
-      <h3>Audit <span class="audit-grad">Gratuit</span></h3>
-      <p class="audit-desc"><time datetime="PT30M">30 minutes</time> en visioconférence pour comprendre vos processus, identifier les leviers d'automatisation à plus fort impact et chiffrer concrètement le potentiel. Vous repartez avec une roadmap personnalisée de 4 à 6 pages, livrée sous 24 h. Sans engagement, ni de notre côté, ni du vôtre.</p>
+      <h3>Commençons par un <span class="audit-grad">audit gratuit</span>.</h3>
+      <p class="audit-desc">C'est la première étape. <time datetime="PT30M">30 minutes</time> en visioconférence pour comprendre vos processus, identifier les leviers d'automatisation à plus fort impact et chiffrer concrètement le potentiel. Vous repartez avec une roadmap personnalisée de 4 à 6 pages, livrée sous 24 h.</p>
       <button type="button" class="audit-primary" id="auditPrimary" aria-controls="auditCal">
         <span>Réservez un audit</span>
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -5987,13 +6489,14 @@
           <polyline points="13 6 19 12 13 18"></polyline>
         </svg>
       </button>
+      <span class="audit-note">Sans engagement · 100 % gratuit</span>
     </div>
 
     <div class="audit-cal-wrap">
       <div class="cal" id="auditCal" role="region" aria-label="Réservation de l'audit gratuit">
         <header class="cal-header">
           <div class="cal-title">Réservez votre audit · 30 min</div>
-          <div class="cal-sub">Visio · Heure de Zurich (GMT+1)</div>
+          <div class="cal-sub">Visio · Lundi-Vendredi · dès 8 h (heure de Zurich)</div>
         </header>
 
         <div class="cal-nav">
@@ -6014,12 +6517,14 @@
         <div class="cal-slots" id="calSlots" aria-live="polite">
           <span class="cal-slots-label">Choisissez un créneau</span>
           <div class="cal-slots-list" id="calSlotsList">
+            <button type="button" class="cal-slot" data-time="08:00">08:00</button>
             <button type="button" class="cal-slot" data-time="09:00">09:00</button>
             <button type="button" class="cal-slot" data-time="10:00">10:00</button>
             <button type="button" class="cal-slot" data-time="11:00">11:00</button>
             <button type="button" class="cal-slot" data-time="14:00">14:00</button>
             <button type="button" class="cal-slot" data-time="15:00">15:00</button>
             <button type="button" class="cal-slot" data-time="16:00">16:00</button>
+            <button type="button" class="cal-slot" data-time="17:00">17:00</button>
           </div>
         </div>
 
@@ -6030,6 +6535,51 @@
             <polyline points="13 6 19 12 13 18"></polyline>
           </svg>
         </button>
+
+        <!-- Étape 2 : formulaire d'information -->
+        <form class="cal-form" id="calForm" novalidate aria-label="Vos coordonnées pour la visio">
+          <button type="button" class="cal-form-back" id="calFormBack" aria-label="Revenir au calendrier">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="10 4 6 8 10 12"></polyline></svg>
+            <span>Modifier le créneau</span>
+          </button>
+          <p class="cal-form-recap" id="calFormRecap">—</p>
+          <div class="cal-form-row">
+            <label class="cal-input">
+              <span>Prénom</span>
+              <input type="text" name="firstname" id="calFirstname" autocomplete="given-name" required />
+            </label>
+            <label class="cal-input">
+              <span>Nom</span>
+              <input type="text" name="lastname" id="calLastname" autocomplete="family-name" required />
+            </label>
+          </div>
+          <label class="cal-input">
+            <span>E-mail professionnel</span>
+            <input type="email" name="email" id="calEmail" autocomplete="email" required />
+          </label>
+          <label class="cal-input">
+            <span>Entreprise</span>
+            <input type="text" name="company" id="calCompany" autocomplete="organization" required />
+          </label>
+          <button type="submit" class="cal-cta cal-cta-final" id="calConfirm">
+            <span class="cal-cta-label">Confirmer la réservation</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="13 6 19 12 13 18"></polyline>
+            </svg>
+          </button>
+          <p class="cal-form-trust">Vos données restent en Suisse / UE. Utilisées uniquement pour organiser l'audit.</p>
+        </form>
+
+        <!-- Étape 3 : confirmation -->
+        <div class="cal-success" id="calSuccess" role="status" aria-live="polite">
+          <div class="cal-success-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <h4>Audit réservé.</h4>
+          <p id="calSuccessRecap">—</p>
+          <p class="cal-success-note">Un e-mail de confirmation avec le lien visio vient de partir vers votre boîte. À très vite !</p>
+        </div>
       </div>
     </div>
   </div>
@@ -6294,6 +6844,116 @@
  </div>
 </section>
 
+<section class="blog-home" id="blog" aria-labelledby="blog-home-title">
+ <div class="blog-home-container">
+  <header class="blog-home-head">
+    <h2 id="blog-home-title">En savoir plus sur <span class="accent-lilac">l'IA en PME</span>.</h2>
+    <p class="blog-home-sub">Guides pratiques, comparatifs et fondamentaux pour comprendre comment l'IA s'intègre vraiment dans une PME suisse.</p>
+  </header>
+
+  <div class="blog-home-deck">
+    <div class="blog-home-slot">
+      <a href="blog/intelligence-artificielle-pme-suisse-guide-2026.html" class="blog-home-card">
+        <div class="blog-home-card-image" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80');" aria-hidden="true"></div>
+        <div class="blog-home-card-content">
+          <span class="blog-home-card-tag">Stratégie</span>
+          <h3>L'IA dans les PME suisses : guide pratique 2026</h3>
+          <p>Par où commencer concrètement : cas d'usage prioritaires, conformité nLPD, coûts réels.</p>
+          <div class="blog-home-card-meta">
+            <span>8 min</span>
+            <strong>Lire →</strong>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="blog-home-slot">
+      <a href="blog/calcul-roi-agent-ia-pme.html" class="blog-home-card">
+        <div class="blog-home-card-image" style="background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80');" aria-hidden="true"></div>
+        <div class="blog-home-card-content">
+          <span class="blog-home-card-tag">Business</span>
+          <h3>Calcul du ROI d'un agent IA : méthode et exemple chiffré</h3>
+          <p>Combien d'heures faut-il économiser pour rentabiliser ? Exemple sur une PME romande de 12 personnes.</p>
+          <div class="blog-home-card-meta">
+            <span>6 min</span>
+            <strong>Lire →</strong>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="blog-home-slot">
+      <a href="blog/quest-ce-quun-agent-ia-definition-decideurs.html" class="blog-home-card">
+        <div class="blog-home-card-image" style="background-image: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80');" aria-hidden="true"></div>
+        <div class="blog-home-card-content">
+          <span class="blog-home-card-tag">Fondamentaux</span>
+          <h3>Qu'est-ce qu'un agent IA ? Définition claire pour décideurs</h3>
+          <p>LLM, agent IA, RAG, fine-tuning, MCP : glossaire en langage métier, sans devenir ingénieur IA.</p>
+          <div class="blog-home-card-meta">
+            <span>7 min</span>
+            <strong>Lire →</strong>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="blog-home-slot">
+      <a href="blog/ia-vs-embauche-comment-choisir-pme.html" class="blog-home-card">
+        <div class="blog-home-card-image" style="background-image: url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=80');" aria-hidden="true"></div>
+        <div class="blog-home-card-content">
+          <span class="blog-home-card-tag">Business</span>
+          <h3>IA ou embauche : comment choisir en PME suisse</h3>
+          <p>Avant de poster une offre, demandez-vous si un agent IA peut faire le job. Critères et exemples.</p>
+          <div class="blog-home-card-meta">
+            <span>6 min</span>
+            <strong>Lire →</strong>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="blog-home-slot">
+      <a href="blog/securite-donnees-hebergement-ia-pme-suisse.html" class="blog-home-card">
+        <div class="blog-home-card-image" style="background-image: url('https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=1200&q=80');" aria-hidden="true"></div>
+        <div class="blog-home-card-content">
+          <span class="blog-home-card-tag">Sécurité</span>
+          <h3>Sécurité, données et hébergement IA en PME suisse : guide 2026</h3>
+          <p>nLPD, RGPD, hébergement, données sensibles : tout pour déployer l'IA sereinement.</p>
+          <div class="blog-home-card-meta">
+            <span>8 min</span>
+            <strong>Lire →</strong>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="blog-home-slot">
+      <a href="blog/comparatif-modeles-ia-2026-pme.html" class="blog-home-card">
+        <div class="blog-home-card-image" style="background-image: url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80');" aria-hidden="true"></div>
+        <div class="blog-home-card-content">
+          <span class="blog-home-card-tag">Tech</span>
+          <h3>Claude 4.7, GPT-5, Gemini 2.5, Mistral : quel modèle pour quelle PME en 2026</h3>
+          <p>Claude pour le raisonnement, GPT pour Microsoft, Gemini pour le multimodal, Mistral pour le local. Le bon choix dépend de votre PME.</p>
+          <div class="blog-home-card-meta">
+            <span>8 min</span>
+            <strong>Lire →</strong>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="blog-home-foot">
+    <a href="blog/index.html" class="blog-home-all">
+      Voir tous les articles
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline>
+      </svg>
+    </a>
+  </div>
+ </div>
+</section>
+
 <section class="faq" id="faq" aria-labelledby="faq-title">
  <div class="faq-container">
   <header class="faq-head">
@@ -6455,15 +7115,18 @@
     var wrap = document.getElementById('menuWrap');
     var trigger = document.getElementById('menuTrigger');
     if (!wrap || !trigger) return;
-    function close() { wrap.classList.remove('open'); trigger.setAttribute('aria-expanded', 'false'); }
-    function toggle() {
-      var open = wrap.classList.toggle('open');
+    var backdrop = wrap.querySelector('.menu-backdrop');
+    var links = wrap.querySelectorAll('.menu-panel a');
+    function setOpen(open) {
+      wrap.classList.toggle('open', open);
+      document.body.classList.toggle('menu-open', open);
       trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
+    function close() { setOpen(false); }
+    function toggle() { setOpen(!wrap.classList.contains('open')); }
     trigger.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
-    document.addEventListener('click', function (e) {
-      if (!wrap.contains(e.target)) close();
-    });
+    if (backdrop) backdrop.addEventListener('click', close);
+    links.forEach(function (a) { a.addEventListener('click', close); });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') close();
     });
@@ -6615,10 +7278,44 @@
     Array.prototype.forEach.call(slotList.querySelectorAll('.cal-slot'), function (s) {
       s.addEventListener('click', function () { pickSlot(s); });
     });
+    var calRoot = document.getElementById('auditCal');
+    var calForm = document.getElementById('calForm');
+    var calFormRecap = document.getElementById('calFormRecap');
+    var calFormBack = document.getElementById('calFormBack');
+    var calSuccessRecap = document.getElementById('calSuccessRecap');
+
+    function formatRecap() {
+      if (!selectedDay) return '';
+      return dayShort[selectedDay.getDay()] + ' ' + selectedDay.getDate() + ' ' + monthNames[selectedDay.getMonth()].toLowerCase() + ' · ' + selectedSlot;
+    }
+
     ctaBtn.addEventListener('click', function () {
-      if (ctaBtn.disabled) return;
-      alert('Merci ! Votre audit gratuit est réservé pour le ' + selectedDay.toLocaleDateString('fr-CH') + ' à ' + selectedSlot + '. Vous recevrez le lien visio par e-mail sous 24 h.');
+      if (ctaBtn.disabled || !selectedDay || !selectedSlot) return;
+      if (calFormRecap) calFormRecap.textContent = 'Visio · ' + formatRecap() + ' (30 min)';
+      if (calRoot) calRoot.classList.add('is-form');
+      var first = document.getElementById('calFirstname');
+      if (first) setTimeout(function () { first.focus(); }, 250);
     });
+
+    if (calFormBack) {
+      calFormBack.addEventListener('click', function () {
+        if (calRoot) calRoot.classList.remove('is-form');
+      });
+    }
+
+    if (calForm) {
+      calForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var firstname = document.getElementById('calFirstname').value.trim();
+        var lastname  = document.getElementById('calLastname').value.trim();
+        var email     = document.getElementById('calEmail').value.trim();
+        var company   = document.getElementById('calCompany').value.trim();
+        if (!firstname || !lastname || !email || !company) return;
+        if (calSuccessRecap) calSuccessRecap.textContent = firstname + ', votre audit est confirmé pour le ' + formatRecap() + '.';
+        if (calRoot) calRoot.classList.remove('is-form');
+        if (calRoot) calRoot.classList.add('is-done');
+      });
+    }
 
     render();
   })();
@@ -6648,10 +7345,10 @@
       return r.toLocaleString('fr-CH', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     }
     function update() {
-      var h = parseFloat(hoursInput.value);
-      var r = parseInt(repsInput.value, 10);
-      var rate = parseInt(rateInput.value, 10);
-      var p = peopleInput ? parseInt(peopleInput.value, 10) : 1;
+      var h = parseFloat(hoursInput.value) || 0;
+      var r = parseInt(repsInput.value, 10) || 0;
+      var rate = parseInt(rateInput.value, 10) || 0;
+      var p = peopleInput ? (parseInt(peopleInput.value, 10) || 1) : 1;
 
       var hPerWeek = h * r * p;
       var hMonth = hPerWeek * 4.33;
@@ -6661,7 +7358,7 @@
 
       hoursVal.textContent = (h % 1 === 0 ? h.toFixed(0) : h.toFixed(1)) + ' h';
       repsVal.textContent  = r + ' fois';
-      rateVal.textContent  = fmt(rate) + '.-';
+      rateVal.textContent  = fmt(rate) + ' CHF';
       if (peopleVal) peopleVal.textContent = p + (p > 1 ? ' personnes' : ' personne');
 
       hPerYear.textContent   = fmt(hYear);
@@ -6670,7 +7367,7 @@
       chfPerMonth.textContent= fmt(chfMonth);
     }
 
-    // Sync la variable CSS --val pour le gradient toggle-style du track
+    // Variable CSS --val pour le fill lilas à gauche du thumb
     function syncFill(el) {
       var min = parseFloat(el.min) || 0;
       var max = parseFloat(el.max) || 100;

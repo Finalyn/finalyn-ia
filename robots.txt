@@ -33,3 +33,6 @@ User-agent: CCBot
 Allow: /
 
 Sitemap: https://finalyn.com/sitemap.xml
+
+# Index curé pour les LLMs (format https://llmstxt.org/)
+# https://finalyn.com/llms.txt

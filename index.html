@@ -3063,35 +3063,62 @@
     color: var(--purple);
     font-variant-numeric: tabular-nums;
   }
+  /* Slider style toggle : track épaisse (hauteur du thumb), gauche du thumb en lilas */
   .roi-input input[type=range] {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 4px;
-    background: var(--line);
+    height: 28px;
+    background: linear-gradient(
+      to right,
+      var(--lilac) 0%,
+      var(--lilac) var(--val, 0%),
+      rgba(220, 214, 203, 0.6) var(--val, 0%),
+      rgba(220, 214, 203, 0.6) 100%
+    );
+    border: 1px solid var(--line);
     border-radius: 999px;
     outline: none;
     cursor: pointer;
+    transition: background 0.1s linear;
   }
   .roi-input input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 18px; height: 18px;
+    width: 22px; height: 22px;
     border-radius: 50%;
     background: var(--ink);
-    border: 2px solid #fff;
-    box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.35), 0 4px 10px -2px rgba(40,30,60,0.25);
+    border: 3px solid #fff;
+    box-shadow:
+      0 0 0 1px rgba(40, 30, 60, 0.1),
+      0 3px 8px -2px rgba(40, 30, 60, 0.35);
     cursor: pointer;
     transition: transform 0.15s ease, background 0.2s ease;
   }
-  .roi-input input[type=range]::-webkit-slider-thumb:hover { background: var(--purple); transform: scale(1.08); }
+  .roi-input input[type=range]::-webkit-slider-thumb:hover {
+    background: var(--purple);
+    transform: scale(1.1);
+  }
   .roi-input input[type=range]::-moz-range-thumb {
-    width: 18px; height: 18px;
+    width: 22px; height: 22px;
     border-radius: 50%;
     background: var(--ink);
-    border: 2px solid #fff;
-    box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.35), 0 4px 10px -2px rgba(40,30,60,0.25);
+    border: 3px solid #fff;
+    box-shadow:
+      0 0 0 1px rgba(40, 30, 60, 0.1),
+      0 3px 8px -2px rgba(40, 30, 60, 0.35);
     cursor: pointer;
+  }
+  /* Firefox : utilise la pseudo-class native pour la partie "fill" à gauche du thumb */
+  .roi-input input[type=range]::-moz-range-progress {
+    background: var(--lilac);
+    border-radius: 999px;
+    height: 26px;
+  }
+  .roi-input input[type=range]::-moz-range-track {
+    background: rgba(220, 214, 203, 0.6);
+    border-radius: 999px;
+    height: 26px;
   }
 
   /* Output */
@@ -6598,8 +6625,18 @@
       chfPerMonth.textContent= fmt(chfMonth);
     }
 
+    // Sync la variable CSS --val pour le gradient toggle-style du track
+    function syncFill(el) {
+      var min = parseFloat(el.min) || 0;
+      var max = parseFloat(el.max) || 100;
+      var v = (parseFloat(el.value) - min) / (max - min) * 100;
+      el.style.setProperty('--val', v + '%');
+    }
     [hoursInput, repsInput, rateInput, peopleInput].forEach(function (el) {
-      if (el) el.addEventListener('input', update);
+      if (el) {
+        el.addEventListener('input', function () { update(); syncFill(el); });
+        syncFill(el);
+      }
     });
     update();
   })();

@@ -17,15 +17,28 @@ finalyn.ia s'adresse aux PME suisses (typiquement 5 à 200 personnes) qui veulen
 
 Approche : audit gratuit de 30 minutes en visio pour identifier les leviers à plus forte valeur, puis déploiement progressif (4 à 6 semaines pour les premiers résultats). Les solutions sont livrées documentées, sans vendor lock-in, et peuvent fonctionner sur du cloud standard, du cloud souverain Suisse / UE, ou en 100 % local pour les secteurs sensibles (santé, juridique, finance).
 
-Contact : contact@finalyn.com · +41 79 639 36 84 · WhatsApp +41 79 639 36 84
+Contact : contact@finalyn.com · +41 79 639 36 84 · WhatsApp +41 79 639 36 84 · LinkedIn https://www.linkedin.com/company/finalyn · Instagram https://www.instagram.com/finalyn.ch/
 
 Disponibilités : lundi à vendredi, créneaux dès 8 h du matin (heure de Zurich, GMT+1). Audit gratuit de 30 minutes réservable directement en ligne sur https://finalyn.com/#audit.
 
 ## Pages clés
 
 - [Page d'accueil](https://finalyn.com/): Présentation complète de finalyn.ia, cas d'usage prioritaires, outils compatibles (75+), calculateur de ROI, parcours de mise en œuvre, niveaux de confidentialité, FAQ.
+- [Réalisations récentes](https://finalyn.com/#realisations): Projets et agents IA livrés ces derniers mois — Arkia.app, Diagly.ch, bots Teams/Discord/Slack/WhatsApp, tri d'e-mails avec Notion, chatbot du site.
 - [Blog finalyn.ia](https://finalyn.com/blog/): Index de tous les articles — guides pratiques, comparatifs et fondamentaux sur l'IA en PME suisse.
 - [Audit IA gratuit](https://finalyn.com/#audit): 30 minutes en visio pour identifier vos leviers IA prioritaires et estimer le ROI, sans engagement.
+
+## Réalisations récentes
+
+Sélection de projets livrés par finalyn.ia ces derniers mois. Détail complet : https://finalyn.com/#realisations
+
+- [Arkia.app](https://arkia.app): Plateforme web qui transforme un brief texte en infographie design générée par IA, en quelques secondes. Pour créateurs de contenu, coachs et agences.
+- [Diagly.ch](https://diagly.ch): Application web et PWA offline qui guide un diagnostiqueur bâtiment sur le terrain — analyse de fissures par vision IA, génération de rapport conforme, utilisable sans réseau.
+- Assistant SEO dans Microsoft Teams: Agent IA branché sur Teams qui surveille le positionnement, propose les actions du jour chaque matin et répond à la demande sur le référencement.
+- Bot Discord finance: Agent connecté à un portefeuille d'actions, analyse les news en temps réel, alerte sur ce qui impacte le portfolio et explique les mouvements de marché en français.
+- Newsletter Yazu multi-canal: Agent unique qui rédige et publie une newsletter quotidienne sur Discord, Slack et WhatsApp simultanément, avec adaptation du ton à chaque plateforme.
+- Chatbot finalyn.ia: Agent conversationnel intégré au site finalyn.com, qualifie les visiteurs 24/7 et redirige vers l'audit gratuit.
+- Tri d'e-mails + Notion: Workflow qui trie la boîte de réception chaque matin, propose des réponses, ajoute les tâches dans Notion et crée les événements dans le calendrier — conversationnel.
 
 ## Services
 

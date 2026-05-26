@@ -395,17 +395,14 @@ a { color: inherit; }
   gap: 0.45rem;
   margin-top: 0.5rem;
 }
-.footer-wa {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: #25D366 !important;
-  border-bottom-color: rgba(37, 211, 102, 0.35) !important;
-}
-.footer-wa:hover {
-  color: #1DA851 !important;
-  border-bottom-color: #1DA851 !important;
-}
+/* Liens sociaux du footer : base partagée + couleur de marque par variante */
+.footer-wa, .footer-li, .footer-ig { display: inline-flex; align-items: center; gap: 0.4rem; }
+.footer-wa { color: #25D366 !important; border-bottom-color: rgba(37, 211, 102, 0.35) !important; }
+.footer-wa:hover { color: #1DA851 !important; border-bottom-color: #1DA851 !important; }
+.footer-li { color: #0A66C2 !important; border-bottom-color: rgba(10, 102, 194, 0.35) !important; }
+.footer-li:hover { color: #084d94 !important; border-bottom-color: #084d94 !important; }
+.footer-ig { color: #E1306C !important; border-bottom-color: rgba(225, 48, 108, 0.35) !important; }
+.footer-ig:hover { color: #C13584 !important; border-bottom-color: #C13584 !important; }
 
 .footer-nav h4,
 .footer-meta h4 {

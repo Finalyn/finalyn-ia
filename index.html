@@ -834,14 +834,13 @@
     {"@type": "ListItem", "position": 1, "name": "Accueil",            "item": "https://finalyn.com/"},
     {"@type": "ListItem", "position": 2, "name": "Cas d'usage",        "item": "https://finalyn.com/#cas-usage"},
     {"@type": "ListItem", "position": 3, "name": "Outils compatibles", "item": "https://finalyn.com/#stack"},
-    {"@type": "ListItem", "position": 4, "name": "Calculateur ROI",    "item": "https://finalyn.com/#calculateur"},
-    {"@type": "ListItem", "position": 5, "name": "Parcours et audit",  "item": "https://finalyn.com/#parcours"},
-    {"@type": "ListItem", "position": 6, "name": "Services",           "item": "https://finalyn.com/#services"},
-    {"@type": "ListItem", "position": 7, "name": "Réalisations",       "item": "https://finalyn.com/#realisations"},
-    {"@type": "ListItem", "position": 8, "name": "Sécurité",           "item": "https://finalyn.com/#securite"},
-    {"@type": "ListItem", "position": 9, "name": "Avis IA",            "item": "https://finalyn.com/#avis-ia"},
-    {"@type": "ListItem", "position": 10, "name": "Blog",              "item": "https://finalyn.com/#blog"},
-    {"@type": "ListItem", "position": 11, "name": "FAQ",               "item": "https://finalyn.com/#faq"}
+    {"@type": "ListItem", "position": 4, "name": "Parcours et audit",  "item": "https://finalyn.com/#parcours"},
+    {"@type": "ListItem", "position": 5, "name": "Services",           "item": "https://finalyn.com/#services"},
+    {"@type": "ListItem", "position": 6, "name": "Réalisations",       "item": "https://finalyn.com/#realisations"},
+    {"@type": "ListItem", "position": 7, "name": "Sécurité",           "item": "https://finalyn.com/#securite"},
+    {"@type": "ListItem", "position": 8, "name": "Avis IA",            "item": "https://finalyn.com/#avis-ia"},
+    {"@type": "ListItem", "position": 9, "name": "Blog",              "item": "https://finalyn.com/#blog"},
+    {"@type": "ListItem", "position": 10, "name": "FAQ",               "item": "https://finalyn.com/#faq"}
   ]
 }
 </script>
@@ -1628,6 +1627,22 @@
   }
   .real-mini-visual.bg-multi img { width: 22%; max-width: 46px; margin: 0 0.25rem; }
 
+  /* Carte avec capture d'écran : remplit le cadre en zoomant sur la zone importante */
+  .real-mini-visual.has-shot { background: #f4f2ee; }
+  .real-mini-visual.has-shot::before { display: none; }
+  .real-mini-visual .real-shot {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    aspect-ratio: auto;
+    object-fit: cover;
+    object-position: var(--shot-pos, center top);
+    filter: none;
+    z-index: 1;
+  }
+
   .bg-arkia    { background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%); }
   .bg-diagly   { background: linear-gradient(135deg, #F59E0B 0%, #3B82F6 100%); }
   .bg-teams    { background: linear-gradient(135deg, #5059C9 0%, #7B83EB 100%); }
@@ -1713,6 +1728,240 @@
     .realisations { margin: 4rem auto 3rem; width: calc(100% - 1.5rem); }
     .realisations-track { gap: 0.75rem; padding: 0.4rem 0.15rem; }
     .real-mini { flex: 0 0 85%; }
+  }
+
+  /* Carte cliquable + badge "Détail" au survol */
+  .real-mini[role="button"] { cursor: pointer; }
+  .real-mini[role="button"]:focus-visible {
+    outline: 2px solid var(--purple);
+    outline-offset: 3px;
+  }
+  .real-mini-expand {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    z-index: 3;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    padding: 0.22rem 0.6rem;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .real-mini:hover .real-mini-expand,
+  .real-mini:focus-visible .real-mini-expand { opacity: 1; transform: translateY(0); }
+
+  /* ===== Modal détail réalisation ===== */
+  .real-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .real-modal[hidden] { display: none; }
+  .real-modal.is-open { opacity: 1; pointer-events: auto; }
+  .real-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 14, 14, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    cursor: pointer;
+  }
+  .real-modal-dialog {
+    position: relative;
+    max-width: 560px;
+    width: 100%;
+    max-height: 92vh;
+    overflow: hidden;
+    background: var(--warm-white);
+    border-radius: 20px;
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.45);
+    transform: scale(0.96);
+    transition: transform 0.32s cubic-bezier(.2,.7,.3,1);
+    display: flex;
+    flex-direction: column;
+  }
+  .real-modal.is-open .real-modal-dialog { transform: scale(1); }
+  .real-modal-visual {
+    width: 100%;
+    aspect-ratio: 16 / 6;
+    display: grid;
+    place-items: center;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .real-modal-visual::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 55%),
+      radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.15), transparent 55%);
+    pointer-events: none;
+  }
+  .real-modal-visual img {
+    width: 14%;
+    max-width: 72px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.22));
+  }
+  .real-modal-visual.bg-multi img { width: 10%; max-width: 48px; margin: 0 0.3rem; }
+  /* Mode capture d'écran : remplit le cadre en zoomant sur la zone importante */
+  .real-modal-visual.has-shot {
+    aspect-ratio: 16 / 9;
+    padding: 0;
+    background: #f4f2ee;
+  }
+  .real-modal-visual.has-shot::before { display: none; }
+  .real-modal-visual.has-shot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: cover;
+    object-position: var(--shot-pos, center top);
+    border-radius: 0;
+    box-shadow: none;
+    filter: none;
+  }
+  .real-modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 4;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    border: none;
+    cursor: pointer;
+    color: var(--ink);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.3);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .real-modal-close:hover { background: #fff; transform: scale(1.06); }
+  .real-modal-body {
+    padding: 1.4rem 1.6rem 1.7rem;
+    overflow-y: auto;
+  }
+  .real-modal-body .real-mini-tag { display: block; margin-bottom: 0.4rem; }
+  .real-modal-body h2 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .real-modal-lead {
+    margin: 0.6rem 0 0;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .real-detail-section { margin-top: 1.15rem; }
+  .real-detail-section h4 {
+    margin: 0 0 0.3rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--purple);
+  }
+  .real-detail-section p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+  .real-detail-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.55rem;
+  }
+  .real-detail-stack span {
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: var(--ink);
+    background: rgba(139, 92, 246, 0.08);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 999px;
+    padding: 0.3rem 0.7rem;
+  }
+  .real-modal-cta {
+    margin-top: 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fff;
+    background: var(--purple);
+    text-decoration: none;
+    padding: 0.65rem 1.2rem;
+    border-radius: 999px;
+    transition: gap 0.25s ease, opacity 0.2s ease;
+  }
+  .real-modal-cta:hover { gap: 0.65rem; opacity: 0.92; }
+
+  /* Capture verticale : image à gauche (format complet), texte à droite */
+  .real-modal-dialog.is-portrait {
+    flex-direction: row;
+    align-items: stretch;
+    max-width: 780px;
+  }
+  .real-modal-dialog.is-portrait .real-modal-visual {
+    width: 44%;
+    flex-shrink: 0;
+    aspect-ratio: auto;
+    align-self: stretch;
+    padding: 1rem;
+  }
+  .real-modal-dialog.is-portrait .real-modal-visual img {
+    width: 100%;
+    height: 100%;
+    max-height: 86vh;
+    object-fit: contain;
+    object-position: center;
+  }
+  .real-modal-dialog.is-portrait .real-modal-body {
+    flex: 1;
+    max-height: 92vh;
+    padding-top: 2.6rem;
+  }
+
+  @media (max-width: 540px) {
+    .real-modal { padding: 0.5rem; }
+    .real-modal-dialog { border-radius: 16px; }
+    .real-modal-visual { aspect-ratio: 16 / 7; }
+    .real-modal-body { padding: 1.2rem 1.25rem 1.4rem; }
+    /* Sur mobile, on repasse les captures verticales en colonne */
+    .real-modal-dialog.is-portrait { flex-direction: column; max-width: 480px; }
+    .real-modal-dialog.is-portrait .real-modal-visual {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      align-self: auto;
+    }
   }
 
   /* ===== SECTION : WHY — puzzle UI "Pourquoi implémenter l'IA ?" ===== */
@@ -3573,237 +3822,6 @@
   /* Le carrousel reste un grid au-dessus de 560px : on cache les dots */
   .trust-dots { display: none; }
 
-  /* ===== SECTION : CALCULATEUR DE TEMPS GAGNÉ ===== */
-  .roi {
-    position: relative;
-    z-index: 2;
-    background: rgba(255, 253, 250, 0.94);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid rgba(220, 214, 203, 0.7);
-    border-radius: 22px;
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.6) inset,
-      0 30px 80px -28px rgba(40, 30, 60, 0.22),
-      0 8px 20px -6px rgba(40, 30, 60, 0.08);
-    max-width: 980px;
-    margin: 9rem auto 4rem;
-    width: calc(100% - 3rem);
-  }
-  .roi-container { padding: 2.75rem 3rem 2.25rem; }
-  .roi-head { text-align: center; margin-bottom: 2.25rem; }
-  .roi-head h2 {
-    display: inline-block;
-    font-size: clamp(1.6rem, 2.6vw, 2.15rem);
-    font-weight: 500;
-    line-height: 1.15;
-    letter-spacing: -0.025em;
-    color: var(--ink);
-    margin: 0;
-  }
-  .roi-head h2 .accent-lilac {
-    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
-    -webkit-background-clip: text;
-            background-clip: text;
-    color: transparent;
-    font-weight: 500;
-  }
-  .roi-head .roi-sub {
-    margin-top: 0.6rem;
-    font-size: 0.95rem;
-    color: var(--muted);
-    letter-spacing: -0.005em;
-  }
-
-  .roi-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
-    align-items: center;
-  }
-
-  /* Sliders simples : track fin + thumb rond */
-  .roi-inputs { display: flex; flex-direction: column; gap: 1.4rem; }
-  .roi-field { display: flex; flex-direction: column; gap: 0.55rem; cursor: pointer; }
-  .roi-field-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-size: 0.92rem;
-    color: var(--ink-soft);
-    letter-spacing: -0.005em;
-  }
-  .roi-field-value {
-    color: var(--purple);
-    font-weight: 500;
-    font-variant-numeric: tabular-nums;
-  }
-  .roi-field input[type=range] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 4px;
-    border-radius: 999px;
-    background: linear-gradient(
-      to right,
-      var(--purple) 0%,
-      var(--purple) var(--val, 0%),
-      var(--line) var(--val, 0%),
-      var(--line) 100%
-    );
-    outline: none;
-    cursor: pointer;
-    margin: 0.4rem 0;
-  }
-  .roi-field input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    background: #fff;
-    border: 2px solid var(--purple);
-    box-shadow: 0 2px 5px rgba(40, 30, 60, 0.18);
-    cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.2s ease;
-  }
-  .roi-field input[type=range]::-webkit-slider-thumb:hover,
-  .roi-field input[type=range]:focus::-webkit-slider-thumb {
-    transform: scale(1.15);
-    box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.15);
-  }
-  .roi-field input[type=range]::-moz-range-thumb {
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    background: #fff;
-    border: 2px solid var(--purple);
-    box-shadow: 0 2px 5px rgba(40, 30, 60, 0.18);
-    cursor: pointer;
-  }
-  .roi-field input[type=range]::-moz-range-track {
-    height: 4px;
-    background: var(--line);
-    border-radius: 999px;
-  }
-  .roi-field input[type=range]::-moz-range-progress {
-    height: 4px;
-    background: var(--purple);
-    border-radius: 999px;
-  }
-
-  /* Output */
-  .roi-output {
-    display: flex; flex-direction: column;
-    gap: 1rem;
-    padding: 1.75rem;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background: rgba(255, 253, 250, 0.6);
-  }
-  .roi-stat {
-    display: flex; flex-direction: column;
-    gap: 2px;
-  }
-  .roi-num-row {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.55rem;
-  }
-  .roi-stat .roi-num {
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: -0.035em;
-    color: var(--ink);
-    font-variant-numeric: tabular-nums;
-    transition: color 0.2s ease;
-  }
-  .roi-stat .roi-unit {
-    font-size: clamp(1.2rem, 2.4vw, 1.7rem);
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    color: var(--ink-soft);
-  }
-  .roi-stat.lilac .roi-num,
-  .roi-stat.lilac .roi-unit {
-    background: linear-gradient(92deg, #B9A3FB 0%, #8B5CF6 60%, #7C4DEF 100%);
-    -webkit-background-clip: text;
-            background-clip: text;
-    color: transparent;
-  }
-  .roi-stat .roi-lbl {
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-top: 4px;
-    letter-spacing: -0.005em;
-  }
-  .roi-mini {
-    display: flex; align-items: center; gap: 0.75rem;
-    margin-top: 0.25rem;
-    padding-top: 0.9rem;
-    border-top: 1px solid var(--line);
-    font-size: 0.85rem;
-    color: var(--muted);
-    flex-wrap: wrap;
-  }
-  .roi-mini strong {
-    color: var(--ink);
-    font-weight: 500;
-    font-variant-numeric: tabular-nums;
-  }
-  .roi-mini .dot {
-    width: 3px; height: 3px;
-    border-radius: 50%;
-    background: var(--muted);
-    opacity: 0.6;
-  }
-
-  /* Footer of section : un seul CTA centré */
-  .roi-foot {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-    padding-top: 1.75rem;
-    border-top: 1px solid var(--line);
-  }
-  .roi-foot .roi-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.85rem 1.6rem;
-    background: var(--ink);
-    color: #fff;
-    border-radius: 999px;
-    text-decoration: none;
-    font-size: 0.93rem;
-    font-weight: 500;
-    letter-spacing: -0.005em;
-    transition: background 0.25s ease, transform 0.25s ease;
-  }
-  .roi-foot .roi-cta:hover {
-    background: var(--purple);
-    transform: translateY(-1px);
-  }
-  .roi-foot .roi-cta span {
-    display: inline-block;
-    transition: transform 0.25s ease;
-  }
-  .roi-foot .roi-cta:hover span { transform: translateX(3px); }
-
-  @media (max-width: 860px) {
-    .roi { margin: 4rem auto 3rem; border-radius: 18px; }
-    .roi-container { padding: 2rem 1.5rem 1.5rem; }
-    .roi-head { margin-bottom: 1.75rem; }
-    .roi-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .roi-output { padding: 1.5rem; }
-    .roi-foot { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
-  }
-  @media (max-width: 560px) {
-    .roi { border-radius: 16px; width: calc(100% - 1.5rem); }
-    .roi-container { padding: 1.75rem 1.25rem 1.25rem; }
-    .roi-stat .roi-num { font-size: 1.85rem; }
-    .roi-mini { font-size: 0.78rem; gap: 0.5rem; }
-  }
 
   /* ===== SECTION : CAS D'USAGE (chips gravitent → suction → chat) ===== */
   .usecases {
@@ -6694,74 +6712,6 @@
  </div>
 </section>
 
-<section class="roi" id="calculateur" aria-labelledby="roi-title">
- <div class="roi-container">
-  <header class="roi-head">
-    <h2 id="roi-title">Combien pourriez-vous <span class="accent-lilac">gagner</span> ?</h2>
-    <p class="roi-sub">Estimez en temps réel ce que vous récupérez avec une automatisation sur mesure.</p>
-  </header>
-
-  <div class="roi-grid">
-    <div class="roi-inputs" role="group" aria-label="Paramètres du calcul">
-      <label class="roi-field">
-        <span class="roi-field-head">
-          <span class="roi-field-label">Heures gagnées par tâche</span>
-          <strong class="roi-field-value" id="hoursVal">0.5 h</strong>
-        </span>
-        <input type="range" id="hoursInput" min="0.1" max="10" step="0.1" value="0.5" aria-label="Heures gagnées par tâche" />
-      </label>
-      <label class="roi-field">
-        <span class="roi-field-head">
-          <span class="roi-field-label">Répétitions par semaine</span>
-          <strong class="roi-field-value" id="repsVal">5 fois</strong>
-        </span>
-        <input type="range" id="repsInput" min="1" max="100" step="1" value="5" aria-label="Répétitions par semaine" />
-      </label>
-      <label class="roi-field">
-        <span class="roi-field-head">
-          <span class="roi-field-label">Taux horaire</span>
-          <strong class="roi-field-value" id="rateVal">80 CHF</strong>
-        </span>
-        <input type="range" id="rateInput" min="5" max="500" step="5" value="80" aria-label="Taux horaire" />
-      </label>
-      <label class="roi-field">
-        <span class="roi-field-head">
-          <span class="roi-field-label">Personnes impactées</span>
-          <strong class="roi-field-value" id="peopleVal">1 personne</strong>
-        </span>
-        <input type="range" id="peopleInput" min="1" max="500" step="1" value="1" aria-label="Nombre de personnes impactées" />
-      </label>
-    </div>
-
-    <div class="roi-output" aria-live="polite">
-      <div class="roi-stat">
-        <span class="roi-num-row">
-          <span class="roi-num" id="hPerYear">130</span>
-          <span class="roi-unit">heures</span>
-        </span>
-        <span class="roi-lbl">économisées par an</span>
-      </div>
-      <div class="roi-stat lilac">
-        <span class="roi-num-row">
-          <span class="roi-num" id="chfPerYear">10 400</span>
-          <span class="roi-unit">CHF</span>
-        </span>
-        <span class="roi-lbl">récupérés par an</span>
-      </div>
-      <div class="roi-mini">
-        <span><strong id="hPerMonth">10.8</strong> h / mois</span>
-        <span class="dot"></span>
-        <span><strong id="chfPerMonth">867</strong> CHF / mois</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="roi-foot">
-    <a href="#audit" class="roi-cta">Discutons de votre cas <span aria-hidden="true">→</span></a>
-  </div>
- </div>
-</section>
-
 <section class="parcours" id="parcours" aria-labelledby="parcours-title">
  <div class="parcours-container">
   <!-- Section audit : infos à gauche, calendrier Calendly-style à droite -->
@@ -6954,9 +6904,10 @@
     </button>
 
     <div class="realisations-track" id="realTrack">
-      <article class="real-mini">
-        <div class="real-mini-visual bg-arkia">
-          <img src="https://api.iconify.design/mdi:image-auto-adjust.svg?color=white" alt="" loading="lazy" decoding="async" />
+      <article class="real-mini" data-project="arkia" role="button" tabindex="0" aria-label="Voir le détail du projet Arkia">
+        <div class="real-mini-visual has-shot">
+          <img class="real-shot" src="realisations/arkia.png" alt="Aperçu du projet Arkia" loading="lazy" decoding="async" style="--shot-pos:center center" />
+          <span class="real-mini-expand" aria-hidden="true">Détail</span>
         </div>
         <div class="real-mini-content">
           <span class="real-mini-tag">Web app · Image IA</span>
@@ -6966,9 +6917,10 @@
         </div>
       </article>
 
-      <article class="real-mini">
-        <div class="real-mini-visual bg-diagly">
-          <img src="https://api.iconify.design/mdi:office-building-cog.svg?color=white" alt="" loading="lazy" decoding="async" />
+      <article class="real-mini" data-project="diagly" role="button" tabindex="0" aria-label="Voir le détail du projet Diagly">
+        <div class="real-mini-visual has-shot">
+          <img class="real-shot" src="realisations/diagly.png" alt="Aperçu du projet Diagly" loading="lazy" decoding="async" style="--shot-pos:left top" />
+          <span class="real-mini-expand" aria-hidden="true">Détail</span>
         </div>
         <div class="real-mini-content">
           <span class="real-mini-tag">Web app · IA verticale</span>
@@ -6978,9 +6930,10 @@
         </div>
       </article>
 
-      <article class="real-mini">
-        <div class="real-mini-visual bg-teams">
-          <img src="https://api.iconify.design/logos:microsoft-teams.svg" alt="" loading="lazy" decoding="async" />
+      <article class="real-mini" data-project="teams" role="button" tabindex="0" aria-label="Voir le détail du projet Assistant SEO dans Teams">
+        <div class="real-mini-visual has-shot">
+          <img class="real-shot" src="realisations/teams.png" alt="Aperçu du projet Assistant SEO dans Teams" loading="lazy" decoding="async" style="--shot-pos:left top" />
+          <span class="real-mini-expand" aria-hidden="true">Détail</span>
         </div>
         <div class="real-mini-content">
           <span class="real-mini-tag">Agent IA · Microsoft Teams</span>
@@ -6989,9 +6942,10 @@
         </div>
       </article>
 
-      <article class="real-mini">
-        <div class="real-mini-visual bg-discord">
-          <img src="https://api.iconify.design/logos:discord-icon.svg" alt="" loading="lazy" decoding="async" />
+      <article class="real-mini" data-project="discord" role="button" tabindex="0" aria-label="Voir le détail du projet Bot Discord Portfolio finance">
+        <div class="real-mini-visual has-shot">
+          <img class="real-shot" src="realisations/discord.png" alt="Aperçu du projet Bot Discord Portfolio finance" loading="lazy" decoding="async" style="--shot-pos:left top" />
+          <span class="real-mini-expand" aria-hidden="true">Détail</span>
         </div>
         <div class="real-mini-content">
           <span class="real-mini-tag">Agent IA · Discord</span>
@@ -7000,11 +6954,12 @@
         </div>
       </article>
 
-      <article class="real-mini">
+      <article class="real-mini" data-project="multi" role="button" tabindex="0" aria-label="Voir le détail du projet Newsletter Yazu">
         <div class="real-mini-visual bg-multi">
           <img src="https://api.iconify.design/logos:discord-icon.svg" alt="" loading="lazy" decoding="async" />
           <img src="https://api.iconify.design/logos:slack-icon.svg" alt="" loading="lazy" decoding="async" />
           <img src="https://api.iconify.design/logos:whatsapp-icon.svg" alt="" loading="lazy" decoding="async" />
+          <span class="real-mini-expand" aria-hidden="true">Détail</span>
         </div>
         <div class="real-mini-content">
           <span class="real-mini-tag">Agent IA · Multi-canal</span>
@@ -7013,9 +6968,10 @@
         </div>
       </article>
 
-      <article class="real-mini">
-        <div class="real-mini-visual bg-chatbot">
-          <img src="https://api.iconify.design/mdi:chat-processing.svg?color=white" alt="" loading="lazy" decoding="async" />
+      <article class="real-mini" data-project="chatbot" role="button" tabindex="0" aria-label="Voir le détail du projet Agent conversationnel finalyn.ia">
+        <div class="real-mini-visual has-shot">
+          <img class="real-shot" src="realisations/chatbot.png" alt="Aperçu du projet Agent conversationnel finalyn.ia" loading="lazy" decoding="async" style="--shot-pos:center top" />
+          <span class="real-mini-expand" aria-hidden="true">Détail</span>
         </div>
         <div class="real-mini-content">
           <span class="real-mini-tag">Chatbot · Site web</span>
@@ -7024,9 +6980,10 @@
         </div>
       </article>
 
-      <article class="real-mini">
+      <article class="real-mini" data-project="notion" role="button" tabindex="0" aria-label="Voir le détail du projet Tri d'e-mails et Notion">
         <div class="real-mini-visual bg-notion">
           <img src="https://api.iconify.design/logos:notion-icon.svg" alt="" loading="lazy" decoding="async" />
+          <span class="real-mini-expand" aria-hidden="true">Détail</span>
         </div>
         <div class="real-mini-content">
           <span class="real-mini-tag">Workflow · Productivité</span>
@@ -7035,9 +6992,10 @@
         </div>
       </article>
 
-      <article class="real-mini">
-        <div class="real-mini-visual bg-linkedin">
-          <img src="https://api.iconify.design/mdi:linkedin.svg?color=white" alt="" loading="lazy" decoding="async" />
+      <article class="real-mini" data-project="linkedin" role="button" tabindex="0" aria-label="Voir le détail du projet Extension LinkedIn Prospection assistée">
+        <div class="real-mini-visual has-shot">
+          <img class="real-shot" src="realisations/linkedin.png" alt="Aperçu du projet Extension LinkedIn Prospection assistée" loading="lazy" decoding="async" style="--shot-pos:center center" />
+          <span class="real-mini-expand" aria-hidden="true">Détail</span>
         </div>
         <div class="real-mini-content">
           <span class="real-mini-tag">Extension · Prospection IA</span>
@@ -7475,7 +7433,6 @@
         <li><a href="#stack">Outils compatibles</a></li>
         <li><a href="#audit">Audit gratuit</a></li>
         <li><a href="#realisations">Réalisations</a></li>
-        <li><a href="#calculateur">Calculateur ROI</a></li>
         <li><a href="#securite">Sécurité &amp; données</a></li>
         <li><a href="#avis-ia">Avis IA</a></li>
         <li><a href="blog/index.html">Blog</a></li>
@@ -7526,6 +7483,42 @@
 
     <!-- Le calendrier est cloné ici en JS depuis #auditCal pour éviter la duplication HTML -->
     <div class="cal-modal-slot"></div>
+  </div>
+</div>
+
+<!-- Modal détail réalisation (ouvert au clic sur une carte du carrousel) -->
+<div class="real-modal" id="realModal" role="dialog" aria-modal="true" aria-labelledby="realModalTitle" hidden>
+  <div class="real-modal-backdrop" data-close aria-hidden="true"></div>
+  <div class="real-modal-dialog">
+    <div class="real-modal-visual" id="realModalVisual"></div>
+    <button type="button" class="real-modal-close" data-close aria-label="Fermer">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+        <line x1="6" y1="18" x2="18" y2="6"></line>
+      </svg>
+    </button>
+    <div class="real-modal-body" id="realModalBody">
+      <span class="real-mini-tag" id="realModalTag"></span>
+      <h2 id="realModalTitle"></h2>
+      <p class="real-modal-lead" id="realModalLead"></p>
+      <div class="real-detail-section">
+        <h4>Le besoin</h4>
+        <p id="realModalChallenge"></p>
+      </div>
+      <div class="real-detail-section">
+        <h4>Ce qu'on a construit</h4>
+        <p id="realModalSolution"></p>
+      </div>
+      <div class="real-detail-section">
+        <h4>Le résultat</h4>
+        <p id="realModalResult"></p>
+      </div>
+      <div class="real-detail-section">
+        <h4>Stack &amp; outils</h4>
+        <div class="real-detail-stack" id="realModalStack"></div>
+      </div>
+      <a class="real-modal-cta" id="realModalCta" href="#" target="_blank" rel="noopener" hidden></a>
+    </div>
   </div>
 </div>
 
@@ -7845,67 +7838,176 @@
     syncArrows();
   })();
 
-  // ROI calculator (time saved)
+  // Modal détail des réalisations — clic sur une carte du carrousel
   (function () {
-    var hoursInput = document.getElementById('hoursInput');
-    var repsInput  = document.getElementById('repsInput');
-    var rateInput  = document.getElementById('rateInput');
-    var peopleInput = document.getElementById('peopleInput');
-    if (!hoursInput || !repsInput || !rateInput) return;
+    var modal = document.getElementById('realModal');
+    var track = document.getElementById('realTrack');
+    if (!modal || !track) return;
 
-    var hoursVal = document.getElementById('hoursVal');
-    var repsVal  = document.getElementById('repsVal');
-    var rateVal  = document.getElementById('rateVal');
-    var peopleVal = document.getElementById('peopleVal');
-    var hPerYear  = document.getElementById('hPerYear');
-    var chfPerYear= document.getElementById('chfPerYear');
-    var hPerMonth = document.getElementById('hPerMonth');
-    var chfPerMonth = document.getElementById('chfPerMonth');
-
-    function fmt(n) {
-      return Math.round(n).toLocaleString('fr-CH').replace(/ /g, ' ');
-    }
-    function fmt1(n) {
-      var r = Math.round(n * 10) / 10;
-      return r.toLocaleString('fr-CH', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-    }
-    function update() {
-      var h = parseFloat(hoursInput.value) || 0;
-      var r = parseInt(repsInput.value, 10) || 0;
-      var rate = parseInt(rateInput.value, 10) || 0;
-      var p = peopleInput ? (parseInt(peopleInput.value, 10) || 1) : 1;
-
-      var hPerWeek = h * r * p;
-      var hMonth = hPerWeek * 4.33;
-      var hYear  = hPerWeek * 52;
-      var chfMonth = hMonth * rate;
-      var chfYear  = hYear * rate;
-
-      hoursVal.textContent = (h % 1 === 0 ? h.toFixed(0) : h.toFixed(1)) + ' h';
-      repsVal.textContent  = r + ' fois';
-      rateVal.textContent  = fmt(rate) + ' CHF';
-      if (peopleVal) peopleVal.textContent = p + (p > 1 ? ' personnes' : ' personne');
-
-      hPerYear.textContent   = fmt(hYear);
-      chfPerYear.textContent = fmt(chfYear);
-      hPerMonth.textContent  = fmt1(hMonth);
-      chfPerMonth.textContent= fmt(chfMonth);
-    }
-
-    // Variable CSS --val pour le fill lilas à gauche du thumb
-    function syncFill(el) {
-      var min = parseFloat(el.min) || 0;
-      var max = parseFloat(el.max) || 100;
-      var v = (parseFloat(el.value) - min) / (max - min) * 100;
-      el.style.setProperty('--val', v + '%');
-    }
-    [hoursInput, repsInput, rateInput, peopleInput].forEach(function (el) {
-      if (el) {
-        el.addEventListener('input', function () { update(); syncFill(el); });
-        syncFill(el);
+    var PROJECTS = {
+      arkia: {
+        tag: 'Web app · Image IA', title: 'Arkia', bg: 'bg-arkia',
+        icons: ['https://api.iconify.design/mdi:image-auto-adjust.svg?color=white'],
+        screenshot: 'realisations/arkia.png', focus: 'center center',
+        lead: "Transformer un simple brief texte en infographie design, prête à publier — sans ouvrir d'outil de graphisme.",
+        challenge: "Produire des visuels d'infographie soignés demande du temps et des compétences design que peu de PME ont en interne.",
+        solution: "Une web app où l'on décrit son besoin en langage naturel : l'IA structure le contenu, choisit la mise en page et génère une infographie design exportable.",
+        result: "Des visuels professionnels générés en quelques secondes, éditables, à partir d'une simple description.",
+        stack: ['LLM (structuration de contenu)', 'Génération de visuels', 'Front Next.js'],
+        link: { href: 'https://arkia.app', label: 'Voir arkia.app' }
+      },
+      diagly: {
+        tag: 'Web app · IA verticale', title: 'Diagly', bg: 'bg-diagly',
+        icons: ['https://api.iconify.design/mdi:office-building-cog.svg?color=white'],
+        screenshot: 'realisations/diagly.png', focus: 'left top',
+        lead: "Un copilote terrain pour les diagnostiqueurs bâtiment, pensé pour fonctionner même sans réseau.",
+        challenge: "Sur le terrain, les diagnostiqueurs perdent du temps en saisie manuelle et en rédaction de rapports, souvent dans des bâtiments sans connexion.",
+        solution: "Une PWA offline-first : la vision IA aide à identifier les éléments et pathologies, pré-remplit le diagnostic et prépare le rapport. Tout se synchronise au retour du réseau.",
+        result: "Des diagnostics plus rapides, une saisie réduite, et une appli qui fonctionne 100 % hors-ligne.",
+        stack: ['PWA offline-first', 'Vision IA', 'React 19 · Vite · Tailwind v4'],
+        link: { href: 'https://diagly.ch', label: 'Voir diagly.ch' }
+      },
+      teams: {
+        tag: 'Agent IA · Microsoft Teams', title: 'Assistant SEO dans Teams', bg: 'bg-teams',
+        icons: ['https://api.iconify.design/logos:microsoft-teams.svg'],
+        screenshot: 'realisations/teams.png', focus: 'left top',
+        lead: "Le suivi SEO qui vient à vous, directement dans Teams, chaque matin.",
+        challenge: "Le suivi du référencement est dispersé dans plusieurs outils que personne n'ouvre vraiment au quotidien.",
+        solution: "Un agent connecté à Microsoft Teams qui surveille les positions et la santé SEO du site, puis poste chaque matin les actions prioritaires du jour.",
+        result: "Un point SEO quotidien, là où l'équipe travaille déjà, sans changer d'outil.",
+        stack: ['Agent IA', 'API Microsoft Teams', 'Suivi SEO automatisé']
+      },
+      discord: {
+        tag: 'Agent IA · Discord', title: 'Bot Discord — Portfolio finance', bg: 'bg-discord',
+        icons: ['https://api.iconify.design/logos:discord-icon.svg'],
+        screenshot: 'realisations/discord.png', focus: 'left top',
+        lead: "Un assistant de trading sur Discord qui suit le portefeuille, exécute les ordres et explique tout en français clair.",
+        challenge: "Piloter un portefeuille demande de suivre les marchés en continu, réagir vite et garder une trace claire de chaque décision.",
+        solution: "Un bot Discord propulsé par Claude Haiku, relié à Alpaca : il envoie un briefing matinal (valeur du portefeuille, top performers, traînards), passe les ordres avec stop-loss et take-profit, et explique chaque mouvement en langage simple.",
+        result: "Un suivi de portefeuille et une exécution d'ordres automatisés, avec des explications claires directement dans Discord.",
+        stack: ['Bot Discord', 'Claude Haiku (raisonnement)', 'API Alpaca (portefeuille + ordres)', 'Briefing & alertes en français']
+      },
+      multi: {
+        tag: 'Agent IA · Multi-canal', title: 'Newsletter Yazu', bg: 'bg-multi',
+        icons: ['https://api.iconify.design/logos:discord-icon.svg', 'https://api.iconify.design/logos:slack-icon.svg', 'https://api.iconify.design/logos:whatsapp-icon.svg'],
+        lead: "Un seul agent, trois plateformes, le bon ton sur chacune.",
+        challenge: "Publier le même contenu sur Discord, Slack et WhatsApp implique de l'adapter manuellement à chaque audience.",
+        solution: "Un agent unique qui rédige et publie chaque jour sur les trois canaux, en ajustant automatiquement le ton et le format à chaque plateforme.",
+        result: "Une diffusion quotidienne multi-canal entièrement automatisée.",
+        stack: ['Agent IA multi-canal', 'API Discord · Slack · WhatsApp', 'Adaptation de ton par canal']
+      },
+      chatbot: {
+        tag: 'Chatbot · Site web', title: 'Agent conversationnel finalyn.ia', bg: 'bg-chatbot',
+        icons: ['https://api.iconify.design/mdi:chat-processing.svg?color=white'],
+        screenshot: 'realisations/chatbot.png', focus: 'center top', portrait: true,
+        lead: "L'agent que vous voyez en bas à droite de ce site.",
+        challenge: "Les visiteurs ont des questions à toute heure, et chaque lead non qualifié est une opportunité perdue.",
+        solution: "Un chatbot qui répond 24/7, qualifie les visiteurs, comprend leur besoin et les oriente vers l'audit gratuit.",
+        result: "Des visiteurs qualifiés en continu et un parcours fluide vers la prise de rendez-vous.",
+        stack: ['Chatbot IA', 'Qualification de leads', 'Intégration site web']
+      },
+      notion: {
+        tag: 'Workflow · Productivité', title: "Tri d'e-mails + Notion", bg: 'bg-notion',
+        icons: ['https://api.iconify.design/logos:notion-icon.svg'],
+        lead: "Une boîte mail triée et des tâches créées, avant même votre café.",
+        challenge: "Le tri des e-mails et la création des tâches associées grignotent un temps fou chaque matin.",
+        solution: "Un agent qui trie la boîte chaque matin, propose des brouillons de réponse, et ajoute automatiquement les tâches dans Notion et le calendrier.",
+        result: "Une boîte sous contrôle et un suivi des tâches sans saisie manuelle.",
+        stack: ['Workflow automatisé', 'API Notion · Calendrier', 'LLM (tri + brouillons)']
+      },
+      linkedin: {
+        tag: 'Extension · Prospection IA', title: 'Extension LinkedIn — Prospection assistée', bg: 'bg-linkedin',
+        icons: ['https://api.iconify.design/mdi:linkedin.svg?color=white'],
+        screenshot: 'realisations/linkedin.png', focus: 'center center', portrait: true,
+        lead: "De la prospection LinkedIn plus rapide, et conforme.",
+        challenge: "Qualifier les profils et personnaliser chaque accroche sur LinkedIn est chronophage — et risqué si on force les limites de la plateforme.",
+        solution: "Une extension qui qualifie les profils consultés, suggère des messages d'accroche personnalisés et synchronise le CRM, dans le respect des rate limits LinkedIn et de la nLPD.",
+        result: "Une prospection plus efficace, personnalisée et conforme.",
+        stack: ['Extension Chrome (MV3)', 'LLM (qualification + accroches)', 'Sync CRM', 'Conforme nLPD']
       }
+    };
+
+    var visual = document.getElementById('realModalVisual');
+    var dialog = modal.querySelector('.real-modal-dialog');
+    var elTag = document.getElementById('realModalTag');
+    var elTitle = document.getElementById('realModalTitle');
+    var elLead = document.getElementById('realModalLead');
+    var elChallenge = document.getElementById('realModalChallenge');
+    var elSolution = document.getElementById('realModalSolution');
+    var elResult = document.getElementById('realModalResult');
+    var elStack = document.getElementById('realModalStack');
+    var elCta = document.getElementById('realModalCta');
+    var carousel = track.closest('.realisations-carousel');
+    var lastFocused = null;
+
+    function fill(p) {
+      if (dialog) dialog.classList.toggle('is-portrait', !!(p.screenshot && p.portrait));
+      if (p.screenshot) {
+        visual.className = 'real-modal-visual has-shot ' + p.bg;
+        visual.innerHTML = '<img src="' + p.screenshot + '" alt="Aperçu du projet ' + p.title + '" loading="lazy" decoding="async" style="--shot-pos:' + (p.focus || 'center top') + '" />';
+      } else {
+        visual.className = 'real-modal-visual ' + p.bg;
+        visual.innerHTML = p.icons.map(function (src) {
+          return '<img src="' + src + '" alt="" decoding="async" />';
+        }).join('');
+      }
+      elTag.textContent = p.tag;
+      elTitle.textContent = p.title;
+      elLead.textContent = p.lead;
+      elChallenge.textContent = p.challenge;
+      elSolution.textContent = p.solution;
+      elResult.textContent = p.result;
+      elStack.innerHTML = p.stack.map(function (s) {
+        return '<span>' + s + '</span>';
+      }).join('');
+      if (p.link) {
+        elCta.href = p.link.href;
+        elCta.innerHTML = p.link.label + ' <span aria-hidden="true">↗</span>';
+        elCta.hidden = false;
+      } else {
+        elCta.hidden = true;
+      }
+    }
+
+    function open(key) {
+      var p = PROJECTS[key];
+      if (!p) return;
+      fill(p);
+      lastFocused = document.activeElement;
+      modal.hidden = false;
+      requestAnimationFrame(function () {
+        modal.classList.add('is-open');
+        document.body.classList.add('modal-open');
+      });
+      if (carousel) carousel.dispatchEvent(new Event('mouseenter')); // met le carrousel en pause
+      var closeBtn = modal.querySelector('.real-modal-close');
+      if (closeBtn) closeBtn.focus();
+    }
+    function close() {
+      modal.classList.remove('is-open');
+      document.body.classList.remove('modal-open');
+      setTimeout(function () { modal.hidden = true; }, 300);
+      if (carousel) carousel.dispatchEvent(new Event('mouseleave')); // relance l'auto-défilement
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    track.addEventListener('click', function (e) {
+      if (e.target.closest('a')) return; // laisse les liens externes (arkia.app, diagly.ch) fonctionner
+      var card = e.target.closest('.real-mini');
+      if (card && card.dataset.project) open(card.dataset.project);
     });
-    update();
+    track.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var card = e.target.closest('.real-mini');
+      if (card && card.dataset.project) { e.preventDefault(); open(card.dataset.project); }
+    });
+
+    Array.prototype.forEach.call(modal.querySelectorAll('[data-close]'), function (el) {
+      el.addEventListener('click', close);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+    });
   })();
 
   // Use case agent chat — smart wizard (detects domain & tools, asks only what's missing, proposes)

@@ -1,0 +1,221 @@
+<?php
+/**
+ * Proxy serveur pour l'assistant finalyn.ia (Claude Haiku).
+ *
+ * Pourquoi un proxy : la clef API Anthropic ne doit JAMAIS se trouver dans le
+ * JavaScript du site (elle serait volable par n'importe qui). Ce fichier tourne
+ * cote serveur (PHP, ex. Infomaniak), detient la clef, applique les garde-fous,
+ * puis appelle l'API Claude. Le navigateur ne parle qu'a ce proxy.
+ *
+ * Deploiement :
+ *   1. Copier api/config.example.php en api/config.php et y coller la clef.
+ *      (ou definir la variable d'environnement ANTHROPIC_API_KEY sur l'hebergeur)
+ *   2. Verifier que le dossier api/ est servi par PHP (Infomaniak : actif par defaut).
+ *   3. Le site appelle POST /api/chat.php avec { "messages": [ {role, content}, ... ] }.
+ *
+ * Aucune dependance (curl natif). Pas de tarif, pas de tiret cadratin (regles editoriales).
+ */
+
+// ----- Reglages -----
+const FINALYN_MODEL        = 'claude-haiku-4-5'; // Claude Haiku 4.5
+const FINALYN_MAX_TOKENS   = 600;                // longueur max d'une reponse
+const FINALYN_MAX_HISTORY  = 12;                 // nb de messages conserves
+const FINALYN_MAX_CHARS    = 1000;               // longueur max d'un message utilisateur
+const FINALYN_RATE_MAX     = 25;                 // requetes max par IP
+const FINALYN_RATE_WINDOW  = 600;                // sur cette fenetre (secondes)
+const FINALYN_TIMEOUT      = 30;                  // timeout appel API (secondes)
+
+// Origines autorisees (anti-abus depuis d'autres sites)
+$ALLOWED_HOST_SUFFIXES = ['finalyn.com', 'finalyn.ch', 'localhost', '127.0.0.1'];
+
+// ----- Reponse JSON utilitaire -----
+header('Content-Type: application/json; charset=utf-8');
+header('Cache-Control: no-store');
+header('X-Content-Type-Options: nosniff');
+
+function finalyn_fail($status, $message) {
+    http_response_code($status);
+    echo json_encode(['error' => $message], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+// ----- Methode -----
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    finalyn_fail(405, "Methode non autorisee.");
+}
+
+// ----- Controle d'origine (le meme-origine n'envoie pas toujours Origin) -----
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if ($origin !== '') {
+    $host = parse_url($origin, PHP_URL_HOST) ?: '';
+    $ok = false;
+    foreach ($ALLOWED_HOST_SUFFIXES as $suffix) {
+        if ($host === $suffix || str_ends_with($host, '.' . $suffix)) { $ok = true; break; }
+    }
+    if (!$ok) {
+        finalyn_fail(403, "Origine non autorisee.");
+    }
+    header('Access-Control-Allow-Origin: ' . $origin);
+    header('Vary: Origin');
+}
+
+// ----- Clef API -----
+$apiKey = getenv('ANTHROPIC_API_KEY') ?: '';
+if ($apiKey === '' && is_file(__DIR__ . '/config.php')) {
+    $cfg = require __DIR__ . '/config.php';
+    if (is_array($cfg) && !empty($cfg['api_key'])) {
+        $apiKey = $cfg['api_key'];
+    }
+}
+if ($apiKey === '') {
+    finalyn_fail(500, "Service momentanement indisponible.");
+}
+
+// ----- Limitation de debit par IP (fichier, best effort) -----
+$ip = $_SERVER['HTTP_CF_CONNECTING_IP'] ?? ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
+$cacheDir = __DIR__ . '/.cache';
+if (!is_dir($cacheDir)) { @mkdir($cacheDir, 0700, true); }
+if (is_dir($cacheDir) && is_writable($cacheDir)) {
+    $bucketFile = $cacheDir . '/rl_' . hash('sha256', $ip) . '.json';
+    $now = time();
+    $bucket = ['count' => 0, 'reset' => $now + FINALYN_RATE_WINDOW];
+    if (is_file($bucketFile)) {
+        $raw = json_decode((string)@file_get_contents($bucketFile), true);
+        if (is_array($raw) && isset($raw['reset']) && $raw['reset'] > $now) {
+            $bucket = $raw;
+        }
+    }
+    $bucket['count'] = (int)$bucket['count'] + 1;
+    @file_put_contents($bucketFile, json_encode($bucket), LOCK_EX);
+    if ($bucket['count'] > FINALYN_RATE_MAX) {
+        finalyn_fail(429, "Vous avez envoye beaucoup de messages. Merci de patienter quelques minutes, ou reservez directement l'audit gratuit.");
+    }
+}
+
+// ----- Corps de la requete -----
+$body = json_decode(file_get_contents('php://input'), true);
+if (!is_array($body) || !isset($body['messages']) || !is_array($body['messages'])) {
+    finalyn_fail(400, "Requete invalide.");
+}
+
+// ----- Nettoyage / validation des messages -----
+$clean = [];
+foreach ($body['messages'] as $m) {
+    if (!is_array($m) || !isset($m['role'], $m['content'])) continue;
+    $role = $m['role'] === 'assistant' ? 'assistant' : 'user';
+    $content = is_string($m['content']) ? trim($m['content']) : '';
+    if ($content === '') continue;
+    if (mb_strlen($content) > FINALYN_MAX_CHARS) {
+        $content = mb_substr($content, 0, FINALYN_MAX_CHARS);
+    }
+    $clean[] = ['role' => $role, 'content' => $content];
+}
+$clean = array_slice($clean, -FINALYN_MAX_HISTORY);
+if (count($clean) === 0 || $clean[0]['role'] !== 'user') {
+    // Le premier message doit etre un message utilisateur.
+    while (count($clean) > 0 && $clean[0]['role'] !== 'user') {
+        array_shift($clean);
+    }
+}
+if (count($clean) === 0) {
+    finalyn_fail(400, "Aucun message valide.");
+}
+
+// ----- Prompt systeme (identite, faits, garde-fous) -----
+$system = <<<'PROMPT'
+Tu es l'assistant conversationnel de finalyn.ia, une agence d'intelligence artificielle et d'automatisation basee a Rolle (canton de Vaud), en Suisse. Tu reponds sur le site finalyn.com.
+
+Ta mission : aider les visiteurs (surtout des PME et independants suisses) a comprendre ce que finalyn.ia peut faire pour eux, repondre a leurs questions sur les services et les integrations, et les inviter a reserver l'audit gratuit quand c'est pertinent.
+
+CE QUE PROPOSE FINALYN.IA :
+- Agents IA : assistants qui qualifient, repondent, traitent des demandes 24/7.
+- Automatisation : workflows qui font le travail repetitif a la place des equipes.
+- Integrations : connexion de l'IA aux outils deja utilises (Bexio, Outlook, Gmail, Notion, Microsoft Teams, Slack, WhatsApp, LinkedIn, n8n, Make, et la plupart des outils via API ou webhook).
+- Formation : accompagner les equipes a utiliser l'IA et Claude au quotidien.
+- Personnalisation : solutions sur mesure adaptees au metier du client.
+- Audit gratuit : un premier echange sans engagement pour identifier les automatisations a fort impact.
+
+QUELQUES REALISATIONS (a citer si on demande des exemples) :
+- Diagly : la brique IA (vision par ordinateur) d'une app pour les pros du batiment, qui analyse des photos de materiaux pour en evaluer l'etat. finalyn.ia s'est occupe uniquement de la partie IA.
+- Extension LinkedIn : prospection assistee qui qualifie les profils et suggere des messages, en respectant les limites de LinkedIn.
+- Tri d'e-mails + Notion : un agent qui trie la boite chaque matin, cree des taches et alimente Notion et le calendrier.
+- Agents IA marketing : une equipe de 9 agents specialises qui epaulent et guident une equipe marketing.
+- Agent conversationnel : le chatbot du site (c'est toi).
+
+INFOS PRATIQUES :
+- Base a Rolle (Vaud), Suisse. Contact : contact@finalyn.com, +41 79 639 36 84.
+- Site et donnees heberges en Suisse (Infomaniak), demarche conforme a la nLPD (Suisse) et au RGPD (UE).
+
+REGLES ABSOLUES (ne jamais enfreindre) :
+1. Ne donne JAMAIS de prix, de tarif, de fourchette ni d'estimation chiffree. Si on te demande le prix, explique simplement que chaque projet est chiffre sur mesure apres l'audit gratuit, puis propose de reserver cet audit gratuit. L'audit, lui, est bien gratuit.
+2. N'emploie JAMAIS le tiret cadratin (le caractere long). Utilise une virgule, deux points, des parentheses ou le mot juste a la place.
+3. Reponds en francais, ton chaleureux, clair et professionnel, en vouvoyant. Sois concis : 2 a 5 phrases, pas de longs pavages, pas de titres markdown.
+4. Reste sur le sujet de finalyn.ia, de l'IA et de l'automatisation pour les entreprises, et de la prise de rendez-vous. Si la question est hors sujet, recentre poliment vers ta mission.
+5. N'invente rien : pas de faux clients, pas de fausses garanties, pas de promesses de resultats chiffres. Si tu ne sais pas, propose l'audit gratuit ou le contact.
+6. Tu es un assistant IA, ne pretends pas etre humain. Ne donne pas de conseils juridiques, medicaux ou financiers engageants.
+7. Ne demande pas de donnees sensibles. Pour un echange detaille, oriente vers l'audit gratuit ou contact@finalyn.com.
+
+CERNER LE BESOIN (important) :
+Ton role n'est pas seulement de repondre, c'est aussi de comprendre le besoin du visiteur pour mieux l'aider et l'orienter. De maniere naturelle et non insistante, cherche a savoir :
+- son secteur ou son activite ;
+- les taches repetitives ou chronophages qui lui font perdre du temps ;
+- les outils qu'il utilise deja au quotidien ;
+- ce qu'il aimerait gagner ou automatiser.
+Pose UNE question a la fois (jamais un interrogatoire), rebondis sur ses reponses, et quand tu as cerne un besoin concret, montre comment finalyn.ia pourrait aider puis propose l'audit gratuit comme prochaine etape.
+
+Quand c'est naturel, termine donc en posant une question pour mieux cerner le besoin, ou en proposant l'audit gratuit.
+PROMPT;
+
+// ----- Appel a l'API Claude -----
+$payload = json_encode([
+    'model'      => FINALYN_MODEL,
+    'max_tokens' => FINALYN_MAX_TOKENS,
+    'system'     => $system,
+    'messages'   => $clean,
+], JSON_UNESCAPED_UNICODE);
+
+$ch = curl_init('https://api.anthropic.com/v1/messages');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_POST           => true,
+    CURLOPT_POSTFIELDS     => $payload,
+    CURLOPT_TIMEOUT        => FINALYN_TIMEOUT,
+    CURLOPT_HTTPHEADER     => [
+        'Content-Type: application/json',
+        'x-api-key: ' . $apiKey,
+        'anthropic-version: 2023-06-01',
+    ],
+]);
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$curlErr  = curl_error($ch);
+curl_close($ch);
+
+if ($response === false) {
+    error_log('finalyn chat: curl error: ' . $curlErr);
+    finalyn_fail(502, "Le service est momentanement indisponible. Reessayez dans un instant, ou reservez l'audit gratuit.");
+}
+
+$data = json_decode($response, true);
+
+if ($httpCode !== 200 || !is_array($data)) {
+    // On journalise le detail cote serveur, mais on ne le renvoie pas au client.
+    error_log('finalyn chat: API ' . $httpCode . ' : ' . $response);
+    finalyn_fail(502, "Je n'arrive pas a repondre pour l'instant. Vous pouvez reessayer, ou reserver l'audit gratuit.");
+}
+
+// Extraction du texte
+$reply = '';
+if (isset($data['content']) && is_array($data['content'])) {
+    foreach ($data['content'] as $block) {
+        if (isset($block['type'], $block['text']) && $block['type'] === 'text') {
+            $reply .= $block['text'];
+        }
+    }
+}
+$reply = trim($reply);
+if ($reply === '') {
+    finalyn_fail(502, "Je n'ai pas de reponse pour le moment. Reservez l'audit gratuit et on en parle.");
+}
+
+echo json_encode(['reply' => $reply], JSON_UNESCAPED_UNICODE);

@@ -1,0 +1,7 @@
+# Secrets et cache du proxy chat (ne jamais committer)
+api/config.php
+api/.cache/
+
+# Systeme
+.DS_Store
+Thumbs.db

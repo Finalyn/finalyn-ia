@@ -58,8 +58,8 @@
   "@type": "FAQPage",
   "mainEntity": [
     {"@type": "Question", "name": "Faut-il changer mes outils actuels ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. L'objectif est justement de garder vos outils existants et de les faire dialoguer. Plus de 1 000 applications sont intégrables (Microsoft 365, Google Workspace, Bexio, Stripe, HubSpot, Slack, etc.). Si un outil expose une API ou un webhook, on peut s'y connecter."}},
-    {"@type": "Question", "name": "n8n, Make ou Zapier — comment vous choisissez ?", "acceptedAnswer": {"@type": "Answer", "text": "n8n : self-hosted, open-source, contrôle total sur vos données (recommandé pour les cas sensibles). Make : très visuel, idéal pour des workflows complexes avec branches conditionnelles. Zapier : la plus large bibliothèque d'intégrations, parfait pour des chaînes simples avec des SaaS niches."}},
-    {"@type": "Question", "name": "Combien coûte un workflow ?", "acceptedAnswer": {"@type": "Answer", "text": "Un workflow simple (1-2 outils, logique linéaire) : 800-2 000 CHF. Un workflow complexe (3+ outils, conditions, gestion d'erreurs avancée) : 3 000-8 000 CHF. Coûts récurrents : la licence n8n/Make/Zapier (entre 0 et 100 CHF/mois selon le volume) + maintenance."}},
+    {"@type": "Question", "name": "n8n, Make ou Zapier, comment vous choisissez ?", "acceptedAnswer": {"@type": "Answer", "text": "n8n : self-hosted, open-source, contrôle total sur vos données (recommandé pour les cas sensibles). Make : très visuel, idéal pour des workflows complexes avec branches conditionnelles. Zapier : la plus large bibliothèque d'intégrations, parfait pour des chaînes simples avec des SaaS niches."}},
+    {"@type": "Question", "name": "Comment est défini le budget d'un workflow ?", "acceptedAnswer": {"@type": "Answer", "text": "Le budget est chiffré sur mesure selon le nombre d'outils connectés et la complexité de la logique. Tout est défini après l'audit gratuit, avant développement. Selon les cas, une licence d'orchestration (n8n, Make, Zapier) peut s'ajouter ; on l'intègre au devis en toute transparence."}},
     {"@type": "Question", "name": "Que se passe-t-il si un outil change son API ?", "acceptedAnswer": {"@type": "Answer", "text": "C'est pris en charge dans la maintenance. n8n et Make adaptent leurs connecteurs officiels, et pour les intégrations custom on adapte le code. Vous n'avez rien à faire."}}
   ]
 }
@@ -104,13 +104,13 @@
 <section class="svc-section">
   <h2>Ce qu'inclut une mission d'automatisation</h2>
   <ul class="svc-list">
-        <li><strong>Cartographie des processus</strong> — On identifie ce qui prend du temps, ce qui se répète, ce qui peut être automatisé.</li>
-        <li><strong>Choix de la plateforme</strong> — n8n (open-source, self-hosted), Make (visuel) ou Zapier (intégrations larges) selon votre stack.</li>
-        <li><strong>Conception des workflows</strong> — Build, test, validation par vos équipes.</li>
-        <li><strong>Connexion aux outils</strong> — OAuth sécurisé, gestion des credentials, mappage de données entre systèmes.</li>
-        <li><strong>Gestion d'erreurs</strong> — Retry intelligent, notifications en cas d'échec, fallback manuel.</li>
-        <li><strong>Monitoring et documentation</strong> — Dashboard d'activité, logs, doc claire pour vos équipes.</li>
-        <li><strong>Maintenance</strong> — Adaptation aux changements d'API, ajout de nouveaux scénarios au fil de l'eau.</li>
+        <li><strong>Cartographie des processus</strong> : On identifie ce qui prend du temps, ce qui se répète, ce qui peut être automatisé.</li>
+        <li><strong>Choix de la plateforme</strong> : n8n (open-source, self-hosted), Make (visuel) ou Zapier (intégrations larges) selon votre stack.</li>
+        <li><strong>Conception des workflows</strong> : Build, test, validation par vos équipes.</li>
+        <li><strong>Connexion aux outils</strong> : OAuth sécurisé, gestion des credentials, mappage de données entre systèmes.</li>
+        <li><strong>Gestion d'erreurs</strong> : Retry intelligent, notifications en cas d'échec, fallback manuel.</li>
+        <li><strong>Monitoring et documentation</strong> : Dashboard d'activité, logs, doc claire pour vos équipes.</li>
+        <li><strong>Maintenance</strong> : Adaptation aux changements d'API, ajout de nouveaux scénarios au fil de l'eau.</li>
   </ul>
 </section>
 
@@ -140,8 +140,8 @@
 <section class="svc-section svc-faq">
   <h2>Questions sur l'automatisation</h2>
       <details><summary>Faut-il changer mes outils actuels ?</summary><p>Non. L'objectif est justement de garder vos outils existants et de les faire dialoguer. Plus de 1 000 applications sont intégrables (Microsoft 365, Google Workspace, Bexio, Stripe, HubSpot, Slack, etc.). Si un outil expose une API ou un webhook, on peut s'y connecter.</p></details>
-      <details><summary>n8n, Make ou Zapier — comment vous choisissez ?</summary><p>n8n : self-hosted, open-source, contrôle total sur vos données (recommandé pour les cas sensibles). Make : très visuel, idéal pour des workflows complexes avec branches conditionnelles. Zapier : la plus large bibliothèque d'intégrations, parfait pour des chaînes simples avec des SaaS niches.</p></details>
-      <details><summary>Combien coûte un workflow ?</summary><p>Un workflow simple (1-2 outils, logique linéaire) : 800-2 000 CHF. Un workflow complexe (3+ outils, conditions, gestion d'erreurs avancée) : 3 000-8 000 CHF. Coûts récurrents : la licence n8n/Make/Zapier (entre 0 et 100 CHF/mois selon le volume) + maintenance.</p></details>
+      <details><summary>n8n, Make ou Zapier, comment vous choisissez ?</summary><p>n8n : self-hosted, open-source, contrôle total sur vos données (recommandé pour les cas sensibles). Make : très visuel, idéal pour des workflows complexes avec branches conditionnelles. Zapier : la plus large bibliothèque d'intégrations, parfait pour des chaînes simples avec des SaaS niches.</p></details>
+      <details><summary>Comment est défini le budget d'un workflow ?</summary><p>Le budget est chiffré sur mesure selon le nombre d'outils connectés et la complexité de la logique. Tout est défini après l'audit gratuit, avant développement. Selon les cas, une licence d'orchestration (n8n, Make, Zapier) peut s'ajouter ; on l'intègre au devis en toute transparence.</p></details>
       <details><summary>Que se passe-t-il si un outil change son API ?</summary><p>C'est pris en charge dans la maintenance. n8n et Make adaptent leurs connecteurs officiels, et pour les intégrations custom on adapte le code. Vous n'avez rien à faire.</p></details>
 </section>
 
@@ -158,7 +158,7 @@
  <div class="footer-container">
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="../index.html" class="footer-logo" aria-label="finalyn.ia — accueil">
+      <a href="../index.html" class="footer-logo" aria-label="finalyn.ia, accueil">
         <img src="../logo-finalyn.webp" alt="" width="120" height="32" />
       </a>
       <p class="footer-tag">Agence IA basée à Rolle, active dans toute la Suisse romande. Nous implémentons, optimisons et concevons des systèmes IA sur mesure : agents IA, automatisations, intégrations.</p>
@@ -221,15 +221,15 @@
   </div>
 
   <div class="footer-bottom">
-    <p>© <time datetime="2026">2026</time> finalyn.ia — tous droits réservés.</p>
+    <p>© <time datetime="2026">2026</time> Finalyn, tous droits réservés.</p>
     <ul class="footer-legal">
       <li><a href="../mentions-legales.html">Mentions légales</a></li>
       <li><a href="../confidentialite.html">Confidentialité</a></li>
-      <li><a href="../cgv.html">CGV</a></li>
     </ul>
   </div>
  </div>
 </footer>
 
+<script src="/assets/consent.js" defer></script>
 </body>
 </html>

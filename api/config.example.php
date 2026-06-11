@@ -17,7 +17,8 @@ return [
     'notify_email' => 'contact@finalyn.com',
 
     // --- Adresse expeditrice des e-mails (doit appartenir a votre domaine) ---
-    'from_email' => 'contact@finalyn.com',
+    // Idealement autorisee par votre SPF/DKIM pour ne pas tomber en spam.
+    'from_email' => 'noreply@finalyn.com',
 
     // --- Acces au back-office (admin/) ---
     // Le plus simple : mettre un mot de passe en clair ci-dessous.

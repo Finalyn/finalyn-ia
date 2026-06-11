@@ -8009,10 +8009,12 @@
         btn.textContent = d;
         var date = new Date(year, month, d);
         var dow = date.getDay();
-        var isWeekend = (dow === 0 || dow === 6);
+        var iso = dow === 0 ? 7 : dow;
+        var allowedDays = window.__finalynDays || [1, 2, 3, 4, 5];
+        var isOff = allowedDays.indexOf(iso) === -1;
         var isPast = date < today;
         var isBlocked = !!(window.__finalynBlocked && window.__finalynBlocked[ymd(date)]);
-        if (isPast || isWeekend || isBlocked) { btn.disabled = true; btn.classList.add('cal-day-disabled'); }
+        if (isPast || isOff || isBlocked) { btn.disabled = true; btn.classList.add('cal-day-disabled'); }
         if (date.getTime() === today.getTime()) btn.classList.add('cal-day-today');
         if (selectedDay && date.getTime() === selectedDay.getTime()) btn.classList.add('cal-day-selected');
         (function (date) { btn.addEventListener('click', function () { pickDay(date); }); })(date);
@@ -8065,8 +8067,9 @@
       view = new Date(view.getFullYear(), view.getMonth() + 1, 1);
       render();
     });
-    Array.prototype.forEach.call(slotList.querySelectorAll('.cal-slot'), function (s) {
-      s.addEventListener('click', function () { pickSlot(s); });
+    slotList.addEventListener('click', function (e) {
+      var b = e.target.closest('.cal-slot');
+      if (b) pickSlot(b);
     });
 
     ctaBtn.addEventListener('click', function () {
@@ -8151,13 +8154,22 @@
 
   // Récupère les jours indisponibles (bloqués par l'admin ou complets) et rafraîchit
   fetch('/api/availability.php').then(function (r) { return r.json(); }).then(function (d) {
-    if (d && Array.isArray(d.blocked)) {
+    if (!d) return;
+    if (Array.isArray(d.blocked)) {
       window.__finalynBlocked = {};
       d.blocked.forEach(function (x) { window.__finalynBlocked[x] = true; });
-      Array.prototype.forEach.call(document.querySelectorAll('.cal'), function (c) {
-        if (typeof c._calRender === 'function') c._calRender();
+    }
+    if (Array.isArray(d.days) && d.days.length) { window.__finalynDays = d.days; }
+    if (Array.isArray(d.slots) && d.slots.length) {
+      Array.prototype.forEach.call(document.querySelectorAll('.cal-slots-list'), function (list) {
+        list.innerHTML = d.slots.map(function (t) {
+          return '<button type="button" class="cal-slot" data-time="' + t + '">' + t + '</button>';
+        }).join('');
       });
     }
+    Array.prototype.forEach.call(document.querySelectorAll('.cal'), function (c) {
+      if (typeof c._calRender === 'function') c._calRender();
+    });
   }).catch(function () {});
 
   // Modal, ouverture du calendrier de réservation depuis plusieurs boutons

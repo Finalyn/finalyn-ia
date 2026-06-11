@@ -1,274 +1,96 @@
 <?php
-require __DIR__ . '/auth.php';
-finalyn_require_login();
+require __DIR__ . '/boot.php';
 
-$pdo = finalyn_db();
 $today = gmdate('Y-m-d');
-$flash = '';
-
-// ---------- Actions (POST + CSRF) ----------
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!finalyn_csrf_ok($_POST['csrf'] ?? '')) {
-        $flash = 'Action refusee (jeton invalide). Reessayez.';
-    } else {
-        $action = $_POST['action'] ?? '';
-        if ($action === 'cancel_booking' && !empty($_POST['id'])) {
-            $pdo->prepare("UPDATE bookings SET status='cancelled' WHERE id=?")->execute([(int)$_POST['id']]);
-            $flash = 'Reservation annulee.';
-        } elseif ($action === 'done_booking' && !empty($_POST['id'])) {
-            $pdo->prepare("UPDATE bookings SET status='done' WHERE id=?")->execute([(int)$_POST['id']]);
-            $flash = 'Reservation marquee comme faite.';
-        } elseif ($action === 'block_date' && !empty($_POST['date']) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $_POST['date'])) {
-            $pdo->prepare('INSERT OR IGNORE INTO blocked_dates (slot_date, created_at) VALUES (?,?)')
-                ->execute([$_POST['date'], gmdate('Y-m-d H:i:s')]);
-            $flash = 'Date bloquee.';
-        } elseif ($action === 'unblock_date' && !empty($_POST['date'])) {
-            $pdo->prepare('DELETE FROM blocked_dates WHERE slot_date=?')->execute([$_POST['date']]);
-            $flash = 'Date debloquee.';
-        }
-    }
-    // Evite le renvoi de formulaire
-    $_SESSION['flash'] = $flash;
-    header('Location: index.php');
-    exit;
-}
-if (!empty($_SESSION['flash'])) { $flash = $_SESSION['flash']; unset($_SESSION['flash']); }
-
-$csrf = finalyn_csrf();
-
-// ---------- Helpers requetes ----------
-function scalar($pdo, $sql, $params = []) {
-    $s = $pdo->prepare($sql); $s->execute($params); return (int)$s->fetchColumn();
-}
 $d7  = gmdate('Y-m-d H:i:s', strtotime('-7 days'));
-$d30 = gmdate('Y-m-d H:i:s', strtotime('-30 days'));
 
-// ---------- KPIs ----------
 $kpi = [
-    'conv_total'   => scalar($pdo, 'SELECT COUNT(*) FROM conversations'),
-    'conv_7'       => scalar($pdo, 'SELECT COUNT(*) FROM conversations WHERE started_at >= ?', [$d7]),
-    'msg_total'    => scalar($pdo, 'SELECT COUNT(*) FROM messages'),
-    'book_up'      => scalar($pdo, "SELECT COUNT(*) FROM bookings WHERE status='confirmed' AND slot_date >= ?", [$today]),
-    'book_total'   => scalar($pdo, "SELECT COUNT(*) FROM bookings WHERE status!='cancelled'"),
-    'views_7'      => scalar($pdo, 'SELECT COUNT(*) FROM pageviews WHERE created_at >= ?', [$d7]),
-    'views_30'     => scalar($pdo, 'SELECT COUNT(*) FROM pageviews WHERE created_at >= ?', [$d30]),
-    'views_today'  => scalar($pdo, 'SELECT COUNT(*) FROM pageviews WHERE created_at >= ?', [$today . ' 00:00:00']),
+    'book_up'     => scalar($pdo, "SELECT COUNT(*) FROM bookings WHERE status='confirmed' AND slot_date >= ?", [$today]),
+    'conv_7'      => scalar($pdo, 'SELECT COUNT(*) FROM conversations WHERE started_at >= ?', [$d7]),
+    'conv_total'  => scalar($pdo, 'SELECT COUNT(*) FROM conversations'),
+    'msg_total'   => scalar($pdo, 'SELECT COUNT(*) FROM messages'),
+    'views_today' => scalar($pdo, 'SELECT COUNT(*) FROM pageviews WHERE created_at >= ?', [$today . ' 00:00:00']),
+    'views_7'     => scalar($pdo, 'SELECT COUNT(*) FROM pageviews WHERE created_at >= ?', [$d7]),
+    'book_total'  => scalar($pdo, "SELECT COUNT(*) FROM bookings WHERE status!='cancelled'"),
+    'posts'       => scalar($pdo, 'SELECT COUNT(*) FROM posts'),
 ];
 
-// ---------- Reservations ----------
-$upcoming = $pdo->prepare("SELECT * FROM bookings WHERE status='confirmed' AND slot_date >= ? ORDER BY slot_date, slot_time");
+// Series 14 jours
+$labels = []; $views = []; $convs = [];
+$pv = $pdo->prepare("SELECT substr(created_at,1,10) d, COUNT(*) c FROM pageviews WHERE created_at >= ? GROUP BY d");
+$pv->execute([gmdate('Y-m-d', strtotime('-13 days')) . ' 00:00:00']);
+$pvMap = $pv->fetchAll(PDO::FETCH_KEY_PAIR);
+$cv = $pdo->prepare("SELECT substr(started_at,1,10) d, COUNT(*) c FROM conversations WHERE started_at >= ? GROUP BY d");
+$cv->execute([gmdate('Y-m-d', strtotime('-13 days')) . ' 00:00:00']);
+$cvMap = $cv->fetchAll(PDO::FETCH_KEY_PAIR);
+for ($i = 13; $i >= 0; $i--) {
+    $day = gmdate('Y-m-d', strtotime("-$i days"));
+    $labels[] = substr($day, 8, 2) . '.' . substr($day, 5, 2);
+    $views[] = (int)($pvMap[$day] ?? 0);
+    $convs[] = (int)($cvMap[$day] ?? 0);
+}
+
+$upcoming = $pdo->prepare("SELECT * FROM bookings WHERE status='confirmed' AND slot_date >= ? ORDER BY slot_date, slot_time LIMIT 5");
 $upcoming->execute([$today]);
 $upcoming = $upcoming->fetchAll(PDO::FETCH_ASSOC);
 
-$recent = $pdo->query("SELECT * FROM bookings ORDER BY created_at DESC LIMIT 40")->fetchAll(PDO::FETCH_ASSOC);
+$lastConvs = $pdo->query("SELECT * FROM conversations ORDER BY last_at DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
+$firstMsg = $pdo->prepare("SELECT content FROM messages WHERE conversation_id=? AND role='user' ORDER BY id LIMIT 1");
 
-$blocked = $pdo->prepare('SELECT slot_date FROM blocked_dates WHERE slot_date >= ? ORDER BY slot_date');
-$blocked->execute([$today]);
-$blocked = $blocked->fetchAll(PDO::FETCH_COLUMN);
+function kico($p) { return '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' . $p . '</svg>'; }
 
-// ---------- Conversations (30 dernieres) ----------
-$convs = $pdo->query("SELECT * FROM conversations ORDER BY last_at DESC LIMIT 30")->fetchAll(PDO::FETCH_ASSOC);
-$msgStmt = $pdo->prepare('SELECT role, content, created_at FROM messages WHERE conversation_id=? ORDER BY id');
-
-// ---------- Stats site & blog ----------
-$daily = $pdo->prepare("SELECT substr(created_at,1,10) d, COUNT(*) c FROM pageviews WHERE created_at >= ? GROUP BY d ORDER BY d");
-$daily->execute([gmdate('Y-m-d', strtotime('-13 days')) . ' 00:00:00']);
-$daily = $daily->fetchAll(PDO::FETCH_KEY_PAIR);
-
-$topPages = $pdo->prepare("SELECT path, COUNT(*) c FROM pageviews WHERE created_at >= ? GROUP BY path ORDER BY c DESC LIMIT 12");
-$topPages->execute([$d30]);
-$topPages = $topPages->fetchAll(PDO::FETCH_ASSOC);
-
-$topBlog = $pdo->prepare("SELECT path, COUNT(*) c FROM pageviews WHERE created_at >= ? AND path LIKE '/blog/%' GROUP BY path ORDER BY c DESC LIMIT 12");
-$topBlog->execute([$d30]);
-$topBlog = $topBlog->fetchAll(PDO::FETCH_ASSOC);
-
-$maxDaily = 1;
-foreach ($daily as $c) { if ($c > $maxDaily) $maxDaily = $c; }
-
-function fr_dt($s) { // 'Y-m-d H:i:s' -> '11.06.2026 14:03'
-    $t = strtotime($s . ' UTC');
-    return $t ? date('d.m.Y H:i', $t) : h($s);
-}
-function fr_d($s) {
-    $t = strtotime($s);
-    return $t ? date('d.m.Y', $t) : h($s);
-}
+admin_header('dashboard', "Vue d'ensemble");
+flash_render();
 ?>
-<!DOCTYPE html>
-<html lang="fr-CH">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="robots" content="noindex, nofollow" />
-<title>Back-office · finalyn.ia</title>
-<link rel="stylesheet" href="style.css" />
-</head>
-<body>
+<div class="adm-kpis">
+  <div class="kpi"><span class="kpi-ico"><?= kico('<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>') ?></span><span class="kpi-num"><?= $kpi['book_up'] ?></span><span class="kpi-lbl">RDV a venir</span></div>
+  <div class="kpi"><span class="kpi-ico"><?= kico('<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>') ?></span><span class="kpi-num"><?= $kpi['conv_7'] ?></span><span class="kpi-lbl">Conversations (7 j)</span></div>
+  <div class="kpi"><span class="kpi-ico"><?= kico('<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>') ?></span><span class="kpi-num"><?= $kpi['conv_total'] ?></span><span class="kpi-lbl">Conversations (total)</span></div>
+  <div class="kpi"><span class="kpi-ico"><?= kico('<path d="M4 4h16v12H5.17L4 17.17z"/>') ?></span><span class="kpi-num"><?= $kpi['msg_total'] ?></span><span class="kpi-lbl">Messages</span></div>
+  <div class="kpi"><span class="kpi-ico"><?= kico('<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>') ?></span><span class="kpi-num"><?= $kpi['views_today'] ?></span><span class="kpi-lbl">Pages vues (auj.)</span></div>
+  <div class="kpi"><span class="kpi-ico"><?= kico('<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>') ?></span><span class="kpi-num"><?= $kpi['views_7'] ?></span><span class="kpi-lbl">Pages vues (7 j)</span></div>
+  <div class="kpi"><span class="kpi-ico"><?= kico('<path d="M20 6 9 17l-5-5"/>') ?></span><span class="kpi-num"><?= $kpi['book_total'] ?></span><span class="kpi-lbl">RDV (total)</span></div>
+  <div class="kpi"><span class="kpi-ico"><?= kico('<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>') ?></span><span class="kpi-num"><?= $kpi['posts'] ?></span><span class="kpi-lbl">Articles publies</span></div>
+</div>
 
-<header class="adm-top">
-  <div class="adm-brand">finalyn<span class="ia">.ia</span> <small>back-office</small></div>
-  <nav class="adm-nav">
-    <a href="#kpis">Vue d'ensemble</a>
-    <a href="#reservations">Reservations</a>
-    <a href="#conversations">Conversations</a>
-    <a href="#stats">Stats site &amp; blog</a>
-    <a class="adm-logout" href="logout.php">Deconnexion</a>
-  </nav>
-</header>
+<div class="adm-block">
+  <h2>Activite (14 derniers jours)</h2>
+  <div class="chart-wrap"><canvas id="chartMain"></canvas></div>
+</div>
 
-<main class="adm-main">
-
-<?php if ($flash): ?><div class="adm-flash"><?= h($flash) ?></div><?php endif; ?>
-
-<!-- KPIs -->
-<section id="kpis" class="adm-section">
-  <h1>Vue d'ensemble</h1>
-  <div class="adm-kpis">
-    <div class="kpi"><span class="kpi-num"><?= $kpi['book_up'] ?></span><span class="kpi-lbl">RDV a venir</span></div>
-    <div class="kpi"><span class="kpi-num"><?= $kpi['conv_7'] ?></span><span class="kpi-lbl">Conversations (7 j)</span></div>
-    <div class="kpi"><span class="kpi-num"><?= $kpi['conv_total'] ?></span><span class="kpi-lbl">Conversations (total)</span></div>
-    <div class="kpi"><span class="kpi-num"><?= $kpi['msg_total'] ?></span><span class="kpi-lbl">Messages echanges</span></div>
-    <div class="kpi"><span class="kpi-num"><?= $kpi['views_today'] ?></span><span class="kpi-lbl">Pages vues (aujourd'hui)</span></div>
-    <div class="kpi"><span class="kpi-num"><?= $kpi['views_7'] ?></span><span class="kpi-lbl">Pages vues (7 j)</span></div>
-    <div class="kpi"><span class="kpi-num"><?= $kpi['views_30'] ?></span><span class="kpi-lbl">Pages vues (30 j)</span></div>
-    <div class="kpi"><span class="kpi-num"><?= $kpi['book_total'] ?></span><span class="kpi-lbl">RDV (total)</span></div>
-  </div>
-</section>
-
-<!-- Reservations -->
-<section id="reservations" class="adm-section">
-  <h2>Reservations a venir</h2>
-  <?php if (!$upcoming): ?>
-    <p class="adm-empty">Aucun rendez-vous a venir pour le moment.</p>
-  <?php else: ?>
-  <table class="adm-table">
-    <thead><tr><th>Date</th><th>Heure</th><th>Personne</th><th>Entreprise</th><th>Contact</th><th></th></tr></thead>
-    <tbody>
-    <?php foreach ($upcoming as $b): ?>
-      <tr>
-        <td><?= fr_d($b['slot_date']) ?></td>
-        <td><?= h($b['slot_time']) ?></td>
-        <td><?= h($b['firstname'] . ' ' . $b['lastname']) ?></td>
-        <td><?= h($b['company']) ?></td>
-        <td><a href="mailto:<?= h($b['email']) ?>"><?= h($b['email']) ?></a></td>
-        <td class="adm-actions">
-          <form method="post" onsubmit="return confirm('Marquer comme fait ?');">
-            <input type="hidden" name="csrf" value="<?= h($csrf) ?>"><input type="hidden" name="action" value="done_booking"><input type="hidden" name="id" value="<?= (int)$b['id'] ?>">
-            <button class="btn-ghost" type="submit">Fait</button>
-          </form>
-          <form method="post" onsubmit="return confirm('Annuler cette reservation ?');">
-            <input type="hidden" name="csrf" value="<?= h($csrf) ?>"><input type="hidden" name="action" value="cancel_booking"><input type="hidden" name="id" value="<?= (int)$b['id'] ?>">
-            <button class="btn-danger" type="submit">Annuler</button>
-          </form>
-        </td>
-      </tr>
-    <?php endforeach; ?>
-    </tbody>
-  </table>
-  <?php endif; ?>
-
-  <h3>Bloquer un jour (indisponibilite)</h3>
-  <form method="post" class="adm-inline-form">
-    <input type="hidden" name="csrf" value="<?= h($csrf) ?>"><input type="hidden" name="action" value="block_date">
-    <input type="date" name="date" required>
-    <button class="btn-dark" type="submit">Bloquer ce jour</button>
-  </form>
-  <?php if ($blocked): ?>
-    <div class="adm-chips">
-      <?php foreach ($blocked as $d): ?>
-        <span class="adm-chip"><?= fr_d($d) ?>
-          <form method="post"><input type="hidden" name="csrf" value="<?= h($csrf) ?>"><input type="hidden" name="action" value="unblock_date"><input type="hidden" name="date" value="<?= h($d) ?>"><button type="submit" aria-label="Debloquer">&times;</button></form>
-        </span>
-      <?php endforeach; ?>
-    </div>
-  <?php endif; ?>
-
-  <details class="adm-details">
-    <summary>Historique des reservations (<?= count($recent) ?>)</summary>
+<div class="adm-block adm-cols">
+  <div>
+    <h2>Prochains rendez-vous</h2>
+    <?php if (!$upcoming): ?><p class="adm-empty">Aucun rendez-vous a venir. <a href="calendar.php">Voir le calendrier</a></p>
+    <?php else: ?>
     <table class="adm-table">
-      <thead><tr><th>Recu le</th><th>Creneau</th><th>Personne</th><th>Entreprise</th><th>Statut</th></tr></thead>
       <tbody>
-      <?php foreach ($recent as $b): ?>
-        <tr class="status-<?= h($b['status']) ?>">
-          <td><?= fr_dt($b['created_at']) ?></td>
-          <td><?= fr_d($b['slot_date']) ?> · <?= h($b['slot_time']) ?></td>
-          <td><?= h($b['firstname'] . ' ' . $b['lastname']) ?></td>
-          <td><?= h($b['company']) ?></td>
-          <td><?= h($b['status']) ?></td>
-        </tr>
+      <?php foreach ($upcoming as $b): ?>
+        <tr><td><?= fr_d($b['slot_date']) ?> · <?= h($b['slot_time']) ?></td><td><?= h($b['firstname'].' '.$b['lastname']) ?></td><td><?= h($b['company']) ?></td></tr>
       <?php endforeach; ?>
       </tbody>
     </table>
-  </details>
-</section>
-
-<!-- Conversations -->
-<section id="conversations" class="adm-section">
-  <h2>30 dernieres conversations</h2>
-  <?php if (!$convs): ?>
-    <p class="adm-empty">Aucune conversation enregistree pour l'instant.</p>
-  <?php else: foreach ($convs as $c): ?>
-    <?php $msgStmt->execute([$c['id']]); $msgs = $msgStmt->fetchAll(PDO::FETCH_ASSOC);
-          $first = ''; foreach ($msgs as $m) { if ($m['role']==='user') { $first = $m['content']; break; } } ?>
-    <details class="adm-conv">
-      <summary>
-        <span class="conv-when"><?= fr_dt($c['last_at']) ?></span>
-        <span class="conv-count"><?= (int)$c['msg_count'] ?> msg</span>
-        <span class="conv-preview"><?= h(mb_substr($first, 0, 90)) ?></span>
-      </summary>
-      <div class="conv-thread">
-        <?php foreach ($msgs as $m): ?>
-          <div class="conv-msg conv-<?= h($m['role']) ?>">
-            <span class="conv-role"><?= $m['role']==='user' ? 'Visiteur' : 'Assistant' ?></span>
-            <p><?= nl2br(h($m['content'])) ?></p>
-          </div>
-        <?php endforeach; ?>
-      </div>
-    </details>
-  <?php endforeach; endif; ?>
-</section>
-
-<!-- Stats -->
-<section id="stats" class="adm-section">
-  <h2>Stats site &amp; blog</h2>
-
-  <h3>Pages vues (14 derniers jours)</h3>
-  <?php if (!$daily): ?>
-    <p class="adm-empty">Pas encore de donnees. Le suivi demarre une fois le site en ligne (et le consentement cookies accepte).</p>
-  <?php else: ?>
-  <div class="adm-bars">
-    <?php
-      for ($i = 13; $i >= 0; $i--) {
-        $day = gmdate('Y-m-d', strtotime("-$i days"));
-        $c = $daily[$day] ?? 0;
-        $hgt = max(2, round(($c / $maxDaily) * 100));
-        echo '<div class="bar" title="' . h($day) . ' : ' . $c . '"><span style="height:' . $hgt . '%"></span><small>' . substr($day, 8, 2) . '</small></div>';
-      }
-    ?>
+    <p style="margin:.6rem 0 0"><a class="btn" href="calendar.php">Gerer le calendrier</a></p>
+    <?php endif; ?>
   </div>
-  <?php endif; ?>
-
-  <div class="adm-cols">
-    <div>
-      <h3>Articles de blog les plus lus (30 j)</h3>
-      <?php if (!$topBlog): ?><p class="adm-empty">Aucune vue d'article pour l'instant.</p><?php else: ?>
-      <ol class="adm-rank">
-        <?php foreach ($topBlog as $r): ?><li><span class="rk-path"><?= h($r['path']) ?></span><span class="rk-c"><?= (int)$r['c'] ?></span></li><?php endforeach; ?>
-      </ol>
-      <?php endif; ?>
-    </div>
-    <div>
-      <h3>Pages les plus vues (30 j)</h3>
-      <?php if (!$topPages): ?><p class="adm-empty">Aucune vue pour l'instant.</p><?php else: ?>
-      <ol class="adm-rank">
-        <?php foreach ($topPages as $r): ?><li><span class="rk-path"><?= h($r['path']) ?></span><span class="rk-c"><?= (int)$r['c'] ?></span></li><?php endforeach; ?>
-      </ol>
-      <?php endif; ?>
-    </div>
+  <div>
+    <h2>Dernieres conversations</h2>
+    <?php if (!$lastConvs): ?><p class="adm-empty">Aucune conversation pour l'instant.</p>
+    <?php else: ?>
+    <ul class="adm-rank">
+      <?php foreach ($lastConvs as $c): $firstMsg->execute([$c['id']]); $fm = (string)$firstMsg->fetchColumn(); ?>
+        <li><span class="rk-path"><?= h(mb_substr($fm, 0, 60)) ?: '(sans message)' ?></span><span class="rk-c"><?= (int)$c['msg_count'] ?></span></li>
+      <?php endforeach; ?>
+    </ul>
+    <p style="margin:.6rem 0 0"><a class="btn" href="conversations.php">Voir les conversations</a></p>
+    <?php endif; ?>
   </div>
-</section>
-
-</main>
-</body>
-</html>
+</div>
+<?php
+$scripts = '<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>'
+. '<script>(function(){var ctx=document.getElementById("chartMain");if(!ctx||!window.Chart)return;'
+. 'new Chart(ctx,{type:"line",data:{labels:' . json_encode($labels) . ','
+. 'datasets:[{label:"Pages vues",data:' . json_encode($views) . ',borderColor:"#8b5cf6",backgroundColor:"rgba(139,92,246,.12)",fill:true,tension:.35,borderWidth:2,pointRadius:2},'
+. '{label:"Conversations",data:' . json_encode($convs) . ',borderColor:"#d97706",backgroundColor:"rgba(217,119,6,.10)",fill:true,tension:.35,borderWidth:2,pointRadius:2}]},'
+. 'options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:12,font:{family:"Inter"}}}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});})();</script>';
+admin_footer($scripts);

@@ -64,6 +64,22 @@ function finalyn_db() {
         created_at TEXT NOT NULL
     )");
 
+    $pdo->exec("CREATE TABLE IF NOT EXISTS settings (
+        skey TEXT PRIMARY KEY,
+        sval TEXT NOT NULL
+    )");
+
+    $pdo->exec("CREATE TABLE IF NOT EXISTS posts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        slug TEXT UNIQUE NOT NULL,
+        title TEXT NOT NULL,
+        tag TEXT,
+        excerpt TEXT,
+        cover TEXT,
+        read_min INTEGER DEFAULT 5,
+        created_at TEXT NOT NULL
+    )");
+
     return $pdo;
 }
 

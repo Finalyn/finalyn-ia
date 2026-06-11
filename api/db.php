@@ -80,6 +80,15 @@ function finalyn_db() {
         created_at TEXT NOT NULL
     )");
 
+    // Migration : stocker le corps (markdown-lite) pour permettre l'edition
+    $cols = $pdo->query("PRAGMA table_info(posts)")->fetchAll(PDO::FETCH_COLUMN, 1);
+    if (!in_array('body', $cols, true)) {
+        $pdo->exec("ALTER TABLE posts ADD COLUMN body TEXT");
+    }
+    if (!in_array('updated_at', $cols, true)) {
+        $pdo->exec("ALTER TABLE posts ADD COLUMN updated_at TEXT");
+    }
+
     return $pdo;
 }
 

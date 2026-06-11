@@ -130,6 +130,18 @@ function build_article($slug, $title, $tag, $excerpt, $cover, $readMin, $dateIso
 HTML;
 }
 
+function build_card($slug, $title, $tag, $excerpt, $cover, $dateFr, $readMin) {
+    $bg = $cover !== '' ? ' style="background-image: url(\'' . h($cover) . '\');"' : '';
+    return "\n    <a href=\"" . $slug . ".html\" class=\"blog-card\">\n"
+        . "      <div class=\"blog-card-image\"" . $bg . " aria-hidden=\"true\"></div>\n"
+        . "      <div class=\"blog-card-content\">\n"
+        . "        <span class=\"blog-card-tag\">" . h($tag) . "</span>\n"
+        . "        <h2>" . h($title) . "</h2>\n"
+        . "        <p>" . h($excerpt) . "</p>\n"
+        . "        <div class=\"blog-card-meta\"><span>" . $dateFr . " &middot; " . $readMin . " min</span><strong>Lire &rarr;</strong></div>\n"
+        . "      </div>\n    </a>";
+}
+
 // ---------- Actions ----------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!finalyn_csrf_ok($_POST['csrf'] ?? '')) { admin_flash_set('Jeton invalide.', true); admin_redirect('blog.php'); }
@@ -186,15 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Carte dans la liste du blog
         if (is_file($BLOG_IDX) && is_writable($BLOG_IDX)) {
-            $bgStyle = $cover !== '' ? ' style="background-image: url(\'' . h($cover) . '\');"' : '';
-            $card = "\n    <a href=\"" . $slug . ".html\" class=\"blog-card\">\n"
-                . "      <div class=\"blog-card-image\"" . $bgStyle . " aria-hidden=\"true\"></div>\n"
-                . "      <div class=\"blog-card-content\">\n"
-                . "        <span class=\"blog-card-tag\">" . h($tag) . "</span>\n"
-                . "        <h2>" . h($title) . "</h2>\n"
-                . "        <p>" . h($excerpt) . "</p>\n"
-                . "        <div class=\"blog-card-meta\"><span>" . $dateFr . " · " . $readMin . " min</span><strong>Lire &rarr;</strong></div>\n"
-                . "      </div>\n    </a>";
+            $card = build_card($slug, $title, $tag, $excerpt, $cover, $dateFr, $readMin);
             $html = file_get_contents($BLOG_IDX);
             $needle = '<div class="blog-list">';
             $pos = strpos($html, $needle);
@@ -217,48 +221,117 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             file_put_contents($SITEMAP, $xml);
         }
 
-        $pdo->prepare('INSERT INTO posts (slug, title, tag, excerpt, cover, read_min, created_at) VALUES (?,?,?,?,?,?,?)')
-            ->execute([$slug, $title, $tag, $excerpt, $cover, $readMin, gmdate('Y-m-d H:i:s')]);
+        $pdo->prepare('INSERT INTO posts (slug, title, tag, excerpt, cover, read_min, body, created_at) VALUES (?,?,?,?,?,?,?,?)')
+            ->execute([$slug, $title, $tag, $excerpt, $cover, $readMin, $body, gmdate('Y-m-d H:i:s')]);
         admin_flash_set('Article publie : /blog/' . $slug . '.html');
+        admin_redirect('blog.php');
+    }
+
+    if ($a === 'edit_post' && !empty($_POST['id'])) {
+        $row = $pdo->prepare('SELECT * FROM posts WHERE id=?'); $row->execute([(int)$_POST['id']]); $row = $row->fetch(PDO::FETCH_ASSOC);
+        if (!$row) { admin_flash_set('Article introuvable.', true); admin_redirect('blog.php'); }
+        $slug = $row['slug']; // l'adresse ne change pas (stabilite SEO)
+        $title = trim($_POST['title'] ?? '');
+        $tag = trim($_POST['tag'] ?? 'Article');
+        $excerpt = trim($_POST['excerpt'] ?? '');
+        $cover = trim($_POST['cover'] ?? '');
+        $readMin = max(1, (int)($_POST['read_min'] ?? 5));
+        $body = (string)($_POST['body'] ?? '');
+
+        $err = '';
+        if ($title === '' || $excerpt === '' || trim($body) === '') $err = 'Titre, resume et contenu sont obligatoires.';
+        elseif ($cover !== '' && !preg_match('#^https?://#', $cover)) $err = "L'image de couverture doit etre une URL (http...).";
+        elseif (!is_dir($BLOG_DIR) || !is_writable($BLOG_DIR)) $err = "Le dossier blog/ n'est pas accessible en ecriture.";
+        if ($err) { admin_flash_set($err, true); admin_redirect('blog.php?edit=' . (int)$row['id']); }
+
+        $dateIso = substr($row['created_at'], 0, 10);
+        $dts = strtotime($dateIso);
+        $dateFr = ((int)date('j', $dts)) . ' ' . $frMonths[(int)date('n', $dts)] . ' ' . date('Y', $dts);
+        $articleHtml = build_article($slug, $title, $tag, $excerpt, $cover, $readMin, $dateIso, $dateFr, md_to_html($body));
+
+        if (file_put_contents($BLOG_DIR . '/' . $slug . '.html', $articleHtml) === false) {
+            admin_flash_set("Impossible de reecrire le fichier.", true); admin_redirect('blog.php?edit=' . (int)$row['id']);
+        }
+        // Remplace la carte dans la liste
+        if (is_file($BLOG_IDX) && is_writable($BLOG_IDX)) {
+            $html = file_get_contents($BLOG_IDX);
+            $newCard = build_card($slug, $title, $tag, $excerpt, $cover, $dateFr, $readMin);
+            $html = preg_replace('#\s*<a href="' . preg_quote($slug, '#') . '\.html" class="blog-card">.*?</a>#s', $newCard, $html, 1);
+            file_put_contents($BLOG_IDX, $html);
+        }
+        // Met a jour lastmod dans le sitemap
+        if (is_file($SITEMAP) && is_writable($SITEMAP)) {
+            $xml = file_get_contents($SITEMAP);
+            $xml = preg_replace(
+                '#(<loc>https://finalyn\.com/blog/' . preg_quote($slug, '#') . '\.html</loc>\s*<lastmod>)[^<]*(</lastmod>)#',
+                '${1}' . gmdate('Y-m-d') . '${2}', $xml, 1
+            );
+            file_put_contents($SITEMAP, $xml);
+        }
+        $pdo->prepare('UPDATE posts SET title=?, tag=?, excerpt=?, cover=?, read_min=?, body=?, updated_at=? WHERE id=?')
+            ->execute([$title, $tag, $excerpt, $cover, $readMin, $body, gmdate('Y-m-d H:i:s'), (int)$row['id']]);
+        admin_flash_set('Article mis a jour : /blog/' . $slug . '.html');
         admin_redirect('blog.php');
     }
 }
 
 $posts = $pdo->query('SELECT * FROM posts ORDER BY created_at DESC')->fetchAll(PDO::FETCH_ASSOC);
 
+$editing = null;
+if (isset($_GET['edit'])) {
+    $e = $pdo->prepare('SELECT * FROM posts WHERE id=?'); $e->execute([(int)$_GET['edit']]);
+    $editing = $e->fetch(PDO::FETCH_ASSOC) ?: null;
+}
+$fTitle   = $editing['title'] ?? '';
+$fTag     = $editing['tag'] ?? 'Article';
+$fRead    = $editing['read_min'] ?? 5;
+$fCover   = $editing['cover'] ?? '';
+$fExcerpt = $editing['excerpt'] ?? '';
+$fBody    = $editing['body'] ?? '';
+
 admin_header('blog', 'Blog');
 flash_render();
 ?>
-<div class="adm-block card">
-  <h2>Nouvel article</h2>
+<div class="adm-block card" id="form">
+  <h2><?= $editing ? "Modifier l'article" : 'Nouvel article' ?></h2>
   <form method="post" class="adm-form" style="margin-top:1rem">
-    <input type="hidden" name="csrf" value="<?= h($csrf) ?>"><input type="hidden" name="action" value="create_post">
+    <input type="hidden" name="csrf" value="<?= h($csrf) ?>">
+    <input type="hidden" name="action" value="<?= $editing ? 'edit_post' : 'create_post' ?>">
+    <?php if ($editing): ?><input type="hidden" name="id" value="<?= (int)$editing['id'] ?>"><?php endif; ?>
     <div>
       <label for="title">Titre</label>
-      <input type="text" id="title" name="title" required>
+      <input type="text" id="title" name="title" value="<?= h($fTitle) ?>" required>
     </div>
     <div class="adm-row2">
       <div>
         <label for="tag">Categorie</label>
-        <input type="text" id="tag" name="tag" value="Article" placeholder="Stratégie, Technique...">
+        <input type="text" id="tag" name="tag" value="<?= h($fTag) ?>" placeholder="Stratégie, Technique...">
       </div>
       <div>
         <label for="read_min">Temps de lecture (min)</label>
-        <input type="number" id="read_min" name="read_min" min="1" value="5">
+        <input type="number" id="read_min" name="read_min" min="1" value="<?= (int)$fRead ?>">
       </div>
     </div>
-    <div>
-      <label for="slug">Adresse (laisser vide = auto depuis le titre)</label>
-      <input type="text" id="slug" name="slug" placeholder="mon-article">
-      <p class="field-help">Donnera /blog/mon-article.html. Lettres minuscules, chiffres et tirets uniquement.</p>
-    </div>
+    <?php if ($editing): ?>
+      <div>
+        <label>Adresse</label>
+        <input type="text" value="/blog/<?= h($editing['slug']) ?>.html" disabled>
+        <p class="field-help">L'adresse d'un article publie ne change pas (stabilite SEO).</p>
+      </div>
+    <?php else: ?>
+      <div>
+        <label for="slug">Adresse (laisser vide = auto depuis le titre)</label>
+        <input type="text" id="slug" name="slug" placeholder="mon-article">
+        <p class="field-help">Donnera /blog/mon-article.html. Lettres minuscules, chiffres et tirets uniquement.</p>
+      </div>
+    <?php endif; ?>
     <div>
       <label for="cover">Image de couverture (URL, optionnel)</label>
-      <input type="text" id="cover" name="cover" placeholder="https://images.unsplash.com/...">
+      <input type="text" id="cover" name="cover" value="<?= h($fCover) ?>" placeholder="https://images.unsplash.com/...">
     </div>
     <div>
       <label for="excerpt">Résumé (affiché dans la liste et le SEO)</label>
-      <textarea id="excerpt" name="excerpt" style="min-height:80px" required></textarea>
+      <textarea id="excerpt" name="excerpt" style="min-height:80px" required><?= h($fExcerpt) ?></textarea>
     </div>
     <div>
       <label for="body">Contenu de l'article</label>
@@ -266,10 +339,13 @@ flash_render();
 ## Titre de section
 ### Sous-titre
 - point de liste
-Un paragraphe normal, separe par une ligne vide."></textarea>
-      <p class="field-help">Mise en forme : <code>## </code> pour un titre, <code>### </code> pour un sous-titre, <code>- </code> pour une liste, ligne vide pour separer les paragraphes.</p>
+Un paragraphe normal, separe par une ligne vide."><?= h($fBody) ?></textarea>
+      <p class="field-help">Mise en forme : <code>## </code> titre, <code>### </code> sous-titre, <code>- </code> liste, ligne vide = nouveau paragraphe.</p>
     </div>
-    <div><button class="btn dark" type="submit">Publier l'article</button></div>
+    <div>
+      <button class="btn dark" type="submit"><?= $editing ? 'Enregistrer les modifications' : "Publier l'article" ?></button>
+      <?php if ($editing): ?><a class="btn" href="blog.php">Annuler</a><?php endif; ?>
+    </div>
   </form>
 </div>
 
@@ -286,10 +362,13 @@ Un paragraphe normal, separe par une ligne vide."></textarea>
             <h4><?= h($p['title']) ?></h4>
             <div class="pm"><?= h($p['tag']) ?> · <?= fr_d($p['created_at']) ?> · <a href="../blog/<?= h($p['slug']) ?>.html" target="_blank" rel="noopener">/blog/<?= h($p['slug']) ?>.html</a></div>
           </div>
-          <form method="post" onsubmit="return confirm('Supprimer cet article (fichier + liste + sitemap) ?');">
-            <input type="hidden" name="csrf" value="<?= h($csrf) ?>"><input type="hidden" name="action" value="delete_post"><input type="hidden" name="id" value="<?= (int)$p['id'] ?>">
-            <button class="btn danger" type="submit">Supprimer</button>
-          </form>
+          <div class="adm-actions">
+            <a class="btn" href="blog.php?edit=<?= (int)$p['id'] ?>#form">Modifier</a>
+            <form method="post" onsubmit="return confirm('Supprimer cet article (fichier + liste + sitemap) ?');">
+              <input type="hidden" name="csrf" value="<?= h($csrf) ?>"><input type="hidden" name="action" value="delete_post"><input type="hidden" name="id" value="<?= (int)$p['id'] ?>">
+              <button class="btn danger" type="submit">Supprimer</button>
+            </form>
+          </div>
         </div>
       <?php endforeach; ?>
     </div>

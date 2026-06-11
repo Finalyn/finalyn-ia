@@ -96,6 +96,12 @@ function finalyn_db() {
         $pdo->exec("ALTER TABLE posts ADD COLUMN updated_at TEXT");
     }
 
+    // Migration : jeton d'annulation cote client pour les reservations
+    $bcols = $pdo->query("PRAGMA table_info(bookings)")->fetchAll(PDO::FETCH_COLUMN, 1);
+    if (!in_array('token', $bcols, true)) {
+        $pdo->exec("ALTER TABLE bookings ADD COLUMN token TEXT");
+    }
+
     return $pdo;
 }
 

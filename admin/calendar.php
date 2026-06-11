@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/boot.php';
+require_once __DIR__ . '/../api/mail.php';
 
 // ---------- Actions ----------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -7,11 +8,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!finalyn_csrf_ok($_POST['csrf'] ?? '')) { admin_flash_set('Jeton invalide.', true); admin_redirect($back); }
     $a = $_POST['action'] ?? '';
     if ($a === 'cancel_booking' && !empty($_POST['id'])) {
+        $row = $pdo->prepare('SELECT * FROM bookings WHERE id=?'); $row->execute([(int)$_POST['id']]); $row = $row->fetch(PDO::FETCH_ASSOC);
         $pdo->prepare("UPDATE bookings SET status='cancelled' WHERE id=?")->execute([(int)$_POST['id']]);
-        admin_flash_set('Reservation annulee.');
+        if ($row) finalyn_booking_notify('cancel_admin', $row);
+        admin_flash_set('Reservation annulee, e-mail envoye au client.');
     } elseif ($a === 'done_booking' && !empty($_POST['id'])) {
+        $row = $pdo->prepare('SELECT * FROM bookings WHERE id=?'); $row->execute([(int)$_POST['id']]); $row = $row->fetch(PDO::FETCH_ASSOC);
         $pdo->prepare("UPDATE bookings SET status='done' WHERE id=?")->execute([(int)$_POST['id']]);
-        admin_flash_set('Reservation marquee comme faite.');
+        if ($row) finalyn_booking_notify('done', $row);
+        admin_flash_set('Reservation marquee comme faite, e-mail envoye au client.');
     } elseif ($a === 'block_date' && preg_match('/^\d{4}-\d{2}-\d{2}$/', $_POST['date'] ?? '')) {
         $pdo->prepare('INSERT OR IGNORE INTO blocked_dates (slot_date, created_at) VALUES (?,?)')->execute([$_POST['date'], gmdate('Y-m-d H:i:s')]);
         admin_flash_set('Jour bloque.');

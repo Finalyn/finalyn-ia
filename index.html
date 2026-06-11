@@ -8060,9 +8060,16 @@
     function pickDay(d) {
       selectedDay = d; selectedSlot = null;
       var taken = (window.__finalynTaken && window.__finalynTaken[ymd(d)]) ? window.__finalynTaken[ymd(d)] : [];
+      var minLead = Date.now() + 12 * 3600 * 1000; // au moins une demi-journee a l'avance
       Array.prototype.forEach.call(slotList.querySelectorAll('.cal-slot'), function (s) {
         s.classList.remove('is-selected');
-        var off = taken.indexOf(s.getAttribute('data-time')) !== -1;
+        var t = s.getAttribute('data-time');
+        var off = taken.indexOf(t) !== -1;
+        if (!off && t) {
+          var p = t.split(':');
+          var slotDt = new Date(d.getFullYear(), d.getMonth(), d.getDate(), parseInt(p[0], 10), parseInt(p[1], 10), 0, 0);
+          if (slotDt.getTime() < minLead) off = true;
+        }
         s.disabled = off;
         s.classList.toggle('cal-slot-off', off);
       });

@@ -114,3 +114,44 @@ function finalyn_smtp_send($cfg, $from, $to, $message) {
     fclose($fp);
     return strpos($r, '250') !== false;
 }
+
+/**
+ * E-mail dedie selon l'action sur une reservation.
+ * $type : 'cancel_admin' (on annule), 'client_cancel' (le client annule), 'done' (audit fait).
+ * $b : ligne bookings (tableau associatif).
+ */
+function finalyn_booking_notify($type, $b) {
+    if (!is_array($b) || empty($b['email']) || !filter_var($b['email'], FILTER_VALIDATE_EMAIL)) return false;
+    $cfg   = finalyn_config();
+    $from  = $cfg['from_email'] ?? 'noreply@finalyn.com';
+    $team  = $cfg['notify_email'] ?? '';
+    $reply = ($team !== '' && filter_var($team, FILTER_VALIDATE_EMAIL)) ? $team : $from;
+
+    $months = ['', 'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    $dts = strtotime(($b['slot_date'] ?? '') . ' ' . ($b['slot_time'] ?? ''));
+    $when = $dts ? ((int)date('j', $dts) . ' ' . $months[(int)date('n', $dts)] . ' ' . date('Y', $dts) . ' à ' . ($b['slot_time'] ?? '')) : '';
+    $hi     = 'Bonjour ' . ($b['firstname'] ?? '') . ",\n\n";
+    $rebook = 'https://ia.finalyn.ch/#audit';
+    $sign   = "\n\nÀ bientôt,\nL'équipe finalyn.ia\ncontact@finalyn.com · +41 79 639 36 84";
+
+    if ($type === 'cancel_admin') {
+        $subj = 'Votre rendez-vous a été reporté · finalyn.ia';
+        $body = $hi . 'Nous devons malheureusement annuler votre rendez-vous prévu le ' . $when . ".\n\n"
+            . "Toutes nos excuses pour ce contretemps. Reprenez le créneau qui vous arrange ici, on se refait ça avec plaisir :\n"
+            . $rebook . $sign;
+    } elseif ($type === 'client_cancel') {
+        $subj = 'Votre rendez-vous est annulé · finalyn.ia';
+        $body = $hi . 'Votre rendez-vous du ' . $when . " est bien annulé.\n\n"
+            . "Pas de souci : dès que vous le souhaitez, reprenez le créneau qui vous arrange ici :\n"
+            . $rebook . "\n\nOn espère vous revoir très vite !" . $sign;
+    } elseif ($type === 'done') {
+        $subj = 'Merci pour votre audit · finalyn.ia';
+        $body = $hi . "Merci pour cet échange, c'était un plaisir.\n\n"
+            . "Si une question vous vient ou si vous souhaitez avancer, écrivez-nous simplement, on reste à votre disposition.\n\n"
+            . "Et pour approfondir un autre sujet, reprenez un créneau quand vous voulez :\n"
+            . $rebook . $sign;
+    } else {
+        return false;
+    }
+    return finalyn_send_mail($b['email'], $subj, $body, $from, $reply);
+}

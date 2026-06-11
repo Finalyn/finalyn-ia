@@ -38,7 +38,8 @@ if (!preg_match('/^\d{2}:\d{2}$/', $time)) finalyn_die(400, 'Heure invalide.');
 
 // Date dans le futur et jour ouvre (lundi-vendredi)
 $ts = strtotime($date . ' ' . $time . ':00');
-if ($ts === false || $ts < time() - 3600) finalyn_die(400, 'Ce creneau est deja passe.');
+if ($ts === false) finalyn_die(400, 'Creneau invalide.');
+if ($ts < time() + 12 * 3600) finalyn_die(400, "Les rendez-vous se reservent au moins une demi-journee a l'avance (12 h). Merci de choisir un creneau un peu plus tard.");
 $weekday = (int)date('N', strtotime($date)); // 1=lundi .. 7=dimanche
 if ($weekday >= 6) finalyn_die(400, 'Les audits ont lieu du lundi au vendredi.');
 
@@ -55,9 +56,12 @@ $dup->execute([$date, $time]);
 if ($dup->fetchColumn()) finalyn_die(409, 'Ce creneau vient d\'etre reserve. Merci d\'en choisir un autre.');
 
 $now = gmdate('Y-m-d H:i:s');
-$ins = $pdo->prepare("INSERT INTO bookings (created_at, firstname, lastname, email, company, slot_date, slot_time, message, status)
-                      VALUES (?,?,?,?,?,?,?,?, 'confirmed')");
-$ins->execute([$now, $firstname, $lastname, $email, $company, $date, $time, $message]);
+$token = bin2hex(random_bytes(16));
+$ins = $pdo->prepare("INSERT INTO bookings (created_at, firstname, lastname, email, company, slot_date, slot_time, message, status, token)
+                      VALUES (?,?,?,?,?,?,?,?, 'confirmed', ?)");
+$ins->execute([$now, $firstname, $lastname, $email, $company, $date, $time, $message, $token]);
+$bookingId = (int)$pdo->lastInsertId();
+$cancelUrl = 'https://ia.finalyn.ch/api/cancel.php?id=' . $bookingId . '&t=' . $token;
 
 // ----- E-mails + invitation agenda (best effort, ne bloquent jamais la reservation) -----
 $cfg      = finalyn_config();
@@ -126,8 +130,8 @@ $cBody = "Bonjour " . $firstname . ",\n\n"
     . "Format : visioconférence, environ 30 minutes\n\n"
     . "L'invitation est jointe à cet e-mail (ouvrez-la pour l'ajouter à votre agenda).";
 if ($gcal !== '') { $cBody .= "\nOu en un clic : " . $gcal; }
-$cBody .= "\n\nNous vous enverrons le lien de connexion peu avant le rendez-vous. "
-    . "Si vous avez une question ou besoin de décaler le créneau, répondez simplement à cet e-mail.\n\n"
+$cBody .= "\n\nNous vous enverrons le lien de connexion peu avant le rendez-vous.\n"
+    . "Besoin d'annuler ou de décaler ? C'est ici, en un clic : " . $cancelUrl . "\n\n"
     . "À très bientôt,\n"
     . "L'équipe finalyn.ia\n"
     . "contact@finalyn.com · +41 79 639 36 84";

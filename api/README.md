@@ -56,8 +56,10 @@ réservations, 30 dernières conversations, stats site & blog.
 - **E-mail des réservations** : champ `notify_email` dans `api/config.php`.
 
 Modules :
-- **Réservations** : le calendrier du site enregistre désormais les RDV (via `api/book.php`),
-  envoie un e-mail à `notify_email`, et l'admin peut annuler/marquer fait + bloquer des jours.
+- **Réservations** : le calendrier du site enregistre les RDV (via `api/book.php`) et envoie
+  **deux e-mails** : une notification à `notify_email` (vous) et une **confirmation au client**.
+  L'expéditeur est `from_email` (doit appartenir à votre domaine). L'admin peut annuler/marquer
+  fait + bloquer des jours/créneaux.
   Les jours bloqués/complets sont grisés sur le calendrier public (via `api/availability.php`).
 - **Conversations** : chaque échange du chat est journalisé (`api/chat.php` -> base) et consultable.
 - **Stats** : pages vues (traceur `api/track.php` déclenché par `assets/consent.js`,

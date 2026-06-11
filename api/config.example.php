@@ -16,6 +16,9 @@ return [
     // --- E-mail qui recoit les nouvelles reservations d'audit ---
     'notify_email' => 'contact@finalyn.com',
 
+    // --- Adresse expeditrice des e-mails (doit appartenir a votre domaine) ---
+    'from_email' => 'contact@finalyn.com',
+
     // --- Acces au back-office (admin/) ---
     // Le plus simple : mettre un mot de passe en clair ci-dessous.
     'admin_password' => 'CHOISISSEZ_UN_MOT_DE_PASSE',

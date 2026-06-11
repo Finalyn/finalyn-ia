@@ -17,6 +17,18 @@ function finalyn_field($body, $key, $max = 120) {
     return mb_substr($v, 0, $max);
 }
 
+/** Envoi d'un e-mail texte UTF-8 (best effort). */
+function finalyn_send_mail($to, $subject, $body, $from, $replyTo) {
+    if ($to === '' || !filter_var($to, FILTER_VALIDATE_EMAIL)) return false;
+    $headers = 'From: finalyn.ia <' . $from . '>' . "\r\n"
+             . 'Reply-To: ' . $replyTo . "\r\n"
+             . "MIME-Version: 1.0\r\n"
+             . "Content-Type: text/plain; charset=UTF-8\r\n"
+             . "Content-Transfer-Encoding: base64\r\n";
+    $subj = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+    return @mail($to, $subj, rtrim(chunk_split(base64_encode($body))), $headers);
+}
+
 $firstname = finalyn_field($body, 'firstname', 80);
 $lastname  = finalyn_field($body, 'lastname', 80);
 $email     = finalyn_field($body, 'email', 160);
@@ -56,22 +68,36 @@ $ins = $pdo->prepare("INSERT INTO bookings (created_at, firstname, lastname, ema
                       VALUES (?,?,?,?,?,?,?,?, 'confirmed')");
 $ins->execute([$now, $firstname, $lastname, $email, $company, $date, $time, $message]);
 
-// Notification e-mail (best effort, ne bloque pas la reservation)
-$cfg = finalyn_config();
-$to = $cfg['notify_email'] ?? '';
-if ($to !== '') {
-    $subject = 'Nouvelle reservation audit : ' . $firstname . ' ' . $lastname;
-    $lines = [
-        "Nouvelle reservation d'audit via finalyn.com",
-        '',
-        'Nom       : ' . $firstname . ' ' . $lastname,
-        'E-mail    : ' . $email,
-        'Entreprise: ' . $company,
-        'Creneau   : ' . $date . ' a ' . $time . ' (heure de Zurich)',
-    ];
-    if ($message !== '') { $lines[] = ''; $lines[] = 'Message   : ' . $message; }
-    $headers = "From: site@finalyn.com\r\nReply-To: " . $email . "\r\nContent-Type: text/plain; charset=utf-8\r\n";
-    @mail($to, '=?UTF-8?B?' . base64_encode($subject) . '?=', implode("\n", $lines), $headers);
+// ----- E-mails (best effort, ne bloquent jamais la reservation) -----
+$cfg  = finalyn_config();
+$team = $cfg['notify_email'] ?? '';
+$from = $cfg['from_email'] ?? 'contact@finalyn.com';
+
+$frMonths = ['', 'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+$dts = strtotime($date);
+$dateFr = (int)date('j', $dts) . ' ' . $frMonths[(int)date('n', $dts)] . ' ' . date('Y', $dts);
+
+// 1) Notification a l'equipe finalyn (Reply-To = client, pour repondre directement)
+if ($team !== '') {
+    $tBody = "Nouvelle reservation d'audit via finalyn.com\n\n"
+        . 'Nom        : ' . $firstname . ' ' . $lastname . "\n"
+        . 'E-mail     : ' . $email . "\n"
+        . 'Entreprise : ' . $company . "\n"
+        . 'Creneau    : ' . $dateFr . ' a ' . $time . " (heure de Zurich)\n";
+    if ($message !== '') { $tBody .= "\nMessage    : " . $message . "\n"; }
+    finalyn_send_mail($team, 'Nouvelle reservation : ' . $firstname . ' ' . $lastname . ' (' . $company . ')', $tBody, $from, $email);
 }
+
+// 2) Confirmation au client (Reply-To = equipe finalyn)
+$cBody = "Bonjour " . $firstname . ",\n\n"
+    . "Votre audit gratuit avec finalyn.ia est bien confirmé.\n\n"
+    . "Date : " . $dateFr . " à " . $time . " (heure de Zurich)\n"
+    . "Format : visioconférence, environ 30 minutes\n\n"
+    . "Nous vous enverrons le lien de connexion peu avant le rendez-vous. "
+    . "Si vous avez une question ou besoin de décaler le créneau, répondez simplement à cet e-mail.\n\n"
+    . "À très bientôt,\n"
+    . "L'équipe finalyn.ia\n"
+    . "contact@finalyn.com · +41 79 639 36 84";
+finalyn_send_mail($email, 'Votre audit est confirmé · finalyn.ia', $cBody, $from, ($team !== '' ? $team : $from));
 
 echo json_encode(['ok' => true], JSON_UNESCAPED_UNICODE);

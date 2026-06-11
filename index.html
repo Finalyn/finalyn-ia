@@ -3034,6 +3034,15 @@
     color: #fff;
     box-shadow: 0 6px 14px -6px rgba(139, 92, 246, 0.45);
   }
+  .cal-slot:disabled,
+  .cal-slot.cal-slot-off {
+    opacity: 0.4;
+    cursor: not-allowed;
+    text-decoration: line-through;
+    border-color: var(--line);
+    color: var(--muted);
+    background: transparent;
+  }
 
   .cal-cta {
     margin-top: 1.1rem;
@@ -8026,7 +8035,13 @@
 
     function pickDay(d) {
       selectedDay = d; selectedSlot = null;
-      Array.prototype.forEach.call(slotList.querySelectorAll('.cal-slot'), function (s) { s.classList.remove('is-selected'); });
+      var taken = (window.__finalynTaken && window.__finalynTaken[ymd(d)]) ? window.__finalynTaken[ymd(d)] : [];
+      Array.prototype.forEach.call(slotList.querySelectorAll('.cal-slot'), function (s) {
+        s.classList.remove('is-selected');
+        var off = taken.indexOf(s.getAttribute('data-time')) !== -1;
+        s.disabled = off;
+        s.classList.toggle('cal-slot-off', off);
+      });
       slotsBox.classList.add('is-open');
       render();
       updateCta();
@@ -8160,6 +8175,7 @@
       d.blocked.forEach(function (x) { window.__finalynBlocked[x] = true; });
     }
     if (Array.isArray(d.days) && d.days.length) { window.__finalynDays = d.days; }
+    window.__finalynTaken = d.taken || {};
     if (Array.isArray(d.slots) && d.slots.length) {
       Array.prototype.forEach.call(document.querySelectorAll('.cal-slots-list'), function (list) {
         list.innerHTML = d.slots.map(function (t) {

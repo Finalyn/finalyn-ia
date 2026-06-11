@@ -64,6 +64,13 @@ function finalyn_db() {
         created_at TEXT NOT NULL
     )");
 
+    $pdo->exec("CREATE TABLE IF NOT EXISTS blocked_slots (
+        slot_date TEXT NOT NULL,
+        slot_time TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        PRIMARY KEY (slot_date, slot_time)
+    )");
+
     $pdo->exec("CREATE TABLE IF NOT EXISTS settings (
         skey TEXT PRIMARY KEY,
         sval TEXT NOT NULL

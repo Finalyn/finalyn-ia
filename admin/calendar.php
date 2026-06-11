@@ -18,6 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($a === 'unblock_date' && !empty($_POST['date'])) {
         $pdo->prepare('DELETE FROM blocked_dates WHERE slot_date=?')->execute([$_POST['date']]);
         admin_flash_set('Jour debloque.');
+    } elseif ($a === 'block_slot' && preg_match('/^\d{4}-\d{2}-\d{2}$/', $_POST['date'] ?? '') && preg_match('/^\d{2}:\d{2}$/', $_POST['time'] ?? '')) {
+        $pdo->prepare('INSERT OR IGNORE INTO blocked_slots (slot_date, slot_time, created_at) VALUES (?,?,?)')->execute([$_POST['date'], $_POST['time'], gmdate('Y-m-d H:i:s')]);
+        admin_flash_set('Creneau bloque (' . $_POST['date'] . ' a ' . $_POST['time'] . ').');
+    } elseif ($a === 'unblock_slot' && !empty($_POST['date']) && !empty($_POST['time'])) {
+        $pdo->prepare('DELETE FROM blocked_slots WHERE slot_date=? AND slot_time=?')->execute([$_POST['date'], $_POST['time']]);
+        admin_flash_set('Creneau debloque.');
     } elseif ($a === 'save_avail') {
         $days = isset($_POST['days']) && is_array($_POST['days']) ? array_values(array_map('intval', $_POST['days'])) : [];
         $slots = [];
@@ -59,6 +65,9 @@ $blk->execute([$like]); $blocked = array_flip($blk->fetchAll(PDO::FETCH_COLUMN))
 // Reservations a venir (table sous le calendrier)
 $bk = $pdo->prepare("SELECT * FROM bookings WHERE status='confirmed' AND slot_date >= ? ORDER BY slot_date, slot_time");
 $bk->execute([$todayStr]); $upcoming = $bk->fetchAll(PDO::FETCH_ASSOC);
+
+$bs = $pdo->prepare("SELECT slot_date, slot_time FROM blocked_slots WHERE slot_date >= ? ORDER BY slot_date, slot_time");
+$bs->execute([$todayStr]); $blockedSlots = $bs->fetchAll(PDO::FETCH_ASSOC);
 
 admin_header('calendar', 'Calendrier');
 flash_render();
@@ -120,6 +129,30 @@ flash_render();
     <?php endforeach; ?>
     </tbody>
   </table>
+  <?php endif; ?>
+</div>
+
+<div class="adm-block card">
+  <h2>Bloquer un creneau precis</h2>
+  <p class="field-help">Pour les cas « ce jour-la, je ne suis pas dispo a telle heure ». Le creneau disparait alors du calendrier public (les RDV deja pris sont aussi grises automatiquement).</p>
+  <form method="post" class="adm-inline-form" style="margin-top:.8rem">
+    <input type="hidden" name="csrf" value="<?= h($csrf) ?>"><input type="hidden" name="m" value="<?= h($m) ?>"><input type="hidden" name="action" value="block_slot">
+    <input type="date" name="date" required>
+    <select name="time" required style="padding:.5rem .7rem;border:1px solid var(--line);border-radius:10px;font-family:inherit">
+      <?php foreach ($avail['slots'] as $s): ?><option value="<?= h($s) ?>"><?= h($s) ?></option><?php endforeach; ?>
+    </select>
+    <button class="btn dark" type="submit">Bloquer ce creneau</button>
+  </form>
+  <?php if ($blockedSlots): ?>
+    <div class="adm-chips" style="margin-top:1rem">
+      <?php foreach ($blockedSlots as $bsr): ?>
+        <span class="adm-chip"><?= fr_d($bsr['slot_date']) ?> &middot; <?= h($bsr['slot_time']) ?>
+          <form method="post"><input type="hidden" name="csrf" value="<?= h($csrf) ?>"><input type="hidden" name="m" value="<?= h($m) ?>"><input type="hidden" name="action" value="unblock_slot"><input type="hidden" name="date" value="<?= h($bsr['slot_date']) ?>"><input type="hidden" name="time" value="<?= h($bsr['slot_time']) ?>"><button type="submit" aria-label="Debloquer">&times;</button></form>
+        </span>
+      <?php endforeach; ?>
+    </div>
+  <?php else: ?>
+    <p class="adm-empty" style="margin-top:.8rem">Aucun creneau bloque pour l'instant.</p>
   <?php endif; ?>
 </div>
 

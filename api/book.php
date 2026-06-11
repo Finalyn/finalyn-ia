@@ -111,7 +111,7 @@ if ($startStr !== '') {
         . '&location=' . rawurlencode('Visioconference');
 }
 
-// 1) Notification a l'equipe finalyn (Reply-To = client)
+// 1) Notification a l'equipe finalyn (Reply-To = client) - HTML + texte
 if ($team !== '') {
     $tBody = "Nouvelle reservation d'audit via ia.finalyn.ch\n\n"
         . 'Nom        : ' . $firstname . ' ' . $lastname . "\n"
@@ -120,10 +120,19 @@ if ($team !== '') {
         . 'Creneau    : ' . $dateFr . ' a ' . $time . " (heure de Zurich)\n";
     if ($message !== '') { $tBody .= "\nMessage    : " . $message . "\n"; }
     if ($gcal !== '') { $tBody .= "\nAjouter a votre agenda : " . $gcal . "\n"; }
-    finalyn_send_mail($team, 'Nouvelle reservation : ' . $firstname . ' ' . $lastname . ' (' . $company . ')', $tBody, $from, $email, $ics);
+
+    $tPar = '<p style="margin:0 0 14px;">Nouvelle réservation d\'audit via <strong>ia.finalyn.ch</strong>.</p>'
+        . '<p style="margin:0 0 6px;"><strong>Nom</strong> : ' . htmlspecialchars($firstname . ' ' . $lastname) . '<br>'
+        . '<strong>E-mail</strong> : ' . htmlspecialchars($email) . '<br>'
+        . '<strong>Entreprise</strong> : ' . htmlspecialchars($company) . '<br>'
+        . '<strong>Créneau</strong> : ' . htmlspecialchars($dateFr . ' à ' . $time) . ' (heure de Zurich)</p>'
+        . ($message !== '' ? '<p style="margin:14px 0 6px;background:#F4F0E9;border-radius:10px;padding:12px 14px;"><strong>Message</strong> : ' . nl2br(htmlspecialchars($message)) . '</p>' : '');
+    $tBtns = $gcal !== '' ? [['label' => 'Ajouter à mon agenda', 'url' => $gcal, 'primary' => true]] : [];
+    $tHtml = finalyn_email_html('Nouvelle réservation', $tPar, $tBtns);
+    finalyn_send_mail($team, 'Nouvelle reservation : ' . $firstname . ' ' . $lastname . ' (' . $company . ')', $tBody, $from, $email, $ics, $tHtml);
 }
 
-// 2) Confirmation au client (Reply-To = equipe finalyn)
+// 2) Confirmation au client (Reply-To = equipe finalyn) - HTML + texte
 $cBody = "Bonjour " . $firstname . ",\n\n"
     . "Votre audit gratuit avec finalyn.ia est bien confirmé.\n\n"
     . "Date : " . $dateFr . " à " . $time . " (heure de Zurich)\n"
@@ -135,6 +144,17 @@ $cBody .= "\n\nNous vous enverrons le lien de connexion peu avant le rendez-vous
     . "À très bientôt,\n"
     . "L'équipe finalyn.ia\n"
     . "contact@finalyn.com · +41 79 639 36 84";
-finalyn_send_mail($email, 'Votre audit est confirmé · finalyn.ia', $cBody, $from, $organizer, $ics);
+
+$cPar = '<p style="margin:0 0 14px;">Bonjour ' . htmlspecialchars($firstname) . ',</p>'
+    . '<p style="margin:0 0 14px;">Votre <strong>audit gratuit</strong> avec finalyn.ia est bien confirmé.</p>'
+    . '<p style="margin:0 0 14px;background:#F4F0E9;border-radius:10px;padding:14px 16px;">'
+    . '<strong>Date</strong> : ' . htmlspecialchars($dateFr . ' à ' . $time) . ' (heure de Zurich)<br>'
+    . '<strong>Format</strong> : visioconférence, environ 30 minutes</p>'
+    . '<p style="margin:0 0 6px;">L\'invitation est jointe à cet e-mail. Nous vous enverrons le lien de connexion peu avant le rendez-vous.</p>';
+$cBtns = [];
+if ($gcal !== '') { $cBtns[] = ['label' => 'Ajouter à mon agenda', 'url' => $gcal, 'primary' => true]; }
+$cBtns[] = ['label' => 'Annuler ou décaler', 'url' => $cancelUrl, 'primary' => ($gcal === '')];
+$cHtml = finalyn_email_html('Votre audit est confirmé', $cPar, $cBtns);
+finalyn_send_mail($email, 'Votre audit est confirmé · finalyn.ia', $cBody, $from, $organizer, $ics, $cHtml);
 
 echo json_encode(['ok' => true], JSON_UNESCAPED_UNICODE);

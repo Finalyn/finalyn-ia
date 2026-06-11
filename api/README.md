@@ -1,4 +1,4 @@
-# Assistant finalyn.ia — proxy Claude (Haiku)
+# Assistant finalyn.ia · proxy Claude (Haiku)
 
 Le chatbot du site parle à Claude **Haiku** via ce petit proxy PHP. La clef API
 reste **côté serveur** : elle n'apparaît jamais dans le navigateur.

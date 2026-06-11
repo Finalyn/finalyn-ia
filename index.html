@@ -1027,11 +1027,23 @@
 
   /* ===== NAV ===== */
   .nav {
-    position: absolute; top: 0; left: 0; right: 0;
+    position: fixed; top: 0; left: 0; right: 0;
     display: flex; justify-content: space-between; align-items: center;
     padding: 1.5rem 3rem;
-    z-index: 10;
+    z-index: 100;
+    border-bottom: 1px solid transparent;
+    transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease, padding 0.3s ease;
   }
+  .nav.nav-scrolled {
+    background: rgba(250, 248, 244, 0.88);
+    -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+    border-bottom-color: var(--line);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  /* Décalage pour que le menu fixe ne masque pas les titres au clic d'ancre */
+  section[id], div[id="audit"] { scroll-margin-top: 84px; }
   .brand {
     font-size: 1.75rem;
     font-weight: 500;
@@ -8902,6 +8914,15 @@
         });
       }
     });
+  })();
+
+  // Menu fixe : fond translucide au scroll
+  (function () {
+    var nav = document.querySelector('.nav');
+    if (!nav) return;
+    function onScroll() { nav.classList.toggle('nav-scrolled', window.scrollY > 24); }
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
   })();
 
   // Chat launcher toggle

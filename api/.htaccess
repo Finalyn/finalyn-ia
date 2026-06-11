@@ -5,5 +5,6 @@
   Require all denied
 </FilesMatch>
 
-# Bloque l'acces direct au dossier de cache (limitation de debit)
+# Bloque l'acces direct au cache (rate-limit) et a la base de donnees
 RedirectMatch 404 ^/api/\.cache/.*$
+RedirectMatch 404 ^/api/\.data/.*$

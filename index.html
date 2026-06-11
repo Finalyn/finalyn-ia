@@ -3142,6 +3142,13 @@
     text-align: center;
     line-height: 1.45;
   }
+  .cal-form-error {
+    margin: 0.2rem 0 0;
+    font-size: 0.82rem;
+    color: #c0392b;
+    text-align: center;
+    line-height: 1.45;
+  }
 
   /* Étape 3 : confirmation */
   .cal-success { display: none; flex-direction: column; align-items: center; text-align: center; gap: 0.6rem; padding: 1.25rem 0.5rem 0.5rem; }
@@ -7979,6 +7986,10 @@
     var selectedDay = null;
     var selectedSlot = null;
 
+    function ymd(d) {
+      return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    }
+
     function render() {
       grid.innerHTML = '';
       monthEl.textContent = monthNames[view.getMonth()] + ' ' + view.getFullYear();
@@ -8000,7 +8011,8 @@
         var dow = date.getDay();
         var isWeekend = (dow === 0 || dow === 6);
         var isPast = date < today;
-        if (isPast || isWeekend) { btn.disabled = true; btn.classList.add('cal-day-disabled'); }
+        var isBlocked = !!(window.__finalynBlocked && window.__finalynBlocked[ymd(date)]);
+        if (isPast || isWeekend || isBlocked) { btn.disabled = true; btn.classList.add('cal-day-disabled'); }
         if (date.getTime() === today.getTime()) btn.classList.add('cal-day-today');
         if (selectedDay && date.getTime() === selectedDay.getTime()) btn.classList.add('cal-day-selected');
         (function (date) { btn.addEventListener('click', function () { pickDay(date); }); })(date);
@@ -8069,15 +8081,56 @@
     }
 
     if (formEl) {
+      var confirmBtn = formEl.querySelector('.cal-cta-final');
+      var confirmLabel = confirmBtn ? confirmBtn.querySelector('.cal-cta-label') : null;
+      var errEl = document.createElement('p');
+      errEl.className = 'cal-form-error';
+      errEl.style.display = 'none';
+      var trustEl = formEl.querySelector('.cal-form-trust');
+      if (trustEl) formEl.insertBefore(errEl, trustEl); else formEl.appendChild(errEl);
+
       formEl.addEventListener('submit', function (e) {
         e.preventDefault();
         if (!firstName.value.trim() || !lastName.value.trim() || !emailInput.value.trim() || !companyInput.value.trim()) return;
-        if (successRecap) successRecap.textContent = firstName.value.trim() + ', votre audit est confirmé pour le ' + formatRecap() + '.';
-        root.classList.remove('is-form');
-        root.classList.add('is-done');
+        if (!selectedDay || !selectedSlot) return;
+        errEl.style.display = 'none';
+        if (confirmBtn) confirmBtn.disabled = true;
+        if (confirmLabel) confirmLabel.textContent = 'Envoi…';
+
+        fetch('/api/book.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            firstname: firstName.value.trim(),
+            lastname: lastName.value.trim(),
+            email: emailInput.value.trim(),
+            company: companyInput.value.trim(),
+            date: ymd(selectedDay),
+            time: selectedSlot
+          })
+        }).then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (d) { return { ok: res.ok, d: d }; });
+        }).then(function (r) {
+          if (confirmBtn) confirmBtn.disabled = false;
+          if (confirmLabel) confirmLabel.textContent = 'Confirmer la réservation';
+          if (r.ok && r.d && r.d.ok) {
+            if (successRecap) successRecap.textContent = firstName.value.trim() + ', votre audit est confirmé pour le ' + formatRecap() + '.';
+            root.classList.remove('is-form');
+            root.classList.add('is-done');
+          } else {
+            errEl.textContent = (r.d && r.d.error) ? r.d.error : "La réservation a échoué. Réessayez ou écrivez à contact@finalyn.com.";
+            errEl.style.display = 'block';
+          }
+        }).catch(function () {
+          if (confirmBtn) confirmBtn.disabled = false;
+          if (confirmLabel) confirmLabel.textContent = 'Confirmer la réservation';
+          errEl.textContent = "Connexion impossible pour le moment. Réessayez dans un instant.";
+          errEl.style.display = 'block';
+        });
       });
     }
 
+    root._calRender = render;
     render();
   }
 
@@ -8095,6 +8148,17 @@
 
   // Init all .cal instances on the page (audit section + modal cloné)
   Array.prototype.forEach.call(document.querySelectorAll('.cal'), initCalendar);
+
+  // Récupère les jours indisponibles (bloqués par l'admin ou complets) et rafraîchit
+  fetch('/api/availability.php').then(function (r) { return r.json(); }).then(function (d) {
+    if (d && Array.isArray(d.blocked)) {
+      window.__finalynBlocked = {};
+      d.blocked.forEach(function (x) { window.__finalynBlocked[x] = true; });
+      Array.prototype.forEach.call(document.querySelectorAll('.cal'), function (c) {
+        if (typeof c._calRender === 'function') c._calRender();
+      });
+    }
+  }).catch(function () {});
 
   // Modal, ouverture du calendrier de réservation depuis plusieurs boutons
   (function () {
@@ -8845,6 +8909,14 @@
     var MAX_HISTORY = 12;  // nb de tours envoyés au serveur
     var history = [];      // [{ role, content }]
     var busy = false;
+    var convKey = '';
+    try {
+      convKey = localStorage.getItem('finalyn_conv') || '';
+      if (!convKey) {
+        convKey = 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+        localStorage.setItem('finalyn_conv', convKey);
+      }
+    } catch (e) { convKey = 'c' + Date.now().toString(36); }
 
     input.setAttribute('maxlength', String(MAX_INPUT));
 
@@ -8915,7 +8987,7 @@
       fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history.slice(-MAX_HISTORY) })
+        body: JSON.stringify({ conv: convKey, messages: history.slice(-MAX_HISTORY) })
       }).then(function (res) {
         return res.json().catch(function () { return {}; }).then(function (data) {
           return { ok: res.ok, data: data };

@@ -1,6 +1,7 @@
-# Secrets et cache du proxy chat (ne jamais committer)
+# Secrets, base de donnees et cache (ne jamais committer)
 api/config.php
 api/.cache/
+api/.data/
 
 # Systeme
 .DS_Store

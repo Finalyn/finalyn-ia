@@ -45,3 +45,23 @@ Navigateur (chat)  ->  POST /api/chat.php  ->  API Claude (Anthropic)
 Tout est en haut de `chat.php` (constantes `FINALYN_*`) : modèle, longueur,
 limites de débit. Le **prompt système** (identité, faits, garde-fous) est le
 bloc `$system` dans le même fichier.
+
+## Back-office (dossier `admin/`)
+
+Tableau de bord relié à la même base SQLite (`api/.data/finalyn.sqlite`) :
+réservations, 30 dernières conversations, stats site & blog.
+
+- **Accès** : `https://finalyn.com/admin/` puis connexion.
+- **Mot de passe** : champ `admin_password` (ou `admin_password_hash`) dans `api/config.php`.
+- **E-mail des réservations** : champ `notify_email` dans `api/config.php`.
+
+Modules :
+- **Réservations** : le calendrier du site enregistre désormais les RDV (via `api/book.php`),
+  envoie un e-mail à `notify_email`, et l'admin peut annuler/marquer fait + bloquer des jours.
+  Les jours bloqués/complets sont grisés sur le calendrier public (via `api/availability.php`).
+- **Conversations** : chaque échange du chat est journalisé (`api/chat.php` -> base) et consultable.
+- **Stats** : pages vues (traceur `api/track.php` déclenché par `assets/consent.js`,
+  uniquement si le visiteur accepte la mesure d'audience), top pages et top articles de blog.
+
+Tout cela nécessite **PHP 8+ avec SQLite (PDO)**, standard sur Infomaniak. Le dossier
+`api/.data/` (la base) et `api/config.php` ne sont jamais committés.

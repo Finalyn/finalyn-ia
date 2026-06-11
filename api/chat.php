@@ -218,4 +218,37 @@ if ($reply === '') {
     finalyn_fail(502, "Je n'ai pas de reponse pour le moment. Reservez l'audit gratuit et on en parle.");
 }
 
+// ----- Journalisation de la conversation (best effort, ne bloque jamais la reponse) -----
+try {
+    $convKey = (isset($body['conv']) && is_string($body['conv']))
+        ? preg_replace('/[^a-zA-Z0-9_-]/', '', substr($body['conv'], 0, 64)) : '';
+    if ($convKey !== '') {
+        require_once __DIR__ . '/db.php';
+        $pdo = finalyn_db();
+        $now = gmdate('Y-m-d H:i:s');
+        $sel = $pdo->prepare('SELECT id FROM conversations WHERE conv_key = ?');
+        $sel->execute([$convKey]);
+        $cid = $sel->fetchColumn();
+        if ($cid) {
+            $pdo->prepare('UPDATE conversations SET last_at = ? WHERE id = ?')->execute([$now, $cid]);
+        } else {
+            $pdo->prepare('INSERT INTO conversations (conv_key, started_at, last_at, ip_hash, user_agent, msg_count) VALUES (?,?,?,?,?,0)')
+                ->execute([$convKey, $now, $now, finalyn_ip_hash(), substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 200)]);
+            $cid = $pdo->lastInsertId();
+        }
+        // Dernier message utilisateur de cet echange
+        $lastUser = '';
+        for ($i = count($clean) - 1; $i >= 0; $i--) {
+            if ($clean[$i]['role'] === 'user') { $lastUser = $clean[$i]['content']; break; }
+        }
+        $mins = $pdo->prepare('INSERT INTO messages (conversation_id, role, content, created_at) VALUES (?,?,?,?)');
+        $added = 0;
+        if ($lastUser !== '') { $mins->execute([$cid, 'user', $lastUser, $now]); $added++; }
+        $mins->execute([$cid, 'assistant', $reply, $now]); $added++;
+        $pdo->prepare('UPDATE conversations SET msg_count = msg_count + ? WHERE id = ?')->execute([$added, $cid]);
+    }
+} catch (Throwable $e) {
+    error_log('finalyn chat log: ' . $e->getMessage());
+}
+
 echo json_encode(['reply' => $reply], JSON_UNESCAPED_UNICODE);

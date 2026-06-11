@@ -8,10 +8,25 @@
   try { saved = localStorage.getItem(KEY); } catch (e) {}
   window.finalynConsent = saved;
 
+  // Mesure d'audience maison (anonyme, sans cookie tiers), uniquement si accepté.
+  var tracked = false;
+  function trackPageview() {
+    if (tracked) return;
+    tracked = true;
+    try {
+      fetch('/api/track.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+        body: JSON.stringify({ path: location.pathname, ref: document.referrer || '' })
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
   function apply(v) {
     window.finalynConsent = v;
-    // Point d'ancrage : activer ici un éventuel outil de mesure si v === 'all'
     try { document.dispatchEvent(new CustomEvent('finalyn:consent', { detail: v })); } catch (e) {}
+    if (v === 'all') trackPageview();
   }
 
   // Choix déjà fait : on applique et on n'affiche rien.

@@ -18,37 +18,94 @@ function finalyn_field($body, $key, $max = 120) {
     return mb_substr($v, 0, $max);
 }
 
-/** Envoi d'un e-mail UTF-8 (best effort), avec invitation .ics optionnelle. */
+/** Envoi e-mail UTF-8 (best effort) : via SMTP authentifie si configure, sinon mail(). Invitation .ics optionnelle. */
 function finalyn_send_mail($to, $subject, $body, $from, $replyTo, $ics = null) {
     if ($to === '' || !filter_var($to, FILTER_VALIDATE_EMAIL)) return false;
-    $subj = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+    $subjEnc = '=?UTF-8?B?' . base64_encode($subject) . '?=';
     $textPart = rtrim(chunk_split(base64_encode($body)));
 
     if ($ics === null) {
-        $headers = 'From: finalyn.ia <' . $from . '>' . "\r\n"
-                 . 'Reply-To: ' . $replyTo . "\r\n"
-                 . "MIME-Version: 1.0\r\n"
-                 . "Content-Type: text/plain; charset=UTF-8\r\n"
-                 . "Content-Transfer-Encoding: base64\r\n";
-        return @mail($to, $subj, $textPart, $headers);
+        $ctype = "Content-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64";
+        $content = $textPart;
+    } else {
+        $bnd = 'fin_' . bin2hex(random_bytes(8));
+        $ctype = 'Content-Type: multipart/mixed; boundary="' . $bnd . '"';
+        $content = '--' . $bnd . "\r\n"
+            . "Content-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n"
+            . $textPart . "\r\n"
+            . '--' . $bnd . "\r\n"
+            . "Content-Type: text/calendar; method=REQUEST; charset=UTF-8; name=\"audit.ics\"\r\n"
+            . "Content-Transfer-Encoding: base64\r\n"
+            . "Content-Disposition: attachment; filename=\"audit.ics\"\r\n\r\n"
+            . rtrim(chunk_split(base64_encode($ics))) . "\r\n"
+            . '--' . $bnd . "--\r\n";
     }
 
-    $b = 'fin_' . bin2hex(random_bytes(8));
+    $cfg = finalyn_config();
+    // SMTP authentifie si configure (livraison fiable)
+    if (!empty($cfg['smtp_host']) && !empty($cfg['smtp_user'])) {
+        $headers = 'Date: ' . date('r') . "\r\n"
+                 . 'From: finalyn.ia <' . $from . '>' . "\r\n"
+                 . 'Reply-To: ' . $replyTo . "\r\n"
+                 . 'To: ' . $to . "\r\n"
+                 . 'Subject: ' . $subjEnc . "\r\n"
+                 . 'Message-ID: <' . bin2hex(random_bytes(10)) . '@finalyn.ch>' . "\r\n"
+                 . "MIME-Version: 1.0\r\n"
+                 . $ctype . "\r\n";
+        return finalyn_smtp_send($cfg, $from, $to, $headers . "\r\n" . $content);
+    }
+
+    // Repli : fonction mail() native
     $headers = 'From: finalyn.ia <' . $from . '>' . "\r\n"
              . 'Reply-To: ' . $replyTo . "\r\n"
              . "MIME-Version: 1.0\r\n"
-             . 'Content-Type: multipart/mixed; boundary="' . $b . '"' . "\r\n";
-    $msg = '--' . $b . "\r\n"
-         . "Content-Type: text/plain; charset=UTF-8\r\n"
-         . "Content-Transfer-Encoding: base64\r\n\r\n"
-         . $textPart . "\r\n"
-         . '--' . $b . "\r\n"
-         . "Content-Type: text/calendar; method=REQUEST; charset=UTF-8; name=\"audit.ics\"\r\n"
-         . "Content-Transfer-Encoding: base64\r\n"
-         . "Content-Disposition: attachment; filename=\"audit.ics\"\r\n\r\n"
-         . rtrim(chunk_split(base64_encode($ics))) . "\r\n"
-         . '--' . $b . "--\r\n";
-    return @mail($to, $subj, $msg, $headers);
+             . $ctype . "\r\n";
+    return @mail($to, $subjEnc, $content, $headers);
+}
+
+/** Client SMTP minimal : SSL (465) ou STARTTLS (587), AUTH LOGIN. */
+function finalyn_smtp_send($cfg, $from, $to, $message) {
+    $host = $cfg['smtp_host'];
+    $port = (int)($cfg['smtp_port'] ?? 465);
+    $user = $cfg['smtp_user'];
+    $pass = (string)($cfg['smtp_pass'] ?? '');
+    $secure = $cfg['smtp_secure'] ?? 'ssl';
+    $prefix = ($secure === 'ssl') ? 'ssl://' : '';
+
+    $fp = @stream_socket_client($prefix . $host . ':' . $port, $errno, $errstr, 20);
+    if (!$fp) { error_log('finalyn smtp connect: ' . $errstr); return false; }
+    stream_set_timeout($fp, 20);
+    $get = function () use ($fp) {
+        $data = '';
+        while (($line = fgets($fp, 600)) !== false) {
+            $data .= $line;
+            if (isset($line[3]) && $line[3] === ' ') break;
+        }
+        return $data;
+    };
+    $say = function ($c) use ($fp, $get) { fwrite($fp, $c . "\r\n"); return $get(); };
+
+    $get(); // greeting
+    $say('EHLO finalyn.ch');
+    if ($secure === 'tls') {
+        $say('STARTTLS');
+        if (!@stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) { fclose($fp); return false; }
+        $say('EHLO finalyn.ch');
+    }
+    $say('AUTH LOGIN');
+    $say(base64_encode($user));
+    $r = $say(base64_encode($pass));
+    if (strpos($r, '235') === false) { error_log('finalyn smtp auth: ' . trim($r)); $say('QUIT'); fclose($fp); return false; }
+    $say('MAIL FROM:<' . $from . '>');
+    $say('RCPT TO:<' . $to . '>');
+    $r = $say('DATA');
+    if (strpos($r, '354') === false) { error_log('finalyn smtp data: ' . trim($r)); $say('QUIT'); fclose($fp); return false; }
+    $message = preg_replace('/^\./m', '..', $message); // dot-stuffing
+    fwrite($fp, $message . "\r\n.\r\n");
+    $r = $get();
+    $say('QUIT');
+    fclose($fp);
+    return strpos($r, '250') !== false;
 }
 
 $firstname = finalyn_field($body, 'firstname', 80);
@@ -140,7 +197,7 @@ if ($startStr !== '') {
 
 // 1) Notification a l'equipe finalyn (Reply-To = client)
 if ($team !== '') {
-    $tBody = "Nouvelle reservation d'audit via finalyn.com\n\n"
+    $tBody = "Nouvelle reservation d'audit via ia.finalyn.ch\n\n"
         . 'Nom        : ' . $firstname . ' ' . $lastname . "\n"
         . 'E-mail     : ' . $email . "\n"
         . 'Entreprise : ' . $company . "\n"

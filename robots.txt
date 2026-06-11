@@ -1,10 +1,14 @@
-# robots.txt — finalyn.ia
-# Agence d'automatisation IA sur mesure — Lausanne, Suisse
+# robots.txt, finalyn.ia
+# Agence d'automatisation IA sur mesure, Rolle (Vaud), Suisse
 
 User-agent: *
 Allow: /
 
-# Bots de moteurs de recherche IA (GEO) — autorisation explicite
+# Le back-office n'a pas besoin d'etre indexe
+Disallow: /admin/
+Disallow: /api/
+
+# Bots de moteurs de recherche IA (GEO), autorisation explicite
 User-agent: GPTBot
 Allow: /
 
@@ -32,7 +36,7 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://finalyn.com/sitemap.xml
+Sitemap: https://ia.finalyn.ch/sitemap.xml
 
-# Index curé pour les LLMs (format https://llmstxt.org/)
-# https://finalyn.com/llms.txt
+# Index cure pour les LLMs (format https://llmstxt.org/)
+# https://ia.finalyn.ch/llms.txt

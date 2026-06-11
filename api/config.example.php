@@ -27,4 +27,17 @@ return [
     // Plus sur (optionnel) : laisser admin_password vide et mettre ici un hash
     // genere avec :  php -r "echo password_hash('votre-mdp', PASSWORD_DEFAULT);"
     'admin_password_hash' => '',
+
+    // --- SMTP authentifie (optionnel mais recommande pour la livraison des e-mails) ---
+    // Si rempli, les e-mails partent en SMTP authentifie (bien meilleure delivrabilite).
+    // Si vide, on utilise la fonction mail() native du serveur.
+    // Infomaniak : creez une adresse (ex. noreply@finalyn.ch), puis :
+    //   smtp_host = 'mail.infomaniak.com', smtp_port = 465, smtp_secure = 'ssl'
+    //   smtp_user = l'adresse complete, smtp_pass = son mot de passe
+    // Important : mettez 'from_email' egal a 'smtp_user' (l'expediteur doit etre la boite authentifiee).
+    'smtp_host'   => '',
+    'smtp_port'   => 465,
+    'smtp_user'   => '',
+    'smtp_pass'   => '',
+    'smtp_secure' => 'ssl', // 'ssl' (port 465) ou 'tls' (port 587)
 ];

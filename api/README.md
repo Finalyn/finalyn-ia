@@ -51,7 +51,7 @@ bloc `$system` dans le même fichier.
 Tableau de bord relié à la même base SQLite (`api/.data/finalyn.sqlite`) :
 réservations, 30 dernières conversations, stats site & blog.
 
-- **Accès** : `https://finalyn.com/admin/` puis connexion.
+- **Accès** : `https://ia.finalyn.ch/admin/` puis connexion.
 - **Mot de passe** : champ `admin_password` (ou `admin_password_hash`) dans `api/config.php`.
 - **E-mail des réservations** : champ `notify_email` dans `api/config.php`.
 

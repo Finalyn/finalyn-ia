@@ -4,17 +4,17 @@
 
   <!-- Home -->
   <url>
-    <loc>https://finalyn.com/</loc>
+    <loc>https://ia.finalyn.ch/</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://finalyn.com/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://finalyn.com/" />
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://ia.finalyn.ch/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ia.finalyn.ch/" />
   </url>
 
   <!-- Réalisations (ancre home) -->
   <url>
-    <loc>https://finalyn.com/#realisations</loc>
+    <loc>https://ia.finalyn.ch/#realisations</loc>
     <lastmod>2026-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -22,7 +22,7 @@
 
   <!-- Index LLM (format llmstxt.org) -->
   <url>
-    <loc>https://finalyn.com/llms.txt</loc>
+    <loc>https://ia.finalyn.ch/llms.txt</loc>
     <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -30,49 +30,49 @@
 
   <!-- Service pages -->
   <url>
-    <loc>https://finalyn.com/services/agents-ia.html</loc>
+    <loc>https://ia.finalyn.ch/services/agents-ia.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/services/automatisation.html</loc>
+    <loc>https://ia.finalyn.ch/services/automatisation.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/services/integrations.html</loc>
+    <loc>https://ia.finalyn.ch/services/integrations.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/services/audit.html</loc>
+    <loc>https://ia.finalyn.ch/services/audit.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/services/formation.html</loc>
+    <loc>https://ia.finalyn.ch/services/formation.html</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/services/personnalisation.html</loc>
+    <loc>https://ia.finalyn.ch/services/personnalisation.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/mentions-legales.html</loc>
+    <loc>https://ia.finalyn.ch/mentions-legales.html</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/confidentialite.html</loc>
+    <loc>https://ia.finalyn.ch/confidentialite.html</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
@@ -80,67 +80,67 @@
 
   <!-- Home section anchors -->
   <url>
-    <loc>https://finalyn.com/#cas-usage</loc>
+    <loc>https://ia.finalyn.ch/#cas-usage</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/#stack</loc>
+    <loc>https://ia.finalyn.ch/#stack</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/#calculateur</loc>
+    <loc>https://ia.finalyn.ch/#calculateur</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/#parcours</loc>
+    <loc>https://ia.finalyn.ch/#parcours</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/#audit</loc>
+    <loc>https://ia.finalyn.ch/#audit</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/#services</loc>
+    <loc>https://ia.finalyn.ch/#services</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/#pourquoi</loc>
+    <loc>https://ia.finalyn.ch/#pourquoi</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/#securite</loc>
+    <loc>https://ia.finalyn.ch/#securite</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/#avis-ia</loc>
+    <loc>https://ia.finalyn.ch/#avis-ia</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/#blog</loc>
+    <loc>https://ia.finalyn.ch/#blog</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/#faq</loc>
+    <loc>https://ia.finalyn.ch/#faq</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -148,80 +148,80 @@
 
   <!-- Blog -->
   <url>
-    <loc>https://finalyn.com/blog/</loc>
+    <loc>https://ia.finalyn.ch/blog/</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/blog/intelligence-artificielle-pme-suisse-guide-2026.html</loc>
+    <loc>https://ia.finalyn.ch/blog/intelligence-artificielle-pme-suisse-guide-2026.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/blog/mistral-local-pme-suisse-rgpd.html</loc>
+    <loc>https://ia.finalyn.ch/blog/mistral-local-pme-suisse-rgpd.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/blog/calcul-roi-agent-ia-pme.html</loc>
+    <loc>https://ia.finalyn.ch/blog/calcul-roi-agent-ia-pme.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/blog/pourquoi-integrer-ia-pme-suisse.html</loc>
+    <loc>https://ia.finalyn.ch/blog/pourquoi-integrer-ia-pme-suisse.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/blog/ia-vs-embauche-comment-choisir-pme.html</loc>
+    <loc>https://ia.finalyn.ch/blog/ia-vs-embauche-comment-choisir-pme.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/blog/quest-ce-quun-agent-ia-definition-decideurs.html</loc>
+    <loc>https://ia.finalyn.ch/blog/quest-ce-quun-agent-ia-definition-decideurs.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/blog/comparatif-modeles-ia-2026-pme.html</loc>
+    <loc>https://ia.finalyn.ch/blog/comparatif-modeles-ia-2026-pme.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/blog/microsoft-copilot-studio-pme-suisse-2026.html</loc>
+    <loc>https://ia.finalyn.ch/blog/microsoft-copilot-studio-pme-suisse-2026.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://finalyn.com/blog/api-webhook-difference-pme.html</loc>
+    <loc>https://ia.finalyn.ch/blog/api-webhook-difference-pme.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/blog/automatiser-emails-professionnels-pme-suisse.html</loc>
+    <loc>https://ia.finalyn.ch/blog/automatiser-emails-professionnels-pme-suisse.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/blog/ia-dans-vos-outils-existants-pme.html</loc>
+    <loc>https://ia.finalyn.ch/blog/ia-dans-vos-outils-existants-pme.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://finalyn.com/blog/securite-donnees-hebergement-ia-pme-suisse.html</loc>
+    <loc>https://ia.finalyn.ch/blog/securite-donnees-hebergement-ia-pme-suisse.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

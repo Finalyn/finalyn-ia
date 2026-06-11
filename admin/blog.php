@@ -38,18 +38,18 @@ function md_to_html($text) {
 }
 
 function build_article($slug, $title, $tag, $excerpt, $cover, $readMin, $dateIso, $dateFr, $bodyHtml) {
-    $url = 'https://finalyn.com/blog/' . $slug . '.html';
+    $url = 'https://ia.finalyn.ch/blog/' . $slug . '.html';
     $T = h($title); $TAG = h($tag); $EXC = h($excerpt);
     $jsonld = json_encode([
         '@context' => 'https://schema.org', '@type' => 'BlogPosting',
         'headline' => $title, 'description' => $excerpt, 'url' => $url,
         'datePublished' => $dateIso, 'inLanguage' => 'fr-CH',
-        'image' => $cover ?: 'https://finalyn.com/og-cover.jpg',
-        'author' => ['@id' => 'https://finalyn.com/#organization'],
-        'publisher' => ['@id' => 'https://finalyn.com/#organization'],
+        'image' => $cover ?: 'https://ia.finalyn.ch/og-cover.jpg',
+        'author' => ['@id' => 'https://ia.finalyn.ch/#organization'],
+        'publisher' => ['@id' => 'https://ia.finalyn.ch/#organization'],
     ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     $coverHtml = $cover ? '<section class="article-cover"><img src="' . h($cover) . '" alt="' . $T . '" /></section>' : '';
-    $ogImg = $cover ? h($cover) : 'https://finalyn.com/og-cover.jpg';
+    $ogImg = $cover ? h($cover) : 'https://ia.finalyn.ch/og-cover.jpg';
 
     return <<<HTML
 <!DOCTYPE html>
@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             if (is_file($SITEMAP) && is_writable($SITEMAP)) {
                 $xml = file_get_contents($SITEMAP);
-                $xml = preg_replace('#\s*<url>\s*<loc>https://finalyn\.com/blog/' . preg_quote($slug, '#') . '\.html</loc>.*?</url>#s', '', $xml, 1);
+                $xml = preg_replace('#\s*<url>\s*<loc>https://ia\.finalyn\.ch/blog/' . preg_quote($slug, '#') . '\.html</loc>.*?</url>#s', '', $xml, 1);
                 file_put_contents($SITEMAP, $xml);
             }
             $pdo->prepare('DELETE FROM posts WHERE id=?')->execute([(int)$row['id']]);
@@ -212,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Entree sitemap
         if (is_file($SITEMAP) && is_writable($SITEMAP)) {
             $xml = file_get_contents($SITEMAP);
-            $entry = "\n  <url>\n    <loc>https://finalyn.com/blog/" . $slug . ".html</loc>\n    <lastmod>" . $dateIso . "</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>";
+            $entry = "\n  <url>\n    <loc>https://ia.finalyn.ch/blog/" . $slug . ".html</loc>\n    <lastmod>" . $dateIso . "</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>";
             if (strpos($xml, '<!-- Blog -->') !== false) {
                 $xml = str_replace('<!-- Blog -->', '<!-- Blog -->' . $entry, $xml);
             } else {
@@ -263,7 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (is_file($SITEMAP) && is_writable($SITEMAP)) {
             $xml = file_get_contents($SITEMAP);
             $xml = preg_replace(
-                '#(<loc>https://finalyn\.com/blog/' . preg_quote($slug, '#') . '\.html</loc>\s*<lastmod>)[^<]*(</lastmod>)#',
+                '#(<loc>https://ia\.finalyn\.ch/blog/' . preg_quote($slug, '#') . '\.html</loc>\s*<lastmod>)[^<]*(</lastmod>)#',
                 '${1}' . gmdate('Y-m-d') . '${2}', $xml, 1
             );
             file_put_contents($SITEMAP, $xml);

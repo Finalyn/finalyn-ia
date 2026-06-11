@@ -73,6 +73,8 @@ function build_article($slug, $title, $tag, $excerpt, $cover, $readMin, $dateIso
 <meta property="og:image" content="{$ogImg}" />
 <meta name="theme-color" content="#FAF8F4" />
 <link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <script type="application/ld+json">{$jsonld}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -5450,8 +5450,11 @@
   .chat-body {
     display: flex; flex-direction: column;
     gap: 0.7rem;
-    max-height: 320px;
-    overflow: hidden;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
   .msg {
     display: flex; flex-direction: column;

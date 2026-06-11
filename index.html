@@ -3132,7 +3132,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 0.6rem;
   }
-  .cal-input { display: flex; flex-direction: column; gap: 0.3rem; }
+  .cal-input { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
   .cal-input > span {
     font-size: 0.76rem;
     color: var(--muted);
@@ -3147,13 +3147,15 @@
     border: 1px solid var(--line);
     border-radius: 10px;
     outline: none;
+    box-sizing: border-box;
+    width: 100%;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
   .cal-input input:focus {
     border-color: var(--purple);
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
   }
-  .cal-input input:invalid:not(:placeholder-shown):not(:focus) {
+  .cal-input input:user-invalid {
     border-color: rgba(220, 80, 80, 0.5);
   }
   .cal-cta-final { margin-top: 0.3rem; }

@@ -148,6 +148,30 @@
 
   <!-- Blog -->
   <url>
+    <loc>https://ia.finalyn.ch/blog/chatbot-ou-agent-ia-difference-pme.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ia.finalyn.ch/blog/ia-microsoft-365-automatiser-pme.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ia.finalyn.ch/blog/n8n-make-ou-sur-mesure-automatisation-pme.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ia.finalyn.ch/blog/agence-ia-suisse-romande-comment-choisir.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ia.finalyn.ch/blog/</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>

@@ -135,7 +135,7 @@ if ($team !== '') {
         . '<strong>Créneau</strong> : ' . htmlspecialchars($dateFr . ' à ' . $time) . ' (heure de Zurich)</p>'
         . ($message !== '' ? '<p style="margin:14px 0 6px;background:#F4F0E9;border-radius:10px;padding:12px 14px;"><strong>Message</strong> : ' . nl2br(htmlspecialchars($message)) . '</p>' : '');
     $tBtns = [];
-    if ($gcal !== '') { $tBtns[] = ['label' => 'Google Agenda', 'url' => $gcal, 'primary' => true]; }
+    if ($gcal !== '') { $tBtns[] = ['label' => 'Google Agenda', 'url' => $gcal, 'primary' => false]; }
     if ($outlook !== '') { $tBtns[] = ['label' => 'Outlook', 'url' => $outlook, 'primary' => false]; }
     $tHtml = finalyn_email_html('Nouvelle réservation', $tPar, $tBtns);
     finalyn_send_mail($team, 'Nouvelle reservation : ' . $firstname . ' ' . $lastname . ' (' . $company . ')', $tBody, $from, $email, $ics, $tHtml);
@@ -162,7 +162,7 @@ $cPar = '<p style="margin:0 0 14px;">Bonjour ' . htmlspecialchars($firstname) . 
     . '<strong>Format</strong> : visioconférence, environ 30 minutes</p>'
     . '<p style="margin:0 0 6px;">L\'invitation (.ics) est jointe : ouvrez-la pour l\'ajouter à Apple Calendar, Outlook ou tout autre agenda. Ou en un clic ci-dessous. Nous vous enverrons le lien de connexion peu avant le rendez-vous.</p>';
 $cBtns = [];
-if ($gcal !== '') { $cBtns[] = ['label' => 'Google Agenda', 'url' => $gcal, 'primary' => true]; }
+if ($gcal !== '') { $cBtns[] = ['label' => 'Google Agenda', 'url' => $gcal, 'primary' => false]; }
 if ($outlook !== '') { $cBtns[] = ['label' => 'Outlook', 'url' => $outlook, 'primary' => false]; }
 $cBtns[] = ['label' => 'Annuler ou décaler', 'url' => $cancelUrl, 'primary' => false];
 $cHtml = finalyn_email_html('Votre audit est confirmé', $cPar, $cBtns);

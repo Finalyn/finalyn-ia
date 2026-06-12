@@ -8319,6 +8319,10 @@
       setTimeout(function () { modal.hidden = true; }, 300);
     }
     window.finalynOpenCal = open; // permet au chat d'ouvrir le calendrier
+    // Ouvre directement le calendrier si l'URL contient #rdv (lien "rendez-vous en ligne")
+    function openFromHash() { if (location.hash === '#rdv') open(); }
+    openFromHash();
+    window.addEventListener('hashchange', openFromHash);
     var hero = document.getElementById('heroCtaPlan');
     if (hero) hero.addEventListener('click', open);
     Array.prototype.forEach.call(document.querySelectorAll('[data-open-cal]'), function (el) {

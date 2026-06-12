@@ -1053,8 +1053,6 @@
   }
   .nav.nav-scrolled {
     background: rgba(250, 248, 244, 0.97);
-    -webkit-backdrop-filter: blur(12px);
-            backdrop-filter: blur(12px);
     border-bottom-color: var(--line);
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -1204,12 +1202,6 @@
   /* Bloque le scroll du body quand le menu est ouvert */
   body.menu-open {
     overflow: hidden;
-  }
-  /* Menu ouvert : retirer le backdrop-filter du nav (sinon il devient le bloc
-     englobant du panneau fixe, qui se retrouve limite a la hauteur de la barre) */
-  body.menu-open .nav.nav-scrolled {
-    -webkit-backdrop-filter: none;
-            backdrop-filter: none;
   }
 
   /* ===== HERO ===== */
@@ -4342,7 +4334,7 @@
     overflow: hidden;
     transition: max-height 0.5s cubic-bezier(.22,.61,.36,1);
   }
-  .uc-chat.has-content { max-height: 520px; overflow-y: auto; }
+  .uc-chat.has-content { max-height: min(56vh, 440px); overflow-y: auto; }
   .uc-msg {
     display: flex; flex-direction: column;
     gap: 4px;
@@ -6796,8 +6788,8 @@
 
     <div class="cta-row">
       <button type="button" class="btn-primary" id="heroCtaPlan" aria-haspopup="dialog" aria-controls="calModal"><span class="label">Planifier un appel</span></button>
-      <a href="#fonctionnement" class="link-secondary">
-        Voir comment ça fonctionne
+      <a href="#parcours" class="link-secondary">
+        Voir comment se déroule une mission
         <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="13 6 19 12 13 18"></polyline>
@@ -8331,16 +8323,7 @@
 
     // Auto-advance toutes les 4,5s
     var interval = null;
-    function start() {
-      if (interval) return;
-      interval = setInterval(function () {
-        if (atEnd()) {
-          track.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          track.scrollBy({ left: step(), behavior: 'smooth' });
-        }
-      }, 4500);
-    }
+    function start() { /* defilement automatique desactive (a la demande) */ }
     function stop() {
       if (interval) { clearInterval(interval); interval = null; }
     }
@@ -9036,10 +9019,19 @@
       return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
     function renderReply(text) {
-      return escapeHtml(text).replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>');
+      var s = escapeHtml(text);
+      // liens markdown [texte](url) -> <a> (nouvel onglet pour les liens externes)
+      s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|#[\w-]+|\/[^\s)]*)\)/g, function (m, t, u) {
+        var ext = /^https?:/i.test(u);
+        return '<a href="' + u + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + '>' + t + '</a>';
+      });
+      // gras **texte** -> <strong>
+      s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+      // retours a la ligne
+      return s.replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>');
     }
     function bookCta() {
-      return '<div class="chat-ctas"><button type="button" class="chat-cta-primary" data-chat-book>Réserver l\'audit gratuit</button></div>';
+      return '<div class="chat-ctas"><button type="button" class="chat-cta-primary" data-chat-book>Prendre rendez-vous</button></div>';
     }
     // L'agent peut proposer des choix : derniere ligne "[OPTIONS] a | b | c"
     function parseOptions(text) {
@@ -9159,9 +9151,8 @@
       if (book) { openCal(); return; }
       var q = e.target.closest('.chat-quick button');
       if (!q) return;
-      var label = q.textContent.trim();
-      if (/rendez-vous|r[ée]server l'audit|prendre rendez/i.test(label)) { openCal(); return; }
-      send(label);
+      openChat();              // le chat reste ouvert quand on choisit une reponse
+      send(q.textContent.trim());
     });
 
     // CTA "Demander à l'agent" (section stack) : l'agent DEMANDE quel outil (il n'envoie pas de message tout fait)
@@ -9196,6 +9187,29 @@
       input.addEventListener('focus', function () { setTimeout(keyboardAdjust, 300); });
       input.addEventListener('blur', function () { setTimeout(function () { panel.style.bottom = ''; }, 120); });
     }
+  })();
+
+  // Hero : "Decrivez votre besoin" -> defile vers l'agent "Quel est votre besoin ?" et y envoie le message
+  (function () {
+    var form = document.querySelector('.prompt-wrap .prompt-bar');
+    if (!form) return;
+    var input = form.querySelector('input');
+    var uci = document.getElementById('usecaseInput');
+    var ucp = document.getElementById('usecasePrompt');
+    var target = document.getElementById('cas-usage');
+    if (!input || !uci || !ucp || !target) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = (input.value || '').trim();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (!v) return;
+      uci.value = v;
+      input.value = '';
+      setTimeout(function () {
+        if (ucp.requestSubmit) ucp.requestSubmit();
+        else ucp.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      }, 650);
+    });
   })();
 
   // Typewriter rotating word in headline

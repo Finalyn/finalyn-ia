@@ -125,4 +125,4 @@ $cBtns = [
 $cHtml = finalyn_email_html('Votre audit est confirmé', $cPar, $cBtns);
 finalyn_send_mail($email, 'Votre audit est confirmé · finalyn.ia', $cBody, $from, $organizer, $ics, $cHtml);
 
-echo json_encode(['ok' => true], JSON_UNESCAPED_UNICODE);
+echo json_encode(['ok' => true, 'date' => $date, 'time' => $time, 'cancel' => $cancelUrl], JSON_UNESCAPED_UNICODE);

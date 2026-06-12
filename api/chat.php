@@ -206,6 +206,40 @@ $system .= "\n\nLIENS ET CONTACT :\n"
     . "Ce marqueur ouvre le calendrier de reservation (pre-rempli si tu donnes la date). N'emets [BOOK] que lorsque le visiteur veut vraiment reserver, et toujours seul sur la derniere ligne. Tu ne connais pas les creneaux deja pris : si l'horaire n'est pas libre, le calendrier proposera automatiquement les autres horaires du jour.\n"
     . "Tu peux aussi, plutot que d'ouvrir le calendrier tout de suite, demander d'abord quel jour et quelle heure arrangeraient le visiteur, avec des [OPTIONS] (ex: Cette semaine | La semaine prochaine | Plutot le matin | Plutot l'apres-midi), puis emettre [BOOK AAAA-MM-JJ HH:MM] une fois la date connue.";
 
+// Ressources du site : l'agent renvoie vers le bon contenu (lien markdown)
+$system .= "\n\nRESSOURCES DU SITE (quand un sujet est couvert, ajoute le lien markdown correspondant a ta reponse, sans en mettre plusieurs inutilement) :\n"
+    . "Articles de blog :\n"
+    . "- API, webhook, integration technique : [API et webhook](/blog/api-webhook-difference-pme.html)\n"
+    . "- Qu'est-ce qu'un agent IA : [Definition d'un agent IA](/blog/quest-ce-quun-agent-ia-definition-decideurs.html)\n"
+    . "- Chatbot vs agent IA : [Chatbot ou agent IA](/blog/chatbot-ou-agent-ia-difference-pme.html)\n"
+    . "- Choisir un modele (GPT, Claude, Gemini, Mistral) : [Comparatif des modeles IA](/blog/comparatif-modeles-ia-2026-pme.html)\n"
+    . "- Mistral en local, confidentialite, nLPD : [Mistral en local](/blog/mistral-local-pme-suisse-rgpd.html)\n"
+    . "- Securite, donnees, hebergement : [Securite et hebergement IA](/blog/securite-donnees-hebergement-ia-pme-suisse.html)\n"
+    . "- ROI, rentabilite : [Calcul du ROI d'un agent IA](/blog/calcul-roi-agent-ia-pme.html)\n"
+    . "- IA ou embauche : [IA ou embauche](/blog/ia-vs-embauche-comment-choisir-pme.html)\n"
+    . "- Microsoft 365, Copilot : [IA et Microsoft 365](/blog/ia-microsoft-365-automatiser-pme.html)\n"
+    . "- n8n, Make, automatisation : [n8n, Make ou sur-mesure](/blog/n8n-make-ou-sur-mesure-automatisation-pme.html)\n"
+    . "- Automatiser les e-mails : [Automatiser ses e-mails](/blog/automatiser-emails-professionnels-pme-suisse.html)\n"
+    . "- Integrer l'IA dans ses outils existants : [L'IA dans vos outils](/blog/ia-dans-vos-outils-existants-pme.html)\n"
+    . "- Pourquoi / quand se lancer : [Pourquoi integrer l'IA](/blog/pourquoi-integrer-ia-pme-suisse.html)\n"
+    . "- Choisir une agence IA : [Choisir une agence IA en Suisse romande](/blog/agence-ia-suisse-romande-comment-choisir.html)\n"
+    . "Pages : [Agents IA](/services/agents-ia.html), [Automatisation](/services/automatisation.html), [Integrations](/services/integrations.html), [Audit](/services/audit.html), [Formation](/services/formation.html), [Sur mesure](/services/personnalisation.html), [tout le blog](/blog/)\n"
+    . "Sections de l'accueil : [Services](#services), [Cas d'usage](#cas-usage), [Outils compatibles](#stack), [Realisations](#realisations), [Securite](#securite), [FAQ](#faq).";
+
+// Rendez-vous existant de ce visiteur (transmis par le site depuis le navigateur)
+if (isset($body['booking']) && is_array($body['booking'])) {
+    $bk = $body['booking'];
+    $bd = (isset($bk['date']) && is_string($bk['date'])) ? preg_replace('/[^0-9-]/', '', substr($bk['date'], 0, 10)) : '';
+    $bt = (isset($bk['time']) && is_string($bk['time'])) ? preg_replace('/[^0-9:]/', '', substr($bk['time'], 0, 5)) : '';
+    $bc = (isset($bk['cancel']) && is_string($bk['cancel']) && strpos($bk['cancel'], 'https://ia.finalyn.ch/api/cancel.php') === 0) ? $bk['cancel'] : '';
+    if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $bd)) {
+        $system .= "\n\nRENDEZ-VOUS EXISTANT DE CE VISITEUR :\n"
+            . "Ce visiteur a deja un rendez-vous prevu le " . $bd . ($bt !== '' ? (' a ' . $bt) : '') . ".\n"
+            . "Ne lui propose donc PAS d'en reprendre un (n'emets pas [BOOK] de toi-meme). A la place : reponds a ses questions, et propose de preparer le rendez-vous, par exemple en lui demandant quelques precisions sur son besoin pour que l'echange soit plus utile.\n"
+            . "Ne propose l'annulation ou le report QUE s'il le demande lui-meme. Dans ce cas, " . ($bc !== '' ? ("donne-lui ce lien : " . $bc) : "invite-le a utiliser le lien d'annulation recu par e-mail") . ".";
+    }
+}
+
 // ----- Appel a l'API Claude -----
 $payload = json_encode([
     'model'      => FINALYN_MODEL,

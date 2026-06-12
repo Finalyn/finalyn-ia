@@ -8214,6 +8214,7 @@
           if (confirmBtn) confirmBtn.disabled = false;
           if (confirmLabel) confirmLabel.textContent = 'Confirmer la réservation';
           if (r.ok && r.d && r.d.ok) {
+            try { localStorage.setItem('finalyn_booking', JSON.stringify({ date: ymd(selectedDay), time: selectedSlot, cancel: (r.d && r.d.cancel) || '' })); } catch (e) {}
             if (successRecap) successRecap.textContent = firstName.value.trim() + ', votre audit est confirmé pour le ' + formatRecap() + '.';
             root.classList.remove('is-form');
             root.classList.add('is-done');
@@ -8839,6 +8840,10 @@
     var clean = text.replace(/\n?\s*\[BOOK\b[^\]]*\]/i, '').trim();
     return { text: clean, book: { date: dm ? dm[1] : '', time: tm ? tm[1] : '' } };
   }
+  // Rendez-vous deja pris par ce visiteur (memorise apres reservation), transmis aux agents
+  function finalynGetBooking() {
+    try { var b = JSON.parse(localStorage.getItem('finalyn_booking') || 'null'); return (b && b.date) ? b : null; } catch (e) { return null; }
+  }
 
   // Chat launcher toggle
   (function () {
@@ -9006,7 +9011,7 @@
       fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ conv: convKey, messages: history.slice(-MAX_HISTORY) })
+        body: JSON.stringify({ conv: convKey, messages: history.slice(-MAX_HISTORY), booking: finalynGetBooking() })
       }).then(function (res) {
         return res.json().catch(function () { return {}; }).then(function (data) {
           return { ok: res.ok, data: data };

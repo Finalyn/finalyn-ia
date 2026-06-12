@@ -8929,9 +8929,10 @@
     // Clics dans le corps du chat : suggestions rapides + bouton "Réserver l'audit"
     body.addEventListener('click', function (e) {
       var book = e.target.closest('[data-chat-book]');
-      if (book) { openCal(); return; }
+      if (book) { e.stopPropagation(); openCal(); return; }
       var q = e.target.closest('.chat-quick button');
       if (!q) return;
+      e.stopPropagation();     // empeche le handler "clic dehors = fermer" (la puce est retiree du DOM juste apres)
       openChat();              // le chat reste ouvert quand on choisit une reponse
       send(q.textContent.trim());
     });

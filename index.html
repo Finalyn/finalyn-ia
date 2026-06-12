@@ -7158,7 +7158,7 @@
     <div class="audit-cal-wrap">
       <div class="cal" id="auditCal" role="region" aria-label="Réservation de l'audit gratuit">
         <header class="cal-header">
-          <div class="cal-title">Réservez votre audit · 30 min</div>
+          <div class="cal-title">Réservez votre rendez-vous · 30 min</div>
           <div class="cal-sub">Visio · Lundi-Vendredi · dès 8 h (heure de Zurich)</div>
         </header>
 
@@ -7239,7 +7239,7 @@
           <div class="cal-success-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
           </div>
-          <h4>Audit réservé.</h4>
+          <h4>Rendez-vous réservé.</h4>
           <p id="calSuccessRecap"> : </p>
           <p class="cal-success-note">Un e-mail de confirmation vient de partir vers votre boîte. Le lien de visio vous parviendra avant le rendez-vous. À très vite !</p>
         </div>
@@ -8220,7 +8220,7 @@
           if (confirmLabel) confirmLabel.textContent = 'Confirmer la réservation';
           if (r.ok && r.d && r.d.ok) {
             try { localStorage.setItem('finalyn_booking', JSON.stringify({ date: ymd(selectedDay), time: selectedSlot, cancel: (r.d && r.d.cancel) || '' })); } catch (e) {}
-            if (successRecap) successRecap.textContent = firstName.value.trim() + ', votre audit est confirmé pour le ' + formatRecap() + '.';
+            if (successRecap) successRecap.textContent = firstName.value.trim() + ', votre rendez-vous est confirmé pour le ' + formatRecap() + '.';
             root.classList.remove('is-form');
             root.classList.add('is-done');
           } else {

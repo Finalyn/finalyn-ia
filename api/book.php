@@ -101,7 +101,7 @@ if ($team !== '') {
 
 // 2) Confirmation au client (Reply-To = equipe finalyn) - HTML + texte
 $cBody = "Bonjour " . $firstname . ",\n\n"
-    . "Votre audit gratuit avec finalyn.ia est bien confirmé.\n\n"
+    . "Votre rendez-vous avec finalyn.ia est bien confirmé.\n\n"
     . "Date : " . $dateFr . " à " . $time . " (heure de Zurich)\n"
     . "Format : visioconférence, environ 30 minutes\n\n"
     . "Pour l'ajouter à votre agenda, cliquez sur le lien ci-dessous : votre application (Apple, Outlook, Google...) vous proposera de l'enregistrer dans le calendrier de votre choix.\n"
@@ -113,7 +113,7 @@ $cBody .= "\n\nNous vous enverrons le lien de connexion peu avant le rendez-vous
     . "contact@finalyn.com · +41 79 639 36 84";
 
 $cPar = '<p style="margin:0 0 14px;">Bonjour ' . htmlspecialchars($firstname) . ',</p>'
-    . '<p style="margin:0 0 14px;">Votre <strong>audit gratuit</strong> avec finalyn.ia est bien confirmé.</p>'
+    . '<p style="margin:0 0 14px;">Votre <strong>rendez-vous</strong> avec finalyn.ia est bien confirmé.</p>'
     . '<p style="margin:0 0 14px;background:#F4F0E9;border-radius:10px;padding:14px 16px;">'
     . '<strong>Date</strong> : ' . htmlspecialchars($dateFr . ' à ' . $time) . ' (heure de Zurich)<br>'
     . '<strong>Format</strong> : visioconférence, environ 30 minutes</p>'
@@ -122,7 +122,7 @@ $cBtns = [
     ['label' => 'Ajouter au calendrier', 'url' => $icsUrl, 'primary' => true],
     ['label' => 'Annuler ou décaler', 'url' => $cancelUrl, 'primary' => false],
 ];
-$cHtml = finalyn_email_html('Votre audit est confirmé', $cPar, $cBtns);
-finalyn_send_mail($email, 'Votre audit est confirmé · finalyn.ia', $cBody, $from, $organizer, $ics, $cHtml);
+$cHtml = finalyn_email_html('Votre rendez-vous est confirmé', $cPar, $cBtns);
+finalyn_send_mail($email, 'Votre rendez-vous est confirmé · finalyn.ia', $cBody, $from, $organizer, $ics, $cHtml);
 
 echo json_encode(['ok' => true, 'date' => $date, 'time' => $time, 'cancel' => $cancelUrl], JSON_UNESCAPED_UNICODE);

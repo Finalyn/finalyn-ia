@@ -239,8 +239,8 @@ function finalyn_build_ics($firstname, $lastname, $email, $date, $time, $duratio
         $stampStr = (new DateTime('now', $utc))->format('Ymd\THis\Z');
     } catch (Throwable $e) { return ''; }
     $esc = function ($s) { return str_replace([',', ';', "\n"], ['\\,', '\\;', '\\n'], $s); };
-    $sum = 'Audit finalyn.ia (visio) - ' . $firstname . ' ' . $lastname;
-    $desc = "Audit gratuit de 30 min en visioconference avec finalyn.ia. Le lien de connexion vous sera envoye avant le rendez-vous.";
+    $sum = 'Rendez-vous finalyn.ia (visio) - ' . $firstname . ' ' . $lastname;
+    $desc = "Rendez-vous de 30 min en visioconference avec finalyn.ia. Le lien de connexion vous sera envoye avant le rendez-vous.";
     $uid = 'audit-' . $date . '-' . str_replace(':', '', $time) . '-' . substr(md5($email), 0, 8) . '@finalyn.com';
     return "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//finalyn.ia//Audit//FR\r\nCALSCALE:GREGORIAN\r\nMETHOD:REQUEST\r\nBEGIN:VEVENT\r\n"
         . "UID:" . $uid . "\r\n"

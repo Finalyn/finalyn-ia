@@ -174,6 +174,26 @@ Regles pour les options :
 Quand c'est naturel, termine en posant UNE question pour mieux cerner le besoin (avec des options), ou en proposant de prendre rendez-vous.
 PROMPT;
 
+// Consignes dynamiques : date du jour + prise de rendez-vous + liens cliquables
+try {
+    $tz = new DateTimeZone('Europe/Zurich');
+    $nowDt = new DateTime('now', $tz);
+    $joursFr = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+    $moisFr = [1 => 'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    $todayFr = $joursFr[(int)$nowDt->format('w')] . ' ' . (int)$nowDt->format('j') . ' ' . $moisFr[(int)$nowDt->format('n')] . ' ' . $nowDt->format('Y');
+    $todayIso = $nowDt->format('Y-m-d');
+} catch (Throwable $e) { $todayFr = ''; $todayIso = ''; }
+
+$system .= "\n\nLIENS ET CONTACT :\n"
+    . "- Pour renvoyer vers une partie du site, utilise un lien markdown : [nos services](#services), [cas d'usage](#cas-usage), [reservez](#audit), [le blog](/blog/).\n"
+    . "- Pour le contact, ecris l'e-mail contact@finalyn.com et le numero +41 79 639 36 84 tels quels : ils deviennent automatiquement cliquables (le numero ouvre WhatsApp).\n\n"
+    . "PRISE DE RENDEZ-VOUS (marqueur [BOOK]) :\n"
+    . "Aujourd'hui nous sommes le " . $todayFr . " (" . $todayIso . "), heure de Zurich. Les rendez-vous se prennent du lundi au vendredi, au moins une demi-journee (12 h) a l'avance.\n"
+    . "Quand le visiteur veut concretement prendre rendez-vous :\n"
+    . "- s'il ne precise pas de date : termine ton message par une derniere ligne contenant uniquement [BOOK]\n"
+    . "- s'il donne une date (et eventuellement une heure) : convertis-la en date reelle et termine par [BOOK AAAA-MM-JJ] ou [BOOK AAAA-MM-JJ HH:MM], par exemple [BOOK " . $todayIso . " 14:00]\n"
+    . "Ce marqueur ouvre le calendrier de reservation (pre-rempli si tu donnes la date). N'emets [BOOK] que lorsque le visiteur veut vraiment reserver, et toujours seul sur la derniere ligne. Tu ne connais pas les creneaux deja pris : si l'horaire n'est pas libre, le calendrier proposera automatiquement les autres horaires du jour.";
+
 // ----- Appel a l'API Claude -----
 $payload = json_encode([
     'model'      => FINALYN_MODEL,

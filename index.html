@@ -5635,6 +5635,9 @@
     border-color: rgba(139, 92, 246, 0.4);
     background: rgba(167, 139, 250, 0.06);
   }
+  /* Liens dans les messages des agents (e-mail, WhatsApp, sections) */
+  a.msg-link { color: var(--purple); text-decoration: underline; text-underline-offset: 2px; font-weight: 500; }
+  a.msg-link:hover { color: #7C4DEF; }
 
   /* Real composer */
   .chat-foot {
@@ -8191,6 +8194,26 @@
       });
     }
 
+    // Ouvre le calendrier sur une date (et un creneau) donnes ; si indispo, laisse l'utilisateur choisir
+    root._calGoTo = function (dateStr, timeStr) {
+      if (!dateStr) return;
+      var p = String(dateStr).split('-');
+      if (p.length !== 3) return;
+      var dt = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
+      dt.setHours(0, 0, 0, 0);
+      if (isNaN(dt.getTime())) return;
+      view = new Date(dt.getFullYear(), dt.getMonth(), 1);
+      render();
+      var dow = dt.getDay(), iso = dow === 0 ? 7 : dow;
+      var allowed = window.__finalynDays || [1, 2, 3, 4, 5];
+      var blocked = !!(window.__finalynBlocked && window.__finalynBlocked[ymd(dt)]);
+      if (dt < today || allowed.indexOf(iso) === -1 || blocked) return; // jour indispo : l'utilisateur choisit dans le mois affiche
+      pickDay(dt);
+      if (timeStr) {
+        var slot = slotList.querySelector('.cal-slot[data-time="' + timeStr + '"]');
+        if (slot && !slot.disabled) pickSlot(slot);
+      }
+    };
     root._calRender = render;
     render();
   }
@@ -8235,12 +8258,18 @@
   (function () {
     var modal = document.getElementById('calModal');
     if (!modal) return;
-    function open() {
+    function open(target) {
       modal.hidden = false;
       requestAnimationFrame(function () {
         modal.classList.add('is-open');
         document.body.classList.add('modal-open');
       });
+      if (target && typeof target === 'object' && target.date) {
+        var cal = modal.querySelector('.cal');
+        if (cal && typeof cal._calGoTo === 'function') {
+          setTimeout(function () { cal._calGoTo(target.date, target.time || ''); }, 80);
+        }
+      }
     }
     function close() {
       modal.classList.remove('is-open');
@@ -8572,15 +8601,7 @@
     input.setAttribute('maxlength', String(MAX_INPUT));
 
     function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
-    function render(text) {
-      var s = esc(text);
-      s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|#[\w-]+|\/[^\s)]*)\)/g, function (m, t, u) {
-        var ext = /^https?:/i.test(u);
-        return '<a href="' + u + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + '>' + t + '</a>';
-      });
-      s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-      return s.replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>');
-    }
+    function render(text) { return finalynRenderRich(esc(text)); }
     function parseOptions(text) {
       var m = text.match(/\[OPTIONS\]\s*(.+)$/im);
       if (!m) return { text: text, options: [] };
@@ -8606,11 +8627,11 @@
     }
     function removeTyping() { var t = document.getElementById('ucTyping'); if (t) t.remove(); }
     function setBusy(b) { busy = b; input.disabled = b; var s = form.querySelector('.send'); if (s) s.disabled = b; }
-    function openCal() { if (typeof window.finalynOpenCal === 'function') window.finalynOpenCal(); else window.location.hash = '#audit'; }
-    function bookBtn() {
+    function openCal(target) { if (typeof window.finalynOpenCal === 'function') window.finalynOpenCal(target); else window.location.hash = '#audit'; }
+    function bookBtn(date, time) {
       var d = document.createElement('div'); d.className = 'uc-choices';
       var b = document.createElement('button'); b.type = 'button'; b.className = 'uc-choice'; b.textContent = 'Prendre rendez-vous';
-      b.addEventListener('click', function () { openCal(); });
+      b.addEventListener('click', function () { openCal({ date: date || '', time: time || '' }); });
       d.appendChild(b); chat.appendChild(d); chat.scrollTop = chat.scrollHeight;
     }
     function addChoices(options) {
@@ -8641,10 +8662,13 @@
           removeTyping();
           if (r.ok && r.data && r.data.reply) {
             var p = parseOptions(r.data.reply);
+            var bk = finalynParseBook(p.text); p.text = bk.text;
             history.push({ role: 'assistant', content: p.text });
             appendAgent(render(p.text));
-            if (/rendez-vous|rdv|appel/i.test(p.text)) bookBtn();
+            if (bk.book) bookBtn(bk.book.date, bk.book.time);
+            else if (/rendez-vous|rdv|appel/i.test(p.text)) bookBtn('', '');
             addChoices(p.options);
+            if (bk.book && bk.book.date) { setTimeout(function () { openCal({ date: bk.book.date, time: bk.book.time }); }, 450); }
           } else {
             var err = (r.data && r.data.error) ? esc(r.data.error) : "Desole, je n'arrive pas a repondre la tout de suite. Reessayez, ou prenez rendez-vous.";
             appendAgent(err); bookBtn();
@@ -8748,6 +8772,35 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   })();
 
+  // Rendu riche partage par les agents (texte deja echappe en entree)
+  function finalynRenderRich(s) {
+    // liens markdown [texte](url)
+    s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|#[\w-]+|\/[^\s)]*)\)/g, function (m, t, u) {
+      var ext = /^https?:/i.test(u);
+      return '<a class="msg-link" href="' + u + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + '>' + t + '</a>';
+    });
+    // gras **texte**
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    // e-mail -> mailto
+    s = s.replace(/(^|[\s(>])([\w.+-]+@[\w-]+\.[\w.-]+)/g, function (m, pre, mail) {
+      return pre + '<a class="msg-link" href="mailto:' + mail + '">' + mail + '</a>';
+    });
+    // numero finalyn -> WhatsApp (privilegie)
+    s = s.replace(/\+41 79 639 36 84/g, '<a class="msg-link" href="https://wa.me/41796393684" target="_blank" rel="noopener">+41 79 639 36 84</a>');
+    return s.replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>');
+  }
+
+  // Detecte le marqueur [BOOK], [BOOK AAAA-MM-JJ] ou [BOOK AAAA-MM-JJ HH:MM]
+  function finalynParseBook(text) {
+    var m = text.match(/\[BOOK\b([^\]]*)\]/i);
+    if (!m) return { text: text, book: null };
+    var info = m[1] || '';
+    var dm = info.match(/(\d{4}-\d{2}-\d{2})/);
+    var tm = info.match(/(\d{1,2}:\d{2})/);
+    var clean = text.replace(/\n?\s*\[BOOK\b[^\]]*\]/i, '').trim();
+    return { text: clean, book: { date: dm ? dm[1] : '', time: tm ? tm[1] : '' } };
+  }
+
   // Chat launcher toggle
   (function () {
     var btn = document.getElementById('chatLauncher');
@@ -8799,20 +8852,12 @@
     function escapeHtml(s) {
       return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
-    function renderReply(text) {
-      var s = escapeHtml(text);
-      // liens markdown [texte](url) -> <a> (nouvel onglet pour les liens externes)
-      s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|#[\w-]+|\/[^\s)]*)\)/g, function (m, t, u) {
-        var ext = /^https?:/i.test(u);
-        return '<a href="' + u + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + '>' + t + '</a>';
-      });
-      // gras **texte** -> <strong>
-      s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-      // retours a la ligne
-      return s.replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>');
-    }
-    function bookCta() {
-      return '<div class="chat-ctas"><button type="button" class="chat-cta-primary" data-chat-book>Prendre rendez-vous</button></div>';
+    function renderReply(text) { return finalynRenderRich(escapeHtml(text)); }
+    function bookCta(date, time) {
+      var a = ' data-chat-book';
+      if (date) a += ' data-date="' + date + '"';
+      if (time) a += ' data-time="' + time + '"';
+      return '<div class="chat-ctas"><button type="button" class="chat-cta-primary"' + a + '>Prendre rendez-vous</button></div>';
     }
     // L'agent peut proposer des choix : derniere ligne "[OPTIONS] a | b | c"
     function parseOptions(text) {
@@ -8871,8 +8916,8 @@
       var sendBtn = form.querySelector('.send-mini');
       if (sendBtn) sendBtn.disabled = b;
     }
-    function openCal() {
-      if (typeof window.finalynOpenCal === 'function') { window.finalynOpenCal(); }
+    function openCal(target) {
+      if (typeof window.finalynOpenCal === 'function') { window.finalynOpenCal(target); }
       else { window.location.hash = '#audit'; }
     }
 
@@ -8902,11 +8947,14 @@
         typing.remove();
         if (r.ok && r.data && r.data.reply) {
           var parsed = parseOptions(r.data.reply);
+          var bk = finalynParseBook(parsed.text); parsed.text = bk.text;
           history.push({ role: 'assistant', content: parsed.text });
           var html = renderReply(parsed.text);
-          if (/audit|rendez-vous|appel|rdv/i.test(parsed.text)) html += bookCta();
+          if (bk.book) html += bookCta(bk.book.date, bk.book.time);
+          else if (/audit|rendez-vous|appel|rdv/i.test(parsed.text)) html += bookCta('', '');
           addMsg('agent', html);
           addQuick(parsed.options);
+          if (bk.book && bk.book.date) { setTimeout(function () { openCal({ date: bk.book.date, time: bk.book.time }); }, 450); }
         } else {
           var err = (r.data && r.data.error) ? escapeHtml(r.data.error) : "Désolé, je n'arrive pas à répondre pour l'instant.";
           addMsg('agent', err + bookCta());
@@ -8929,7 +8977,7 @@
     // Clics dans le corps du chat : suggestions rapides + bouton "Réserver l'audit"
     body.addEventListener('click', function (e) {
       var book = e.target.closest('[data-chat-book]');
-      if (book) { e.stopPropagation(); openCal(); return; }
+      if (book) { e.stopPropagation(); openCal({ date: book.getAttribute('data-date') || '', time: book.getAttribute('data-time') || '' }); return; }
       var q = e.target.closest('.chat-quick button');
       if (!q) return;
       e.stopPropagation();     // empeche le handler "clic dehors = fermer" (la puce est retiree du DOM juste apres)

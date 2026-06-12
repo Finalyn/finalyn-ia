@@ -5344,7 +5344,7 @@
     bottom: 1.75rem;
     right: 1.75rem;
     z-index: 50;
-    width: 52px; height: 52px;
+    width: 60px; height: 60px;
     border-radius: 50%;
     background: rgba(255, 253, 250, 0.92);
     backdrop-filter: blur(14px) saturate(140%);
@@ -5367,7 +5367,7 @@
       0 18px 36px -10px rgba(139, 92, 246, 0.25),
       0 6px 16px -4px rgba(40, 30, 60, 0.12);
   }
-  .chat-launcher svg { width: 22px; height: 22px; }
+  .chat-launcher svg { width: 26px; height: 26px; }
   .chat-launcher .pulse {
     position: absolute;
     inset: 0;
@@ -5660,7 +5660,7 @@
     padding: 0.55rem 0.9rem;
     outline: none;
     font-family: inherit;
-    font-size: 0.85rem;
+    font-size: 16px;
     color: var(--ink);
     letter-spacing: -0.005em;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -5686,7 +5686,7 @@
   .chat-foot .send-mini svg { width: 14px; height: 14px; }
 
   @media (max-width: 560px) {
-    .chat-launcher { bottom: 1rem; right: 1rem; width: 48px; height: 48px; }
+    .chat-launcher { bottom: 1rem; right: 1rem; width: 58px; height: 58px; }
     .chat-demo {
       left: 1rem; right: 1rem;
       bottom: 4.75rem;
@@ -5904,9 +5904,9 @@
     .prompt-hint span { font-size: 0.72rem; padding: 0.32rem 0.7rem; }
 
     .ui-card { left: 1rem; right: 1rem; bottom: 1rem; max-width: none; }
-    .chat-launcher { bottom: 1rem; right: 1rem; width: 46px; height: 46px; }
-    .chat-launcher svg { width: 18px; height: 18px; }
-    .chat-demo { left: 0.75rem; right: 0.75rem; bottom: 4.25rem; width: auto; max-height: 75vh; }
+    .chat-launcher { bottom: 1rem; right: 1rem; width: 58px; height: 58px; }
+    .chat-launcher svg { width: 22px; height: 22px; }
+    .chat-demo { left: 0.75rem; right: 0.75rem; bottom: 4.25rem; width: auto; max-height: 75vh; max-height: 75dvh; }
   }
 
   /* Tiny screens */
@@ -9041,6 +9041,27 @@
     function bookCta() {
       return '<div class="chat-ctas"><button type="button" class="chat-cta-primary" data-chat-book>Réserver l\'audit gratuit</button></div>';
     }
+    // L'agent peut proposer des choix : derniere ligne "[OPTIONS] a | b | c"
+    function parseOptions(text) {
+      var m = text.match(/\[OPTIONS\]\s*(.+)$/im);
+      if (!m) return { text: text, options: [] };
+      var opts = m[1].split('|').map(function (s) { return s.trim(); }).filter(Boolean).slice(0, 4);
+      var clean = text.replace(/\n?\[OPTIONS\][^\n]*/i, '').trim();
+      return { text: clean, options: opts };
+    }
+    function addQuick(options) {
+      if (!options || !options.length) return;
+      var wrap = document.createElement('div');
+      wrap.className = 'chat-quick';
+      options.forEach(function (o) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = o;
+        wrap.appendChild(b);
+      });
+      body.appendChild(wrap);
+      body.scrollTop = body.scrollHeight;
+    }
 
     function addMsg(role, html) {
       var msg = document.createElement('div');
@@ -9087,8 +9108,8 @@
       if (!userText || busy) return;
       if (userText.length > MAX_INPUT) userText = userText.slice(0, MAX_INPUT);
 
-      var quick = body.querySelector('.chat-quick');
-      if (quick) quick.remove();
+      var quicks = body.querySelectorAll('.chat-quick');
+      for (var qi = 0; qi < quicks.length; qi++) quicks[qi].remove();
 
       addMsg('user', escapeHtml(userText));
       history.push({ role: 'user', content: userText });
@@ -9107,10 +9128,12 @@
       }).then(function (r) {
         typing.remove();
         if (r.ok && r.data && r.data.reply) {
-          history.push({ role: 'assistant', content: r.data.reply });
-          var html = renderReply(r.data.reply);
-          if (/audit|rendez-vous|appel|rdv/i.test(r.data.reply)) html += bookCta();
+          var parsed = parseOptions(r.data.reply);
+          history.push({ role: 'assistant', content: parsed.text });
+          var html = renderReply(parsed.text);
+          if (/audit|rendez-vous|appel|rdv/i.test(parsed.text)) html += bookCta();
           addMsg('agent', html);
+          addQuick(parsed.options);
         } else {
           var err = (r.data && r.data.error) ? escapeHtml(r.data.error) : "Désolé, je n'arrive pas à répondre pour l'instant.";
           addMsg('agent', err + bookCta());
@@ -9137,17 +9160,41 @@
       var q = e.target.closest('.chat-quick button');
       if (!q) return;
       var label = q.textContent.trim();
-      if (/rendez-vous/i.test(label)) { openCal(); return; }
+      if (/rendez-vous|r[ée]server l'audit|prendre rendez/i.test(label)) { openCal(); return; }
       send(label);
     });
 
-    // CTA "Demander à l'agent" (section stack) : ouvre le chat et amorce la question
+    // CTA "Demander à l'agent" (section stack) : l'agent DEMANDE quel outil (il n'envoie pas de message tout fait)
     if (stackBtn) {
       stackBtn.addEventListener('click', function (e) {
         e.stopPropagation();
         openChat();
-        send("Est-ce que vous pouvez vous intégrer aux outils que j'utilise déjà (Bexio, Outlook, Notion...) ?");
+        if (!stackBtn._asked) {
+          history.push({ role: 'user', content: "Je voudrais savoir si finalyn.ia peut s'intégrer à l'outil que j'utilise déjà." });
+          var q = "Bien sûr. Quel outil utilisez-vous ? Donnez-moi son nom (Bexio, Microsoft 365, Notion, un logiciel métier...) et je vous dis comment on peut s'y connecter.";
+          history.push({ role: 'assistant', content: q });
+          addMsg('agent', renderReply(q));
+          addQuick(['Bexio', 'Microsoft 365', 'Notion', 'Un autre outil']);
+          stackBtn._asked = true;
+        }
+        if (input) setTimeout(function () { input.focus(); }, 350);
       });
+    }
+
+    // Mobile : garder le champ de saisie visible au-dessus du clavier (sinon il passe dessous)
+    if (window.visualViewport) {
+      var vv = window.visualViewport;
+      var keyboardAdjust = function () {
+        if (!document.body.classList.contains('chat-open') || window.innerWidth > 560) {
+          panel.style.bottom = ''; return;
+        }
+        var kb = window.innerHeight - vv.height - vv.offsetTop;
+        panel.style.bottom = kb > 90 ? (kb + 10) + 'px' : '';
+      };
+      vv.addEventListener('resize', keyboardAdjust);
+      vv.addEventListener('scroll', keyboardAdjust);
+      input.addEventListener('focus', function () { setTimeout(keyboardAdjust, 300); });
+      input.addEventListener('blur', function () { setTimeout(function () { panel.style.bottom = ''; }, 120); });
     }
   })();
 

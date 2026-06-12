@@ -1205,6 +1205,12 @@
   body.menu-open {
     overflow: hidden;
   }
+  /* Menu ouvert : retirer le backdrop-filter du nav (sinon il devient le bloc
+     englobant du panneau fixe, qui se retrouve limite a la hauteur de la barre) */
+  body.menu-open .nav.nav-scrolled {
+    -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+  }
 
   /* ===== HERO ===== */
   .hero {

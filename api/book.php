@@ -86,8 +86,8 @@ try {
     $stampStr = (new DateTime('now', $utc))->format('Ymd\THis\Z');
 } catch (Throwable $e) {}
 
-// Invitation .ics (METHOD:REQUEST) + lien Google Agenda
-$ics = null; $gcal = '';
+// Invitation .ics (METHOD:REQUEST, compatible Apple/Outlook/Google) + liens rapides Google et Outlook
+$ics = null; $gcal = ''; $outlook = '';
 if ($startStr !== '') {
     $esc = function ($s) { return str_replace([',', ';', "\n"], ['\\,', '\\;', '\\n'], $s); };
     $sum = 'Audit finalyn.ia (visio) - ' . $firstname . ' ' . $lastname;
@@ -109,6 +109,12 @@ if ($startStr !== '') {
         . '&dates=' . $startStr . '/' . $endStr
         . '&details=' . rawurlencode($desc)
         . '&location=' . rawurlencode('Visioconference');
+    $outlook = 'https://outlook.office.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent'
+        . '&subject=' . rawurlencode($sum)
+        . '&startdt=' . rawurlencode($start->format('Y-m-d\TH:i:s') . 'Z')
+        . '&enddt=' . rawurlencode($end->format('Y-m-d\TH:i:s') . 'Z')
+        . '&body=' . rawurlencode($desc)
+        . '&location=' . rawurlencode('Visioconference');
 }
 
 // 1) Notification a l'equipe finalyn (Reply-To = client) - HTML + texte
@@ -119,7 +125,8 @@ if ($team !== '') {
         . 'Entreprise : ' . $company . "\n"
         . 'Creneau    : ' . $dateFr . ' a ' . $time . " (heure de Zurich)\n";
     if ($message !== '') { $tBody .= "\nMessage    : " . $message . "\n"; }
-    if ($gcal !== '') { $tBody .= "\nAjouter a votre agenda : " . $gcal . "\n"; }
+    if ($gcal !== '') { $tBody .= "\nGoogle Agenda : " . $gcal . "\n"; }
+    if ($outlook !== '') { $tBody .= "Outlook : " . $outlook . "\n"; }
 
     $tPar = '<p style="margin:0 0 14px;">Nouvelle réservation d\'audit via <strong>ia.finalyn.ch</strong>.</p>'
         . '<p style="margin:0 0 6px;"><strong>Nom</strong> : ' . htmlspecialchars($firstname . ' ' . $lastname) . '<br>'
@@ -127,7 +134,9 @@ if ($team !== '') {
         . '<strong>Entreprise</strong> : ' . htmlspecialchars($company) . '<br>'
         . '<strong>Créneau</strong> : ' . htmlspecialchars($dateFr . ' à ' . $time) . ' (heure de Zurich)</p>'
         . ($message !== '' ? '<p style="margin:14px 0 6px;background:#F4F0E9;border-radius:10px;padding:12px 14px;"><strong>Message</strong> : ' . nl2br(htmlspecialchars($message)) . '</p>' : '');
-    $tBtns = $gcal !== '' ? [['label' => 'Ajouter à mon agenda', 'url' => $gcal, 'primary' => true]] : [];
+    $tBtns = [];
+    if ($gcal !== '') { $tBtns[] = ['label' => 'Google Agenda', 'url' => $gcal, 'primary' => true]; }
+    if ($outlook !== '') { $tBtns[] = ['label' => 'Outlook', 'url' => $outlook, 'primary' => false]; }
     $tHtml = finalyn_email_html('Nouvelle réservation', $tPar, $tBtns);
     finalyn_send_mail($team, 'Nouvelle reservation : ' . $firstname . ' ' . $lastname . ' (' . $company . ')', $tBody, $from, $email, $ics, $tHtml);
 }
@@ -137,8 +146,9 @@ $cBody = "Bonjour " . $firstname . ",\n\n"
     . "Votre audit gratuit avec finalyn.ia est bien confirmé.\n\n"
     . "Date : " . $dateFr . " à " . $time . " (heure de Zurich)\n"
     . "Format : visioconférence, environ 30 minutes\n\n"
-    . "L'invitation est jointe à cet e-mail (ouvrez-la pour l'ajouter à votre agenda).";
-if ($gcal !== '') { $cBody .= "\nOu en un clic : " . $gcal; }
+    . "L'invitation (.ics) est jointe : ouvrez-la pour l'ajouter à Apple Calendar, Outlook, Google ou tout autre agenda.";
+if ($gcal !== '') { $cBody .= "\nGoogle Agenda : " . $gcal; }
+if ($outlook !== '') { $cBody .= "\nOutlook : " . $outlook; }
 $cBody .= "\n\nNous vous enverrons le lien de connexion peu avant le rendez-vous.\n"
     . "Besoin d'annuler ou de décaler ? C'est ici, en un clic : " . $cancelUrl . "\n\n"
     . "À très bientôt,\n"
@@ -150,10 +160,11 @@ $cPar = '<p style="margin:0 0 14px;">Bonjour ' . htmlspecialchars($firstname) . 
     . '<p style="margin:0 0 14px;background:#F4F0E9;border-radius:10px;padding:14px 16px;">'
     . '<strong>Date</strong> : ' . htmlspecialchars($dateFr . ' à ' . $time) . ' (heure de Zurich)<br>'
     . '<strong>Format</strong> : visioconférence, environ 30 minutes</p>'
-    . '<p style="margin:0 0 6px;">L\'invitation est jointe à cet e-mail. Nous vous enverrons le lien de connexion peu avant le rendez-vous.</p>';
+    . '<p style="margin:0 0 6px;">L\'invitation (.ics) est jointe : ouvrez-la pour l\'ajouter à Apple Calendar, Outlook ou tout autre agenda. Ou en un clic ci-dessous. Nous vous enverrons le lien de connexion peu avant le rendez-vous.</p>';
 $cBtns = [];
-if ($gcal !== '') { $cBtns[] = ['label' => 'Ajouter à mon agenda', 'url' => $gcal, 'primary' => true]; }
-$cBtns[] = ['label' => 'Annuler ou décaler', 'url' => $cancelUrl, 'primary' => ($gcal === '')];
+if ($gcal !== '') { $cBtns[] = ['label' => 'Google Agenda', 'url' => $gcal, 'primary' => true]; }
+if ($outlook !== '') { $cBtns[] = ['label' => 'Outlook', 'url' => $outlook, 'primary' => false]; }
+$cBtns[] = ['label' => 'Annuler ou décaler', 'url' => $cancelUrl, 'primary' => false];
 $cHtml = finalyn_email_html('Votre audit est confirmé', $cPar, $cBtns);
 finalyn_send_mail($email, 'Votre audit est confirmé · finalyn.ia', $cBody, $from, $organizer, $ics, $cHtml);
 

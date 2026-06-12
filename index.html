@@ -5392,6 +5392,38 @@
     .chat-launcher .pulse { animation: none; }
   }
 
+  /* Bulle d'accueil pres du lanceur */
+  .chat-greeting {
+    position: fixed;
+    z-index: 49;
+    bottom: 6.4rem;
+    right: 1.75rem;
+    max-width: 240px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px 16px 4px 16px;
+    padding: 0.75rem 2rem 0.75rem 0.95rem;
+    font-size: 0.86rem;
+    line-height: 1.4;
+    color: var(--ink);
+    box-shadow: 0 14px 30px -12px rgba(40, 30, 60, 0.28), 0 4px 12px -4px rgba(40, 30, 60, 0.1);
+    cursor: pointer;
+    animation: greetPop 0.45s cubic-bezier(.22, .61, .36, 1);
+  }
+  .chat-greeting[hidden] { display: none; }
+  .chat-greeting-close {
+    position: absolute; top: 3px; right: 6px;
+    background: none; border: none; cursor: pointer;
+    font-size: 1.15rem; line-height: 1; color: var(--muted);
+    padding: 2px 5px; border-radius: 6px;
+  }
+  .chat-greeting-close:hover { color: var(--ink); }
+  @keyframes greetPop { from { opacity: 0; transform: translateY(8px) scale(.96); } to { opacity: 1; transform: none; } }
+  body.chat-open .chat-greeting { display: none; }
+  @media (max-width: 560px) {
+    .chat-greeting { bottom: 5.4rem; right: 1rem; max-width: 210px; }
+  }
+
   /* ----- CHAT PANEL (popup from launcher) ----- */
   .chat-demo {
     position: fixed;
@@ -7931,7 +7963,10 @@
 <button class="chat-launcher" id="chatLauncher" type="button" aria-label="Parler avec notre agent" aria-controls="chatPanel" aria-expanded="false">
   <span class="pulse" aria-hidden="true"></span>
   <svg class="ico-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.4 8.4 0 0 1-3.7-.85L3 21l1.95-5.3A8.4 8.4 0 1 1 21 11.5z"></path>
+    <circle cx="12" cy="12" r="9"></circle>
+    <path d="M8.5 14a4 4 0 0 0 7 0"></path>
+    <line x1="9" y1="9.5" x2="9.01" y2="9.5"></line>
+    <line x1="15" y1="9.5" x2="15.01" y2="9.5"></line>
   </svg>
   <svg class="ico-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -7939,6 +7974,10 @@
   </svg>
   <span class="status-dot" aria-hidden="true"></span>
 </button>
+<div class="chat-greeting" id="chatGreeting" role="button" tabindex="0" hidden>
+  <button type="button" class="chat-greeting-close" aria-label="Fermer">&times;</button>
+  <span>Bonjour 👋 Une question&nbsp;? Je peux vous aider.</span>
+</div>
 
 <script>
   // Menu toggle
@@ -8665,8 +8704,11 @@
             var bk = finalynParseBook(p.text); p.text = bk.text;
             history.push({ role: 'assistant', content: p.text });
             appendAgent(render(p.text));
-            if (bk.book) bookBtn(bk.book.date, bk.book.time);
-            else if (/rendez-vous|rdv|appel/i.test(p.text)) bookBtn('', '');
+            var showBook = !!bk.book || /rendez-vous|rdv|appel/i.test(p.text);
+            if (showBook) {
+              bookBtn(bk.book ? bk.book.date : '', bk.book ? bk.book.time : '');
+              p.options = p.options.filter(function (o) { return !/rendez-?vous|prendre rendez|r[ée]serv/i.test(o); });
+            }
             addChoices(p.options);
             if (bk.book && bk.book.date) { setTimeout(function () { openCal({ date: bk.book.date, time: bk.book.time }); }, 450); }
           } else {
@@ -8822,6 +8864,35 @@
     });
   })();
 
+  // Bulle d'accueil : invite a ouvrir le chat
+  (function () {
+    var g = document.getElementById('chatGreeting');
+    var launcher = document.getElementById('chatLauncher');
+    if (!g || !launcher) return;
+    var closeBtn = g.querySelector('.chat-greeting-close');
+    var dismissed = false;
+    try { dismissed = sessionStorage.getItem('finalyn_greet') === '1'; } catch (e) {}
+    function hide() { g.hidden = true; }
+    if (!dismissed) {
+      setTimeout(function () {
+        if (!document.body.classList.contains('chat-open')) g.hidden = false;
+      }, 3500);
+    }
+    g.addEventListener('click', function (e) {
+      if (closeBtn && closeBtn.contains(e.target)) return;
+      hide();
+      if (!document.body.classList.contains('chat-open')) launcher.click();
+    });
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        hide();
+        try { sessionStorage.setItem('finalyn_greet', '1'); } catch (err) {}
+      });
+    }
+    launcher.addEventListener('click', hide);
+  })();
+
   // Assistant finalyn.ia connecté à Claude (Haiku) via le proxy /api/chat.php
   (function () {
     var panel = document.getElementById('chatPanel');
@@ -8950,8 +9021,11 @@
           var bk = finalynParseBook(parsed.text); parsed.text = bk.text;
           history.push({ role: 'assistant', content: parsed.text });
           var html = renderReply(parsed.text);
-          if (bk.book) html += bookCta(bk.book.date, bk.book.time);
-          else if (/audit|rendez-vous|appel|rdv/i.test(parsed.text)) html += bookCta('', '');
+          var showBook = !!bk.book || /audit|rendez-vous|appel|rdv/i.test(parsed.text);
+          if (showBook) {
+            html += bookCta(bk.book ? bk.book.date : '', bk.book ? bk.book.time : '');
+            parsed.options = parsed.options.filter(function (o) { return !/rendez-?vous|prendre rendez|r[ée]serv/i.test(o); });
+          }
           addMsg('agent', html);
           addQuick(parsed.options);
           if (bk.book && bk.book.date) { setTimeout(function () { openCal({ date: bk.book.date, time: bk.book.time }); }, 450); }

@@ -226,3 +226,31 @@ function finalyn_booking_notify($type, $b) {
     $htmlMail = finalyn_email_html($heading, $par, $btns);
     return finalyn_send_mail($b['email'], $subj, $text, $from, $reply, null, $htmlMail);
 }
+
+/** Genere l'invitation .ics (METHOD:REQUEST) pour un rendez-vous. Compatible Apple, Outlook, Google, etc. */
+function finalyn_build_ics($firstname, $lastname, $email, $date, $time, $duration, $organizer) {
+    try {
+        $tz = new DateTimeZone('Europe/Zurich'); $utc = new DateTimeZone('UTC');
+        $start = new DateTime($date . ' ' . $time . ':00', $tz);
+        $end = (clone $start)->modify('+' . max(15, (int)$duration) . ' minutes');
+        $start->setTimezone($utc); $end->setTimezone($utc);
+        $startStr = $start->format('Ymd\THis\Z');
+        $endStr   = $end->format('Ymd\THis\Z');
+        $stampStr = (new DateTime('now', $utc))->format('Ymd\THis\Z');
+    } catch (Throwable $e) { return ''; }
+    $esc = function ($s) { return str_replace([',', ';', "\n"], ['\\,', '\\;', '\\n'], $s); };
+    $sum = 'Audit finalyn.ia (visio) - ' . $firstname . ' ' . $lastname;
+    $desc = "Audit gratuit de 30 min en visioconference avec finalyn.ia. Le lien de connexion vous sera envoye avant le rendez-vous.";
+    $uid = 'audit-' . $date . '-' . str_replace(':', '', $time) . '-' . substr(md5($email), 0, 8) . '@finalyn.com';
+    return "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//finalyn.ia//Audit//FR\r\nCALSCALE:GREGORIAN\r\nMETHOD:REQUEST\r\nBEGIN:VEVENT\r\n"
+        . "UID:" . $uid . "\r\n"
+        . "DTSTAMP:" . $stampStr . "\r\n"
+        . "DTSTART:" . $startStr . "\r\n"
+        . "DTEND:" . $endStr . "\r\n"
+        . "SUMMARY:" . $esc($sum) . "\r\n"
+        . "DESCRIPTION:" . $esc($desc) . "\r\n"
+        . "LOCATION:Visioconference\r\n"
+        . "ORGANIZER;CN=finalyn.ia:mailto:" . $organizer . "\r\n"
+        . "ATTENDEE;CN=" . $esc($firstname . ' ' . $lastname) . ";RSVP=TRUE:mailto:" . $email . "\r\n"
+        . "STATUS:CONFIRMED\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n";
+}

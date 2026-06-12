@@ -74,48 +74,9 @@ $frMonths = ['', 'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet
 $dts = strtotime($date);
 $dateFr = (int)date('j', $dts) . ' ' . $frMonths[(int)date('n', $dts)] . ' ' . date('Y', $dts);
 
-// Creneau en UTC (a partir de l'heure de Zurich) pour l'ICS et le lien agenda
-$startStr = $endStr = $stampStr = '';
-try {
-    $tz = new DateTimeZone('Europe/Zurich'); $utc = new DateTimeZone('UTC');
-    $start = new DateTime($date . ' ' . $time . ':00', $tz);
-    $end = (clone $start)->modify('+' . $duration . ' minutes');
-    $start->setTimezone($utc); $end->setTimezone($utc);
-    $startStr = $start->format('Ymd\THis\Z');
-    $endStr   = $end->format('Ymd\THis\Z');
-    $stampStr = (new DateTime('now', $utc))->format('Ymd\THis\Z');
-} catch (Throwable $e) {}
-
-// Invitation .ics (METHOD:REQUEST, compatible Apple/Outlook/Google) + liens rapides Google et Outlook
-$ics = null; $gcal = ''; $outlook = '';
-if ($startStr !== '') {
-    $esc = function ($s) { return str_replace([',', ';', "\n"], ['\\,', '\\;', '\\n'], $s); };
-    $sum = 'Audit finalyn.ia (visio) - ' . $firstname . ' ' . $lastname;
-    $desc = "Audit gratuit de 30 min en visioconference avec finalyn.ia. Le lien de connexion vous sera envoye avant le rendez-vous.";
-    $uid = 'audit-' . $date . '-' . str_replace(':', '', $time) . '-' . substr(md5($email), 0, 8) . '@finalyn.com';
-    $ics = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//finalyn.ia//Audit//FR\r\nCALSCALE:GREGORIAN\r\nMETHOD:REQUEST\r\nBEGIN:VEVENT\r\n"
-        . "UID:" . $uid . "\r\n"
-        . "DTSTAMP:" . $stampStr . "\r\n"
-        . "DTSTART:" . $startStr . "\r\n"
-        . "DTEND:" . $endStr . "\r\n"
-        . "SUMMARY:" . $esc($sum) . "\r\n"
-        . "DESCRIPTION:" . $esc($desc) . "\r\n"
-        . "LOCATION:Visioconference\r\n"
-        . "ORGANIZER;CN=finalyn.ia:mailto:" . $organizer . "\r\n"
-        . "ATTENDEE;CN=" . $esc($firstname . ' ' . $lastname) . ";RSVP=TRUE:mailto:" . $email . "\r\n"
-        . "STATUS:CONFIRMED\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n";
-    $gcal = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-        . '&text=' . rawurlencode($sum)
-        . '&dates=' . $startStr . '/' . $endStr
-        . '&details=' . rawurlencode($desc)
-        . '&location=' . rawurlencode('Visioconference');
-    $outlook = 'https://outlook.office.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent'
-        . '&subject=' . rawurlencode($sum)
-        . '&startdt=' . rawurlencode($start->format('Y-m-d\TH:i:s') . 'Z')
-        . '&enddt=' . rawurlencode($end->format('Y-m-d\TH:i:s') . 'Z')
-        . '&body=' . rawurlencode($desc)
-        . '&location=' . rawurlencode('Visioconference');
-}
+// Invitation .ics jointe + lien "Ajouter au calendrier" universel (sert le .ics : l'appareil choisit l'agenda ou met le defaut)
+$ics    = finalyn_build_ics($firstname, $lastname, $email, $date, $time, $duration, $organizer) ?: null;
+$icsUrl = 'https://ia.finalyn.ch/api/ics.php?id=' . $bookingId . '&t=' . $token;
 
 // 1) Notification a l'equipe finalyn (Reply-To = client) - HTML + texte
 if ($team !== '') {
@@ -125,8 +86,7 @@ if ($team !== '') {
         . 'Entreprise : ' . $company . "\n"
         . 'Creneau    : ' . $dateFr . ' a ' . $time . " (heure de Zurich)\n";
     if ($message !== '') { $tBody .= "\nMessage    : " . $message . "\n"; }
-    if ($gcal !== '') { $tBody .= "\nGoogle Agenda : " . $gcal . "\n"; }
-    if ($outlook !== '') { $tBody .= "Outlook : " . $outlook . "\n"; }
+    $tBody .= "\nAjouter au calendrier : " . $icsUrl . "\n";
 
     $tPar = '<p style="margin:0 0 14px;">Nouvelle réservation d\'audit via <strong>ia.finalyn.ch</strong>.</p>'
         . '<p style="margin:0 0 6px;"><strong>Nom</strong> : ' . htmlspecialchars($firstname . ' ' . $lastname) . '<br>'
@@ -134,9 +94,7 @@ if ($team !== '') {
         . '<strong>Entreprise</strong> : ' . htmlspecialchars($company) . '<br>'
         . '<strong>Créneau</strong> : ' . htmlspecialchars($dateFr . ' à ' . $time) . ' (heure de Zurich)</p>'
         . ($message !== '' ? '<p style="margin:14px 0 6px;background:#F4F0E9;border-radius:10px;padding:12px 14px;"><strong>Message</strong> : ' . nl2br(htmlspecialchars($message)) . '</p>' : '');
-    $tBtns = [];
-    if ($gcal !== '') { $tBtns[] = ['label' => 'Google Agenda', 'url' => $gcal, 'primary' => false]; }
-    if ($outlook !== '') { $tBtns[] = ['label' => 'Outlook', 'url' => $outlook, 'primary' => false]; }
+    $tBtns = [['label' => 'Ajouter au calendrier', 'url' => $icsUrl, 'primary' => true]];
     $tHtml = finalyn_email_html('Nouvelle réservation', $tPar, $tBtns);
     finalyn_send_mail($team, 'Nouvelle reservation : ' . $firstname . ' ' . $lastname . ' (' . $company . ')', $tBody, $from, $email, $ics, $tHtml);
 }
@@ -146,9 +104,8 @@ $cBody = "Bonjour " . $firstname . ",\n\n"
     . "Votre audit gratuit avec finalyn.ia est bien confirmé.\n\n"
     . "Date : " . $dateFr . " à " . $time . " (heure de Zurich)\n"
     . "Format : visioconférence, environ 30 minutes\n\n"
-    . "L'invitation (.ics) est jointe : ouvrez-la pour l'ajouter à Apple Calendar, Outlook, Google ou tout autre agenda.";
-if ($gcal !== '') { $cBody .= "\nGoogle Agenda : " . $gcal; }
-if ($outlook !== '') { $cBody .= "\nOutlook : " . $outlook; }
+    . "Pour l'ajouter à votre agenda, cliquez sur le lien ci-dessous : votre application (Apple, Outlook, Google...) vous proposera de l'enregistrer dans le calendrier de votre choix.\n"
+    . "Ajouter au calendrier : " . $icsUrl;
 $cBody .= "\n\nNous vous enverrons le lien de connexion peu avant le rendez-vous.\n"
     . "Besoin d'annuler ou de décaler ? C'est ici, en un clic : " . $cancelUrl . "\n\n"
     . "À très bientôt,\n"
@@ -160,11 +117,11 @@ $cPar = '<p style="margin:0 0 14px;">Bonjour ' . htmlspecialchars($firstname) . 
     . '<p style="margin:0 0 14px;background:#F4F0E9;border-radius:10px;padding:14px 16px;">'
     . '<strong>Date</strong> : ' . htmlspecialchars($dateFr . ' à ' . $time) . ' (heure de Zurich)<br>'
     . '<strong>Format</strong> : visioconférence, environ 30 minutes</p>'
-    . '<p style="margin:0 0 6px;">L\'invitation (.ics) est jointe : ouvrez-la pour l\'ajouter à Apple Calendar, Outlook ou tout autre agenda. Ou en un clic ci-dessous. Nous vous enverrons le lien de connexion peu avant le rendez-vous.</p>';
-$cBtns = [];
-if ($gcal !== '') { $cBtns[] = ['label' => 'Google Agenda', 'url' => $gcal, 'primary' => false]; }
-if ($outlook !== '') { $cBtns[] = ['label' => 'Outlook', 'url' => $outlook, 'primary' => false]; }
-$cBtns[] = ['label' => 'Annuler ou décaler', 'url' => $cancelUrl, 'primary' => false];
+    . '<p style="margin:0 0 6px;">Cliquez sur <strong>Ajouter au calendrier</strong> : votre application (Apple, Outlook, Google...) vous proposera de l\'enregistrer dans l\'agenda de votre choix. Nous vous enverrons le lien de connexion peu avant le rendez-vous.</p>';
+$cBtns = [
+    ['label' => 'Ajouter au calendrier', 'url' => $icsUrl, 'primary' => true],
+    ['label' => 'Annuler ou décaler', 'url' => $cancelUrl, 'primary' => false],
+];
 $cHtml = finalyn_email_html('Votre audit est confirmé', $cPar, $cBtns);
 finalyn_send_mail($email, 'Votre audit est confirmé · finalyn.ia', $cBody, $from, $organizer, $ics, $cHtml);
 

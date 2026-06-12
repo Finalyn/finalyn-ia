@@ -182,16 +182,27 @@ try {
     $moisFr = [1 => 'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
     $todayFr = $joursFr[(int)$nowDt->format('w')] . ' ' . (int)$nowDt->format('j') . ' ' . $moisFr[(int)$nowDt->format('n')] . ' ' . $nowDt->format('Y');
     $todayIso = $nowDt->format('Y-m-d');
-} catch (Throwable $e) { $todayFr = ''; $todayIso = ''; }
+    $daysList = '';
+    for ($i = 0; $i < 14; $i++) {
+        $d = (clone $nowDt)->modify('+' . $i . ' day');
+        $w = (int)$d->format('w');
+        $tag = $i === 0 ? " (aujourd'hui)" : ($i === 1 ? ' (demain)' : '');
+        $weekend = ($w === 0 || $w === 6) ? ' [week-end, pas de RDV]' : '';
+        $daysList .= '- ' . $joursFr[$w] . ' ' . (int)$d->format('j') . ' ' . $moisFr[(int)$d->format('n')] . $tag . ' = ' . $d->format('Y-m-d') . $weekend . "\n";
+    }
+} catch (Throwable $e) { $todayFr = ''; $todayIso = ''; $daysList = ''; }
 
 $system .= "\n\nLIENS ET CONTACT :\n"
     . "- Pour renvoyer vers une partie du site, utilise un lien markdown : [nos services](#services), [cas d'usage](#cas-usage), [reservez](#audit), [le blog](/blog/).\n"
     . "- Pour le contact, ecris l'e-mail contact@finalyn.com et le numero +41 79 639 36 84 tels quels : ils deviennent automatiquement cliquables (le numero ouvre WhatsApp).\n\n"
     . "PRISE DE RENDEZ-VOUS (marqueur [BOOK]) :\n"
-    . "Aujourd'hui nous sommes le " . $todayFr . " (" . $todayIso . "), heure de Zurich. Les rendez-vous se prennent du lundi au vendredi, au moins une demi-journee (12 h) a l'avance.\n"
+    . "Nous sommes le " . $todayFr . ", heure de Zurich. Les rendez-vous se prennent du lundi au vendredi, au moins une demi-journee (12 h) a l'avance.\n"
+    . "IMPORTANT : ne calcule JAMAIS une date toi-meme (tu te trompes souvent). Recopie EXACTEMENT la date ISO (AAAA-MM-JJ) depuis cette liste des 14 prochains jours :\n"
+    . $daysList
+    . "Ainsi 'lundi prochain' = le prochain lundi de la liste, 'demain' = la ligne marquee (demain). Verifie le nom du jour ET la date dans la liste, et quand tu confirmes, ecris-les tels qu'ils y figurent.\n"
     . "Quand le visiteur veut concretement prendre rendez-vous :\n"
-    . "- s'il ne precise pas de date : termine ton message par une derniere ligne contenant uniquement [BOOK]\n"
-    . "- s'il donne une date (et eventuellement une heure) : convertis-la en date reelle et termine par [BOOK AAAA-MM-JJ] ou [BOOK AAAA-MM-JJ HH:MM], par exemple [BOOK " . $todayIso . " 14:00]\n"
+    . "- sans date precise : termine ton message par une derniere ligne contenant uniquement [BOOK]\n"
+    . "- avec une date (et eventuellement une heure) : termine par [BOOK AAAA-MM-JJ] ou [BOOK AAAA-MM-JJ HH:MM] en recopiant l'ISO depuis la liste\n"
     . "Ce marqueur ouvre le calendrier de reservation (pre-rempli si tu donnes la date). N'emets [BOOK] que lorsque le visiteur veut vraiment reserver, et toujours seul sur la derniere ligne. Tu ne connais pas les creneaux deja pris : si l'horaire n'est pas libre, le calendrier proposera automatiquement les autres horaires du jour.\n"
     . "Tu peux aussi, plutot que d'ouvrir le calendrier tout de suite, demander d'abord quel jour et quelle heure arrangeraient le visiteur, avec des [OPTIONS] (ex: Cette semaine | La semaine prochaine | Plutot le matin | Plutot l'apres-midi), puis emettre [BOOK AAAA-MM-JJ HH:MM] une fois la date connue.";
 

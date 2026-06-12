@@ -6612,18 +6612,6 @@
     gap: 3rem;
     padding-bottom: 3rem;
   }
-  .footer-regions {
-    border-top: 1px solid var(--line);
-    padding: 1.4rem 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.5rem 1.1rem;
-    font-size: 0.85rem;
-  }
-  .footer-regions-title { color: var(--muted); font-weight: 500; }
-  .footer-regions a { color: var(--muted); text-decoration: none; transition: color 0.2s ease; }
-  .footer-regions a:hover { color: var(--purple); }
   .footer-brand { display: flex; flex-direction: column; gap: 1rem; }
   .footer-logo img {
     width: auto;
@@ -7840,18 +7828,6 @@
     </div>
   </div>
 
-  <div class="footer-regions" aria-label="Régions desservies">
-    <span class="footer-regions-title">Agence IA en Suisse romande :</span>
-    <a href="agence-ia-lausanne.html">Lausanne</a>
-    <a href="agence-ia-geneve.html">Genève</a>
-    <a href="agence-ia-nyon.html">Nyon</a>
-    <a href="agence-ia-morges.html">Morges</a>
-    <a href="agence-ia-fribourg.html">Fribourg</a>
-    <a href="agence-ia-neuchatel.html">Neuchâtel</a>
-    <a href="agence-ia-yverdon-les-bains.html">Yverdon-les-Bains</a>
-    <a href="agence-ia-vevey-montreux.html">Vevey et Montreux</a>
-  </div>
-
   <div class="footer-bottom">
     <p>© <time datetime="2026">2026</time> Finalyn, tous droits réservés.</p>
     <ul class="footer-legal">
@@ -8578,309 +8554,114 @@
     });
   })();
 
-  // Use case agent chat, smart wizard (detects domain & tools, asks only what's missing, proposes)
+  // Agent "Quel est votre besoin ?" : vrai agent Claude (meme backend que le chat)
   (function () {
-    var input = document.getElementById('usecaseInput');
     var chat  = document.getElementById('ucChat');
-    if (!input || !chat) return;
-
-    var DOMAINS = [
-      { key:'commercial', name:'Commercial',      match:/vente|prospect|lead|devis|commercial|relanc/i },
-      { key:'support',    name:'Support client',  match:/support|ticket|sav|service apr[èe]s[- ]vente|faq|customer/i },
-      { key:'admin',      name:'Admin & compta',  match:/compta|comptabilit[ée]|facture|tva|paiement|d[ée]pense|administr/i },
-      { key:'marketing',  name:'Marketing',       match:/marketing|post|r[ée]seau|linkedin|insta|instagram|facebook|contenu|copywrit|publicit|seo/i },
-      { key:'operations', name:'Op[é]rations',    match:/r[ée]union|compte[- ]rendu|note vocale|synchron|terrain|op[ée]ration|workflow/i },
-      { key:'analyse',    name:'Analyse',         match:/analyse|q&r|rag|recherche|document|pdf|contrat|verbatim|feedback|question/i },
-      { key:'direction',  name:'Direction',       match:/direction|pilotage|dashboard|kpi|rapport|reporting|veille|tableau de bord|strat[ée]gie/i }
-    ];
-    var TOOLS = [
-      { key:'m365',  name:'Microsoft 365',     match:/microsoft|outlook|excel|office|word|powerpoint|\b365\b/i },
-      { key:'gws',   name:'Google Workspace',  match:/google\s*workspace|gmail|google\s*sheets|google\s*drive|\bgws\b/i },
-      { key:'slack', name:'Slack',             match:/\bslack\b/i },
-      { key:'bexio', name:'Bexio',             match:/\bbexio\b/i },
-      { key:'sage',  name:'Sage',              match:/\bsage\b/i },
-      { key:'crm',   name:'CRM (HubSpot, Pipedrive…)', match:/hubspot|pipedrive|salesforce|\bcrm\b/i },
-      { key:'zoom',  name:'Zoom / Teams / Meet', match:/\bzoom\b|\bteams\b|google\s*meet/i }
-    ];
-
-    var PROPOSALS = {
-      commercial: [
-        { t:"Relances de prospects automatiques", d:"Chaque prospect relancé après 7 jours sans réponse, avec un message contextualisé.", s:"≈ 5 h/sem économisées" },
-        { t:"Génération de devis en 47 secondes",  d:"À partir d'un brief court, devis prêt à signer, prérempli depuis votre catalogue.",    s:"−85 % de saisie" },
-        { t:"Scoring automatique des leads",       d:"Chaque lead entrant qualifié, priorisé et routé vers le bon commercial.",              s:"+22 % de conversion" }
-      ],
-      support: [
-        { t:"Réponses automatiques aux FAQ",      d:"Vos clients ont une réponse instantanée 24/7 sur les questions répétitives.",         s:"70 % du volume géré auto" },
-        { t:"Tri et priorisation des tickets",    d:"P1/P2/P3 classés automatiquement avant d'arriver sur votre équipe.",                  s:"≈ 3 h/jour gagnées" },
-        { t:"Détection des clients à risque",     d:"Alerte quand un client montre des signes de désengagement.",                          s:"−18 % de churn" }
-      ],
-      admin: [
-        { t:"Saisie automatique des factures (OCR)", d:"Tous les champs (montant, TVA, échéance) extraits et importés dans votre compta.", s:"≈ 4 h/sem économisées" },
-        { t:"Catégorisation des dépenses",           d:"Chaque dépense classée par projet, centre de coût ou catégorie comptable.",         s:"100 % traçabilité" },
-        { t:"Rapprochement bancaire intelligent",    d:"Vos écritures bancaires rapprochées automatiquement avec vos factures.",            s:"−90 % de saisie" }
-      ],
-      marketing: [
-        { t:"Posts réseaux sociaux générés",        d:"À partir d'une idée, posts adaptés à chaque réseau dans votre ton.",                 s:"3 posts en 5 min" },
-        { t:"Visuels et illustrations à la demande", d:"Banques d'images sur mesure, dans votre charte, sans agence externe.",              s:"−70 % de coût visuel" },
-        { t:"Traduction multilingue automatique",    d:"Vos contenus en FR/EN/DE/IT, en respectant le ton.",                                s:"4 langues, 30 secondes" }
-      ],
-      operations: [
-        { t:"Compte-rendus de réunion automatiques", d:"Décisions, actions et prochaines étapes générés pour chaque réunion.",              s:"−2 h/sem en CR" },
-        { t:"Notes vocales → fiches CRM",            d:"Vous dictez, la fiche structurée arrive directement dans le CRM.",                  s:"100 % capture" },
-        { t:"Synchronisation entre vos outils",      d:"CRM ↔ planning ↔ compta : les infos circulent sans double saisie.",                 s:"−1 outil à ouvrir/jour" }
-      ],
-      analyse: [
-        { t:"Q&R sur vos documents internes (RAG)", d:"Posez une question, obtenez une réponse sourcée dans vos archives.",                 s:"≈ 5 s par réponse" },
-        { t:"Analyse de feedback client en masse",  d:"Tous vos avis triés par thème, sentiment et priorité d'action.",                     s:"100 % d'avis analysés" },
-        { t:"Synthèse multi-sources",                d:"Contrats, rapports, archives : synthèse croisée sur n'importe quel sujet.",          s:"−6 h de lecture" }
-      ],
-      direction: [
-        { t:"Dashboard à la voix (text-to-SQL)",   d:"« Combien de ventes ce mois ? » → graphique + chiffre en 2 secondes.",                s:"Aucun TBd à construire" },
-        { t:"Veille concurrentielle automatisée",  d:"Alertes quotidiennes sur vos concurrents et votre secteur.",                          s:"30 min/jour gagnées" },
-        { t:"Reporting périodique sans saisie",    d:"Vos rapports mensuels générés et envoyés automatiquement.",                           s:"−1 jour/mois en reporting" }
-      ],
-      autre: [
-        { t:"Agent IA personnalisé",                  d:"Décrivez la tâche, on conçoit l'agent qui l'exécute pour vous.",                    s:"100 % sur mesure" },
-        { t:"Audit gratuit de vos processus",         d:"On regarde votre journée type et on identifie les leviers cachés.",                 s:"Roadmap sous 24 h" },
-        { t:"Démonstration sur un cas réel",          d:"Donnez-nous un cas concret, on montre le résultat en 7 jours.",                     s:"Proof of value" }
-      ]
-    };
-
-    var state = { domain: null, tools: [], texts: [], proposed: false };
+    var form  = document.getElementById('usecasePrompt');
+    var input = document.getElementById('usecaseInput');
     var stage = document.getElementById('ucStage');
-    var activated = false;
+    if (!chat || !form || !input) { window.ucSend = function (e) { if (e && e.preventDefault) e.preventDefault(); return false; }; return; }
 
-    function detectDomain(text) {
-      for (var i = 0; i < DOMAINS.length; i++) if (DOMAINS[i].match.test(text)) return DOMAINS[i].key;
-      return null;
-    }
-    function detectTools(text) {
-      var out = [];
-      for (var i = 0; i < TOOLS.length; i++) if (TOOLS[i].match.test(text)) out.push(TOOLS[i].key);
-      return out;
-    }
-    function domainName(key) {
-      for (var i = 0; i < DOMAINS.length; i++) if (DOMAINS[i].key === key) return DOMAINS[i].name;
-      return 'Autre';
-    }
-    function toolName(key) {
-      for (var i = 0; i < TOOLS.length; i++) if (TOOLS[i].key === key) return TOOLS[i].name;
-      return key;
-    }
-    function suggestedTools(domain) {
-      if (domain === 'commercial') return ['crm','m365','gws'];
-      if (domain === 'support')    return ['m365','gws','slack'];
-      if (domain === 'admin')      return ['bexio','sage','m365'];
-      if (domain === 'marketing')  return ['m365','gws'];
-      if (domain === 'operations') return ['zoom','crm','slack'];
-      if (domain === 'analyse')    return ['m365','gws'];
-      if (domain === 'direction')  return ['m365','gws'];
-      return ['m365','gws','crm','bexio','slack','zoom'];
-    }
+    var ENDPOINT = '/api/chat.php';
+    var MAX_INPUT = 800, MAX_HISTORY = 12;
+    var history = [], busy = false, convKey = '';
+    try {
+      convKey = localStorage.getItem('finalyn_conv_uc') || '';
+      if (!convKey) { convKey = 'u' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); localStorage.setItem('finalyn_conv_uc', convKey); }
+    } catch (e) { convKey = 'u' + Date.now().toString(36); }
+    input.setAttribute('maxlength', String(MAX_INPUT));
 
+    function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+    function render(text) {
+      var s = esc(text);
+      s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|#[\w-]+|\/[^\s)]*)\)/g, function (m, t, u) {
+        var ext = /^https?:/i.test(u);
+        return '<a href="' + u + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + '>' + t + '</a>';
+      });
+      s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+      return s.replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>');
+    }
+    function parseOptions(text) {
+      var m = text.match(/\[OPTIONS\]\s*(.+)$/im);
+      if (!m) return { text: text, options: [] };
+      var opts = m[1].split('|').map(function (s) { return s.trim(); }).filter(Boolean).slice(0, 4);
+      return { text: text.replace(/\n?\[OPTIONS\][^\n]*/i, '').trim(), options: opts };
+    }
+    function activate() { if (stage) stage.classList.add('chat-active'); chat.classList.add('has-content'); }
     function appendUser(text) {
-      var msg = document.createElement('div');
-      msg.className = 'uc-msg user';
-      msg.innerHTML = '<span class="role">Vous</span><div class="bubble"></div>';
-      msg.querySelector('.bubble').textContent = text;
-      chat.appendChild(msg);
-      chat.classList.add('has-content');
-      chat.scrollTop = chat.scrollHeight;
+      activate();
+      var m = document.createElement('div'); m.className = 'uc-msg user';
+      m.innerHTML = '<span class="role">Vous</span><div class="bubble"></div>';
+      m.querySelector('.bubble').textContent = text; chat.appendChild(m); chat.scrollTop = chat.scrollHeight;
     }
     function appendAgent(html) {
-      var msg = document.createElement('div');
-      msg.className = 'uc-msg agent';
-      msg.innerHTML = '<span class="role"><span class="accent">finalyn.ia</span></span><div class="bubble"></div>';
-      msg.querySelector('.bubble').innerHTML = html;
-      chat.appendChild(msg);
-      chat.classList.add('has-content');
-      chat.scrollTop = chat.scrollHeight;
-      return msg;
+      activate();
+      var m = document.createElement('div'); m.className = 'uc-msg agent';
+      m.innerHTML = '<span class="role"><span class="accent">finalyn.ia</span></span><div class="bubble"></div>';
+      m.querySelector('.bubble').innerHTML = html; chat.appendChild(m); chat.scrollTop = chat.scrollHeight; return m;
     }
     function showTyping() {
-      var t = document.createElement('div');
-      t.className = 'uc-typing';
-      t.id = 'ucTyping';
-      t.innerHTML = '<span></span><span></span><span></span>';
-      chat.appendChild(t);
-      chat.scrollTop = chat.scrollHeight;
+      var t = document.createElement('div'); t.className = 'uc-typing'; t.id = 'ucTyping';
+      t.innerHTML = '<span></span><span></span><span></span>'; chat.appendChild(t); chat.scrollTop = chat.scrollHeight;
     }
-    function removeTyping(cb) {
-      var t = document.getElementById('ucTyping');
-      if (!t) { if (cb) cb(); return; }
-      t.classList.add('out');
-      setTimeout(function () { t.remove(); if (cb) cb(); }, 280);
+    function removeTyping() { var t = document.getElementById('ucTyping'); if (t) t.remove(); }
+    function setBusy(b) { busy = b; input.disabled = b; var s = form.querySelector('.send'); if (s) s.disabled = b; }
+    function openCal() { if (typeof window.finalynOpenCal === 'function') window.finalynOpenCal(); else window.location.hash = '#audit'; }
+    function bookBtn() {
+      var d = document.createElement('div'); d.className = 'uc-choices';
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'uc-choice'; b.textContent = 'Prendre rendez-vous';
+      b.addEventListener('click', function () { openCal(); });
+      d.appendChild(b); chat.appendChild(d); chat.scrollTop = chat.scrollHeight;
     }
-
-    function thinkThen(then) {
-      showTyping();
-      setTimeout(function () { removeTyping(then); }, 1300 + Math.random() * 400);
-    }
-
-    function askDomain() {
-      var bubble = appendAgent("Compris ! Pour vous proposer les bonnes automatisations, quel est votre domaine principal ?");
-      var box = document.createElement('div');
-      box.className = 'uc-choices';
-      var opts = DOMAINS.concat([{ key:'autre', name:'Autre / Je sais pas' }]);
-      opts.forEach(function (d) {
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'uc-choice';
-        b.textContent = d.name;
+    function addChoices(options) {
+      if (!options || !options.length) return;
+      var box = document.createElement('div'); box.className = 'uc-choices';
+      options.forEach(function (o) {
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'uc-choice'; b.textContent = o;
         b.addEventListener('click', function () {
-          if (b.disabled) return;
+          if (busy) return;
+          if (/rendez-vous|prendre rendez/i.test(o)) { openCal(); return; }
           box.querySelectorAll('.uc-choice').forEach(function (x) { x.disabled = true; });
           b.classList.add('is-selected');
-          onChoice('domain', d.key, d.name);
+          sendMsg(o);
         });
         box.appendChild(b);
       });
-      bubble.querySelector('.bubble').appendChild(box);
+      chat.appendChild(box); chat.scrollTop = chat.scrollHeight;
     }
 
-    function askTools() {
-      var dn = domainName(state.domain);
-      var bubble = appendAgent("Bien noté&nbsp;: <strong>" + dn + "</strong>. Quel est votre outil principal au quotidien&nbsp;?");
-      var box = document.createElement('div');
-      box.className = 'uc-choices';
-      var keys = suggestedTools(state.domain);
-      keys.forEach(function (key) {
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'uc-choice';
-        b.textContent = toolName(key);
-        b.addEventListener('click', function () {
-          if (b.disabled) return;
-          box.querySelectorAll('.uc-choice').forEach(function (x) { x.disabled = true; });
-          b.classList.add('is-selected');
-          onChoice('tool', key, toolName(key));
-        });
-        box.appendChild(b);
-      });
-      var b2 = document.createElement('button');
-      b2.type = 'button';
-      b2.className = 'uc-choice';
-      b2.textContent = "Je sais pas";
-      b2.addEventListener('click', function () {
-        if (b2.disabled) return;
-        box.querySelectorAll('.uc-choice').forEach(function (x) { x.disabled = true; });
-        b2.classList.add('is-selected');
-        onChoice('tool', 'dontknow', 'Je sais pas');
-      });
-      box.appendChild(b2);
-      bubble.querySelector('.bubble').appendChild(box);
+    function sendMsg(text) {
+      text = (text || '').trim(); if (!text || busy) return;
+      if (text.length > MAX_INPUT) text = text.slice(0, MAX_INPUT);
+      var olds = chat.querySelectorAll('.uc-choices'); for (var i = 0; i < olds.length; i++) olds[i].remove();
+      appendUser(text); history.push({ role: 'user', content: text }); input.value = ''; setBusy(true); showTyping();
+      fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ conv: convKey, messages: history.slice(-MAX_HISTORY) }) })
+        .then(function (res) { return res.json().catch(function () { return {}; }).then(function (d) { return { ok: res.ok, data: d }; }); })
+        .then(function (r) {
+          removeTyping();
+          if (r.ok && r.data && r.data.reply) {
+            var p = parseOptions(r.data.reply);
+            history.push({ role: 'assistant', content: p.text });
+            appendAgent(render(p.text));
+            if (/rendez-vous|rdv|appel/i.test(p.text)) bookBtn();
+            addChoices(p.options);
+          } else {
+            var err = (r.data && r.data.error) ? esc(r.data.error) : "Desole, je n'arrive pas a repondre la tout de suite. Reessayez, ou prenez rendez-vous.";
+            appendAgent(err); bookBtn();
+          }
+        })
+        .catch(function () { removeTyping(); appendAgent("Connexion impossible pour le moment. Reessayez dans un instant, ou prenez rendez-vous."); bookBtn(); })
+        .then(function () { setBusy(false); if (window.innerWidth > 760) input.focus(); });
     }
 
-    function showProposals() {
-      state.proposed = true;
-      var domain = state.domain || 'autre';
-      var props = (PROPOSALS[domain] || PROPOSALS.autre).slice(0, 3);
-      var hasTool = state.tools.length && state.tools.indexOf('dontknow') < 0;
-      var head;
-      if (hasTool) {
-        head = "Voici 3 automatisations à fort impact pour vous, adaptées à votre stack.";
-      } else if (state.domain && state.domain !== 'autre') {
-        head = "Voici 3 automatisations qui marchent dans la plupart des cas pour <strong>" + domainName(state.domain).toLowerCase() + "</strong>. On affinera ensemble pendant l'audit.";
-      } else {
-        head = "Voici 3 pistes pour démarrer. On affinera ensemble pendant l'audit.";
-      }
-      var bubble = appendAgent(head);
-      var bdiv = bubble.querySelector('.bubble');
-      var list = document.createElement('div');
-      list.className = 'uc-proposals';
-      props.forEach(function (p) {
-        var card = document.createElement('div');
-        card.className = 'uc-proposal';
-        card.innerHTML =
-          '<div class="uc-proposal-title"></div>' +
-          '<p class="uc-proposal-desc"></p>' +
-          '<span class="uc-proposal-stat"></span>';
-        card.querySelector('.uc-proposal-title').textContent = p.t;
-        card.querySelector('.uc-proposal-desc').textContent = p.d;
-        card.querySelector('.uc-proposal-stat').textContent = p.s;
-        list.appendChild(card);
-      });
-      bdiv.appendChild(list);
-      var ctaRow = document.createElement('div');
-      ctaRow.className = 'uc-cta-row';
-      ctaRow.innerHTML =
-        '<a class="uc-cta-primary" href="#audit">Réserver un audit gratuit ' +
-        '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></a>' +
-        '<button type="button" class="uc-cta-secondary" id="ucRestart">Recommencer</button>';
-      bdiv.appendChild(ctaRow);
-      var restartBtn = document.getElementById('ucRestart');
-      if (restartBtn) restartBtn.addEventListener('click', restart);
-    }
-
-    function restart() {
-      state = { domain: null, tools: [], texts: [], proposed: false };
-      chat.innerHTML = '';
-      chat.classList.remove('has-content');
-      if (stage) stage.classList.remove('chat-active');
-      activated = false;
-      input.value = '';
-      input.focus();
-    }
-
-    function onChoice(kind, value, label) {
-      appendUser(label);
-      if (kind === 'domain') state.domain = value === 'autre' ? null : value;
-      if (kind === 'tool') {
-        if (value === 'dontknow') state.tools.push('dontknow');
-        else if (state.tools.indexOf(value) < 0) state.tools.push(value);
-      }
-      // If domain "autre" picked, skip directly to proposals
-      if (kind === 'domain' && value === 'autre') {
-        state.domain = 'autre';
-        thinkThen(showProposals);
-        return;
-      }
-      advance();
-    }
-
-    function advance() {
-      thinkThen(function () {
-        if (!state.domain)         { askDomain(); return; }
-        if (!state.tools.length)   { askTools();  return; }
-        if (!state.proposed)       { showProposals(); }
-      });
-    }
-
-    function handleUserText(text) {
-      appendUser(text);
-      state.texts.push(text);
-      var d = detectDomain(text);
-      if (d && !state.domain) state.domain = d;
-      var ts = detectTools(text);
-      ts.forEach(function (k) { if (state.tools.indexOf(k) < 0) state.tools.push(k); });
-      advance();
-    }
-
-    window.ucSend = function (e) {
-      e.preventDefault();
-      var text = input.value.trim();
-      if (!text) return false;
-      input.value = '';
-      input.blur();
-      if (!activated && stage) {
-        stage.classList.add('chat-active');
-        activated = true;
-        setTimeout(function () { handleUserText(text); }, 550);
-      } else {
-        handleUserText(text);
-      }
-      return false;
-    };
+    window.ucSend = function (e) { if (e && e.preventDefault) e.preventDefault(); sendMsg(input.value); return false; };
 
     document.querySelectorAll('.float-chip').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        input.value = btn.getAttribute('data-prompt') || btn.textContent.trim();
-        document.getElementById('usecasePrompt').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-      });
+      btn.addEventListener('click', function () { sendMsg(btn.getAttribute('data-prompt') || btn.textContent.trim()); });
     });
   })();
 
-  // Reveal method timeline on scroll
+    // Reveal method timeline on scroll
   (function () {
     var list = document.getElementById('methodList');
     if (!list || typeof IntersectionObserver === 'undefined') {

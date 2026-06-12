@@ -3072,6 +3072,8 @@
     background: transparent;
   }
 
+  /* Le bouton intermediaire "Confirmer" est masque : choisir un creneau ouvre direct le formulaire */
+  .cal-cta:not(.cal-cta-final) { display: none; }
   .cal-cta {
     margin-top: 1.1rem;
     width: 100%;
@@ -8134,6 +8136,14 @@
       btn.classList.add('is-selected');
       selectedSlot = btn.getAttribute('data-time');
       updateCta();
+      goToForm();   // choisir un creneau ouvre directement le formulaire (plus d'etape "Confirmer")
+    }
+
+    function goToForm() {
+      if (!selectedDay || !selectedSlot) return;
+      if (formRecap) formRecap.textContent = 'Visio · ' + formatRecap() + ' (30 min)';
+      root.classList.add('is-form');
+      if (firstName) setTimeout(function () { firstName.focus(); }, 250);
     }
 
     function updateCta() {
@@ -8169,12 +8179,7 @@
       if (b) pickSlot(b);
     });
 
-    ctaBtn.addEventListener('click', function () {
-      if (ctaBtn.disabled || !selectedDay || !selectedSlot) return;
-      if (formRecap) formRecap.textContent = 'Visio · ' + formatRecap() + ' (30 min)';
-      root.classList.add('is-form');
-      if (firstName) setTimeout(function () { firstName.focus(); }, 250);
-    });
+    ctaBtn.addEventListener('click', goToForm);
 
     if (formBack) {
       formBack.addEventListener('click', function () { root.classList.remove('is-form'); });
